@@ -1,6 +1,7 @@
 'use client'
 import { createContext, useContext, useState,useEffect,useRef } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 export const CartCon = createContext();
 
@@ -57,8 +58,8 @@ export const CartContext = ({children})=>{
     const oldcart = favData; //????
     let arr = oldcart
     arr = arr.push(ob)//??
-    setFavdata(cartData)
-    useNotifi("Added To Likes");
+    setFavdata(favData)
+    useNotifi("success","Added To Likes");
     console.log("Likes from context (Add): " ,favData)//??
   }
 
@@ -70,6 +71,7 @@ export const CartContext = ({children})=>{
         let arr = oldcart
         arr = arr.filter(item => item.id !== id);//??
         setFavdata(arr)
+        useNotifi("success","Removed from Likes");
         console.log("Likes from context: (Remove)" ,favData)//??
     
       }
@@ -95,15 +97,15 @@ const useNotifi =(type,msg)=>{
   }
   switch(type){
     case 'success':
-      toast.success(msg,options)
+      toast.success(msg)
       break;
 
       case 'error':
-        toast.error(msg,options)
+        toast.error(msg)
         break;
 
         case 'warn':
-          toast.warn(msg,options)
+          toast.error(msg)
           break;
 
         
@@ -127,19 +129,12 @@ const useNotifi =(type,msg)=>{
       // mainScroll
       
       }}>
-        <ToastContainer 
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition = "Bounce"
-        />
+     
+
+<Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
 
 
    {children}

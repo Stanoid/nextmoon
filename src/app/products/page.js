@@ -50,7 +50,7 @@ useEffect(() => {
 
 
  
-  const {cartData,addToCart,addTofav,favData,useNotifi}  = useContext(CartCon);
+  const {cartData,addToCart,addTofav,favData,useNotifi,removeFromFav}  = useContext(CartCon);
 
  
 
@@ -62,6 +62,7 @@ const HandleAddToCart = ()=>{
   if(cartData.length==0){
    addToCart(db)
    console.log("Product Has been added on empty cart: ",db.nameEn);
+   useNotifi("success","Product has been added to cart")
     }else{
 
 
@@ -69,9 +70,11 @@ const HandleAddToCart = ()=>{
       
       addToCart(db);
       console.log("Product Has been added: ",db.nameEn);
+      useNotifi("success","Product has been added to cart")
 
     }else{
       console.log("Product Aleady in Cart:  ",db.nameEn);
+      useNotifi("warn","Product is already in cart")
     }
         
 
@@ -123,20 +126,45 @@ const HandleAddToCart = ()=>{
 
   const HandleAddToFav=(id)=>{
 
-console.log(db)
-    if(favData.length==0){
-    addTofav(db)
-    }else{
-      for (let i = 0; i < favData.length; i++) {
-        if(favData[i].id==id){
-          useNotifi("success","item already in cart")
-        }else{
-          addTofav(db);   
-        }
-        }
-      
 
-    }
+    if(favData.length==0){
+      addTofav(db)
+      console.log("Product Has been added on empty likes: ",db.nameEn);
+      //useNotifi("success","Product has been added to Liked")
+       }else{
+   
+   
+       if(favData.find(obj => obj.id === parseInt(getQueryVariable("pid"))) == undefined){
+         
+         addTofav(db);
+         console.log("Product Has been added: to liked ",db.nameEn);
+        // useNotifi("success","Product has been added to Liked")
+   
+       }else{
+         
+
+         console.log("Product removed from liked:  ",db.nameEn);
+      removeFromFav(db.id); 
+       }
+           
+   
+         // const object = array.find(obj => obj.id === 3);
+   
+   
+         // old cart handler (uncontrollable for loop)
+         // for (let i = 0; i < cartData.length; i++) {
+         //   if(cartData[i].id===parseInt(getQueryVariable("pid"))){
+         //     console.log("Already trigger:",cartData[i].id,parseInt(getQueryVariable("pid")));
+         //    return
+         //   }else{
+         //     console.log("added trigger:",cartData[i].id,parseInt(getQueryVariable("pid")));
+         //     addToCart(db);   
+            
+         //   }
+         //   }
+         
+   
+       }
     
   }
 
