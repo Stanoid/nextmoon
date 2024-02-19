@@ -1,0 +1,39 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700&display=swap');
+
+.div{
+  font-family: 'Cairo', sans-serif;
+}
+
+.maintype {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
+/* font-family: 'Roboto', sans-serif; */
+}
+
+.subtype {
+  font-family: 'PT Sans', sans-serif;
+color: black;
+/* font-family: 'Roboto', sans-serif; */
+}
+
+.ptfont{
+  font-family: 'PT Sans', sans-serif;
+
+}
+
+.MAIN_FONT{
+  font-family: 'Cairo', sans-serif;
+}
+
+
+.test{
+
+
+}
+.nextimg{
+ object-fit: cover;
+ 
+ width: 100px;
+ height: 100pxs;
+}

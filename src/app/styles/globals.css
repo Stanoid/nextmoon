@@ -2,38 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255; */
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0; */
-  }
-}
-
-
-
-body {
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
-}
-
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
+/* 
   
 [class^="number-slide"],
 [class*=" number-slide"] {
@@ -46,11 +15,16 @@ body {
   font-weight: 500;
   height: 300px;
   max-height: 100vh;
-}
+} */
 
 html{
-  overflow: scroll;
+  overflow: hidden ;
 
+}
+
+
+.scrollable-content::-webkit-scrollbar {
+  display: none;
 }
 
 .number-slide1 {
@@ -85,16 +59,6 @@ html{
   );
 }
 
-
-.scrollable-content {
-   /* height: 150px; */
- }
- 
- .scrollable-content::-webkit-scrollbar {
-   display: none;
- }
-
-
 .number-slide4 {
   background: rgb(64, 255, 242);
   background: linear-gradient(
@@ -103,6 +67,8 @@ html{
     rgba(63, 188, 255, 1) 100%
   );
 }
+
+
 
 .number-slide5 {
   background: rgb(255, 64, 156);
@@ -190,7 +156,7 @@ html{
 
 .lds-facebookbtn div {
   display: inline-block;
-border-left: 1px solid #E16D64;
+border-left: 1px solid #01EF78;
   left: 8px;
   width: 8px;
   background: #fff ;
@@ -201,7 +167,7 @@ border-left: 1px solid #E16D64;
   position: absolute;
   left: 8px;
   width: 16px;
-  background: #E16D64 ;
+  background: #01EF78 ;
   animation: lds-facebook 0.5s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
 
@@ -253,10 +219,3 @@ border-left: 1px solid #E16D64;
   }
 }
 
-
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
