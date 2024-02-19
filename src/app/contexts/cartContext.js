@@ -42,11 +42,12 @@ export const CartContext = ({children})=>{
   const addToCart = (ob)=>{
     //this code dosent make sense but it works
     console.log("incoming object ",ob)
-    // const oldcart = cartData; //????
-    // let arr = oldcart
-    // arr = arr.push(ob)//??
-    // setCartData(cartData)
-    // console.log("cart from context (Add): " ,cartData)//??
+    const oldcart = cartData; //????
+    let arr = oldcart
+    
+    arr = arr.push(ob)//??
+    setCartData(cartData)
+    console.log("cart from context (Add) ")//??
   }
 
 

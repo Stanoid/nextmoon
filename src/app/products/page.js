@@ -30,6 +30,7 @@ export default function Product({}) {
 
 
 useEffect(() => {
+  
  console.log(getQueryVariable("pid"))
 
   for (let i = 0; i < product.data.length; i++) {
@@ -53,54 +54,55 @@ useEffect(() => {
 
  
 
-  
-
-
-const productsingle= 
-{
- name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
- price:56,
- id:2,
- color:"grey",
- img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
- qty:3
-}
-;
-
 const HandleAddToCart = ()=>{
-  addToCart(db) 
-  // if(cartData.length==0){
-  //  addToCart(db)
-  //   }else{
 
-  //     addToCart(db)
-  //     console.log("comming:",getQueryVariable("pid"));
 
-  //     console.log("cart ob",cartData)
+
+
+  if(cartData.length==0){
+   addToCart(db)
+   console.log("Product Has been added on empty cart: ",db.nameEn);
+    }else{
+
+
+    if(cartData.find(obj => obj.id === parseInt(getQueryVariable("pid"))) == undefined){
       
+      addToCart(db);
+      console.log("Product Has been added: ",db.nameEn);
 
-  //     for (let i = 0; i < cartData.length; i++) {
-  //        console.log(cartData[i]);
+    }else{
+      console.log("Product Aleady in Cart:  ",db.nameEn);
+    }
         
-  //     }
 
-  //     // for (let i = 0; i < cartData.length; i++) {
-  //     //   if(cartData[i].id==getQueryVariable("pid")){
-       
-  //     //    console.log("already added trigger:",cartData[i].id);
-  //     //   }else{
-  //     //     console.log("added trigger:",cartData[i].id);
-  //     //     addToCart(db);   
+      // const object = array.find(obj => obj.id === 3);
+
+
+      // old cart handler (uncontrollable for loop)
+      // for (let i = 0; i < cartData.length; i++) {
+      //   if(cartData[i].id===parseInt(getQueryVariable("pid"))){
+      //     console.log("Already trigger:",cartData[i].id,parseInt(getQueryVariable("pid")));
+      //    return
+      //   }else{
+      //     console.log("added trigger:",cartData[i].id,parseInt(getQueryVariable("pid")));
+      //     addToCart(db);   
          
-  //     //   }
-  //     //   }
+      //   }
+      //   }
       
 
-  //   }
+    }
 }
  
-  const  ls = require('local-storage');
-  const router = useRouter();
+
+
+
+
+
+
+//legacy code.
+  // const  ls = require('local-storage');
+  // const router = useRouter();
  
 
   
