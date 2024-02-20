@@ -71,7 +71,7 @@ export const CartContext = ({children})=>{
         let arr = oldcart
         arr = arr.filter(item => item.id !== id);//??
         setFavdata(arr)
-        useNotifi("success","Removed from Likes");
+        useNotifi("success","Removed from` Likes");
         console.log("Likes from context: (Remove)" ,favData)//??
     
       }
