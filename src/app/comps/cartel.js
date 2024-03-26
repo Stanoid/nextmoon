@@ -141,61 +141,7 @@ props.name
 
 
 
-<div style={{
-  display:props.like?"none":"flex",
-  flexDirection:"column",
 
-  justifyContent:"center",
-  alignItems:"center",
-  margin:10
-}}>
-
-
-
-
-<div style={{
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-   
-    borderRadius:100,
-    color:Theme.primary,
-    padding:5,
-    
-    fontWeight:"bold",
-    fontSize:20
-  
-  }}><BsChevronUp/></div>
-
-  <div style={{
-    display:"flex",
-    alignItems:"center",
-    fontSize:25,
-    color:"black",
-    justifyContent:"center",
-   
-  
-  }}>3</div>
-
-
-  
-<div style={{
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-   
-    borderRadius:100,
-    color:Theme.primary,
-    padding:5,
-   
-    fontWeight:"bold",
-    fontSize:20
-  
-  }}><BsChevronDown/></div>
-
-
-
-</div>
 
 <div style={{
   display:"flex",

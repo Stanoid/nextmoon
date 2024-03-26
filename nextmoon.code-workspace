@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../nextapp"
+		},
+		{
+			"path": "../kariam"
 		}
 	],
 	"settings": {
