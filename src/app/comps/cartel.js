@@ -5,6 +5,7 @@ import { XIcon } from '@heroicons/react/outline'
 import { BsChevronDown,BsChevronUp,BsTrashFill } from 'react-icons/bs'
 import  FaHeartCircleMinus from 'react-icons/fa6'
 import {CURRENCY, Theme} from "../local"
+
 import { BsX } from 'react-icons/bs'
 
 const products = [
@@ -69,7 +70,7 @@ margin:10,
     display:"flex",
     alignItems:"center",
     margin:10,
-    marginLeft:0,
+   
 
     justifyContent:'center',
 
@@ -113,7 +114,7 @@ onClick={props.like?()=>{removeid()}:()=>{removeid()}}
   color:Theme.secondary,
 fontWeight:"bold",
 lineHeight:1,
-fontSize:13,
+fontSize:15,
 margin:10,
 textAlign:"left",
   alignItems:"flex-start",
@@ -141,7 +142,41 @@ props.name
 
 
 
+<div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
 
+<div style={{
+    padding:"1.5px 6px", 
+    fontSize:15,
+    fontWeight:500,
+    color:Theme.primary,
+    margin:"0px 5px",
+    borderRadius:5,
+    border:"2px solid " + Theme.primary,
+
+}}>
+    S
+</div>
+
+<div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginTop:10}}>
+   <div style={{
+    padding:"5", 
+    fontSize:20,
+    width:25,
+    height:25,
+    fontWeight:500,
+    backgroundColor:"blue",
+    margin:"0px 5px",
+    borderRadius:100,
+    border:"0px solid " + Theme.primary,
+}}> 
+</div>
+
+    </div> 
+
+
+
+
+</div>
 
 <div style={{
   display:"flex",
@@ -154,7 +189,7 @@ props.name
 
   <img
    src={"/pimg/"+props.img+".jpg"}
-   width={200}
+   width={100}
    style={{
     borderRadius:5,
 

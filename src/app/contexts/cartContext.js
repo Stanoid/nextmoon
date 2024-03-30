@@ -31,12 +31,34 @@ export const CartContext = ({children})=>{
    ]
   );
 
+  
+  const [CartTotal, setCartTotal] = useState(0);
+
+
 
   const [favData, setFavdata] = useState(
     [
     
     ]
    );
+
+
+
+   
+const handleTotal=()=>{
+
+  if(cartData.length==0){
+    setCartTotal(0);
+    return
+  }
+  
+  let total = 0;
+  for (let i = 0; i < cartData.length; i++) {
+    // console.log("cart total",cartData)
+ total = total + (cartData[i].data.price);
+  }
+  setCartTotal(total);
+}
 
 
 
@@ -48,6 +70,7 @@ export const CartContext = ({children})=>{
     
     arr = arr.push(ob)//??
     setCartData(cartData)
+    handleTotal();
     console.log("cart from context (Add) ")//??
   }
 
@@ -81,9 +104,11 @@ export const CartContext = ({children})=>{
 console.log(id)
     const oldcart = cartData; //????
     let arr = oldcart
-    arr = arr.filter(item => item.id !== id);//??
+    arr = arr.filter(item => item.data.id !== id);//??
     setCartData(arr)
+    handleTotal();
     console.log("cart from context: (Remove)" ,cartData)//??
+    handleTotal();
 
   }
 
@@ -125,6 +150,7 @@ const useNotifi =(type,msg)=>{
       favData,
       removeFromFav,
       addTofav,
+      CartTotal,
       useNotifi,
       // mainScroll
       

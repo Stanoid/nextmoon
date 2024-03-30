@@ -22,33 +22,16 @@ export default function Product(props) {
 
 
   useEffect(() => {
-  // console.log("group",props.hasGroup)
-//https://res.cloudinary.com/strapimedia/image/upload/v1645445395/tyler-nix-BQrxXytYaHI-unsplash_zeggsu.jpg
-//https://res.cloudinary.com/strapimedia/image/upload/w_1000,ar_1:1,c_fill/v1645445395/tyler-nix-BQrxXytYaHI-unsplash_zeggsu.jpg
-  
-
-
-
-//image path handler
-// let imm = props.img;
-//   let ino = imm.split("/", 6).join("/").length
-//   let res = "";
- 
-// let head = imm.slice(0,ino+1);
-// let foot = imm.slice(ino+1,imm.length);
-
-// let nx = head.concat("w_1000,ar_1:1,c_fill/")
-// nx = nx.concat(foot);
-//setCimg(nx);
-
-
-
-//console.log("nx",nx)
-//console.log("result",head.concat(foot))
+getprice();
 
    }, [])
 
-
+const getprice = ()=>{
+  for (let i = 0; i < props.data.length; i++) {
+    
+    
+  }
+}
 
    
 
@@ -56,10 +39,10 @@ export default function Product(props) {
     return (
 
       
-        <div  onClick={()=>{router.push(`/products?pid=${props.id}`);setLoading(true);}} className="shadow-md"  
+        <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} className="shadow-md"  
         style={{marginBom:20,cursor:"pointer",display:'block',
         display:"flex",alignItems:"center",justifyContent:"center"
-        ,padding:10,borderRadius:10,textAlign:'left',width:props.half?"60%":"100%",height:"100%"}}>
+        ,padding:10,borderRadius:10,textAlign:'left',width:"100%",height:"100%"}}>
 
 
 <div style={{
@@ -90,14 +73,17 @@ export default function Product(props) {
       
       
           className={[Styles.nextimg]} 
-          src={"/pimg/"+props.id+".jpg"} 
+          src={"/pimg/"+props.data.id+".jpg"} 
           />
       </div>
 
-      <div onClick={()=>{router.push(`/products/${props.id}`);}} className={Styles.ptfont} style={{color:"#585858",fontSize:'13.5px',marginTop:10,marginBottom:5,lineHeight:1.2,textTransform:'capitalize',wordSpacing:0.6}} >
+      <div onClick={()=>{router.push(`/products/${props.data.id}`);}}
+       className={Styles.ptfont} style={{color:"#585858",fontSize:'13.5px'
+       ,marginTop:10,marginBottom:5,lineHeight:1.2,textTransform:'capitalize',wordSpacing:0.6}} >
          
-          {props.name}
-          <div style={{color:"grey",fontSize:12,display:'flex',alignItems:'center',padding:"5px 0px"}}>{props.vendor} <BsCheckCircleFill style={{color:Theme.primary,marginLeft:3,display:props.ver?"block":"none"}} /> </div>
+          {props.data.name}
+          <div style={{color:"grey",fontSize:12,display:'flex',alignItems:'center',padding:"5px 0px"}}>{props.data.seller}
+           <BsCheckCircleFill style={{color:Theme.primary,marginLeft:3,display:"block"}} /> </div>
       </div>
 
     
@@ -106,12 +92,12 @@ export default function Product(props) {
 
       <div className='col-span-2' >
 <span className='text-sm lg:text-sm md:text-2xl sm:2xl ' style={{color:"grey"}} 
-      >  <span style={{fontWeight:"bold",color:Theme.primary}} >{parseFloat(props.price.price)} {CURRENCY} </span> 
+      >  <span style={{fontWeight:"bold",color:Theme.primary}} >{parseFloat(props.data.vars[0].price)} {CURRENCY} </span> 
       </span>
    </div>
-   <div onClick={()=>{router.push(`/catagories/${props.cat[0].id}`)}} className='col-span-3' >
+   <div onClick={()=>{router.push(`/catagories/${props.data.cat.id}`)}} className='col-span-3' >
 <span style={{color:"white",backgroundColor:Theme.primary,padding:"1px 5px 1px 5px",
-borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.cat[0].Name}
+borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.data.cat.nameEn}
 </span>
 </div>
 </div>

@@ -20,7 +20,7 @@ const Cart = forwardRef((props, ref) => {
   const [open, setOpen] = useState(true)
   const [scrol,setScrol]=useState(0);
   const [lod,setLod]=useState(0);
-   const {cartData,addToCart,removeFromCart}  = useContext(CartCon);
+   const {cartData,addToCart,removeFromCart,CartTotal}  = useContext(CartCon);
   const [total,setTotal]=useState(0);
   const router = useRouter();
   const [carts,setCarts] = useState([
@@ -91,23 +91,9 @@ const  ls = require('local-storage');
  
 
   useEffect(()=>{
-
-  
-   
-
 },[])
 
 
-const handleTotal=()=>{
-  const totacart = ls.get("cart");
-  let total = 0;
-  for (let i = 0; i < totacart.length; i++) {
- total = total + (totacart[i].price * totacart[i].qty);
-
-    
-  }
-  setTotal(total);
-}
 
  
 
@@ -212,7 +198,7 @@ const notify = (type,msg)=>{
                   <div style={{
                     margin:"0px 20px",
                        borderTop:"2px solid "+ Theme.primary,
-                  }} className="mt-6 relative flex-1  sm:px-6">
+                  }} className="mt-6 relative flex-1  ">
               
                      
 
@@ -223,8 +209,8 @@ const notify = (type,msg)=>{
                       
                {cartData.length!=0?cartData.map(cart=>(
                 
-                <Cartel removeItem={removeFromCart} id={cart.id} name={cart.nameEn} price={cart.price} size={cart.opt} 
-                comm={cart.comm}  color={cart.color} img={cart.id} qty={cart.qty} />
+                <Cartel removeItem={removeFromCart} id={cart.data.id} name={cart.data.nameEn} price={cart.data.price} size={cart.data.opt} 
+                comm={cart.data.comm}  color={cart.data.color} img={cart.data.id} qty={cart.data.qty}   selvar={cart.selvar} selcolor={cart.selcolor} />
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
@@ -248,7 +234,7 @@ const notify = (type,msg)=>{
 
                      <div style={{
                       width:"100%",
-                      
+                      display:cartData.length==0?"none":"block",
                       color:Theme.primary,
                       fontWeight:"bold",
                       fontSize:25,
@@ -256,10 +242,10 @@ const notify = (type,msg)=>{
                       padding:0,
                       paddingBottom:5
                      }}> 
-                      Total  : 321.3 {CURRENCY} 
+                      Total  : {CartTotal} {CURRENCY} 
                      </div>
    
-                    <div style={{padding:20,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+                    <div style={{padding:20, display:cartData.length==0?"none":"flex",alignItems:'center',justifyContent:'space-between'}}>
                         <div style={{fontSize:15,fontWeight:'bold'}}>
                           
                            </div>

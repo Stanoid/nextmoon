@@ -51,7 +51,7 @@ export default function Home() {
 
  <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
 
-<div onClick={()=>{getProducts()}} style={{width:"100%"}}>
+<div  style={{width:"100%"}}>
   <Hero  />
 </div>
 
@@ -64,8 +64,7 @@ export default function Home() {
 
 <div  key={product.id}>
 
-<Product  cat={[{id:1,Name:"cat"}]} ver={true} vendor={"seller"} id={product.id} hasGroup={false}  img={product.id}
-    description={"aaaa"} price={{price:product.price,comm:121}} name={product.nameEn} />
+<Product data={product} />
 
 </div>
 ))}

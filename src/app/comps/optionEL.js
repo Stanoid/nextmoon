@@ -1,8 +1,43 @@
-import React from 'react'
+import {React,useEffect,useState} from 'react'
 import { Theme } from '../local'
-function OptionEL() {
+
+
+
+
+
+
+function OptionEL(props) {
+    const [selected, setSelected] = useState(0);
+    const [selectedC, setSelectedC] = useState(0);
+
+
+
+    // useEffect(() => {
+    
+    
+    // }, [])
+    
+
+const varHandler = (id)=>{
+setSelected(id);
+props.selectedfunc(id);
+
+}
+
+
+const colorHanlder = (id)=>{
+    setSelectedC(id);
+   
+
+    props.selectedfuncC(id);
+    
+    }
+
+
   return (
-    <div  style={{
+    <div 
+    className='flex-col sm:flex-col lg:flex-row '
+    style={{
         width:"100%",
         padding:10,
         display:"flex",
@@ -16,7 +51,7 @@ function OptionEL() {
     display:"flex",
     flexDirection:"column",
     alignItems:"center",
-   
+   marginTop:15,
     borderRight:"0px solid grey",
    justifyContent:"space-between",
 
@@ -30,7 +65,7 @@ function OptionEL() {
 
 }}>
 
-    Size
+ 
 
 </div>
 
@@ -39,51 +74,44 @@ function OptionEL() {
     display:"flex",alignItems:"center",justifyContent:"center"
 }}>
 
+
+
+
+{props.vars&&props.vars.map((varr,index)=>(
+
+
+
+<div
+className='shadow-md'
+onClick={()=>{varHandler(varr.id)}}  key={index} style={{
+    padding:"5px 8px", 
+    fontSize:20,
+    fontWeight:500,
+    cursor:"pointer",
+ display:"flex",
+ alignItems:"center",
+ lineHeight:0.9,
+ flexDirection:"column",
+ justifyContent:"center",
+    margin:"0px 5px",
+    color: varr.id==selected?Theme.primary:"grey",
+    borderRadius:10,
+    border:"2px solid grey " ,
+    borderColor: varr.id==selected?Theme.primary:"grey",
+
+}}>
+ <span>
+ {varr.icon}
+    </span> 
+   
+    <span style={{
+        fontSize:10,
+
+    }}>{varr.nameEn}</span>
+</div>
+
+))}
     
-<div style={{
-    padding:"2px 8px", 
-    fontSize:20,
-    fontWeight:500,
-    color:Theme.primary,
-    margin:"0px 5px",
-    borderRadius:10,
-    border:"2px solid " + Theme.primary,
-
-}}>
-    S
-</div>
-
-
-<div style={{
-        padding:"2px 8px", 
-    fontSize:20,
-    margin:"0px 5px",
-    fontWeight:500,
-    color:"grey",
-    borderRadius:10,
-    border:"2px solid grey",
-
-}}>
-    M
-</div>
-
-
-
-
-<div style={{
-       padding:"2px 8px", 
-    fontSize:20,
-    margin:"0px 5px",
-    fontWeight:500,
-    color:"grey",
-    borderRadius:10,
-    border:"2px solid grey",
-
-}}>
-    L
-</div>
-
-
 </div>
 
 
@@ -116,6 +144,7 @@ function OptionEL() {
     flexDirection:"column",
     alignItems:"center",
     marginLeft:20,
+    marginTop:15,
    justifyContent:"space-between",
 
     
@@ -128,7 +157,7 @@ function OptionEL() {
 
 }}>
 
-    Color
+  
 
 </div>
 
@@ -138,67 +167,55 @@ function OptionEL() {
 }}>
 
 
-   <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-   <div style={{
-    padding:"8", 
-    fontSize:20,
-    width:35,
-    height:35,
-    fontWeight:500,
-    backgroundColor:"grey",
-    margin:"0px 5px",
-    borderRadius:100,
-    border:"4px solid " + Theme.primary,
+
+{props.colors&&props.colors.map((color,index)=>(
+
+
+<div
+onClick={()=>{
+    colorHanlder(color.id);
+}}
+key={index} style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+<div style={{
+ padding:"8", 
+ fontSize:20,
+ width:35,
+ cursor:"pointer",
+
+ height:35,
+ fontWeight:500,
+ backgroundColor:color.colorCode,
+ margin:"0px 5px",
+ borderRadius:100,
+ border:"4px solid white",
+ borderColor: color.id == selectedC?Theme.primary:"white",
 }}> 
 </div>
-{/* <div style={{padding:3,
-    lineHeight:1,display:"flex",
-    justifyContent:"center",
-    alignItems:"center",
-    fontWeight:500,
-    color:Theme.primary,
-    }}>
-    Bright red
-</div> */}
+<span
 
-    </div> 
-
-
-
-    <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-   <div style={{
-    padding:"8", 
-    fontSize:20,
-    width:35,
-    height:35,
-    fontWeight:500,
-    backgroundColor:"blue",
-    margin:"0px 5px",
-    borderRadius:100,
-    border:"0px solid " + Theme.primary,
-}}> 
-</div>
-
-    </div> 
+style={{
+    fontSize: color.id == selectedC?15:13,
+    
+    color: color.id == selectedC?Theme.primary:"grey",
+}}
+>{color.nameEn}</span>
+ </div> 
 
 
 
 
-    <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-   <div style={{
-    padding:"8", 
-    fontSize:20,
-    width:35,
-    height:35,
-    fontWeight:500,
-    backgroundColor:"green",
-    margin:"0px 5px",
-    borderRadius:100,
-    border:"0px solid " + Theme.primary,
-}}> 
-</div>
 
-    </div> 
+))}
+
+ 
+
+
+ 
+
+
+
+
+  
 
 
 

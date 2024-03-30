@@ -9,6 +9,7 @@ import { Theme } from '../local';
 import LoadingBtn from '../comps/loadingbtn';
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { AuthCon } from '../contexts/AuthCon';
 import Image from 'next/image';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 export default function Login() {
@@ -16,7 +17,7 @@ const [emial, setEmial] = useState("");
 
 const [pass, setpass] = useState("");
 const [lod, setlod] = useState(0);
-// const{loginUser,loading,checkLogged,isLogged} = useContext(AuthContext)
+const {loginUser}  = useContext(AuthCon);
 const router = useRouter();
 const ls = require("local-storage")
 
@@ -30,7 +31,7 @@ useEffect(()=>{
 
 const handlelogin=()=>{
  setlod(1);
- console.log(loading);
+//  console.log(loading);
  loginUser(emial,pass)
 
  
@@ -78,7 +79,7 @@ const handlelogin=()=>{
 
       <div style={{marginTop:30}}>
 
-      <LoadingBtn act={()=>{alert("login")}} text={"دخول"} lod={lod} />
+      <LoadingBtn act={()=>{handlelogin()}} text={"دخول"} lod={lod} />
       {/* <button onClick={()=>{}} className="mt-4 w-full bg-primary text-white py-2 rounded-md text-lg tracking-wide">Login</button> */}
       <button onClick={()=>{router.replace("/register")}} className="mt-4 w-full  text-white py-2 rounded-md text-lg underline tracking-wide"> تسجيل حساب جديد </button>
  

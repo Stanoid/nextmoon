@@ -10,6 +10,8 @@ import Cartl from './comps/cartl';
 import { BsHeartFill } from 'react-icons/bs'
 import { MdShoppingCart,MdSearch } from "react-icons/md";
 import { CartContext } from './contexts/cartContext';
+import AuthenContext from './contexts/AuthCon';
+
 import Footer from './footer';
 import Cookies from 'universal-cookie';
 
@@ -62,7 +64,7 @@ export default function RootLayout({ children }) {
       <body  style={{}} >
 
         <CartContext>
-
+    <AuthenContext>
       
      
       <div
@@ -448,6 +450,8 @@ style={{
       </div>
 
     </div>
+
+    </AuthenContext>
   </CartContext>
   
        

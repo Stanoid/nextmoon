@@ -17,7 +17,7 @@ export const Theme = {
 
 
 
-    export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://192.168.217.78:8080/api"
+    export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://164.90.187.229:8080/api/"
     export const ROOT_URL = process.env.NEXT_PUBLIC_ROOT_URL || "http://localhost:1337"
     export const IMG_CONFIG_URL = process.env.NEXT_PUBLIC_IMG_CONFIG_URL || "http://res.cloudinary.com/"
 
