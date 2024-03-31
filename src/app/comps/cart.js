@@ -23,6 +23,7 @@ const Cart = forwardRef((props, ref) => {
    const {cartData,addToCart,removeFromCart,CartTotal}  = useContext(CartCon);
   const [total,setTotal]=useState(0);
   const router = useRouter();
+  
   const [carts,setCarts] = useState([
 
 
@@ -207,10 +208,12 @@ const notify = (type,msg)=>{
                  
       
                       
-               {cartData.length!=0?cartData.map(cart=>(
+               {ls.get("MinimoonCart")&&ls.get("MinimoonCart").length!=0?ls.get("MinimoonCart").map((cart,index)=>(
                 
-                <Cartel removeItem={removeFromCart} id={cart.data.id} name={cart.data.nameEn} price={cart.data.price} size={cart.data.opt} 
-                comm={cart.data.comm}  color={cart.data.color} img={cart.data.id} qty={cart.data.qty}   selvar={cart.selvar} selcolor={cart.selcolor} />
+                <Cartel order={false} key={index} index={index} removeItem={removeFromCart} id={cart.data.id} name={cart.data.nameEn} price={cart.data.vars.filter(obj => {
+                  return obj.id === cart.selvar
+                })} size={cart.data.opt} 
+                comm={cart.data.comm}  color={cart.data.color} img={cart.data.id} qty={cart.data.qty} cartsize={cart.size}  cartcolor={cart.color}  selvar={cart.selvar} selcolor={cart.selcolor} />
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
@@ -232,7 +235,7 @@ const notify = (type,msg)=>{
 
 
 
-                     <div style={{
+                     {/* <div style={{
                       width:"100%",
                       display:cartData.length==0?"none":"block",
                       color:Theme.primary,
@@ -243,7 +246,7 @@ const notify = (type,msg)=>{
                       paddingBottom:5
                      }}> 
                       Total  : {CartTotal} {CURRENCY} 
-                     </div>
+                     </div> */}
    
                     <div style={{padding:20, display:cartData.length==0?"none":"flex",alignItems:'center',justifyContent:'space-between'}}>
                         <div style={{fontSize:15,fontWeight:'bold'}}>
@@ -256,7 +259,9 @@ const notify = (type,msg)=>{
                         
 
                     
-                         <LoadingBtn act={()=>{addToCart({id:1,name:"jhon"})}}  text={"متابعة"} lod={lod} /></div>                  
+                         <LoadingBtn act={()=>{
+                          props.openHandler(false);
+                          router.push("/checkout")}}  text={"متابعة"} lod={lod} /></div>                  
                     {/* /End replace */}
                   </div>
                 </div>

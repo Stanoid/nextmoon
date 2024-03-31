@@ -44,7 +44,7 @@ export default function Cartel(props) {
 
   const removeid = ()=>{
 
-props.removeItem(props.id);
+props.removeItem(props.index);
   }
 
 
@@ -52,11 +52,11 @@ props.removeItem(props.id);
   <div>
       
 
-<div className='shadow-md' style={{
+<div  className={props.order?"shadow-none":'shadow-md'} style={{
   display:"flex",
   justifyContent:"space-between",
   alignItems:"center",
-  padding:"0px 20px",
+  padding:props.order?"0px 0px":"0px 20px",
   borderRadius:10,
 margin:10,
 }}>
@@ -67,10 +67,10 @@ margin:10,
 
 
 <div style={{
-    display:"flex",
+  
     alignItems:"center",
     margin:10,
-   
+    display:props.order?"none":"flex",
 
     justifyContent:'center',
 
@@ -78,8 +78,10 @@ margin:10,
 
 <span
 
+
 onClick={props.like?()=>{removeid()}:()=>{removeid()}}
- className='shadow-md' style={{
+ className=  'shadow-md' style={{
+
   color:props.like?"#FE2E2E":"white",
   backgroundColor:props.like?"white":"#FE2E2E",
   cursor:"pointer",
@@ -111,7 +113,7 @@ onClick={props.like?()=>{removeid()}:()=>{removeid()}}
   display:"flex",
   justifyContent:"center",
   flexDirection:"column",
-  color:Theme.secondary,
+  color: props.order?"white":Theme.secondary,
 fontWeight:"bold",
 lineHeight:1,
 fontSize:15,
@@ -125,14 +127,17 @@ props.name
 }
 </div>
 
-<div style={{
-  color:"grey",
+<div
+
+style={{
+  color:props.order?"white":"grey",
   textAlign:"left",
   fontSize:15,
+ 
   marginTop:5
 }}>
 
-  {props.price +"  "+ CURRENCY} 
+  {props.price[0].price +"  "+ CURRENCY} 
 
 </div>
 
@@ -154,7 +159,7 @@ props.name
     border:"2px solid " + Theme.primary,
 
 }}>
-    S
+    {props.cartsize}
 </div>
 
 <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginTop:10}}>
@@ -164,7 +169,7 @@ props.name
     width:25,
     height:25,
     fontWeight:500,
-    backgroundColor:"blue",
+    backgroundColor:props.cartcolor,
     margin:"0px 5px",
     borderRadius:100,
     border:"0px solid " + Theme.primary,
@@ -189,7 +194,7 @@ props.name
 
   <img
    src={"/pimg/"+props.img+".jpg"}
-   width={100}
+   width={props.order?70:100}
    style={{
     borderRadius:5,
 

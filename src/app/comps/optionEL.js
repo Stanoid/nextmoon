@@ -18,16 +18,17 @@ function OptionEL(props) {
     // }, [])
     
 
-const varHandler = (id)=>{
+const varHandler = (id,s)=>{
 setSelected(id);
+props.cartSize(s);
 props.selectedfunc(id);
 
 }
 
 
-const colorHanlder = (id)=>{
+const colorHanlder = (id,c)=>{
     setSelectedC(id);
-   
+    props.cartcolor(c)
 
     props.selectedfuncC(id);
     
@@ -83,7 +84,7 @@ const colorHanlder = (id)=>{
 
 <div
 className='shadow-md'
-onClick={()=>{varHandler(varr.id)}}  key={index} style={{
+onClick={()=>{varHandler(varr.id,varr.icon)}}  key={index} style={{
     padding:"5px 8px", 
     fontSize:20,
     fontWeight:500,
@@ -173,7 +174,7 @@ onClick={()=>{varHandler(varr.id)}}  key={index} style={{
 
 <div
 onClick={()=>{
-    colorHanlder(color.id);
+    colorHanlder(color.id,color.colorCode);
 }}
 key={index} style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
 <div style={{

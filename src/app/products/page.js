@@ -27,7 +27,8 @@ export default function Product({}) {
 
   const [selectedV, setSelectedV] = useState();
   const [selectedC, setSelectedC] = useState();
-
+  const [size, setSize] = useState();
+  const [color, setColor] = useState();
 
   useEffect(() => {
     console.log(getQueryVariable("pid"));
@@ -40,12 +41,6 @@ export default function Product({}) {
       } else {
       }
     }
-
-
-  
-
-
-
   }, []);
 
   const { cartData, addToCart, addTofav, favData, useNotifi, removeFromFav } =
@@ -53,7 +48,14 @@ export default function Product({}) {
 
   const HandleAddToCart = () => {
     if (cartData.length == 0) {
-      addToCart({"data":db,selvar:selectedV,selcolor:selectedC});
+      addToCart({ 
+        data: db, 
+        selvar: selectedV, 
+        selcolor: selectedC,
+        color:color,
+        size:size,
+      
+      });
       console.log("Product Has been added on empty cart: ", db.nameEn);
       useNotifi("success", "Product has been added to cart");
     } else {
@@ -61,15 +63,28 @@ export default function Product({}) {
         cartData.find((obj) => obj.id === parseInt(getQueryVariable("pid"))) ==
         undefined
       ) {
-        addToCart({"data":db,selvar:selectedV,selcolor:selectedC});
+        addToCart({ 
+          data: db, 
+          selvar: selectedV, 
+          selcolor: selectedC,
+          color:color,
+          size:size,
+        
+        });
         console.log("Product Has been added: ", db.nameEn);
         useNotifi("success", "Product has been added to cart");
       } else {
-
         //old one prdct in cart
         // console.log("Product Aleady in Cart:  ", db.nameEn);
         // useNotifi("warn", "Product is already in cart");
-        addToCart({"data":db,selvar:selectedV,selcolor:selectedC});
+        addToCart({ 
+          data: db, 
+          selvar: selectedV, 
+          selcolor: selectedC,
+          color:color,
+          size:size,
+        
+        });
         console.log("Product Has been added: ", db.nameEn);
         useNotifi("success", "Product has been added to cart");
       }
@@ -93,8 +108,6 @@ export default function Product({}) {
   //legacy code.
   // const  ls = require('local-storage');
   // const router = useRouter();
-
-
 
   const HandleAddToFav = (id) => {
     if (favData.length == 0) {
@@ -158,12 +171,11 @@ export default function Product({}) {
           style={{
             width: "100%",
             display: "flex",
-            
+
             justifyContent: "center",
             alignItems: "flex-start",
           }}
         >
-
           {/* legacy image handler */}
           {/* <div
             style={{
@@ -234,32 +246,54 @@ export default function Product({}) {
               </div>
             </div>
           </div> */}
-  
 
-  <div style={{width:"100%"}} class="grid gap-4">
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg" alt=""/>
-    </div>
-    <div class="grid grid-cols-5 gap-4">
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt=""/>
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt=""/>
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt=""/>
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt=""/>
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt=""/>
-        </div>
-    </div>
-</div>
+          <div style={{ width: "100%" }} class="grid gap-4">
+            <div>
+              <img
+                class="h-auto max-w-full rounded-lg"
+                src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg"
+                alt=""
+              />
+            </div>
+            <div class="grid grid-cols-5 gap-4">
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-lg"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-lg"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-lg"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-lg"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-lg"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
           <div
-       
             style={{
               width: "100%",
               height: "100%",
@@ -267,11 +301,10 @@ export default function Product({}) {
               flexDirection: "column",
               justifyContent: "space-between",
               alignItems: "flex-start",
-              marginTop:30,
-              marginLeft:10,
-              marginRight:10,
-             
-              
+              marginTop: 30,
+              marginLeft: 10,
+              marginRight: 10,
+
               paddingRight: 0,
             }}
           >
@@ -288,26 +321,28 @@ export default function Product({}) {
               >
                 New Arrival
               </span>
-              <div style={{
-                display:"flex",
-                alignItems:"center",
-                justifyContent:"space-between",
-              }}>
-
-
-
-<div>
-                <h2
-                style={{ fontWeight: "bold", fontSize: 20, lineHeight: 1.3 }}
-                className="max-w-xl mt-6 mb-6  font-semibold leading-loose tracking-wide text-gray-700  "
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
               >
-                {db.nameEn}
-              </h2>
+                <div>
+                  <h2
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 20,
+                      lineHeight: 1.3,
+                    }}
+                    className="max-w-xl mt-6 mb-6  font-semibold leading-loose tracking-wide text-gray-700  "
+                  >
+                    {db.nameEn}
+                  </h2>
                 </div>
 
-
                 <div>
-                <div
+                  <div
                     onClick={() => {
                       HandleAddToFav();
                     }}
@@ -327,12 +362,8 @@ export default function Product({}) {
                     <BsHeartFill />
                   </div>
                 </div>
-
-
-              
-
               </div>
-            
+
               <div className="flex flex-wrap items-center mb-6">
                 {/* old sellers info div */}
               </div>
@@ -380,33 +411,29 @@ export default function Product({}) {
               }}
             >
               <div>
-                <OptionEL selectedfunc={(a)=>{
-                  for (let i = 0; i < db.vars.length; i++) {
-                  if(db.vars[i].id==a){
-                    console.log("price: ",db.vars[i].price)
-                    setPrice(db.vars[i].price);
-                    setSelectedV(a);
-
-                  }
-                    
-                  }
-                }}
-                
-                selectedfuncC={(a)=>{
-                  for (let i = 0; i < db.colors.length; i++) {
-                  if(db.colors[i].id==a){
-                   
-                    setSelectedC(a);
-
-                  }
-                    
-                  }
-                }}
-                
-                vars={db.vars} colors={db.colors} />
+                <OptionEL
+                  selectedfunc={(a) => {
+                    for (let i = 0; i < db.vars.length; i++) {
+                      if (db.vars[i].id == a) {
+                        console.log("price: ", db.vars[i].price);
+                        setPrice(db.vars[i].price);
+                        setSelectedV(a);
+                      }
+                    }
+                  }}
+                  cartcolor={(c)=>{setColor(c)}}
+                  cartSize={(s)=>{setSize(s)}}
+                  selectedfuncC={(a) => {
+                    for (let i = 0; i < db.colors.length; i++) {
+                      if (db.colors[i].id == a) {
+                        setSelectedC(a);
+                      }
+                    }
+                  }}
+                  vars={db.vars}
+                  colors={db.colors}
+                />
               </div>
-
-           
 
               <div
                 style={{
@@ -438,8 +465,6 @@ export default function Product({}) {
                     alignItems: "center",
                   }}
                 >
-                
-
                   <div
                     onClick={() => {
                       HandleAddToCart();
@@ -449,7 +474,7 @@ export default function Product({}) {
                       backgroundColor: Theme.primary,
                       color: "white",
                       marginBottom: 10,
-
+                      cursor: "pointer",
                       padding: "8px 12px",
                       borderRadius: 8,
                     }}
@@ -473,9 +498,6 @@ export default function Product({}) {
                       <span> Add to Cart</span>
                     </div>
                   </div>
-
-              
-                  
                 </div>
               </div>
             </div>

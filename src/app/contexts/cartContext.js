@@ -7,29 +7,29 @@ export const CartCon = createContext();
 
 
 
-// const mainScroll = useRef(null);
-// useEffect(() => {
-//   const handleScroll = () => {
-//     const el = mainScroll.current;
-   
-//     console.log("Coords Boss: ",el.getBoundingClientRect())
-//   };
 
-//   const element = mainScroll.current;
-//   element.addEventListener("scroll", handleScroll);
-
-//   return () => {
-//     element.removeEventListener("scroll", handleScroll);
-//   };
-// }, []);
 
 
 export const CartContext = ({children})=>{
+  const ls = require("local-storage");
   const [cartData, setCartData] = useState(
    [
   
    ]
   );
+
+
+
+  
+
+useEffect(() => {
+  if(ls.get("MinimoonCart")){
+    console.log("ls already there ")
+  }else{
+    ls.set("MinimoonCart",[]);
+    console.log("ls initated on null value ")
+  }
+  }, []);
 
   
   const [CartTotal, setCartTotal] = useState(0);
@@ -46,17 +46,29 @@ export const CartContext = ({children})=>{
 
    
 const handleTotal=()=>{
-
+ 
+return
   if(cartData.length==0){
     setCartTotal(0);
-    return
+    // return
   }
   
   let total = 0;
   for (let i = 0; i < cartData.length; i++) {
     // console.log("cart total",cartData)
- total = total + (cartData[i].data.price);
+//  total = total + (cartData[i].data.price);
+
+var temp = cartData[i].data.vars.filter(obj => {
+  return obj.id === cartData[i].selvar
+});
+
+total  = total + temp[0].price;
+
+
+
   }
+  console.log("toootal",total)
+
   setCartTotal(total);
 }
 
@@ -70,8 +82,10 @@ const handleTotal=()=>{
     
     arr = arr.push(ob)//??
     setCartData(cartData)
+    ls.set("MinimoonCart",cartData)
     handleTotal();
     console.log("cart from context (Add) ")//??
+
   }
 
 
@@ -104,11 +118,20 @@ const handleTotal=()=>{
 console.log(id)
     const oldcart = cartData; //????
     let arr = oldcart
-    arr = arr.filter(item => item.data.id !== id);//??
+  //  arr  = arr.slice(id+1)
+
+
+arr = arr.slice(0, id).concat(arr.slice(id+1))
+   
     setCartData(arr)
-    handleTotal();
+
+    console.log("bafore setting minimooncart" ,arr)//??
+   
+    ls.set("MinimoonCart",arr)
+    
+    
     console.log("cart from context: (Remove)" ,cartData)//??
-    handleTotal();
+   
 
   }
 
