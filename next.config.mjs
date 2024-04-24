@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+
+import withPlaiceholder from "@plaiceholder/next";
 const nextConfig = {
   output: 'standalone',
     images: {
@@ -31,4 +33,5 @@ const nextConfig = {
 //   return config;
 
 
-export default nextConfig;
+export default withPlaiceholder(nextConfig);
+

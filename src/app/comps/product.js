@@ -3,7 +3,7 @@
 import React from 'react'
 
 import Styles from "../styles/Home.module.css"
-import { Theme,CURRENCY } from '../local'
+import { Theme,CURRENCY, API_URL, IMG_URL } from '../local'
 
 import Image from 'next/image'
 import { useState,useEffect } from 'react'
@@ -22,16 +22,20 @@ export default function Product(props) {
 
 
   useEffect(() => {
-getprice();
+//getprice();
+
+// }
+//console.log("img url", IMG_URL.concat(props.data.img&&JSON.parse(props.data.img)[0])) 
+
 
    }, [])
 
-const getprice = ()=>{
-  for (let i = 0; i < props.data.length; i++) {
+// const getprice = ()=>{
+//   for (let i = 0; i < props.data.length; i++) {
     
     
-  }
-}
+//   }
+// }
 
    
 
@@ -39,8 +43,8 @@ const getprice = ()=>{
     return (
 
       
-        <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} className="shadow-md"  
-        style={{marginBom:20,cursor:"pointer",display:'block',
+        <div  className="shadow-md"  
+        style={{marginBom:20,display:'block',
         display:"flex",alignItems:"center",justifyContent:"center"
         ,padding:10,borderRadius:10,textAlign:'left',width:"100%",height:"100%"}}>
 
@@ -59,7 +63,8 @@ const getprice = ()=>{
 <div style={{
   display:loading?'none':'block' 
 }} >
-      <div style={{borderRadius:5,alignItems:'center',justifyContent:"center"}}>
+      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} style={{borderRadius:5,alignItems:'center',
+      cursor:"pointer",justifyContent:"center"}}>
 
     
 
@@ -73,31 +78,33 @@ const getprice = ()=>{
       
       
           className={[Styles.nextimg]} 
-          src={"/pimg/"+props.data.id+".jpg"} 
+          src={IMG_URL.concat(props.data.img&&JSON.parse(props.data.img)[0])} 
           />
       </div>
 
-      <div onClick={()=>{router.push(`/products/${props.data.id}`);}}
-       className={Styles.ptfont} style={{color:"#585858",fontSize:'13.5px'
+      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}}
+       className={Styles.ptfont} style={{color:"#585858",fontSize:'13.5px',cursor:"pointer"
        ,marginTop:10,marginBottom:5,lineHeight:1.2,textTransform:'capitalize',wordSpacing:0.6}} >
          
-          {props.data.name}
-          <div style={{color:"grey",fontSize:12,display:'flex',alignItems:'center',padding:"5px 0px"}}>{props.data.seller}
+          {props.data.name_en}
+          <div style={{color:"grey",fontSize:12,display:'flex',alignItems:'center',padding:"5px 0px"}}>{props.data.seller.username}
            <BsCheckCircleFill style={{color:Theme.primary,marginLeft:3,display:"block"}} /> </div>
       </div>
 
+
+
     
       
-      <div className='grid grid-cols-5 gap-x-0'>
+       <div className='lg:flex-row md:flex-row flex-col sm:flex-col' style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",}}>
 
-      <div className='col-span-2' >
+      <div style={{cursor:"pointer"}}  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} className='' >
 <span className='text-sm lg:text-sm md:text-2xl sm:2xl ' style={{color:"grey"}} 
-      >  <span style={{fontWeight:"bold",color:Theme.primary}} >{parseFloat(props.data.vars[0].price)} {CURRENCY} </span> 
+      >  <span style={{fontWeight:"bold",color:Theme.primary}} >{parseFloat(props.data.varients[0].price)} {CURRENCY} </span> 
       </span>
    </div>
-   <div onClick={()=>{router.push(`/catagories/${props.data.cat.id}`)}} className='col-span-3' >
-<span style={{color:"white",backgroundColor:Theme.primary,padding:"1px 5px 1px 5px",
-borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.data.cat.nameEn}
+   <div onClick={()=>{router.push(`/categories?cid=${props.data.subcatagory.id}`)}} className=' ' >
+<span style={{color:"white",backgroundColor:Theme.primary,padding:"3px 5px 3px 5px",cursor:"pointer",
+borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.data.subcatagory.name_en}
 </span>
 </div>
 </div>

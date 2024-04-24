@@ -1,45 +1,41 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment, useState,useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { BsChevronDown,BsChevronUp,BsTrashFill } from 'react-icons/bs'
+import { BsChevronDown,BsChevronUp,BsThermometer,BsTrashFill } from 'react-icons/bs'
 import  FaHeartCircleMinus from 'react-icons/fa6'
-import {CURRENCY, Theme} from "../local"
+import {CURRENCY, IMG_URL, Theme} from "../local"
 
 import { BsX } from 'react-icons/bs'
 
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
 
-// function truncate(str, n){
-//   return (str.length > n) ? str.slice(0, n-1) + '&hellip;'+"..." : str+"...";
-// };
+
+
 
 
 export default function Cartel(props) {
   const [open, setOpen] = useState(true)
+  const [varient, setVarient] = useState(true)
+
+
+
+
+  
+useEffect(() => {
+
+  
+  for (let i = 0; i < props.data.attributes.varients.data.length; i++) {
+ 
+
+    
+    if(props.data.attributes.varients.data[i].id==props.selvar){
+      setVarient(props.data.attributes.varients.data[i]);
+    }
+   
+  }
+
+  
+}, [])
 
 
   const removeid = ()=>{
@@ -49,167 +45,82 @@ props.removeItem(props.index);
 
 
   return (
-  <div>
-      
-
-<div  className={props.order?"shadow-none":'shadow-md'} style={{
-  display:"flex",
-  justifyContent:"space-between",
-  alignItems:"center",
-  padding:props.order?"0px 0px":"0px 20px",
-  borderRadius:10,
-margin:10,
-}}>
-
-
-
-
-
-
-<div style={{
   
-    alignItems:"center",
-    margin:10,
-    display:props.order?"none":"flex",
-
-    justifyContent:'center',
-
-  }}> 
-
-<span
-
-
-onClick={props.like?()=>{removeid()}:()=>{removeid()}}
- className=  'shadow-md' style={{
-
-  color:props.like?"#FE2E2E":"white",
-  backgroundColor:props.like?"white":"#FE2E2E",
-  cursor:"pointer",
-  padding:props.like?10:5,
-
-
- borderRadius:100
-
-}}>
-
-{
-  props.like?<BsTrashFill style={{  fontWeight:"bold", fontSize:20}} />:<BsX style={{ color:"white", fontWeight:"bold", fontSize:20}} />
- 
-}
-
-</span>
- 
-
-  
-
-  </div>
+    <div className='shadow-md'    
+    
+    style={{display:"flex",borderRadius:10,alignItems:"center",backgroundColor:"white",margin:"10px 10px",justifyContent:"space-between"}}>
 
 
 
+<div  style={{padding:10,width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
 
 
+<div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-<div style={{
-  display:"flex",
-  justifyContent:"center",
-  flexDirection:"column",
-  color: props.order?"white":Theme.secondary,
-fontWeight:"bold",
-lineHeight:1,
-fontSize:15,
-margin:10,
-textAlign:"left",
-  alignItems:"flex-start",
-}}>
-<div>
-{/* {truncate(props.name,20)} */ 
-props.name
-}
-</div>
-
-<div
-
+<img width={100} 
 style={{
-  color:props.order?"white":"grey",
-  textAlign:"left",
-  fontSize:15,
- 
-  marginTop:5
-}}>
-
-  {props.price[0].price +"  "+ CURRENCY} 
-
-</div>
-
+ borderRadius:5
+}}
+src={ IMG_URL.concat(JSON.parse(props.data.attributes.img)[0])} />
 
 
 </div>
 
+<div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",flexDirection:props.order?"row":"column"}} className='sm:flex-col lg:flex-row' >
+
+<div style={{fontSize:15,padding:5,fontWeight:"bold"}}>{props.data.attributes.name_en}</div>
 
 
-<div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
-
-<div style={{
-    padding:"1.5px 6px", 
-    fontSize:15,
-    fontWeight:500,
-    color:Theme.primary,
-    margin:"0px 5px",
-    borderRadius:5,
-    border:"2px solid " + Theme.primary,
-
-}}>
-    {props.cartsize}
-</div>
-
-<div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginTop:10}}>
-   <div style={{
-    padding:"5", 
-    fontSize:20,
-    width:25,
-    height:25,
-    fontWeight:500,
-    backgroundColor:props.cartcolor,
-    margin:"0px 5px",
-    borderRadius:100,
-    border:"0px solid " + Theme.primary,
-}}> 
-</div>
-
-    </div> 
-
-
-
+      <div style={{fontSize:15,padding:5,color:Theme.primary}}>{varient.attributes&&varient.attributes.price} {CURRENCY}</div>
+      <div style={{padding:5}}>{props.qty} Pc/s</div>
 
 </div>
 
-<div style={{
-  display:"flex",
-  justifyContent:"center",
-  alignItems:"center",
-  margin:10,
-  marginRight:0
-}}>
+   
 
 
-  <img
-   src={"/pimg/"+props.img+".jpg"}
-   width={props.order?70:100}
-   style={{
-    borderRadius:5,
 
-   }}
-   ></img>
+      <div style={{display:"flex",alignContent:"center",justifyContent:"center",flexDirection:"column"}}>
 
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+<div  style={{width:25,height:25,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
+border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
+,backgroundColor:Theme.primary,color:"white",fontSize:14}}>{varient.attributes&&varient.attributes.size.data.attributes.icon}</div>
+
+<div style={{width:30,height:30,
+    marginLeft:-10,marginTop:-5
+    ,borderRadius:100,backgroundColor:varient.attributes&&varient.attributes.color.data.attributes.colorCode}} ></div>
+
+</div>
+
+<div style={{fontSize:13,display:props.order?"none":"block"}}>
+{varient.attributes&&varient.attributes.size.data.attributes.name_en} <span>  </span> {varient.attributes&&varient.attributes.color.data.attributes.name_en}
+</div>
+
+      </div>
+
+
+      <div
+      onClick={()=>{props.removeItem(props.index)}}
+      style={{display:props.order?"none":"flex",alignItems:"center",justifyContent:"center",borderLeft:"1px solid lightgrey",paddingLeft:10}}>
+        <div style={{backgroundColor:"red",padding:2.5,borderRadius:100}}>
+        <BsX style={{color:"white",fontSize:25}} />
+        </div>
+  
+      </div>
+
+   
 </div>
 
 
 
 
-</div>
 
+    
 
-                   
-  </div>
-  )
+   
+
+    </div>
+
+      )
 }

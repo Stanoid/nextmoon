@@ -1,5 +1,5 @@
 import {React,useEffect,useState} from 'react'
-import { Theme } from '../local'
+import { CURRENCY, Theme } from '../local'
 
 
 
@@ -7,245 +7,75 @@ import { Theme } from '../local'
 
 
 function OptionEL(props) {
-    const [selected, setSelected] = useState(0);
-    const [selectedC, setSelectedC] = useState(0);
-
-
-
-    // useEffect(() => {
-    
-    
-    // }, [])
-    
-
 const varHandler = (id,s)=>{
-setSelected(id);
-props.cartSize(s);
-props.selectedfunc(id);
+
 
 }
 
 
-const colorHanlder = (id,c)=>{
-    setSelectedC(id);
-    props.cartcolor(c)
-
-    props.selectedfuncC(id);
-    
-    }
 
 
   return (
     <div 
-    className='flex-col sm:flex-col lg:flex-row '
+className='flex-col lg:flex-row md:flex-row sm:flex-col'
     style={{
         width:"100%",
-        padding:10,
         display:"flex",
+
         justifyContent:"center",
         alignItems:"center"
-
-    }} >
-
-
-<div style={{
-    display:"flex",
-    flexDirection:"column",
-    alignItems:"center",
-   marginTop:15,
-    borderRight:"0px solid grey",
-   justifyContent:"space-between",
-
-    
-}}>
+    }}>
 
 
-<div style={{
-    display:"flex",alignItems:"center",justifyContent:"center",
-    fontSize:15,fontWeight:500,marginBottom:10
+{props.vars&&props.vars.map(varient=>(
+<div onClick={()=>{props.varselect(varient.id)}}   className='shadow-md flex-row lg:flex-col md:flex-col sm:flex-row ' style={{padding:"10px 10px"
+,borderRadius:10,margin:7,border:props.selid==varient.id?"4px solid"+Theme.primary:"4px solid #FAFAFA",cursor:"pointer",
+display:"flex",justifyContent:"center",alignItems:"center"
+}}  key={varient.id} >
 
-}}>
+<div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+{/* {varient.attributes.size.data.attributes.icon} */}
 
- 
+
+
+<div  style={{width:30,height:30,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
+border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
+,backgroundColor:Theme.primary,color:"white",fontSize:20}}>{varient.attributes.size.data.attributes.icon}</div>
+
+<div style={{width:35,height:35,
+    marginLeft:-10,marginTop:-5
+    ,borderRadius:100,backgroundColor:varient.attributes.color.data.attributes.colorCode}} ></div>
+
+</div>
+
+<div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
+
+<div style={{fontWeight:"bold",padding:10,paddingBottom:0}}>
+{varient.attributes.size.data.attributes.name_en} <span> / </span> {varient.attributes.color.data.attributes.name_en}
+</div>
+
+<div style={{color:"grey",fontStyle:'oblique'}}>
+    {varient.attributes.price} {CURRENCY}
 
 </div>
 
 
-<div style={{
-    display:"flex",alignItems:"center",justifyContent:"center"
-}}>
-
-
-
-
-{props.vars&&props.vars.map((varr,index)=>(
-
-
-
-<div
-className='shadow-md'
-onClick={()=>{varHandler(varr.id,varr.icon)}}  key={index} style={{
-    padding:"5px 8px", 
-    fontSize:20,
-    fontWeight:500,
-    cursor:"pointer",
- display:"flex",
- alignItems:"center",
- lineHeight:0.9,
- flexDirection:"column",
- justifyContent:"center",
-    margin:"0px 5px",
-    color: varr.id==selected?Theme.primary:"grey",
-    borderRadius:10,
-    border:"2px solid grey " ,
-    borderColor: varr.id==selected?Theme.primary:"grey",
-
-}}>
- <span>
- {varr.icon}
-    </span> 
-   
-    <span style={{
-        fontSize:10,
-
-    }}>{varr.nameEn}</span>
 </div>
 
+
+
+
+
+
+
+
+
+</div>
 ))}
-    
-</div>
 
 
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div style={{
-    display:"flex",
-    flexDirection:"column",
-    alignItems:"center",
-    marginLeft:20,
-    marginTop:15,
-   justifyContent:"space-between",
-
-    
-}}>
-
-
-<div style={{
-    display:"flex",alignItems:"center",justifyContent:"center",
-    fontSize:15,fontWeight:500,marginBottom:10
-
-}}>
-
-  
-
-</div>
-
-
-<div style={{
-    display:"flex",alignItems:"center",justifyContent:"center"
-}}>
-
-
-
-{props.colors&&props.colors.map((color,index)=>(
-
-
-<div
-onClick={()=>{
-    colorHanlder(color.id,color.colorCode);
-}}
-key={index} style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-<div style={{
- padding:"8", 
- fontSize:20,
- width:35,
- cursor:"pointer",
-
- height:35,
- fontWeight:500,
- backgroundColor:color.colorCode,
- margin:"0px 5px",
- borderRadius:100,
- border:"4px solid white",
- borderColor: color.id == selectedC?Theme.primary:"white",
-}}> 
-</div>
-<span
-
-style={{
-    fontSize: color.id == selectedC?15:13,
-    
-    color: color.id == selectedC?Theme.primary:"grey",
-}}
->{color.nameEn}</span>
  </div> 
 
-
-
-
-
-))}
-
- 
-
-
- 
-
-
-
-
-  
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
 
 
 

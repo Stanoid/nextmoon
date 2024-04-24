@@ -7,7 +7,8 @@ function LoadingBtn(props) {
  
 
 
-<button onClick={props.act} style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:Theme.primary}} className="mt-4 w-full  text-white py-2 rounded-md text-lg tracking-wide">
+<button onClick={props.act} style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:Theme.primary}}
+ className="mt-4 w-full  text-white py-2 px-2 rounded-md text-lg tracking-wide">
 
 <div style={{display:props.lod?"flex":"none",justifyContent:"center",alignItems:"center"}} className="lds-facebookbtn"><div></div><div></div><div></div></div>
 <span style={{display:props.lod?"none":"block"}} >{props.text}</span>

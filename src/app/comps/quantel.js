@@ -1,13 +1,25 @@
-import React from 'react'
+'use client'
+import {React,useState }from 'react'
 import { FaPlus,FaMinus } from 'react-icons/fa6'
 import { Theme } from '../local'
-function QuantEl() {
+
+function QuantEl(props) {
+
+  const [counter,setCounter] = useState(1);
+
   return (
   
 
-    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-       <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-        <FaPlus/>
+    <div  style={{padding:"5px 10px",marginBottom:10,backgroundColor:"white",color:"black",borderRadius:5,display:"flex"
+    ,alignItems:"center",justifyContent:"center"}}>
+       <div onClick={()=>{
+        if(props.qty>1){
+          props.quantHandler(props.qty-1)
+         
+        }
+      
+       }} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+        <FaMinus/>
        </div>
 
 
@@ -16,13 +28,19 @@ function QuantEl() {
     fontSize:20,
     fontWeight:"bold"
     }}>
-    2   
+    {props.qty} 
        </div>
 
 
 
-       <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-        <FaMinus/>
+       <div
+       onClick={()=>{
+        if(props.qty<props.stock){
+          props.quantHandler(props.qty+1)
+        }
+       }}
+       style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+        <FaPlus/>
        </div>
         
     </div>

@@ -4,22 +4,55 @@ import Image from "next/image";
 import Product from "./comps/product";
 import Hero from "./comps/hero";
 import { API_URL } from "./local";
-import { useState,useRef,useEffect } from "react";
+import { useState,useRef,useEffect,useContext } from "react";
+import FeatProduct from "./comps/featuredProducts";
+import { AuthCon } from "./contexts/AuthCon";
+
 import Cart from "./comps/cart";
-import CartContext from "./contexts/cartContext";
+
 import { product } from "./comps/productdata";
 export default function Home() {
   const [openCart,setOpenCart] = useState(false);
   const childCompRef = useRef()
-
-  const [products,setProducts] = useState(product.data)
+  const {loginval}  = useContext(AuthCon);
+  const [products,setProducts] = useState()
 
   
   useEffect(() => {
-    // uncomment to switch to live data
- //getProducts();
+   
+
+    getAllProducts();
     
        }, [])
+
+
+
+       const getAllProducts = ()=>{
+        
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                // "Authorization": 'Bearer ' + ls.get("atkn")
+            },
+          
+        };
+      
+          fetch(`${API_URL}products?func=getAllProducts`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+      
+      
+              console.log("data22233",data)
+           setProducts(data)
+          
+           
+            });
+    
+    
+    }
+
+
 
   const handleOpenCart =(open)=>{
     setOpenCart(open)
@@ -42,7 +75,7 @@ export default function Home() {
 
 
   return (
-    <CartContext>
+  
 
 
       
@@ -58,7 +91,8 @@ export default function Home() {
 
     <div >
     
-    <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  ' style={{width:'100%'}}>
+    <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  '
+     style={{width:'100%'}}>
     
     {products&&products.map(product=>(
 
@@ -77,6 +111,6 @@ export default function Home() {
   <br/><br/><br/><br/>
   </div>
   </div>
-  </CartContext>
+ 
   );
 }

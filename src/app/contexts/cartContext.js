@@ -12,11 +12,7 @@ export const CartCon = createContext();
 
 export const CartContext = ({children})=>{
   const ls = require("local-storage");
-  const [cartData, setCartData] = useState(
-   [
-  
-   ]
-  );
+  const [cartData, setCartData] = useState(ls.get("MinimoonCart"));
 
 
 
@@ -24,11 +20,13 @@ export const CartContext = ({children})=>{
 
 useEffect(() => {
   if(ls.get("MinimoonCart")){
-    console.log("ls already there ")
+  //  console.log("ls already there ")
   }else{
     ls.set("MinimoonCart",[]);
-    console.log("ls initated on null value ")
+    //console.log("ls initated on null value ")
   }
+
+  //handleTotal();
   }, []);
 
   
@@ -45,45 +43,55 @@ useEffect(() => {
 
 
    
-const handleTotal=()=>{
+// const handleTotal=()=>{
  
-return
-  if(cartData.length==0){
-    setCartTotal(0);
-    // return
-  }
+// console.log("aaaaaaaa",ls.get("MinimoonCart").length&&ls.get("MinimoonCart").length);
+
+//   if(ls.get("MinimoonCart").length&&ls.get("MinimoonCart").length==0){
+//     setCartTotal(0);
+//     console.log("empty triggered")
+//     // return
+//   }
   
-  let total = 0;
-  for (let i = 0; i < cartData.length; i++) {
-    // console.log("cart total",cartData)
-//  total = total + (cartData[i].data.price);
+//   let total = 0;
 
-var temp = cartData[i].data.vars.filter(obj => {
-  return obj.id === cartData[i].selvar
-});
+  
+// //console.log("aaaaaaaaaaaaaaaaaaaaa",cartData)
+ 
+//   for (let i = 0; i < ls.get("MinimoonCart")&&ls.get("MinimoonCart").length; i++) {
 
-total  = total + temp[0].price;
+// // var temp = cartData[i].data.attributes.varients.filter(obj => {
+// //   return obj.id === cartData[i].selvar
+// // });
 
+// console.log("ffffffffffffffffffff",ls.get("MinimoonCart")[i].data.attributes.varients.data.length)
 
+// for (let j = 0; j < ls.get("MinimoonCart")[i].data.attributes.varients.data.length; j++) {
+//   const element = ls.get("MinimoonCart")[i].data.attributes.varients.data[j];
+// total = total + (ls.get("MinimoonCart")[i].data.attributes.varients.data[j].attributes.price *ls.get("MinimoonCart")[i].qty);
+//   console.log("aaaaaaa",total)
+// }
+//   }
 
-  }
-  console.log("toootal",total)
-
-  setCartTotal(total);
-}
+// return total;
+ 
+// }
 
 
 
   const addToCart = (ob)=>{
     //this code dosent make sense but it works
     console.log("incoming object ",ob)
+
+    
+
     const oldcart = cartData; //????
     let arr = oldcart
     
     arr = arr.push(ob)//??
     setCartData(cartData)
     ls.set("MinimoonCart",cartData)
-    handleTotal();
+   // handleTotal();
     console.log("cart from context (Add) ")//??
 
   }
@@ -116,6 +124,8 @@ total  = total + temp[0].price;
   
   const removeFromCart = (id)=>{
 console.log(id)
+
+
     const oldcart = cartData; //????
     let arr = oldcart
   //  arr  = arr.slice(id+1)
@@ -129,10 +139,11 @@ arr = arr.slice(0, id).concat(arr.slice(id+1))
    
     ls.set("MinimoonCart",arr)
     
-    
+    //handleTotal();
     console.log("cart from context: (Remove)" ,cartData)//??
    
 
+    
   }
 
 const useNotifi =(type,msg)=>{
@@ -172,6 +183,7 @@ const useNotifi =(type,msg)=>{
       removeFromCart,
       favData,
       removeFromFav,
+      
       addTofav,
       CartTotal,
       useNotifi,

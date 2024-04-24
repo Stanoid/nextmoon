@@ -23,70 +23,6 @@ const Cart = forwardRef((props, ref) => {
    const {cartData,addToCart,removeFromCart,CartTotal}  = useContext(CartCon);
   const [total,setTotal]=useState(0);
   const router = useRouter();
-  
-  const [carts,setCarts] = useState([
-
-
-    {
-      name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
-      price:56,
-      id:2,
-      color:"grey",
-      img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
-      qty:3
-     },
-     {
-      name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
-      price:56,
-      color:"grey",
-      img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
-      qty:3
-     },
-     {
-      name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
-      price:56,
-      color:"grey",
-      img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
-      qty:3
-     },
-     {
-      name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
-      price:56,
-      color:"grey",
-      img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
-      qty:3
-     },
-     {
-      name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
-      price:56,
-      color:"grey",
-      img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
-      qty:3
-     },
-     {
-      name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
-      price:56,
-      color:"grey",
-      img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
-      qty:3
-     },
-     {
-      name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
-      price:56,
-      color:"grey",
-      img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
-      qty:3
-     },
-     {
-      name:"Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60 GHz)",
-      price:56,
-      color:"grey",
-      img:"https://res.cloudinary.com/strapimedia/image/upload/v1704806799/cld-sample-4.jpg",
-      qty:3
-     },
-     
-
-  ]);
 const  ls = require('local-storage');
   const [subtotal,setSubtotal]=useState(0);
  
@@ -96,7 +32,6 @@ const  ls = require('local-storage');
 
 
 
- 
 
 
 
@@ -210,10 +145,16 @@ const notify = (type,msg)=>{
                       
                {ls.get("MinimoonCart")&&ls.get("MinimoonCart").length!=0?ls.get("MinimoonCart").map((cart,index)=>(
                 
-                <Cartel order={false} key={index} index={index} removeItem={removeFromCart} id={cart.data.id} name={cart.data.nameEn} price={cart.data.vars.filter(obj => {
-                  return obj.id === cart.selvar
-                })} size={cart.data.opt} 
-                comm={cart.data.comm}  color={cart.data.color} img={cart.data.id} qty={cart.data.qty} cartsize={cart.size}  cartcolor={cart.color}  selvar={cart.selvar} selcolor={cart.selcolor} />
+                <Cartel order={false} 
+                key={index}
+                index={index}
+                data={cart.data}
+                selvar={cart.selvar}
+                 removeItem={removeFromCart} 
+                 qty={cart.qty}
+                  
+
+                      />
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
@@ -248,7 +189,7 @@ const notify = (type,msg)=>{
                       Total  : {CartTotal} {CURRENCY} 
                      </div> */}
    
-                    <div style={{padding:20, display:cartData.length==0?"none":"flex",alignItems:'center',justifyContent:'space-between'}}>
+                    <div style={{padding:20, display:cartData&&cartData.length==0?"none":"flex",alignItems:'center',justifyContent:'space-between'}}>
                         <div style={{fontSize:15,fontWeight:'bold'}}>
                           
                            </div>

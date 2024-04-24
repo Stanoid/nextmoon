@@ -63,6 +63,819 @@ export const product = {
             },
             },
             {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            {
+              "id": 42814,
+              "nameEn": "Floral Print Dress",
+           "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",
+              "nameAr": "فستان طبعة الزهور",
+              "descriptionEn": "A beautiful floral print dress perfect for any occasion.",
+              "descriptionAr": "فستان طبعة الزهور الجميلة المثالي لأي مناسبة.",
+              "imgUrl": "https://example.com/images/floral-dress.jpg",
+              
+              "vars":[
+                {
+                "nameEn":"Small",
+                "nameAr":"صغير",
+                "icon":"X",
+                "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                "stock":10
+                },
+
+                {
+                  "nameEn":"Large",
+                  "nameAr":"كبير",
+                  "icon":"L",
+                  "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                  "stock":5
+                  },
+
+                  {
+                    "nameEn":"Extra Large",
+                    "nameAr":"كبير X",
+                    "icon":"XL",
+                    "price":  Math.round(Math.random() * (387 - 54) + 54 ),"id": Math.random(),
+                    "stock":4
+                    },
+               
+              ],
+
+              "colors":[
+                { "nameEn":"Blue",
+                "id":Math.random(),
+                "nameAr":"أزرق",
+                "colorCode":"#0000FF"},
+                { "nameEn":"Red",
+                "id":Math.random(),
+                "nameAr":"أحمر",
+                "colorCode":"#FF0000"},
+                { "nameEn":"Green",
+                "id":Math.random(),
+                "nameAr":"أخضر",
+                "colorCode":"#00FF00"},
+              ],
+              
+              "cat": {
+                "id": 1,
+                "nameEn": "Health & Beauty",
+                "nameAr": "صحة وجمال",
+                "status": true
+            },
+            },
+            
+            {
               "id": 78921,
               "nameEn": "Men's Casual Shirt",
            "price":Math.round(Math.random() * (387 - 54) + 54 ),"seller":"Someone",

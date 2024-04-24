@@ -2,21 +2,27 @@
 import React, { useState, useEffect,useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { Theme } from "../local";
+import { CURRENCY, Theme } from "../local";
 import { CartCon } from "../contexts/cartContext";
 import Cartel from "../comps/cartel";
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
-const stripePromise = loadStripe("pk_test_51K8iqJEwl4rGJF4IRpIi33BzJGMlFHWMDlnW0UYbyxt4kpKJhRgQ3xOAkWeNvVztBx8vlDl9Jrvjr3lQefhI9mtx00wpIWsP1y");
+//const stripePromise = loadStripe("pk_test_51K8iqJEwl4rGJF4IRpIi33BzJGMlFHWMDlnW0UYbyxt4kpKJhRgQ3xOAkWeNvVztBx8vlDl9Jrvjr3lQefhI9mtx00wpIWsP1y");
 
 export default function App() {
   const [clientSecret, setClientSecret] = useState("");
   const {cartData,removeFromCart,CartTotal}  = useContext(CartCon);
+
+
+
+  
+  const [Total,setTotal] = useState()
+  
   const ls = require("local-storage");
   useEffect(() => {
 
-
+//setTotal(handleTotal())
     console.log("cart from checkout",cartData)
 
     // // Create PaymentIntent as soon as the page loads
@@ -29,6 +35,36 @@ export default function App() {
     //   .then((data) => setClientSecret(data.clientSecret));
   }, []);
 
+
+
+
+  const handleTotal = ()=>{
+
+ //   console.log("aaaaaaaa",cartData.length&&cartData.length);
+
+  if(cartData.length==0){
+    setCartTotal(0);
+    console.log("empty triggered")
+    // return
+  }
+  
+  let total = 0;
+  for (let i = 0; i < cartData.length; i++) {
+//console.log("ffffffffffffffffffff",cartData[i].data.attributes.varients.data.length)
+
+for (let j = 0; j < cartData[i].data.attributes.varients.data.length; j++) {
+  const element = cartData[i].data.attributes.varients.data[j];
+total = total + (cartData[i].data.attributes.varients.data[j].attributes.price *cartData[i].qty);
+  //console.log("aaaaaaa",total)
+}
+  }
+
+return total;
+
+  }
+
+
+
   const appearance = {
     theme: 'stripe',
   };
@@ -36,6 +72,11 @@ export default function App() {
     clientSecret,
     appearance,
   };
+
+
+  
+
+
 
   return (
     <div className="grid-cols-12">
@@ -55,19 +96,24 @@ export default function App() {
       class="relative">
       
                  
-      {ls.get("MinimoonCart")&&ls.get("MinimoonCart").length!=0?ls.get("MinimoonCart").map((cart,index)=>(
-                
-                <Cartel order={true} key={index} index={index} removeItem={removeFromCart} id={cart.data.id} name={cart.data.nameEn} price={cart.data.vars.filter(obj => {
-                  return obj.id === cart.selvar
-                })} size={cart.data.opt} 
-                comm={cart.data.comm}  color={cart.data.color} img={cart.data.id} qty={cart.data.qty} cartsize={cart.size}  cartcolor={cart.color}  selvar={cart.selvar} selcolor={cart.selcolor} />
-           
+      {cartData&&cartData.length!=0?cartData.map((cart,index)=>(
+                <Cartel
+                key={index}
+                index={index}
+                data={cart.data}
+                selvar={cart.selvar}
+                 removeItem={removeFromCart} 
+                 qty={cart.qty}
+                order={true}
+
+                      />
+
                )): <div>Empty order</div>}
 
         <div class="my-5 h-0.5 w-full bg-white bg-opacity-30"></div>
         <div class="space-y-2">
         <p class="flex justify-between text-sm font-medium text-white"><span>Vat: 10%</span><span>$55.00</span></p>
-          <p class="flex justify-between text-lg font-bold text-white"><span>Total price:</span><span>$510.00</span></p>
+          <p class="flex justify-between text-lg font-bold text-white"><span>Total price:</span><span> {handleTotal()}  {CURRENCY}</span></p>
           
         </div>
       </div>
