@@ -20,7 +20,7 @@ export default function Home() {
 
     //TODO: get products with category id and save it to products state
 
-console.log(getQueryVariable("cid"))
+//console.log(getQueryVariable("cid"))
 
 
 
@@ -30,17 +30,17 @@ console.log(getQueryVariable("cid"))
        }, [])
 
 //TODO: move to a context
-       function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i = 0; i < vars.length; i++) {
-          var pair = vars[i].split("=");
-          if (decodeURIComponent(pair[0]) == variable) {
-            return decodeURIComponent(pair[1]);
-          }
-        }
-        console.log("Query variable %s not found", variable);
-      }
+      //  function getQueryVariable(variable) {
+      //   var query = window.location.search.substring(1);
+      //   var vars = query.split("&");
+      //   for (var i = 0; i < vars.length; i++) {
+      //     var pair = vars[i].split("=");
+      //     if (decodeURIComponent(pair[0]) == variable) {
+      //       return decodeURIComponent(pair[1]);
+      //     }
+      //   }
+      //   console.log("Query variable %s not found", variable);
+      // }
 
   const handleOpenCart =(open)=>{
     setOpenCart(open)
@@ -58,40 +58,40 @@ console.log(getQueryVariable("cid"))
   return (
   
 
-
+<></>
       
    
-    <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
+//     <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
 
- {/* <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} /> */}
+//  {/* <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} /> */}
 
-<div style={{display:"flex",width:"100%",padding:10}}> 
+// <div style={{display:"flex",width:"100%",padding:10}}> 
 
 
 
-</div>
+// </div>
 
-    <div >
+//     <div >
     
-    <div     className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  ' style={{width:'100%'}}>
+//     <div     className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  ' style={{width:'100%'}}>
     
-    {products&&products.map(product=>(
+//     {products&&products.map(product=>(
 
-<div  key={product.id}>
+// <div  key={product.id}>
 
-<Product data={product} />
+// <Product data={product} />
 
-</div>
-))}
+// </div>
+// ))}
     
   
 
 
 
-  </div>
-  <br/><br/><br/><br/>
-  </div>
-  </div>
+//   </div>
+//   <br/><br/><br/><br/>
+//   </div>
+//   </div>
  
   );
 }

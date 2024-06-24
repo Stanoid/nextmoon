@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Product from "./comps/product";
 import Hero from "./comps/hero";
-import { API_URL } from "./local";
+import { API_URL ,Theme} from "./local";
 import { useState,useRef,useEffect,useContext } from "react";
 import FeatProduct from "./comps/featuredProducts";
 import { AuthCon } from "./contexts/AuthCon";
-
+import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import Cart from "./comps/cart";
 
 import { product } from "./comps/productdata";
@@ -16,6 +17,7 @@ export default function Home() {
   const childCompRef = useRef()
   const {loginval}  = useContext(AuthCon);
   const [products,setProducts] = useState()
+  const [lod,setLod] = useState(true);
 
   
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function Home() {
 
 
        const getAllProducts = ()=>{
-        
+        setLod(true);
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -45,9 +47,12 @@ export default function Home() {
       
               console.log("data22233",data)
            setProducts(data)
+           setLod(false)
           
            
-            });
+            }).then(()=>{
+              setLod(false)
+            })
     
     
     }
@@ -88,28 +93,40 @@ export default function Home() {
   <Hero  />
 </div>
 
-
-    <div >
+{
+  !lod?<div >
     
-    <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  '
-     style={{width:'100%'}}>
-    
-    {products&&products.map(product=>(
-
+  <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 
+  xl:grid-cols-8
+   md:grid-cols-4 
+   grid-cols-2  '
+   style={{width:'100%'}}>
+  
+  {products&&products.map(product=>(
+product.status?     
 <div  key={product.id}>
-
 <Product data={product} />
-
-</div>
+</div>:<></>
 ))}
-    
   
 
 
 
-  </div>
-  <br/><br/><br/><br/>
-  </div>
+
+</div>
+<br/><br/><br/><br/>
+</div>:<div  style={{ width: "100%", padding: "20px 10px" }}>
+ 
+ <SkeletonTheme baseColor="white" highlightColor={Theme.primary}>
+ 
+      <Skeleton count={3} />
+   
+  </SkeletonTheme>
+
+ 
+</div>
+}
+    
   </div>
  
   );

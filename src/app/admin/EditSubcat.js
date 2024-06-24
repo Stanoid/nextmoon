@@ -9,12 +9,11 @@ import { useRouter } from 'next/navigation'
 import { TiThMenu } from "react-icons/ti";
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
-
 import { AuthCon } from '../contexts/AuthCon';
 
 
 
-function AddSize(props) {
+function EditSubCat(props) {
     const ls = require("local-storage")
     const {logindata,logoutUser}  = useContext(AuthCon);
 
@@ -22,14 +21,15 @@ function AddSize(props) {
     const [nameen,setNameen] = useState("");
     const [sicon,setSicon] = useState("");
     const [sizes,setSizes] = useState([]);
-
-
+    const [cat,setCat] = useState(null)
+    const [subcats,setSubcats] = useState([]);
+    const [catid,setCatid]= useState(null);
     const router = useRouter(); 
     const [lod,setlod] = useState(false)
 
 
     useEffect(() => {
-    getSizes();
+    getCats();
    
     }, [])
     
@@ -48,7 +48,7 @@ function AddSize(props) {
     
     
         
-        const getSizes=()=>{
+        const getCats=()=>{
          
     
              
@@ -61,24 +61,54 @@ function AddSize(props) {
         
       };
     
-        fetch(`${API_URL}sizes`, requestOptions)
+        fetch(`${API_URL}catagories`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("sizes data ",data.data )
-           setSizes(data.data);
+            console.log("cats data ",data.data )
+           setCat(data.data);
           }).then(()=>{
          
-          
+          getSubcat()
           })
     
     
         }
 
 
-        const deleteEntry=(id)=>{
+            
+        const getSubcat=()=>{
          
     
              
+          const requestOptions = {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + ls.get("atkn")
+            },
+          
+        };
+      
+          fetch(`${API_URL}subcatagories/${props.scatid}?populate=catagory`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("SSSScat ",data.data )
+             setNamear(data.data.attributes.name_ar);
+             setNameen(data.data.attributes.name_en);
+             setCatid(data.data.attributes.catagory.data.id)
+            }).then(()=>{
+           
+           
+            })
+      
+      
+          }
+
+
+      
+  
+
+        const deleteEntry=(id)=>{        
           const requestOptions = {
             method: 'DELETE',
             headers: {
@@ -88,11 +118,11 @@ function AddSize(props) {
           
         };
       
-          fetch(`${API_URL}sizes/${id}`, requestOptions)
+          fetch(`${API_URL}subcatagories/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
               console.log("deleted ",data.data )
-           getSizes();
+           getSubcats();
             }).then(()=>{
            
             
@@ -152,7 +182,7 @@ function AddSize(props) {
 
 
 
-  if(sicon==""||namear==""||nameen==""){
+  if(namear==""||nameen==""||catid==null){
     alert("Empty Feilds")
     return;
   }
@@ -164,7 +194,7 @@ function AddSize(props) {
         
 
         const requestOptions = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + ls.get("atkn")
@@ -172,29 +202,26 @@ function AddSize(props) {
             body: JSON.stringify(
                 {
                 
-                    "name_ar":nameen,
-                    "name_en":namear,
-                    "icon":sicon,
-                    "status": true
-                  
-                  
+                    "name_ar":namear,
+                    "name_en":nameen,
+                    "catagory":catid
+                              
              
                   }
               )
           
         };
       
-          fetch(`${API_URL}sizes?func=AddSize`, requestOptions)
+          fetch(`${API_URL}subcatagories/${props.scatid}?func=EditSubCat`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
               console.log("added product data",data )
-             setNamear("");
-             setNameen("");
-             setSicon("");
-             getSizes();
-             alert("size added")
+          
+         
 
               setlod(false);
+
+              props.setpage(6)
             }).then(()=>{
          
             
@@ -239,26 +266,26 @@ display:"grid",
 gap:10,
 gridTemplateAreas:`
 ' namear  namear  nameen nameen  ' 
-'sicon sicon sicon sicon'
+'cat cat . .'
 
 `
-
 
    }} >
 
 
     <div style={{gridArea:"namear"}}>
-      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"Size name (Arabic)"}/>
+      <InputEl value={namear} outputfunc={(val)=>{setNamear(val)}} label={"Sub-category name (Arabic)"}/>
     </div>
 
     <div style={{gridArea:"nameen"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"Size name (English)"}/>
+      <InputEl value={nameen} outputfunc={(val)=>{setNameen(val)}} label={"Sub-category name (English)"}/>
+    </div>
+
+    <div style={{gridArea:"cat"}}>
+    <InputEl value={catid} outputfunc={(val)=>{setCatid(val)}} select={true} data={cat}   label={"Category"}/>
     </div>
 
 
-    <div style={{gridArea:"sicon"}}>
-      <InputEl outputfunc={(val)=>{setSicon(val)}} label={"Size Icon (X,XXL,...)"}/>
-    </div>
 
   
   
@@ -270,45 +297,10 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Add Size"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Update sub-category"} />
 </div>
 
 
-<div className='shadow-md' style={{marginTop:20,width:"70%",padding:10,borderRadius:10}}>
-<div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Added Sizes:
-</div>
-<br/>
-<div > 
-<table style={{width:"100%"}}>
-<tr style={{textAlign:"left",marginBottom:20}}>
-    <th>Size Name (English)</th>
-    <th>Size Name (Arabic)</th>
-    <th> Size icon</th>
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
-<br/>
-{sizes&&sizes.map((size,index)=>(
-<tr  style={{textAlign:"left",padding:5, backgroundColor:index%2==0?"lightgray":"white"  }}>
-    <th style={{padding:15}} >  {size.attributes.name_en}</th>
-    <th  style={{padding:15}} > {size.attributes.name_ar}</th>
-    <th  style={{padding:15}}> {size.attributes.icon}</th>
-    <th  style={{padding:15}}>
-      <div onClick={()=>{props.setpage(16,size.id)}}  style={{color:"white",backgroundColor:Theme.secondary,padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaEdit  />
-</div>
-</th>
-    <th>
-    <div onClick={()=>{deleteEntry(size.id)}} style={{color:"white",backgroundColor:"#ff2e2e",padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaTimes  />
-</div>
-</th>
-  </tr>
-))}
-</table>
-</div>
-</div>
 
       
     </div>
@@ -320,58 +312,4 @@ Added Sizes:
   )
 }
 
-export default AddSize
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default EditSubCat

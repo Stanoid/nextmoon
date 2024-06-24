@@ -1,7 +1,7 @@
 "use client";
 import "./globals.css";
 import { React, useEffect, useState, useRef, useContext } from "react";
-import { LOCALE, Theme } from "./local";
+import { LOCALE, Theme,API_URL} from "./local";
 import Image from "next/image";
 import logowhite from "../../public/logowhite.svg";
 import Cart from "./comps/cart";
@@ -28,6 +28,11 @@ export default function RootLayout({ children }) {
   const [openCart, setOpenCart] = useState(false);
   const [openCartl, setOpenCartl] = useState(false);
   const childCompRef = useRef();
+  const [eleft,setEleft] = useState(null)
+  const [eltop,setEtop] = useState(null)
+  const [draw,setDraw] = useState(false)
+  const [searwidth,setSearwidth] = useState(0);
+  const [sugges,setSugges] = useState([])
   //let { cart } = useContext(CartContext);
 
   const handleOpenCart = (open) => {
@@ -37,6 +42,50 @@ export default function RootLayout({ children }) {
     setOpenCartl(open);
   };
   const [utype, setutype] = useState(0);
+
+  const handleSearch = (el) =>{
+//console.log(el.target.value)
+
+// if(el.target.value.lenght<4){
+//   console.log("returned")
+
+//   return;
+// }
+
+console.log("lenght",el.target.value.length)
+
+if(el.target.value.length<3){
+console.log("returned-ish")
+}else{
+
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+        "Content-Type": "application/json",
+        // "Authorization": 'Bearer ' + ls.get("atkn")
+    },
+  };
+  fetch(`${API_URL}products?func=SearchWithkeyword&keyword=${el.target.value}`, requestOptions)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("search",data );  
+      setSugges(data)
+    }).then(()=>{
+  
+    })
+
+}
+
+
+  }
+
+  const drawSugg = (el)=>{
+console.log("search")
+    setEleft(el.target.getBoundingClientRect().left);
+    setSearwidth(el.target.getBoundingClientRect().width);
+    setEtop(el.target.getBoundingClientRect().top);
+    setDraw(true);
+  }
 
   return (
     <html className="scrollable-content" lang="en">
@@ -160,13 +209,14 @@ export default function RootLayout({ children }) {
                     </div>
                   </div>
                   <div class="flex-1 hidden lg:flex md:hidden sm:hidden px-4  justify-between">
+
                     <div class="flex-1 flex   items-center">
                       <div class="w-2/3 flex md:ml-0">
                         <label for="search_field" class="sr-only">
                           Search
                         </label>
                         <div class="relative w-full text-white focus-within:text-gray-600">
-                          <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                          <div class="absolute inset-y-0 left-0 flex items-center p-2 pointer-events-none">
                             <svg
                               class="h-5 w-5"
                               fill="currentColor"
@@ -180,12 +230,49 @@ export default function RootLayout({ children }) {
                             </svg>
                           </div>
                           <input
+                          // onBlur={()=>{setDraw(false)}}
+                          onFocus={(el)=>{drawSugg(el)}}
+                          onChange={(el)=>{
+                            handleSearch(el);
+                          }}
                             id="search_field"
                             class="block w-full  pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm"
                             placeholder="Search Minimoon"
                           />
                         </div>
                       </div>
+                      
+   <div
+   className="z-10 shadow-md"
+   style={{ 
+  position:"absolute",
+  top:eltop+30,
+  left:eleft,
+  fontSize:15,
+  width:searwidth,
+  backgroundColor:"white",
+  borderRadius:"0px 0px 10px 10px",
+  padding:10,
+  borderBottom:"5px solid"+ Theme.primary,
+  display: draw?"block":"none", 
+  }}
+
+   >
+
+ {sugges&&sugges.map((sug,index)=>(
+<div key={index} onClick={()=>{location.href=("/products?pid="+sug.id);setDraw(false)}} className="hover:bg-slate-100" style={{color:"grey",padding:10,borderRadius:5,cursor:"pointer"}}>
+    {sug.name_en}
+    </div>
+
+))}
+    
+    
+    
+
+  
+
+   </div>
+                    
                     </div>
                     <div class="ml-4 flex items-center md:ml-6">
                       
@@ -324,7 +411,6 @@ export default function RootLayout({ children }) {
                           fontSize: 13,
                           color: Theme.secondary,
                           wordSpacing: "0.1px",
-
                           border: "3px solid" + Theme.primary,
                           outline: "white",
                           borderRadius: 20,
@@ -350,7 +436,7 @@ export default function RootLayout({ children }) {
                     padding: 5,
                     width: "100vw",
                     position: "sticky",
-                    zIndex: 20,
+                    zIndex: 5,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",

@@ -3,7 +3,7 @@ import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import React, { useState, useEffect, useContext, useRef, useSear } from "react";
 import { useRouter } from "next/navigation";
-import { API_URL, ROOT_URL, CURRENCY, Theme,IMG_URL } from "../local";
+import { API_URL, ROOT_URL, CURRENCY, Theme,IMG_URL,DEF_IMG } from "../local";
 import QuantEl from "../comps/quantel";
 import RootLayout from "@/app/layout";
 import {
@@ -26,7 +26,7 @@ function classNames(...classes) {
 export default function Product({}) {
   const [db, setDb] = useState(null);
   const [price, setPrice] = useState();
-  const [lod, setLod] = useState(false);
+  const [lod, setLod] = useState(true);
   const [selectedV, setSelectedV] = useState();
   const [selectedC, setSelectedC] = useState();
   const [size, setSize] = useState();
@@ -48,7 +48,7 @@ export default function Product({}) {
       // callback function to call when event triggers
       const onPageLoad = () => {
         console.log('page loaded');
-        setLod(true);
+       // setLod(true);
       };
   
       // Check if the page has already loaded
@@ -105,6 +105,7 @@ for (let i = 0; i < vrs.length; i++) {
 
   const getFullProduct = ()=>{
         
+    setLod(true);
     const requestOptions = {
         method: 'GET',
         headers: {
@@ -127,6 +128,7 @@ for (let i = 0; i < vrs.length; i++) {
           setColor(data.data.attributes.varients.data[0].attributes.color.data.attributes.colorCode);
           setDb(data.data);
         }).then(()=>{
+          setLod(false);
         console.log("aaaaa",imgs)
         });
 
@@ -223,7 +225,7 @@ for (let i = 0; i < vrs.length; i++) {
       {/* <ToastContainer  limit={3}/> */}
 
     {
-  lod?  <div className="main " style={{ width: "100%", padding: "20px 10px" }}>
+  !lod? <div className="main " style={{ width: "100%", padding: "20px 10px" }}>
         
 
   <div
@@ -240,7 +242,8 @@ for (let i = 0; i < vrs.length; i++) {
     <div style={{ width: "100%",marginBottom:10 }} class="grid gap-4">
       <div>
         <img
-         
+        id="mimg"
+         onError={()=>{document.getElementById("mimg").src=DEF_IMG}}
           class="h-auto max-w-full rounded-lg"
           src={ IMG_URL.concat(imgs[mimg]) }
           alt=""
@@ -256,7 +259,10 @@ for (let i = 0; i < vrs.length; i++) {
            handleimgselection(index);
           }}>
           <img
+          id={index}
             class="h-auto max-w-full rounded-lg"
+            style={{width:"100%"}}
+            onError={()=>{document.getElementById(index).src=DEF_IMG}}
             src={IMG_URL.concat(img)}
             alt=""
           />
@@ -266,6 +272,7 @@ for (let i = 0; i < vrs.length; i++) {
          )): <div></div>}
         
       </div>
+      
     </div>
 
    

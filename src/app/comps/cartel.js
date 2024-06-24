@@ -68,11 +68,14 @@ src={ IMG_URL.concat(JSON.parse(props.data.attributes.img)[0])} />
 
 <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",flexDirection:props.order?"row":"column"}} className='sm:flex-col lg:flex-row' >
 
-<div style={{fontSize:15,padding:5,fontWeight:"bold"}}>{props.data.attributes.name_en}</div>
+<div style={{fontSize:15,padding:5,paddingBottom:0,fontWeight:"bold",textAlign:"left"}}>{props.data.attributes.name_en}</div>
 
 
-      <div style={{fontSize:15,padding:5,color:Theme.primary}}>{varient.attributes&&varient.attributes.price} {CURRENCY}</div>
-      <div style={{padding:5}}>{props.qty} Pc/s</div>
+      <div style={{fontSize:15,padding:5,color:Theme.primary,paddingTop:0}}>{varient.attributes&&varient.attributes.price} {CURRENCY}
+      <span style={{padding:5,paddingTop:0,color:"black",fontWeight:"bold"}}>{props.qty} Pc/s</span>
+
+      </div>
+     
 
 </div>
 
@@ -80,7 +83,7 @@ src={ IMG_URL.concat(JSON.parse(props.data.attributes.img)[0])} />
 
 
 
-      <div style={{display:"flex",alignContent:"center",justifyContent:"center",flexDirection:"column"}}>
+      <div style={{display:"flex",alignContent:"center",justifyContent:"center",flexDirection:"column",marginRight:10}}>
 
       <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 <div  style={{width:25,height:25,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
@@ -93,7 +96,7 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
 
 </div>
 
-<div style={{fontSize:13,display:props.order?"none":"block"}}>
+<div style={{fontSize:13,display:props.order?"none":"block",textAlign:"center"}}>
 {varient.attributes&&varient.attributes.size.data.attributes.name_en} <span>  </span> {varient.attributes&&varient.attributes.color.data.attributes.name_en}
 </div>
 
@@ -102,7 +105,7 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
 
       <div
       onClick={()=>{props.removeItem(props.index)}}
-      style={{display:props.order?"none":"flex",alignItems:"center",justifyContent:"center",borderLeft:"1px solid lightgrey",paddingLeft:10}}>
+      style={{display:props.order?"none":"flex",alignItems:"center",justifyContent:"center",borderLeft:"2px solid lightgrey",paddingLeft:10}}>
         <div style={{backgroundColor:"red",padding:2.5,borderRadius:100}}>
         <BsX style={{color:"white",fontSize:25}} />
         </div>

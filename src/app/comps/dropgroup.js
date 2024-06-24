@@ -28,13 +28,13 @@ useEffect(() => {
           
         };
       
-          fetch(`${API_URL}catagories`, requestOptions)
+          fetch(`${API_URL}catagories?populate=*`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
       
       
               
-         // console.log("Catagories data ",data.data)
+          console.log("Catagories data ",data.data)
          setCats(data.data);
           
            

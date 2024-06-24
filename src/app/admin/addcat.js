@@ -9,12 +9,11 @@ import { useRouter } from 'next/navigation'
 import { TiThMenu } from "react-icons/ti";
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
-
 import { AuthCon } from '../contexts/AuthCon';
 
 
 
-function AddSize(props) {
+function AddCat(props) {
     const ls = require("local-storage")
     const {logindata,logoutUser}  = useContext(AuthCon);
 
@@ -29,7 +28,7 @@ function AddSize(props) {
 
 
     useEffect(() => {
-    getSizes();
+    getCats();
    
     }, [])
     
@@ -48,7 +47,7 @@ function AddSize(props) {
     
     
         
-        const getSizes=()=>{
+        const getCats=()=>{
          
     
              
@@ -61,10 +60,10 @@ function AddSize(props) {
         
       };
     
-        fetch(`${API_URL}sizes`, requestOptions)
+        fetch(`${API_URL}catagories`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("sizes data ",data.data )
+            console.log("cats data ",data.data )
            setSizes(data.data);
           }).then(()=>{
          
@@ -75,10 +74,7 @@ function AddSize(props) {
         }
 
 
-        const deleteEntry=(id)=>{
-         
-    
-             
+        const deleteEntry=(id)=>{        
           const requestOptions = {
             method: 'DELETE',
             headers: {
@@ -88,11 +84,11 @@ function AddSize(props) {
           
         };
       
-          fetch(`${API_URL}sizes/${id}`, requestOptions)
+          fetch(`${API_URL}catagories/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
               console.log("deleted ",data.data )
-           getSizes();
+           getCats();
             }).then(()=>{
            
             
@@ -152,7 +148,7 @@ function AddSize(props) {
 
 
 
-  if(sicon==""||namear==""||nameen==""){
+  if(namear==""||nameen==""){
     alert("Empty Feilds")
     return;
   }
@@ -172,26 +168,21 @@ function AddSize(props) {
             body: JSON.stringify(
                 {
                 
-                    "name_ar":nameen,
-                    "name_en":namear,
-                    "icon":sicon,
-                    "status": true
+                    "name_ar":namear,
+                    "name_en":nameen,
                   
-                  
+                    "status": true            
              
                   }
               )
           
         };
       
-          fetch(`${API_URL}sizes?func=AddSize`, requestOptions)
+          fetch(`${API_URL}catagories?func=AddCat`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
               console.log("added product data",data )
-             setNamear("");
-             setNameen("");
-             setSicon("");
-             getSizes();
+             getCats();
              alert("size added")
 
               setlod(false);
@@ -239,26 +230,23 @@ display:"grid",
 gap:10,
 gridTemplateAreas:`
 ' namear  namear  nameen nameen  ' 
-'sicon sicon sicon sicon'
+
 
 `
-
 
    }} >
 
 
     <div style={{gridArea:"namear"}}>
-      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"Size name (Arabic)"}/>
+      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"Category name (Arabic)"}/>
     </div>
 
     <div style={{gridArea:"nameen"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"Size name (English)"}/>
+      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"Category name (English)"}/>
     </div>
 
 
-    <div style={{gridArea:"sicon"}}>
-      <InputEl outputfunc={(val)=>{setSicon(val)}} label={"Size Icon (X,XXL,...)"}/>
-    </div>
+
 
   
   
@@ -270,21 +258,21 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Add Size"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Add Category"} />
 </div>
 
 
 <div className='shadow-md' style={{marginTop:20,width:"70%",padding:10,borderRadius:10}}>
 <div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Added Sizes:
+Added Categories:
 </div>
 <br/>
 <div > 
 <table style={{width:"100%"}}>
 <tr style={{textAlign:"left",marginBottom:20}}>
-    <th>Size Name (English)</th>
-    <th>Size Name (Arabic)</th>
-    <th> Size icon</th>
+    <th>Category Name (English)</th>
+    <th>Category Name (Arabic)</th>
+   
     <th>Edit</th>
     <th>Delete</th>
   </tr>
@@ -293,13 +281,13 @@ Added Sizes:
 <tr  style={{textAlign:"left",padding:5, backgroundColor:index%2==0?"lightgray":"white"  }}>
     <th style={{padding:15}} >  {size.attributes.name_en}</th>
     <th  style={{padding:15}} > {size.attributes.name_ar}</th>
-    <th  style={{padding:15}}> {size.attributes.icon}</th>
+   
     <th  style={{padding:15}}>
-      <div onClick={()=>{props.setpage(16,size.id)}}  style={{color:"white",backgroundColor:Theme.secondary,padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      <div  onClick={()=>{props.setpage(18,size.id)}}  style={{color:"white",backgroundColor:Theme.secondary,padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
   <FaEdit  />
 </div>
 </th>
-    <th>
+    <th  style={{padding:15}} >
     <div onClick={()=>{deleteEntry(size.id)}} style={{color:"white",backgroundColor:"#ff2e2e",padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
   <FaTimes  />
 </div>
@@ -320,58 +308,4 @@ Added Sizes:
   )
 }
 
-export default AddSize
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default AddCat
