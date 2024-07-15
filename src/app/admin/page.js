@@ -8,8 +8,10 @@ import AddSize from './addSize';
 import AddColor from './AddColor';
 import EditProduct from './editProduct';
 import EditColor from './editColor';
+import PromoCodes from './promoCodes';
 import AddSubCat from './addsubcat';
 import EditSize from './editsize';
+import Orders from './orders';
 import EditCat from './EditCat';
 import AddCat from './addcat';
 import EditSubCat from './EditSubcat';
@@ -77,7 +79,7 @@ function AccounteEl() {
       console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
 
         
-  if(data.id){
+  if(data.id){   
 
   if(data.type==1){
        
@@ -215,7 +217,7 @@ function AccounteEl() {
 
       <li onClick={()=>{setPage(10)}} class="me-1" style={{borderLeft:"2px solid lightgrey"}}>
         <a  style={{backgroundColor: page==10?"rgb(243 244 246)": "white" ,color:page==10?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Now or never</a>
+         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Promotion codes</a>
     </li>
 
     <li onClick={()=>{setPage(11)}} class="me-1">
@@ -268,6 +270,8 @@ function AccounteEl() {
 
   {page==15 ? pid?<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} />:<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} /> :<></>}
 
+  {page==14 ? <Orders  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
+  {page==10 ? <PromoCodes setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
 
   {page==16 ? sid?<EditSize setpage={(page)=>{setPage(page)}} sid={sid} />:<EditSize setpage={(page)=>{setPage(page)}} sid={sid} /> :<></>}
 

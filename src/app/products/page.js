@@ -28,6 +28,7 @@ export default function Product({}) {
   const [price, setPrice] = useState();
   const [lod, setLod] = useState(true);
   const [selectedV, setSelectedV] = useState();
+  const [pref, setPref] = useState();
   const [selectedC, setSelectedC] = useState();
   const [size, setSize] = useState();
   const [color, setColor] = useState();
@@ -62,16 +63,16 @@ export default function Product({}) {
 
 
 
-      for (let i = 0; i < product.data.length; i++) {
-        if (product.data[i].id == getQueryVariable("pid")) {
-          console.log("here:", product.data[i]);
+      // for (let i = 0; i < product.data.length; i++) {
+      //   if (product.data[i].id == getQueryVariable("pid")) {
+      //     console.log("here:", product.data[i]);
         
   
         
   
-        } else {
-        }
-      }
+      //   } else {
+      //   }
+      // }
 
 
 
@@ -81,9 +82,10 @@ export default function Product({}) {
   }, []);
 
 
-  const varselectHandler = (vid)=>{
+  const varselectHandler = (vid,prodRef)=>{
 setQty(1)
 setSelectedV(vid);
+setPref(prodRef)
 
 const vrs = db.attributes.varients.data;
 
@@ -123,6 +125,8 @@ for (let i = 0; i < vrs.length; i++) {
           setPrice(data.data.attributes.varients.data[0].attributes.price);
           setStock(data.data.attributes.varients.data[0].attributes.stock);
           setSelectedV(data.data.attributes.varients.data[0].id);
+          setPref(data.data.attributes.varients.data[0].attributes.product_ref)
+          console.log(data.data.attributes.varients.data[0].attributes.product_ref)
           setSelectedC(data.data.attributes.varients.data[0].attributes.color.data.id);
           setSize(data.data.attributes.varients.data[0].attributes.size.data.id);
           setColor(data.data.attributes.varients.data[0].attributes.color.data.attributes.colorCode);
@@ -143,10 +147,11 @@ for (let i = 0; i < vrs.length; i++) {
     useContext(CartCon);
 
   const HandleAddToCart = () => {
-   
+   console.log(pref)
       addToCart({ 
         data: db, 
         selvar: selectedV, 
+        product_ref:pref,
         qty: qty, 
       });
       console.log("Product Has been added on empty cart: ", db.attributes.name_en);
@@ -251,7 +256,8 @@ for (let i = 0; i < vrs.length; i++) {
       </div>
       <div class="grid grid-cols-5 gap-4">
       {imgs&&imgs.length!=0?imgs.map((img,index)=>( 
-          <div style={{cursor:"pointer",
+        
+          img?<div style={{cursor:"pointer",
         border:"3px solid white",
         borderRadius:10,
         borderColor: mimg==index?Theme.primary:"white",
@@ -266,7 +272,7 @@ for (let i = 0; i < vrs.length; i++) {
             src={IMG_URL.concat(img)}
             alt=""
           />
-        </div>
+        </div>:<></>
           
      
          )): <div></div>}
@@ -299,7 +305,8 @@ for (let i = 0; i < vrs.length; i++) {
           }}
           class="px-2.5 py-0.5 text-xs   rounded-xl "
         >
-          New Arrival
+        {db&&db.attributes.subcatagory.data.attributes.name_en}
+        
         </span>
         <div
           style={{
@@ -391,7 +398,7 @@ for (let i = 0; i < vrs.length; i++) {
         }}
       >
         <div style={{width:"100%",padding:"10px",backgroundColor:"#FAFAFA",borderRadius: "10px 10px 0px 0px",}}>
-          <OptionEL varselect={(vid)=>{varselectHandler(vid)}} selid={selectedV} vars={db&&db.attributes.varients.data} />
+          <OptionEL varselect={(vid)=>{varselectHandler(vid,prodRef)}} selid={selectedV} vars={db&&db.attributes.varients.data} />
 
     
                </div>

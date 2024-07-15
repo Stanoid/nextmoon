@@ -47,6 +47,11 @@ export const AuthenContext = ({ children }) => {
             break;
 
 
+            case 5:
+              router.replace("/delivery");
+              break;
+
+
             case 4:
               router.replace("/");
             break;

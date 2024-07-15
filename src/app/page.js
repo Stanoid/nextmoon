@@ -96,7 +96,7 @@ export default function Home() {
 {
   !lod?<div >
     
-  <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 
+  <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-2 gap-y-4 p-2 
   xl:grid-cols-8
    md:grid-cols-4 
    grid-cols-2  '
@@ -105,7 +105,7 @@ export default function Home() {
   {products&&products.map(product=>(
 product.status?     
 <div  key={product.id}>
-<Product data={product} />
+<Product atcbtn={false} data={product} />
 </div>:<></>
 ))}
   

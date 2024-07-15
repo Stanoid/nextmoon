@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation'
 import { API_URL,Theme,CURRENCY } from '../local'
 
 import { forwardRef, useRef,useImperativeHandle  } from "react"
+import { product } from './productdata'
 
 const Cart = forwardRef((props, ref) => {
   const [open, setOpen] = useState(true)
@@ -34,6 +35,73 @@ const  ls = require('local-storage');
 
 
 
+const handleOrder= ()=>{
+  setLod(true)
+  let payarray = []
+  for (let i = 0; i < ls.get("MinimoonCart").length; i++) {
+    payarray.push({
+      id: cartData[i].selvar,
+      product_ref:cartData[i].product_ref,
+      qty: cartData[i].qty,
+      desc: cartData[i].data.attributes.description_en 
+    
+    })
+  }
+
+
+  console.log(payarray)
+  
+    const requestOptions = {
+  method: 'POST',
+  headers: {
+      "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+     items: payarray
+    })
+};
+fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("checoutlinked",data );
+    setLod(false)
+window.location= data.url;
+  }).then(()=>{
+    
+  });
+                        
+
+}
+
+
+
+
+const createCheckoutSession = ()=>{
+
+//   const requestOptions = {
+//     method: 'POST',
+//     headers: {
+//         "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(
+//         {     
+//            "id":1,
+//           }
+//       )
+// };
+//   fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log("checoutlinked",data );
+//       window.location= data.url;
+//     }).then(()=>{
+      
+//     });
+
+
+    props.openHandler(false);
+    router.push("/checkout")
+}
 
 
 
@@ -199,10 +267,10 @@ const notify = (type,msg)=>{
                          
                         
 
-                    
+                          
                          <LoadingBtn act={()=>{
-                          props.openHandler(false);
-                          router.push("/checkout")}}  text={"متابعة"} lod={lod} /></div>                  
+                       handleOrder() ; 
+                       }}  text={"متابعة"} lod={lod} /></div>                  
                     {/* /End replace */}
                   </div>
                 </div>

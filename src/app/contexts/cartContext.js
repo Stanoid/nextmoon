@@ -82,9 +82,6 @@ useEffect(() => {
   const addToCart = (ob)=>{
     //this code dosent make sense but it works
     console.log("incoming object ",ob)
-
-    
-
     const oldcart = cartData; //????
     let arr = oldcart
     

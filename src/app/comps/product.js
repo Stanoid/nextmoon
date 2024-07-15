@@ -46,7 +46,7 @@ export default function Product(props) {
         <div  className="shadow-md"  
         style={{marginBom:20,display:'block',
         display:"flex",alignItems:"center",justifyContent:"center"
-        ,padding:10,borderRadius:10,textAlign:'left',width:"100%",height:"100%"}}>
+        ,padding:10,borderRadius:7,textAlign:'left',width:"100%",height:"100%"}}>
 
 
 <div style={{
@@ -61,21 +61,10 @@ export default function Product(props) {
 
 
 <div style={{
-  display:loading?'none':'block' 
+  display:loading?'none':'flex',alignItems:"normal",justifyContent:"center",flexDirection:"column" 
 }} >
-      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} style={{borderRadius:5,alignItems:'center',
-      cursor:"pointer",justifyContent:"center"}}>
-
-{/* 
-<object
-  type="image/png"
-  data="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAACUCAMAAAA3b0xFAAAAMFBMVEXp7vG6vsG+wsXe4uXj6OvY3N+2ur3FyczS1tnLz9Lm6+7a3+LBxcjg5ejIzM/U2dxYFhVVAAACQElEQVR4nO3b4XqCIBhAYUWiFLT7v9s1zImKNaXlRzvvv83W49kQNVlRAAAAAAAAAAAAAAAArNFVsvbohiV9Oatkrq6O7pjRrnwJdT26ZKJ5TdWNsUe3hGrzsrCyOTpm1PSj0CVS/l1OR9eMKr9HVqfyv5766JqR71Lp73P51C5D1zv8k6724krV2e0Ttuiupr6fYd3miyLJXbobztFGbb12kNxVB5cObuMFuuCu/hQ9qLcdY4K7ZleKetP7CO6a3q+Ytamjiv4hBXepadfKzGFVF/t27l1WxXdfcFc3vZmKTojWJ9fLY09w13WS5WLzhlVrk6XgrnYyEGOfVtifVyyOMcFdxSnI6iKzXhVun22T3DWGmS4yCu1knM7CRXcVtvNfukvklXY6X86OMdldRVOdrlf7aMoIwsLNwrtWLbNu032wPdOualE1G4p5dsWzwrAsuyKDcJgVh5dk0tWEk9161hiWR5cugxOYXa/6PtP1v4EsulpnxvPuw6zvWdG/MIeu1gUj7NEg7Pkbmgy67o9Y+r2snmb1T1Hkd+mfHb4NxSeDMKOuNviYo/5NVh5d7fk3Kdl17XmInkGXfj5L5Ni1K0t+145jK4euducCFeldbudKDulduw4uut6LLrokoCvbrmYn/8OCu5LQ9R4f3RV/lryJX6sjqKu/5VLnRP2tgKSV5t182k4gaD128LFaKiNoGN7YFy2gNxtXiv053aX/e4oqnaDF84P2lCz6TBoAAAAAAAAAAAAAAAAAAEjzBS7CIGgyDyyNAAAAAElFTkSuQmCC"
-  width="100%"
-  height="100%"
-  
-  aria-label="This image should exist, but alas it does not"
-> */}
-  
+      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} style={{borderRadius:5,
+      cursor:"pointer"}}>
      
 <img
 id={props.data.id}
@@ -83,65 +72,74 @@ id={props.data.id}
        width={"100%"}
         height={"100%"} 
         
-        style={{objectFit:'cover',width:'100%',height:'100%',borderRadius:8}}
+        style={{objectFit:'cover',width:'100%',height:'100%',borderRadius:12}}
       
-        onError={()=>{document.getElementById(props.data.id).src = DEF_IMG}}
+        // onError={()=>{document.getElementById(props.data.id).src = props.data.img&&JSON.parse(props.data.img)[1]}}
           className={[Styles.nextimg]} 
-          src={IMG_URL.concat(props.data.img&&JSON.parse(props.data.img)[0])} 
+          src={IMG_URL.concat(props.data.img&&JSON.parse(props.data.img)[1])} 
           />
 
-{/* </object> */}
-    
 
-   
+       
       </div>
 
       <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}}
        className={Styles.ptfont} style={{color:"#585858",fontSize:'13.5px',cursor:"pointer"
-       ,marginTop:10,marginBottom:5,lineHeight:1.2,textTransform:'capitalize',wordSpacing:0.6}} >
+       ,marginTop:10,marginBottom:5,lineHeight:1.2,textTransform:'capitalize',wordSpacing:0.6,lineBreak:"strict"}} >
          
-          {props.data.name_en}
+          {props.data.name_en.length>=19?props.data.name_en.slice(0,40)+"...":props.data.name_en}
           <div style={{color:"grey",fontSize:12,display:'flex',alignItems:'center',padding:"5px 0px"}}>{props.data.seller.username}
            <BsCheckCircleFill style={{color:Theme.primary,marginLeft:3,display:"block"}} /> </div>
       </div>
 
 
 
-    
-      
-       <div className='lg:flex-row md:flex-row flex-col sm:flex-col' style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",}}>
 
-      <div style={{cursor:"pointer"}}  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} className='' >
+<div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+
+<div className='lg:flex-col md:flex-col flex-col sm:flex-col' style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",}}>
+
+<div style={{cursor:"pointer"}}  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} className='' >
 <span className='text-sm lg:text-sm md:text-2xl sm:2xl ' style={{color:"grey"}} 
-      >  <span style={{fontWeight:"bold",color:Theme.primary}} >{parseFloat(props.data.varients[0].price)} {CURRENCY} </span> 
-      </span>
-   </div>
-   <div style={{display:props.data.subcatagory?"":"none"}}  onClick={()=>{router.push(`/categories?cid=${props.data.subcatagory&&props.data.subcatagory.id}`)}} className=' ' >
+>  <span style={{fontWeight:"bold",color:Theme.primary}} >{parseFloat(props.data.varients[0].price)} {CURRENCY} </span> 
+</span>
+</div>
+<div style={{display:props.data.subcatagory?"":"none"}}  onClick={()=>{router.push(`/categories?cid=${props.data.subcatagory&&props.data.subcatagory.id}`)}} className=' ' >
 <span style={{color:"white",backgroundColor:Theme.primary,padding:"3px 5px 3px 5px",cursor:"pointer",
 borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.data.subcatagory&&props.data.subcatagory.name_en}
 </span>
 </div>
 </div>
 
+<div style={{display:"flex",alignItems:"center",justifyContent:"center",fontSize:15}}>
 
-{/* add to cart button on product */}
-{/* 
+ <div style={{fontWeight:"bold"}}>4.5 </div> <div style={{color:"gold"}} > <div style={{padding:2,marginTop:-3}} > <BsStarFill/></div> </div> <div style={{color:"lightgray",fontSize:12}}> (12) </div>
+</div>
+
+</div>
+    
+      
+
+
+
+
 <div className='shadow-md col-span-5' style={{
-    backgroundColor:Theme.primary,
+  display:props.atcbtn?"block":"none",
+  marginTop:5,
+    backgroundColor:Theme.secondary,
     color:"white",
     padding:"8px 12px",
     borderRadius:8, }}>
     <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
     <div style={{
     color:"white",
-    fontSize:23,
     marginRight:5
   }}>
      <BsCartPlusFill/> 
   </div>
-    <span> Add to Cart</span>
+    <span className='text-base' style={{textWrap:"nowrap"}}>  Add to Cart</span>
     </div>
-  </div> */}
+  </div>
 
 
 

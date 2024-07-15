@@ -28,7 +28,7 @@ className='flex-col lg:flex-row md:flex-row sm:flex-col'
 
 
 {props.vars&&props.vars.map(varient=>(
-<div onClick={()=>{props.varselect(varient.id)}}   className='shadow-md flex-row lg:flex-col md:flex-col sm:flex-row ' style={{padding:"10px 10px"
+<div onClick={()=>{props.varselect(varient.id,varient.attributes.product_red)}}   className='shadow-md flex-row lg:flex-col md:flex-col sm:flex-row ' style={{padding:"10px 10px"
 ,borderRadius:10,margin:7,border:props.selid==varient.id?"4px solid"+Theme.primary:"4px solid #FAFAFA",cursor:"pointer",
 display:"flex",justifyContent:"center",alignItems:"center"
 }}  key={varient.id} >

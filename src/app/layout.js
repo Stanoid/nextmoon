@@ -7,6 +7,7 @@ import logowhite from "../../public/logowhite.svg";
 import Cart from "./comps/cart";
 import DropGroup from "./comps/dropgroup";
 import Drop from "./comps/drop";
+import { NextUIProvider } from "@nextui-org/react";
 import AccounteEl from "./comps/accountel";
 import Cartl from "./comps/cartl";
 import { BsHeartFill } from "react-icons/bs";
@@ -90,6 +91,7 @@ console.log("search")
   return (
     <html className="scrollable-content" lang="en">
       <body style={{}}>
+        <NextUIProvider>
         <CartContext>
           <AuthenContext>
             <div
@@ -453,6 +455,7 @@ console.log("search")
             </div>
           </AuthenContext>
         </CartContext>
+        </NextUIProvider>
       </body>
     </html>
   );

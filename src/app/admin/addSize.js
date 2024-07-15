@@ -172,8 +172,8 @@ function AddSize(props) {
             body: JSON.stringify(
                 {
                 
-                    "name_ar":nameen,
-                    "name_en":namear,
+                    "name_ar": namear,
+                    "name_en":nameen,
                     "icon":sicon,
                     "status": true
                   

@@ -153,11 +153,15 @@ const notify = (type,msg)=>{
 
                      <div id="scrol"   style={{height:"100vh",overflowY:'scroll', overflowX:'hidden',padding:10}}>
                  
-                     {favData.length!=0?favData.map(cart=>(
+                     {favData.length!=0?favData.map((cart,index)=>(
                 
-                <Cartel like={true} removeItem={removeFromFav}
-                 id={cart.id}
-                  name={cart.nameEn} price={cart.price} size={cart.opt} comm={cart.comm}  color={cart.color} img={cart.id} qty={cart.qty} />
+                <Cartel order={false} 
+                key={index}
+                index={index}
+                data={cart.data}
+                selvar={cart.selvar}
+                 removeItem={()=>{}} 
+                 qty={cart.qty}/>
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
