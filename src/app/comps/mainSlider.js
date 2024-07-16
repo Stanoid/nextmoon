@@ -56,13 +56,13 @@ export default (props) => {
 
   return (
     <>
-      <div  style={{width:"100%",height:"100%"}}  className="navigation-wrapper">
+      <div  style={{width:"100%",height:"100%"}}  className="  navigation-wrapper">
         <div style={{width:"100%",height:"100%"}} ref={sliderRef} className="keen-slider">
           
 
 {props.slides&&props.slides.map((img) => (
     <div key={img}  className="keen-slider__slide">
-<Image priority={true} className="rounded-lg" src={img}layout="fill"  objectFit="cover" />
+<Image priority={true} className="rounded-sm" src={img}layout="fill"  objectFit="" />
     </div>
      ))}
         </div>

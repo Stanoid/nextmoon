@@ -9,8 +9,9 @@ import FeatProduct from "./comps/featuredProducts";
 import { AuthCon } from "./contexts/AuthCon";
 import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import FeaturedComp from "./comps/featured";
 import Cart from "./comps/cart";
-
+import PromoComp from "./comps/promo";
 import { product } from "./comps/productdata";
 export default function Home() {
   const [openCart,setOpenCart] = useState(false);
@@ -88,9 +89,22 @@ export default function Home() {
     <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
 
  <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
+<div style={{width:"100%"}}>
+<Hero  />
+  </div> 
+<div  style={{width:"90%",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
 
-<div  style={{width:"100%"}}>
-  <Hero  />
+ <div style={{marginTop:15,display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%"}}>
+  <PromoComp/>
+  <PromoComp/>
+  <PromoComp/>
+
+  </div> 
+</div>
+
+
+<div style={{width:"90%"}}>
+  <FeaturedComp/>
 </div>
 
 {
@@ -114,7 +128,7 @@ product.status?
 
 
 </div>
-<br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 </div>:<div  style={{ width: "100%", padding: "20px 10px" }}>
  
  <SkeletonTheme baseColor="white" highlightColor={Theme.primary}>

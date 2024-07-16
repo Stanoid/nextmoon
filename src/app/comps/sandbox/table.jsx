@@ -2,6 +2,7 @@ import React from "react";
 import {
   Table,
   TableHeader,
+  
   TableColumn,
   TableBody,
   TableRow,
@@ -20,26 +21,27 @@ import {PlusIcon} from "./PlusIcon";
 import {VerticalDotsIcon} from "./VerticalDotsIcon";
 import {SearchIcon} from "./SearchIcon";
 import {ChevronDownIcon} from "./ChevronDownIcon";
+import { FaEye,FaPencil,FaTrash } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
-import { userAgent } from "next/server";
+import { color } from "framer-motion";
 
 const statusColorMap = {
-  delivered: "success",
-  initiated: "danger",
+  active: "success",
+  paused: "danger",
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "phone","address" ,"status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["name", "city", "status", "email","refid"];
 
-export default function TableComp(props) {
+export default function App(props) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "name",
+    column: "age",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
@@ -53,7 +55,7 @@ export default function TableComp(props) {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [users];
+    let filteredUsers = [...props.data];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -67,7 +69,7 @@ export default function TableComp(props) {
     }
 
     return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+  }, [props.data, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -95,7 +97,7 @@ export default function TableComp(props) {
       case "name":
         return (
           <User
-            avatarProps={{radius: "lg", src: user.avatar}}
+            avatarProps={{radius: "full",size:"sm", color:"primary", src: user.avatar}}
             description={user.email}
             name={cellValue}
           >
@@ -110,24 +112,65 @@ export default function TableComp(props) {
           </div>
         );
       case "status":
-        return (
-          <Chip className="capitalize" color={statusColorMap[user.status]} size="sm" variant="flat">
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
+     let stob = {};
+      switch (cellValue) {
+        case "initiated":
+       stob.lable = "not delivered";
+       stob.color = "text-amber-700 bg-amber-200 ";
+      stob.dot = "bg-amber-700";
+       
+        break;
+
+        case "delivered":
+          stob.lable = "delivered";
+          stob.color = "text-green-600 bg-green-300";
+          stob.dot = "bg-green-600";
+       
+          
+           break;
+
+
+        
+      
+        default:
+          break;
+      }
+
+
+      return (<div className={stob.color} style={{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+  
+        padding:"4px 7px",
+        borderRadius:10
+      
+      }} > 
+      <div   className={stob.dot} style={{width:10,height:10,borderRadius:100,marginRight:7,fontSize:10}}></div>
+      {stob.lable.toUpperCase()} 
+      </div>);
+    
+
+      case "refid":
         return (
           <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
+            <Dropdown
+            
+            classNames={{
+              // base: "before:bg-default-200", // change arrow background
+              // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
+            }}
+
+            backdrop="blur">
               <DropdownTrigger>
                 <Button isIconOnly size="sm" variant="light">
                   <VerticalDotsIcon className="text-default-300" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
+              <DropdownMenu disabledKeys={["edit","delete"]}>
+                <DropdownItem onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >  View</DropdownItem>
+                <DropdownItem startContent={<FaPencil style={{marginRight:4}} />} key={"edit"} > Edit</DropdownItem>
+                <DropdownItem startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >Delete</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -175,7 +218,7 @@ export default function TableComp(props) {
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder="Search by buyer name..."
+            placeholder="Search by name..."
             startContent={<SearchIcon />}
             value={filterValue}
             onClear={() => onClear()}
@@ -230,7 +273,7 @@ export default function TableComp(props) {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {users.length} users</span>
+          <span className="text-default-400 text-small">Total {props.data.length} users</span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select
@@ -250,7 +293,7 @@ export default function TableComp(props) {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    users.length,
+    props.data.length,
     onSearchChange,
     hasSearchFilter,
   ]);
@@ -312,7 +355,7 @@ export default function TableComp(props) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No orders found"} items={sortedItems}>
+      <TableBody emptyContent={"No users found"} items={sortedItems}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

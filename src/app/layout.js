@@ -7,20 +7,24 @@ import logowhite from "../../public/logowhite.svg";
 import Cart from "./comps/cart";
 import DropGroup from "./comps/dropgroup";
 import Drop from "./comps/drop";
+import PromoComp from "./comps/promo";
 import { NextUIProvider } from "@nextui-org/react";
 import AccounteEl from "./comps/accountel";
+import NavbarC from "./comps/navbar";
 import Cartl from "./comps/cartl";
 import { BsHeartFill } from "react-icons/bs";
 import { MdShoppingCart, MdSearch } from "react-icons/md";
 import { CartContext } from "./contexts/cartContext";
 import AuthenContext from "./contexts/AuthCon";
 import { AuthCon } from "./contexts/AuthCon";
-
+import localFont from 'next/font/local'
 import Footer from "./footer";
 import Cookies from "universal-cookie";
 
 import { useRouter, usePathname } from "next/navigation";
 
+const ArFont = localFont({ src: './styles/fonts/alfont_com_SomarGX.ttf' })
+const EnFont = localFont({ src: './styles/fonts/gothambook-webfont.woff2' })
 export default function RootLayout({ children }) {
   const cookies = new Cookies();
   const pathname = usePathname();
@@ -35,6 +39,7 @@ export default function RootLayout({ children }) {
   const [searwidth,setSearwidth] = useState(0);
   const [sugges,setSugges] = useState([])
   //let { cart } = useContext(CartContext);
+
 
   const handleOpenCart = (open) => {
     setOpenCart(open);
@@ -90,11 +95,26 @@ console.log("search")
 
   return (
     <html className="scrollable-content" lang="en">
-      <body style={{}}>
+      <body className={ArFont.className} style={{}}>
         <NextUIProvider>
         <CartContext>
           <AuthenContext>
-            <div
+            <section>
+            <div className="bg-[url('../../public/amblemblack.svg')] from-moon-200 to-moon-200 text-white shadow-lg"
+             style={{padding:10,backgroundColor:Theme.primary,backgroundSize:20}}>
+       <NavbarC/>
+       </div>
+            </section>
+
+ 
+            
+            <section>
+            <div className="scrollable-content"  style={{  }}>
+                  {children}
+                </div>
+            </section>
+            {/* <div
+            
               style={{ height: "100vh" }}
               class=" flex overflow-hidden "
               x-data="{ sidebarOpen: false }"
@@ -452,7 +472,9 @@ console.log("search")
                   {children}
                 </div>
               </div>
-            </div>
+            </div> */}
+      
+         
           </AuthenContext>
         </CartContext>
         </NextUIProvider>

@@ -30,9 +30,10 @@ function Orders(props) {
     const [colors,setcolors] = useState([])
     const [orderData,setOrderdata] = useState(null);
     const router = useRouter(); 
-    const [ordata,setOrdata] = useState({})
+    const [ordata,setOrdata] = useState(null)
     const [lod,setlod] = useState(false)
 
+    
 
     useEffect(() => {
     // loginval();
@@ -47,7 +48,7 @@ function Orders(props) {
     const getOrders=(id)=>{
          
     
-      
+      setOpenDel(false)      
              setlod(true)
       const requestOptions = {
         method: 'POST',
@@ -76,7 +77,7 @@ function Orders(props) {
 
       const DeliverOrder=(order)=>{
 
-
+console.log("aaaaaaaaaaa",order)
         setOrdata(order);
          setOpenDel(true);
 
@@ -300,7 +301,8 @@ setlod(true);
 
 <DeliveryPopup
                           ref={childCompRef}
-                          data={ordata}
+                          data={ordata?ordata:null}
+                          getOrders={()=>{getOrders()}}
                           openHandler={handleOpenDel}
                           open={openDel}
                         />
@@ -317,7 +319,10 @@ Orders:
 <br/>
 
 {
-  orderData?<TableComp data={[...orderData]} />:
+  orderData?<TableComp
+   data={orderData}
+   delorder={DeliverOrder}
+    />:
   <div style={{
     display:lod?'flex':'none' ,
     alignItems:"center",

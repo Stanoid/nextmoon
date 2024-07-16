@@ -7,6 +7,7 @@ import { XIconreact,XIcon } from '@heroicons/react/outline'
 import { FaTruck } from 'react-icons/fa6'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import LoadingBtn from './loadingbtn'
+import { Button } from '@nextui-org/react'
 import {CartCon} from '../contexts/cartContext'
 import Image from 'next/image';
 
@@ -39,7 +40,7 @@ setOrderitems({data:[]})
 
 const getOrderItems= ()=>{
 
-  if(props.data.session==undefined||props.data.session==null){return}
+  if(props.data==undefined||props.data==null){return}
   setLod(true)
     const requestOptions = {
   method: 'POST',
@@ -48,7 +49,7 @@ const getOrderItems= ()=>{
     "Authorization": 'Bearer ' + ls.get("atkn")
 },
   body: JSON.stringify({
-     id: props.data.session&&props.data.session.id,
+     id: props.data&&props.data.refId,
     })
 };
 fetch(`${API_URL}orders?func=getOrderItems`, requestOptions)
@@ -106,7 +107,7 @@ const handleOrderDelivery = ()=>{
        "Authorization": 'Bearer ' + ls.get("atkn")
    },  body: JSON.stringify(
     {
-        "id": props.data&&props.data.order.id,
+        "id": props.data&&props.data.id,
       }
   )
 };
@@ -114,7 +115,7 @@ const handleOrderDelivery = ()=>{
    .then((response) => response.json())
    .then((data) => {
      console.log("delivered ",data )
-     getOrders();
+     props.getOrders();
   
    }).then(()=>{
   
@@ -186,7 +187,7 @@ const notify = (type,msg)=>{
               leaveFrom="translate-y-0 lg:translate-y-0 "
               leaveTo="translate-y-full lg:translate-y-full"
             >
-              <div className="relative w-screen ">
+              <div className="relative w-screen tracking-tight text-sm">
               <ToastContainer  limit={3}/>
                 
                 <div className="h-screen-1/2 flex flex-col py-6 rounded-t-lg rounded-r-lg lg:rounded-r-none lg:rounded-t-none  bg-white shadow-lg overflow-y-hidden">
@@ -199,10 +200,11 @@ const notify = (type,msg)=>{
                       color:"teal",
                       justifyContent:"center",
                       alignItems:"center",
-                      fontWeight:"bold",
+                      fontWeight:"bold",  
+                      fontSize:"1.5rem",
                       paddingBottom:20,
                    
-                      fontSize:25,
+                     
                     }} >
 
                       <div style={{
@@ -211,9 +213,9 @@ const notify = (type,msg)=>{
                         <FaTruck/>
                       </div>
                                 <div>
-                             <span> {props.data.session&&props.data.session.customer_details.name.toString().split(" ")[0]  } </span>
+                             <span> {props.data&&props.data.name.toString().split(" ")[0]  } </span>
 
-                             <span> {props.data.session&&props.data.session.customer_details.name.toString().split(" ")[props.data.session&&props.data.session.customer_details.name.toString().split(" ").length-1]} </span>
+                             <span> {props.data&&props.data.name.toString().split(" ")[props.data&&props.data.name.toString().split(" ").length-1]} </span>
                                 </div>
                                 
                   
@@ -233,33 +235,39 @@ const notify = (type,msg)=>{
                   </div>
 
                   <div className="px-4 sm:px-6 flex mb-3 align-middle justify-between">
-                  <div>
+                  <div style={{
+                      fontWeight:650,
+              
+                  }}>
 
-                  <div className='shadow-sm text-amber-700 bg-amber-200 ' 
+                  <div className='shadow-sm  text-amber-700 bg-amber-200 ' 
                   style={{
-                    display:props.data.order&&props.data.order.status=="initiated"?"flex":"none",
-                    padding:"7px 11px",
+                    display:props.data&&props.data.status=="initiated"?"flex":"none",
+                    padding:"5px 11px",
                     alignItems:"center",
                     borderRadius:8,
+                    fontSize:"0.7rem",
+                  
                     justifyContent:"center",
-                    fontWeight:"bold"
+                   
                   }}
                   >
-                    <div  className='bg-amber-700' style={{width:10,height:10,borderRadius:100,marginRight:7}}></div>
+                    <div  className='bg-amber-700' style={{width:8,height:8,borderRadius:100,marginRight:7}}></div>
                     <div>Not Delivered</div>
                   </div>
 
                   <div className='shadow-sm text-green-600 bg-green-300 ' 
                   style={{
-                    display:props.data.order&&props.data.order.status=="delivered"?"flex":"none",
+                    display:props.data&&props.data.status=="delivered"?"flex":"none",
                     padding:"7px 11px",
                     borderRadius:8,
                     alignItems:"center",
+                    fontSize:"0.7rem",
                     justifyContent:"center",
-                    fontWeight:"bold"
+                   
                   }}
                   >
-                    <div  className='bg-green-600' style={{width:10,height:10,borderRadius:100,marginRight:7}}></div>
+                    <div  className='bg-green-600' style={{width:8,height:8,borderRadius:100,marginRight:7}}></div>
                     <div>Delivered</div>
                   </div>
                
@@ -283,30 +291,30 @@ const notify = (type,msg)=>{
                  
               <div style={{display:"flex",alignItems:"flex-start",flexDirection:"column",justifyContent:"center",padding:20,marginTop:10}} 
               className="shadow-md rounded-md ">
-               <div style={{color:"teal",borderBottom:"2px solid teal",fontSize:20,fontWeight:"bold"}}>
+               <div style={{color:"teal",borderBottom:"2px solid teal",fontWeight:"bold"}}>
                 Contacts:
                </div>
-              <div style={{color:"darkgray",fontSize:20,marginTop:15}}>
-               Phone : <span style={{fontWeight:"normal", color:"black"}} >{props.data.session&&props.data.session.customer_details.phone}</span> 
+              <div style={{color:"darkgray",marginTop:15}}>
+               Phone : <span style={{fontWeight:"normal", color:"black"}} >{props.data&&props.data.phone}</span> 
               </div>
-              <p style={{color:"darkgray",textAlign:"left",fontSize:20,marginTop:7,textWrap:"wrap",wordBreak:"break-all"}}>
-               Email : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data.session&&props.data.session.customer_details.email}</span> 
+              <p style={{color:"darkgray",textAlign:"left",marginTop:7,textWrap:"wrap",wordBreak:"break-all"}}>
+               Email : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data&&props.data.email}</span> 
               </p>
                     </div>
 
                     <div style={{display:"flex",alignItems:"flex-start",flexDirection:"column",justifyContent:"center",padding:20,marginTop:10}} 
               className="shadow-md rounded-md ">
-               <div style={{color:"teal",borderBottom:"2px solid teal",fontSize:20,fontWeight:"bold"}}>
+               <div style={{color:"teal",borderBottom:"2px solid teal",fontWeight:"bold"}}>
                 Address:
                </div>
-              <div style={{color:"darkgray",fontSize:20,marginTop:15}}>
-               City : <span style={{fontWeight:"normal",color:"black"}} >{props.data.session&&props.data.session.customer_details.address.city}</span> 
+              <div style={{color:"darkgray",marginTop:15}}>
+               City : <span style={{fontWeight:"normal",color:"black"}} >{props.data&&props.data.city}</span> 
               </div>
-              <p style={{color:"darkgray",textAlign:"left",fontSize:20,marginTop:7,textWrap:"wrap",wordBreak:"break-all"}}>
-               Line 1 : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data.session&&props.data.session.customer_details.address.line1}</span> 
+              <p style={{color:"darkgray",textAlign:"left",textWrap:"wrap",wordBreak:"break-all"}}>
+               Line 1 : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data&&props.data.line1}</span> 
               </p>
-              <p style={{color:"darkgray",textAlign:"left",fontSize:20,marginTop:7,textWrap:"wrap",wordBreak:"break-all"}}>
-               Line 2 : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data.session&&props.data.session.customer_details.address.line2}</span> 
+              <p style={{color:"darkgray",textAlign:"left",textWrap:"wrap",wordBreak:"break-all"}}>
+               Line 2 : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data&&props.data.line2}</span> 
               </p>
                     </div>
 
@@ -314,7 +322,7 @@ const notify = (type,msg)=>{
 
                     <div style={{display:"flex",width:"100%",alignItems:"flex-start",flexDirection:"column",justifyContent:"center",padding:"20px 5px 5px 5px",marginTop:10}} 
               className="shadow-md rounded-md ">
-               <div style={{color:"teal",borderBottom:"2px solid teal",width:"100%",textAlign:"left",fontSize:20,fontWeight:"bold",paddingBottom:15}}>
+               <div style={{color:"teal",borderBottom:"2px solid teal",width:"100%",textAlign:"left",fontWeight:"bold",paddingBottom:15}}>
                  Order items:
                </div>
               <div style={{marginTop:10,width:"100%"}} >
@@ -332,7 +340,7 @@ const notify = (type,msg)=>{
           src={IMG_URL.concat(item.imgs&&JSON.parse(item.imgs)[0])} 
           />
 
-<div style={{display:"flex",justifyContent:"center",alignItems:"flex-start",flexDirection:"column",marginLeft:10,fontSize:"0.85rem"}}>
+<div style={{display:"flex",justifyContent:"center",alignItems:"flex-start",flexDirection:"column",marginLeft:10}}>
 <div style={{fontWeight:"bold"}}>{item.product_ref&&item.product_ref}</div> 
                <div>{item.name&&item.name}</div> 
                 
@@ -410,27 +418,24 @@ marginLeft:-10,marginTop:-5
                       Total  : {CartTotal} {CURRENCY} 
                      </div> */}
    
-                    <div style={{padding:20, display:"flex",alignItems:'center',flexDirection:"column",justifyContent:'space-between'}}>
-                        <div style={{fontSize:15,fontWeight:'bold'}}>
+                    <div style={{padding:5, display:"flex",alignItems:'center',flexDirection:"column",justifyContent:'space-between'}}>
+                        <div style={{fontWeight:'bold'}}>
                           
                            </div>
-                       
-                          
-                          
-{/*                          
-                           <LoadingBtn 
-                         color={"lightgrey"}
-                         act={props.data.order&&props.data.order.status=="initiated"?()=>{
+    
+
+  <Button radius={"sm"} color="primary" startContent={<FaTruck/>} onClick={props.data&&props.data.status=="initiated"?()=>{
                        handleOrderDelivery() ; 
-                       }:()=>{}}  text={props.data.order&&props.data.order.status=="initiated"?"Deliver":"Delivered"} lod={lod} /> */}
-                            
+                       }:()=>{}} isLoading={lod}>
+     {props.data&&props.data.status=="initiated"?"Deliver":"Delivered"}
+    </Button>
 
                           
-                         <LoadingBtn 
-                         color={props.data.order&&props.data.order.status=="initiated"?"teal":"darkgray"}
-                         act={props.data.order&&props.data.order.status=="initiated"?()=>{
+                         {/* <LoadingBtn 
+                         color={props.data&&props.data.status=="initiated"?"teal":"darkgray"}
+                         act={props.data&&props.data.status=="initiated"?()=>{
                        handleOrderDelivery() ; 
-                       }:()=>{}}  text={props.data.order&&props.data.order.status=="initiated"?"Deliver":"Delivered"} lod={lod} />
+                       }:()=>{}}  text={props.data&&props.data.status=="initiated"?"Deliver":"Delivered"} lod={lod} /> */}
                        
                        
                        
