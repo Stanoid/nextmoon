@@ -9,6 +9,7 @@ import TableComp from '../comps/sandbox/table';
 import { useRouter } from 'next/navigation'
 import Table from '../comps/table';
 import { TiThMenu } from "react-icons/ti";
+import ItemsPopup from "../comps/userItemsPopup"
 import { MdDeliveryDining } from 'react-icons/md';
 import { FaEye } from 'react-icons/fa6';
 import { FaCheck,FaHourglass } from 'react-icons/fa6';
@@ -59,7 +60,7 @@ function Orders(props) {
       
     };
   
-      fetch(`${API_URL}orders?func=getDeliveryOrders`, requestOptions)
+      fetch(`${API_URL}orders?func=getUserOrders`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log("Orders ",data )
@@ -171,7 +172,7 @@ console.log("aaaaaaaaaaa",order)
     }
   
    }else{
-  setLogged(0);
+// setLogged(0);
   router.push("/login")
 
    }
@@ -286,7 +287,7 @@ setlod(true);
 
 
     
-<div 
+<div dir='rtl'
     style={{
   display:"flex",
   alignItems:"flex-start",
@@ -299,7 +300,7 @@ setlod(true);
                       <div class="flex  flex-col ">
                       
 
-<DeliveryPopup
+<ItemsPopup
                           ref={childCompRef}
                           data={ordata?ordata:null}
                           getOrders={()=>{getOrders()}}
@@ -312,28 +313,26 @@ setlod(true);
 
 
 
-<div className=''  style={{marginTop:20,padding:15,width:"90%",borderRadius:10,backgroundColor:""}}>
-<div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Orders:
+<div className='px-4 sm:px-4 lg:px-8'  style={{marginTop:10,width:"100%",borderRadius:10,backgroundColor:""}}>
+<div className='text-moon-200/80 text-2xl mt-3'>
+الطلبات:
 </div>
 <br/>
 
 {
   orderData?<TableComp
-   data={orderData}
-   columns={
+  columns={
     [
       {name: "ID", uid: "id", sortable: true},
-      {name: "NAME", uid: "name", sortable: true},
-      {name: "PHONE", uid: "phone", sortable: true},
-      {name: "CITY", uid: "city", sortable: true},
-      {name: "EMAIL", uid: "email",sortable: true },
-      {name: "DATE", uid: "date", sortable: true},  
-      {name: "STATUS", uid: "status", sortable: true},
-      {name: "ACTIONS", uid: "refid"},
+      {name: "التاريخ", uid: "date", sortable: true},  
+      {name: "إجمالي السعر", uid: "total", sortable: true},
+    
+      {name: "حالة الدفع", uid: "payment_status",sortable: true },
+      {name: "حالة الطلب", uid: "status", sortable: true},
+      {name: "التفاصيل", uid: "refid"},
     ]
    }
-   
+   data={orderData}
    delorder={DeliverOrder}
     />:
   <div style={{

@@ -55,14 +55,15 @@ export default (props) => {
   )
 
   return (
-    <>
+    <div style={{width:"100%"}}>
       <div  style={{width:"100%",height:"100%"}}  className="  navigation-wrapper">
         <div style={{width:"100%",height:"100%"}} ref={sliderRef} className="keen-slider">
           
 
 {props.slides&&props.slides.map((img) => (
     <div key={img}  className="keen-slider__slide">
-<Image priority={true} className="rounded-sm" src={img}layout="fill"  objectFit="" />
+{/* <Image priority={true} className="rounded-sm" src={img}layout="fill"  objectFit="cover" /> */}
+<img src={img} className="rounded-md" width={"100%"} />
     </div>
      ))}
         </div>
@@ -88,7 +89,7 @@ export default (props) => {
           </>
         )}
       </div>
-      {loaded && instanceRef.current && (
+      {/* {loaded && instanceRef.current && (
         <div className="dots">
           {[
             ...Array(instanceRef.current.track.details.slides.length).keys(),
@@ -107,8 +108,8 @@ export default (props) => {
             )
           })}
         </div>
-      )}
-    </>
+      )} */}
+    </div>
   )
 }
 
@@ -117,7 +118,8 @@ function Arrow(props) {
   return (
     <svg
       onClick={props.onClick}
-      className={`arrow ${
+      fill="red"
+      className={`arrow opacity-25 ${
         props.left ? "arrow--left" : "arrow--right"
       } ${disabeld}`}
       xmlns="http://www.w3.org/2000/svg"

@@ -1,40 +1,37 @@
 'use client'
 import React from 'react'
 import { useState,useEffect } from 'react'
-
-import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
+import { motion } from 'framer-motion'
+import {  toast,ToastContainer } from 'react-toastify'
 import { API_URL } from '../local'
-import interCell from '../comps/intercel'
-import { BsMegaphone,BsShop,BsPlus } from 'react-icons/bs';
-import { ArrowRightIcon,PlusIcon } from '@heroicons/react/outline';
+import InputEl from '../comps/inputel'
 import { useRouter } from 'next/navigation';
+import { FaArrowAltCircleLeft,FaArrowCircleLeft,FaArrowCircleRight, FaCheckCircle } from 'react-icons/fa'
 import LoadingBtn from '../comps/loadingbtn'
-import Link from 'next/link'
-import Image from 'next/image';
+
 import { Theme } from '../local'
+import { FaCircleRight } from 'react-icons/fa6'
 export default function Register() {
 
   const [name, setname] = useState("");
+  
   const [gender, setGender] = useState("M");
   const [age, setAge] = useState("");
   const [lod, setLod] = useState(false);
   const [states, setstaes] = useState("");
   const [cities, setcities] = useState("");
-  const [work, setWork] = useState("");
   const [selected, setSelected] = useState([]);
   const [cats, setCats] = useState();
-
-  const [social1,setSocial1]=useState();
-  const [social2,setSocial2]=useState();
-  const [social3,setSocial3]=useState();
   const [state,setstate]=useState();
   const [city,setcity]=useState();
   const [address,setaddress]=useState();
+  const [address2,setaddress2]=useState();
   const [phone, setPhone] = useState("");
   const [type, setType] = useState(0);
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
   const [cpass, setcpass] = useState("");
+  
  const ls = require("local-storage");
 const router = useRouter();
   
@@ -69,110 +66,33 @@ const notify = (type,msg)=>{
 
 useEffect(()=>{
 
-  getstate();  
-  getCats();  
+  //getstate();  
+ 
  
  },[])
 
 
- const getstate=()=>{
-
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-        "Content-Type": "application/json",
-      
-    },
-  
-};
-fetch(`${API_URL}/states`, requestOptions)
-    .then(response => response.json())
-    .then(data =>{
-     
-   // console.log(data);
-    setstaes(data.data);
-       
-    });
-
-
-
-   
- }
-
- 
- const getCats=()=>{
-
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-        "Content-Type": "application/json",
-      
-    },
-  
-};
-fetch(`${API_URL}/catagories`, requestOptions)
-    .then(response => response.json())
-    .then(data =>{
-     
-    //console.log(data);
-  setCats(data.data);
-       
-    });
-
-
-
-   
- }
-
-const handleType=(type)=>{
-setType(type);
-}
-
   const regis =()=>{
-
+console.log(email,pass,name)
     setLod(true)
 
-    if(pass==""||name==""||email==""||phone==""||address==""||city==""||state==""){
-      notify("error","جميع الحقول مطلوبة ");
-      setLod(false)
-      return;
+    // if(pass==""||name==""||email==""||phone==""||address==""||city==""||state==""){
+    //   notify("error","جميع الحقول مطلوبة ");
+    //   setLod(false)
+    //   return;
 
-    }
+    // }
 
-    if(pass!==cpass){
-      notify("error","كلمة السر غير متطابقة ");
-      setLod(false)
-      return;
-
-    }
+ 
 
 
-  //   axios
-  // .post(`${API_URL}/auth/local`, {
-  //   username: name,
-  //   email: email,
-  //   password: pass,
-  // })
-  // .then(response => {
-  //  notify("success","Registered succefully");
-  //  router.replace("/login");
+  
 
-  // })
-  // .catch(error => {
-  //   notify("error","Something wrong, please try again later");
-  // });
-
-  let sso = {
-    "first":social1,
-    "second":social2,
-    "third":social3,
-  }
-
-  let newarc = [];
-  for (let i = 0; i < selected.length; i++) {
-  newarc.push(selected[i].id);
+  // let newarc = [];
+  // for (let i = 0; i < selected.length; i++) {
+  // newarc.push(selected[i].id);
     
-  }
+  // }
 
   //console.log(newarc);
   
@@ -185,26 +105,17 @@ setType(type);
     },
     body: JSON.stringify(
       {
-          "username": name,
-          "type":1,
-          "job":work,
-          "age":age,
-          "gender":gender,
-          "catagories":newarc,
-          "city":city,
-          "state":state,
-          "adress":address,
-          "phone":phone,
-          "social":sso,
-          "email": email,
-          "password": pass,
+       
+        username  : name,
+        email: email,
+          password : pass,
         }
     )
 };
 
 //console.log(requestOptions);
 
-fetch(`${API_URL}/auth/local/register`, requestOptions)
+fetch(`${API_URL}auth/local/register`, requestOptions)
     .then(response => response.json())
     .then(data =>{
       if(data.jwt){
@@ -234,98 +145,35 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
   }
 
 
-  const removecat=(id)=>{
-    const old = selected;
-//console.log("ssss",selected)
-    const newar = [];
-        for (let i = 0; i < old.length; i++) {
-        //   console.log("aaaa",i)
-           if(old[i].id==id){
-
-           }else{
-               newar.push(old[i])
-           }
-            
-        }
 
 
-        
-     let newcats = cats
+  const page2Handler  =() => {
+//Password match check
+//Email & phone validation
+//Username check
 
-     for (let i = 0; i < newcats.length; i++) {
-    if(newcats[i].id==id){
-      newcats[i].selected=false;
-     // console.log("aa")
-    }else{
-      // newcats.selected=false; 
-      // console.log("aaa")
-    }
-      
 
-   }
 
-   //console.log(newcats)
-   setCats(newcats);
-    
-        //console.log(newar);
-        setSelected(newar)
-         
-    
+console.log(cpass,pass,email,name,phone);
+if(pass!==cpass){
+  notify("error","كلمة السر غير متطابقة ");
+  setLod(false)
+  return;
+
+}
+setType(1)
+
   }
 
-  const addcat=(id,name)=>{
 
-    if(selected.length>=5){
-      return;
-    }
-
-
-    let temp = selected
-    let cont = false;
+  
+  const page3Handler  =() => {
+   
+    console.log(state,city,address,address2);
+    setType(2)
     
-    for (let i = 0; i < temp.length; i++) {
-      
-      if(temp[i].id==id){
-        cont =true;
       }
-       
-     }
-
-
-     let newcats = cats
-
-     for (let i = 0; i < newcats.length; i++) {
-    if(newcats[i].id==id){
-      newcats[i].selected=true;
-     // console.log("aa")
-    }else{
-      // newcats.selected=false; 
-      // console.log("aaa")
-    }
-      
-
-   }
-
- 
- 
-
-    if(!cont){
-      //console.log("first")
-      temp.push({"id":id,"name":name});
-      setSelected(temp)
-      setType(0)
-    setTimeout(() => {
-      setType(1)
-    }, 0);
     
-    }
-    
-
-  
-  
-  
-  }
-
 
   const handleemail =(email)=>{
     const newemail= email.replace(/ /g,'');
@@ -358,34 +206,31 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
   }
 
     return (
-        <div>
+        <div style={{backgroundSize:20}} className="w-full sm:w-full h-full flex min-h-screen  bg-[url('../../public/amblemblack.svg')] bg-moon-200" >  
      
            <ToastContainer  limit={3}/>
+
+
+           <div  className="  from-moon-200 to-moon-200 hidden sm:hidden lg:flex  md:w-1/4 lg:w-1/2 xl:w-1/2  " ></div>
   
-            <div className="  bg-gradient-to-br text-right  flex justify-center flex-col items-center w-full">
-
-          <div style={{
-            padding:15,
-            color:Theme.primary
-          }}>
-
-          <h1 className="text-center text-2xl font-semibold">تسجيل حساب</h1>
-
-          </div>
+            <div className="  w-full md:w-3/4 lg:w-1/2 xl:w-1/2 p-3 ">
+    <div  style={{backgroundColor:"rgba(255,255,255,1)"}} className='w-full  flex align-middle  rounded-lg transition-transform  justify-center  text-right p-3 md:p-4 lg:p-8 shadow-xl  flex-col items-center ' >
+        
 
     {/* Old signup stepper */}
-{/* <div className="w-3/4 md:w-3/4 lg:w-1/4 xl:w-1/4" style={{zIndex:100,display:"flex",marginBottom:20,justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
-<h1 className="text-center text-2xl font-semibold text-gray-600">تسجيل حساب</h1>
-<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:10,padding:5,width:"100%"}}>
-  <div style={{width:40,height:40,borderRadius:100,backgroundColor:type>=0?Theme.primary:"gray",display:"flex",justifyContent:"center",alignItems:"center"}} >
+<div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-5 my-3 transition-all" style={{zIndex:100,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+<h1 className="text-center text-2xl font-semibold text-moon-300">تسجيل حساب</h1>
+<div className='transition-all' style={{display:"flex",justifyContent:"space-between",alignItems:"center",
+  marginTop:10,padding:5,width:"100%"}}>
+  <div className='transition-all' style={{width:40,height:40,borderRadius:100,backgroundColor:type>=0?Theme.secondary:"#e5e7eb",display:"flex",justifyContent:"center",alignItems:"center"}} >
     <span style={{fontSize:15,color:"white"}}>1</span>
   </div>
 
-  <div style={{width:40,height:40,borderRadius:100,backgroundColor:type>=1?Theme.primary:"gray",display:"flex",justifyContent:"center",alignItems:"center"}} >
+  <div className='transition-all' style={{width:40,height:40,borderRadius:100,backgroundColor:type>=1?Theme.secondary:"#e5e7eb",display:"flex",justifyContent:"center",alignItems:"center"}} >
     <span style={{fontSize:15,color:"white"}}>2</span>
   </div>
 
-  <div style={{width:40,height:40,borderRadius:100,backgroundColor:type>=2?Theme.primary:"gray",display:"flex",justifyContent:"center",alignItems:"center"}} >
+  <div className='transition-all' style={{width:40,height:40,borderRadius:100,backgroundColor:type>=2?Theme.secondary:"#e5e7eb",display:"flex",justifyContent:"center",alignItems:"center"}} >
     <span style={{fontSize:15,color:"white"}}>3</span>
   </div>
  
@@ -394,229 +239,253 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
 
 </div>
 
-<div style={{width:"90%",marginTop:-28,height:6,alignSelf:"center",zIndex:-1,backgroundColor:"gray"}}>
-  <div style={{backgroundColor:Theme.primary,width:type*50+"%",height:"100%"}}>
+<div  style={{width:"90%",marginTop:-28,height:6,alignSelf:"center",zIndex:-1,backgroundColor:"#e5e7eb"}}>
+  <div className='transition-all'  style={{backgroundColor:Theme.secondary,width:type*50+"%",height:"100%"}}>
 
   </div>
 </div>
-</div> */}
+</div>
 
 
-    <div style={{display:type==0?"block":"none",zIndex:1}} className=" px-10 py-2 rounded-xl w-screen  max-w-sm">
-      <div className="space-y-4">
-      
+    <div  style={{display:type==0?"block":"none",zIndex:1}} className="w-full transition-all ">
 
-        <div>
-          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">أسم المستخدم</label>
-          <input  onChange={(event)=>{setname(event.target.value)}} value={name} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-        <div>
-          <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold">البريد الإلكتروني</label>
-          <input value={email} onChange={(event)=>{handleemail(event.target.value)}} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-        <div>
-          <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold"> رقم الهاتف</label>
-          <input value={phone} onChange={(event)=>{setPhone(event.target.value)}} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
+<div>
+
+<div className='w-full  flex align-middle justify-between'>
+<div onClick={()=>{router.push("/login")} } className='inline-flex text-moon-300/60 flex-grow align-middle justify-start' 
+style={{fontSize:15,textDecoration:"underline",cursor:"pointer",textAlign:"left"}}>
+<div style={{marginRight:5}}> <FaArrowCircleLeft/> </div>
+<div className='flex align-middle justify-center '>  تسجيل دخول</div>
+</div>
+<div className='flex-grow '>
+<h5 className="text-right  font-semibold text-moon-300/50">معلومات الحساب</h5>
+</div>
+</div>
 
 
-        <div>
-          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">كلمة المرور</label>
-          <input value={pass} onChange={(event)=>{setpass(event.target.value)}} type="password" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-        <div>
-          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">تأكيد كلمة المرور </label>
-          <input value={cpass} onChange={(event)=>{setcpass(event.target.value)}} type="password" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
+</div>
+    <div style={{
+display:"grid",
+margin:"16px 0px",
+gap:10,
+gridTemplateAreas:`
+' namear  namear  namear namear namear ' 
+' email email email email email  ' 
+'code code phone phone phone'
+'pass pass pass pass pass'
+'confirm confirm confirm confirm confirm'
+
+`
 
 
-     
-
- 
+   }} >
 
 
-      </div>
-      <button style={{backgroundColor:Theme.primary}} onClick={()=>{setType(1)}} className="mt-4 w-full font-semibold  text-white py-2 rounded-md text-lg tracking-wide">
-        <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
-       
-        التالي
-       
-        </div>
-       
-        </button>
-      <button onClick={()=>{router.replace("/login")}} className="mt-4 w-full   text-primary py-2 rounded-md text-lg underline tracking-wide">تسجيل دخول  </button>
- 
+    <div style={{gridArea:"namear"}}>
+      <InputEl outputfunc={(val)=>{setname(val)}} label={"أسم المستخدم"}/>
+    </div>
+
+    <div style={{gridArea:"email"}}>
+      <InputEl outputfunc={(val)=>{handleemail(val)}} label={"البريد الإلكتروني"}/>
+    </div>
+
+    <div style={{gridArea:"code"}}>
+    <InputEl value={age} outputfunc={(val)=>{setCats(val)}} select={true} data={null}   label={"رمز الدولة"}/>    </div>
+
+    <div style={{gridArea:"phone"}}>
+      <InputEl num={true} outputfunc={(val)=>{setPhone(val)}} label={" رقم الهاتف"}/>
+    </div>
+
+    <div style={{gridArea:"pass"}}>
+      <InputEl outputfunc={(val)=>{setpass(val)}} ispass label={"كلمة المرور"}/>
+    </div>
+
+    <div style={{gridArea:"confirm"}}>
+      <InputEl  outputfunc={(val)=>{setcpass(val)}} ispass label={"تأكيد كلمة المرور"}/>
+    </div>
+
+  
+  
+
+   </div>
+
+
+  
+      <motion.div whileTap={{ scale: 1.03 }}>
+      <LoadingBtn act={()=>{page2Handler()} } icon={<FaCircleRight  />} text={"التالي"} lod={lod} />
+      </motion.div>
+   
+    
     </div>
 
 
     
-    <div style={{display:type==1?"block":"none",zIndex:1}} className=" px-10 py-8 rounded-xl w-screen  max-w-sm">
-      <div className="space-y-4">
-        <h5 className="text-center  font-semibold text-gray-600">  المعلومات الشخصية</h5>
+    <div style={{display:type==1?"block":"none",zIndex:1}} className=" w-full">
+      <div className="">
+       
+      <div className='w-full  flex align-middle justify-between'>
+<div onClick={()=>{setType(0)} } className='inline-flex text-moon-300/60 flex-grow align-middle justify-start' 
+style={{fontSize:15,textDecoration:"underline",cursor:"pointer",textAlign:"left"}}>
+<div style={{marginRight:5}}> <FaArrowCircleLeft/> </div>
+<div className='flex align-middle justify-center '> رجوع</div>
+</div>
+<div className='flex-grow '>
+<h5 className="text-right  font-semibold text-moon-300/50">معلومات الحساب</h5>
+</div>
+</div>
 
-        <div onClick={()=>{setType(0)}} style={{fontSize:15,textDecoration:"underline",cursor:"pointer",color:Theme.primary,textAlign:"left"}}>
-          رجوع
 
-        </div>
+
+
+        <div style={{
+display:"grid",
+margin:"16px 0px",
+gap:10,
+gridTemplateAreas:`
+' state  state  city city ' 
+' line1  line1  line1 line1 ' 
+' line2  line2  line2 line2 ' 
+
+
+
+`
+
+
+   }} >
+
+
+
+
+
+
+    <div style={{gridArea:"state"}}>
+    <InputEl value={age} outputfunc={(val)=>{setstaes(val)}} select={true} data={null}   label={" المحافظة"}/>    </div>
+
+    <div style={{gridArea:"city"}}>
+    <InputEl value={age} outputfunc={(val)=>{setcities(val)}} select={true} data={null}   label={" المدينة"}/>    </div>
+
+    <div style={{gridArea:"line1"}}>
+      <InputEl outputfunc={(val)=>{setaddress(val)}} label={"العنوان"}/>
+    </div>
+
+    <div style={{gridArea:"line2"}}>
+      <InputEl outputfunc={(val)=>{setaddress2(val)}} label={"العنوان 2 (إختياري)"}/>
+    </div>
+
+  
+   
+
+  
 
   
   
-        <div>
-          <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold">  الوظيفة</label>
-          <input value={work} onChange={(event)=>{setWork(event.target.value)}} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
 
-
-        <div>
-          <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold">  العمر</label>
-          <input value={age} onChange={(event)=>{setAge(event.target.value)}} type="number" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-
-        <div>
-   <label className='block mb-1 text-gray-600 font-semibold' htmlFor="gender">  النوع</label>
-<select onChange={()=>{setGender(event.target.value);}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="cars" id="state">
-  <option value={"M"}>{"ذكر"}</option>
-  <option value={"F"}>{"أنثى"}</option>
-</select>
    </div>
 
-<div>
-<label className='block mb-1 text-gray-600 font-semibold' htmlFor="gender"> {`(5/${selected.length})`} الاهتمامات</label>
-{/* {selected&&selected.map((sel) => (
- <InterCell ex={1} addcat={addcat} removecat={removecat} id={sel.id} key={sel.id}  selected={selected} name={sel.name} />
-))} */}
-<div style={{width:"100%",borderRadius:5,border:"2px solid gray",minHeight:100,maxHeight:300,overflowY:"scroll",padding:5}}>
 
   
-{cats&&cats.map((cat) => (
- <InterCell addcat={addcat} id={cat.id}  key={cat.id} removecat={removecat} ex={cat.selected} selected={selected} name={cat.attributes.Name} />
-))}
-  
-{/*   
-  <InterCell addcat={addcat} id={1} selected={selected} name={"cat"} />
-  <InterCell  addcat={addcat}  id={2} selected={selected} name={"cat"} /> */}
+   <motion.div whileTap={{ scale: 1.03 }}>
+      <LoadingBtn act={()=>{page3Handler()} } icon={<FaCircleRight  />} text={"التالي"} lod={lod} />
+      </motion.div>
+   
 
 
 
-</div>
-
-</div>
  
         
 
-       
-        <h3>
-          <b>ملحوظة:</b> تستخدم البيانات الشخصية لترشيح منتجات مناسبة لك
-        </h3>
-     
-
-     
-        <button style={{backgroundColor:Theme.primary}} onClick={()=>{setType(2)}} className="mt-4 w-full font-semibold  text-white py-2 rounded-md text-lg tracking-wide">
-        <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
-       
-        التالي
-       
-        </div>
-       
-        </button>
-      
-    
       
 
       
       
       </div>
-      {/* <button style={{backgroundColor:Theme.primary}} onClick={()=>{regis();}} className="mt-4 w-full  font-semibold  text-white py-2 rounded-md text-lg tracking-wide">
-        <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
-       
-        إنشاء حساب
-       
-        </div>
-       
-        </button> */}
+    
 
 
     
  
     </div>
 
-    <div style={{display:type==2?"block":"none",zIndex:1}} className=" px-10 py-8 rounded-xl w-screen  max-w-sm">
-      <div className="space-y-4">
-        <h5 className="text-center  font-semibold text-gray-600"> المعلومات الشخصية </h5>
 
-        <div onClick={()=>{setType(1)}} style={{fontSize:15,textDecoration:"underline",color:Theme.primary,textAlign:"left"}}>
-          رجوع
-
-        </div>
-
-   <div>
-   <label className='block mb-1 text-gray-600 font-semibold' htmlFor="state">إختر المدينة :</label>
-
-<select onChange={()=>{handlestate(event.target.value);}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="cars" id="state">
-  <option selected value="">المدينة</option>
-  {states&&states.map(stateo=>(
-  <option key={stateo.id}  value={stateo.id}>{stateo.attributes.name}</option>
-))}
-</select>
-   </div>
-       
-   <div>
-   <label className='block mb-1 text-gray-600 font-semibold' htmlFor="city">إختر المنطقة :</label>
-
-<select onChange={()=>{setcity(event.target.value);}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="cars" id="city">
-  <option value="">المنطقة</option>
-  {cities&&cities.map(cityo=>(
-  <option key={cityo.id}  value={cityo.id}>{cityo.attributes.name}</option>
-))}
-</select>
-   </div>
-
-   <div>
-          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">  العنوان بالتفصيل </label>
-          <input  onChange={(event)=>{setaddress(event.target.value)}} value={address} placeholder="العنوان" type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
+    <div style={{display:type==2?"block":"none",zIndex:1}} className="w-full">
+      <div className="">
 
 
-        <div>
-          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">روابط صفحات التسويق </label>
-          <input  onChange={(event)=>{setSocial1(event.target.value)}} value={social1} placeholder="إختياري" type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-
-        <div>
-          <input  onChange={(event)=>{setSocial2(event.target.value)}} value={social2} placeholder="إختياري"  type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-
-        <div>
-          <input  onChange={(event)=>{setSocial3(event.target.value)}} value={social3} type="text" placeholder="إختياري" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-
-        <h3>
-          <b>ملحوظة:</b>بمعرفة صفحات إعلانك يمكننا تقديم نصائح حول كيفية زيادة مبيعاتك
-        </h3>
-
-      
-    
-      
-
-      
-      
-      </div>
-      {/* <button style={{backgroundColor:Theme.primary}} onClick={()=>{regis();}} className="mt-4 w-full  font-semibold  text-white py-2 rounded-md text-lg tracking-wide">
-        <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
-       
-        إنشاء حساب
-       
-        </div>
-       
-        </button> */}
-
-<LoadingBtn act={()=>{regis()} } text={"إنشاء حساب"} lod={lod} />
-
-    
- 
-    </div>
-    <div style={{height:200}}></div>
+      <div className='w-full  flex align-middle justify-between'>
+<div onClick={()=>{setType(1)} } className='inline-flex text-moon-300/60 flex-grow align-middle justify-start' 
+style={{fontSize:15,textDecoration:"underline",cursor:"pointer",textAlign:"left"}}>
+<div style={{marginRight:5}}> <FaArrowCircleLeft/> </div>
+<div className='flex align-middle justify-center '> رجوع</div>
 </div>
+<div className='flex-grow '>
+<h5 className="text-right  font-semibold text-moon-300/50">معلومات إضافية</h5>
+</div>
+</div>
+      
+
+<div style={{
+display:"grid",
+margin:"16px 0px",
+gap:10,
+gridTemplateAreas:`
+' namear  namear  namear namear namear ' 
+' email email email email email  ' 
+
+'pass2 pass2 pass2 pass pass'
+'confirm confirm confirm confirm confirm'
+
+`
+
+
+   }} >
+
+
+    <div style={{gridArea:"namear"}}>
+      <InputEl outputfunc={(val)=>{console.log(val)}} label={"معلومات إضافية"}/>
+    </div>
+
+    <div style={{gridArea:"email"}}>
+    <InputEl outputfunc={(val)=>{console.log(val)}} label={"معلومات إضافية"}/>
+    </div>
+
+
+    <div style={{gridArea:"pass2"}}>
+    <InputEl outputfunc={(val)=>{console.log(val)}} label={"معلومات إضافية"}/>
+    </div> 
+
+    <div style={{gridArea:"pass"}}>
+    <InputEl outputfunc={(val)=>{console.log(val)}} label={"معلومات إضافية"}/>
+    </div>
+
+    <div style={{gridArea:"confirm"}}>
+    <InputEl outputfunc={(val)=>{console.log(val)}} label={"معلومات إضافية"}/>
+    </div>
+
+  
+  
+
+   </div>
+
+
+  
+  
+     <LoadingBtn act={()=>{regis()} } icon={<FaCheckCircle  />}  text={"تسجيل الحساب"} lod={lod} />
+
+    
+
+
+ 
+        
+
+    
+
+      
+      
+      </div>
+    </div>
+
+    </div>
+    </div>
             
         </div>
     )

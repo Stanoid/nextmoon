@@ -3,9 +3,9 @@ import React from 'react'
 function MegaMenu() {
   return (
     <div style={{width:"70vw"}} className="  relative   bg-white">
-    <div className="mx-auto max-w-7xl px-8">
+    <div className="mx-auto max-w-7xl ">
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-            <div className="col-start-2 grid grid-cols-2 gap-x-8">
+            <div className="col-start-2 lg:grid sm:hidden hidden grid-cols-2 gap-x-8">
                 <div className="group relative text-base sm:text-sm">
                     <div
                         className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
@@ -37,7 +37,7 @@ function MegaMenu() {
                     <p aria-hidden="true" className="mt-1">Shop now</p>
                 </div>
             </div>
-            <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+            {/* <div className="row-start-1     grid-cols-3 gap-x-8 gap-y-10 text-sm">
                 <div>
                     <p id="Clothing-heading"
                         className="font-medium text-gray-900">Clothing</p>
@@ -127,7 +127,7 @@ function MegaMenu() {
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
 </div>

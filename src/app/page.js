@@ -1,15 +1,18 @@
 'use client'
 
 import Image from "next/image";
-import Product from "./comps/product";
+import ProductCopm from "./comps/product";
 import Hero from "./comps/hero";
 import { API_URL ,Theme} from "./local";
-import { useState,useRef,useEffect,useContext } from "react";
+
+import { useState,useRef,useEffect,useContext,useMemo,useCallback } from "react";
 import FeatProduct from "./comps/featuredProducts";
 import { AuthCon } from "./contexts/AuthCon";
 import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import FeaturedComp from "./comps/featured";
+import AnimateOnViewEnter from "./comps/AnimateOnViewEnter"
+import LoadingOverlay from "./comps/loadingOverlay";
 import Cart from "./comps/cart";
 import PromoComp from "./comps/promo";
 import { product } from "./comps/productdata";
@@ -19,18 +22,19 @@ export default function Home() {
   const {loginval}  = useContext(AuthCon);
   const [products,setProducts] = useState()
   const [lod,setLod] = useState(true);
-
+  //const calculation = useMemo(() =>  getAllProducts(), []);
   
   useEffect(() => {
    
-
-    getAllProducts();
+setLod(false)
+  getAllProducts();
+  //  calculation;
     
        }, [])
 
 
 
-       const getAllProducts = ()=>{
+       const getAllProducts = useCallback(()=>{
         setLod(true);
         const requestOptions = {
             method: 'GET',
@@ -56,7 +60,7 @@ export default function Home() {
             })
     
     
-    }
+    },[])
 
 
 
@@ -86,49 +90,83 @@ export default function Home() {
 
       
    
-    <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
-
+    <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column', width:'100%'}}>
+ {lod?<LoadingOverlay/>:<></>} 
  <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
 <div style={{width:"100%"}}>
 <Hero  />
   </div> 
+  <div  className="bg-moon-100 flex justify-center "   >
+
+<div className="w-full lg:w-3/4 " >
+<FeaturedComp/>
+</div>
+
+</div>
+
 <div  style={{width:"90%",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
 
- <div style={{marginTop:15,display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%"}}>
-  <PromoComp/>
-  <PromoComp/>
-  <PromoComp/>
+ <div className="flex-col md:flex-row lg:flex-row sm:flex-col" style={{marginTop:15,display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%"}}>
+ 
+ <div className="flex flex-col sm:flex-col align-middle justify-center" >
+
+
+
+
+
+
+
+ </div>
+
 
   </div> 
 </div>
 
 
-<div style={{width:"90%"}}>
-  <FeaturedComp/>
-</div>
+
 
 {
-  !lod?<div >
+  !lod?<div  className="p-0 m-0">
     
-  <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-2 gap-y-4 p-2 
-  xl:grid-cols-8
+ 
+<div className="  grid  lg:gap-x-1 lg:gap-y-2 xl:gap-x-2 xl:gap-y-2 md:gap-x-4 md:gap-y-4 gap-x-0 gap-y-0 my-6
+  xl:grid-cols-6
    md:grid-cols-4 
-   grid-cols-2  '
-   style={{width:'100%'}}>
-  
+   grid-cols-2  " style={{width:"100vw"}}>
+
+
   {products&&products.map(product=>(
-product.status?     
-<div  key={product.id}>
-<Product atcbtn={false} data={product} />
-</div>:<></>
+product.status?  
+
+<div className="   "  key={product.id}>
+<ProductCopm atcbtn={false} data={product} />
+</div>
+:<></>
 ))}
   
 
 
-
-
 </div>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+ {/* <div className="flex w-full  align-middle justify-center">
+ <PromoComp/>
+ </div>
+  */}
+
+
+    <div class="    p-8 px8 lg:px-64 w-full bg-gradient-to-r from-moonsec-100 to-moonsec-100/75  text-right lg:py-16">
+      <div className="min-w-fit" >
+      <h1 class="mb-4 text-3xl font-semibold tracking-tight  leading-tight text-white md:text-5xl lg:text-4xl ">
+      ولما كان تناسي حقوق الإنسان وازدراؤها قد أفضيا إلى أعمال همجية</h1>
+        <p class="text-lg text-center  break-words font-medium text-moon-300/70 lg:text-xl  ">
+              لمّا كان الاعتراف بالكرامة المتأصلة في جميع
+        </p>
+      </div>
+     
+       
+    </div>
+
 </div>:<div  style={{ width: "100%", padding: "20px 10px" }}>
  
  <SkeletonTheme baseColor="white" highlightColor={Theme.primary}>

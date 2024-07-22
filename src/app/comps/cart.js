@@ -6,6 +6,8 @@ import Cartel from './cartel'
 import { XIconreact,XIcon } from '@heroicons/react/outline'
 import { BsCartFill } from 'react-icons/bs'
 import { Flip, toast,ToastContainer } from 'react-toastify'
+import { Button } from '@nextui-org/react'
+import { FaCreditCard } from 'react-icons/fa6'
 import LoadingBtn from './loadingbtn'
 import {CartCon} from '../contexts/cartContext'
 import Image from 'next/image';
@@ -55,6 +57,7 @@ const handleOrder= ()=>{
   method: 'POST',
   headers: {
       "Content-Type": "application/json",
+      "Authorization": 'Bearer ' + ls.get("atkn")
   },
   body: JSON.stringify({
      items: payarray
@@ -257,20 +260,19 @@ const notify = (type,msg)=>{
                       Total  : {CartTotal} {CURRENCY} 
                      </div> */}
    
-                    <div style={{padding:20, display:cartData&&cartData.length==0?"none":"flex",alignItems:'center',justifyContent:'space-between'}}>
+                    <div style={{padding:20, display:cartData&&cartData.length==0?"none":"flex",alignItems:'center',justifyContent:'center'}}>
                         <div style={{fontSize:15,fontWeight:'bold'}}>
                           
                            </div>
                        
-                          
-                          
-                         
+
                         
 
                           
-                         <LoadingBtn act={()=>{
+                         <LoadingBtn  icon={<FaCreditCard/>}  act={()=>{
                        handleOrder() ; 
-                       }}  text={"متابعة"} lod={lod} /></div>                  
+                       }}  text={"متابعة إلى الدفع"} lod={lod} />
+                       </div>                  
                     {/* /End replace */}
                   </div>
                 </div>

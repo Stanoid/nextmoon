@@ -19,12 +19,14 @@ import {
 } from "@nextui-org/react";
 import {PlusIcon} from "./PlusIcon";
 import {VerticalDotsIcon} from "./VerticalDotsIcon";
+import { useEffect } from "react";
 import {SearchIcon} from "./SearchIcon";
 import {ChevronDownIcon} from "./ChevronDownIcon";
 import { FaEye,FaPencil,FaTrash } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { color } from "framer-motion";
+import { CURRENCY } from "@/app/local";
 
 const statusColorMap = {
   active: "success",
@@ -32,26 +34,47 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "city", "status", "email","refid"];
+const INITIAL_VISIBLE_COLUMNS = ["name", "city", "status", "email","refid","date","total","payment_status","total"];
 
 export default function App(props) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = React.useState("all");
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [columns, setColumns] = React.useState(null);
   const [sortDescriptor, setSortDescriptor] = React.useState({
     column: "age",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
 
+  useEffect(() => {
+   
+switch (props.coldata) {
+  case "dorders":
+    
+    break;
+
+
+
+
+  default:
+    break;
+}
+
+
+
+  }, [columns])
+  
+
+
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
 
-    return columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
+    return props.columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
@@ -97,7 +120,7 @@ export default function App(props) {
       case "name":
         return (
           <User
-            avatarProps={{radius: "full",size:"sm", color:"primary", src: user.avatar}}
+            avatarProps={{radius: "full",size:"sm", color:"primary ", src: user.avatar}}
             description={user.email}
             name={cellValue}
           >
@@ -111,19 +134,27 @@ export default function App(props) {
             <p className="text-bold text-tiny capitalize text-default-400">{user.team}</p>
           </div>
         );
+
+
+        case "total":
+          return (
+            <div className=" whitespace-nowrap">
+                   {cellValue} <span className="italic text-xs text-gray-600" > {CURRENCY} </span> 
+            </div>
+          );
       case "status":
      let stob = {};
       switch (cellValue) {
         case "initiated":
-       stob.lable = "not delivered";
-       stob.color = "text-amber-700 bg-amber-200 ";
+       stob.lable = "غير موصل ";
+       stob.color = "text-amber-700 bg-amber-200 min-w ";
       stob.dot = "bg-amber-700";
        
         break;
 
         case "delivered":
-          stob.lable = "delivered";
-          stob.color = "text-green-600 bg-green-300";
+          stob.lable = "تم التوصيل";
+          stob.color = "text-green-600 bg-green-300 min-w ";
           stob.dot = "bg-green-600";
        
           
@@ -139,17 +170,78 @@ export default function App(props) {
 
       return (<div className={stob.color} style={{
         display:"flex",
+        whiteSpace:"nowrap",
+
         alignItems:"center",
         justifyContent:"center",
   
-        padding:"4px 7px",
+        padding:"4px 10px",
         borderRadius:10
       
       }} > 
-      <div   className={stob.dot} style={{width:10,height:10,borderRadius:100,marginRight:7,fontSize:10}}></div>
-      {stob.lable.toUpperCase()} 
+      <div   className={stob.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,fontSize:10}}></div>
+      {stob.lable} 
       </div>);
-    
+       break;
+
+       case "payment_status":
+        let stobp = {};
+         switch (cellValue) {
+           case "unpaid":
+          stobp.lable = "غير مدفوع";
+          stobp.color = "text-amber-700 bg-amber-200 ";
+         stobp.dot = "bg-amber-700";
+          
+           break;
+   
+           case "paid":
+            stobp.lable = "تم الدفع";
+            stobp.color = "text-green-600 bg-green-300";
+            stobp.dot = "bg-green-600";
+          
+             
+              break;
+   
+   
+           
+         
+           default:
+             break;
+         }
+   
+   
+         return (<div className={stobp.color} style={{
+           display:"flex",
+           whiteSpace:"nowrap",
+           alignItems:"center",
+           justifyContent:"center",
+     
+           padding:"4px 10px",
+           borderRadius:10
+         
+         }} > 
+         <div   className={stobp.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,fontSize:10}}></div>
+         {stobp.lable} 
+         </div>);
+         break;
+      case "date":
+        var date = new Date(cellValue * 1000);
+        var hours = date.getHours();
+       
+        var y = date.toLocaleDateString("ar-EG",{  
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',});
+        var minutes =   date.getMinutes();
+        return(
+         <div className="whitespace-nowrap" > {y} </div> 
+        );
+
+
+
+      break;
+
 
       case "refid":
         return (
@@ -167,10 +259,10 @@ export default function App(props) {
                   <VerticalDotsIcon className="text-default-300" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu disabledKeys={["edit","delete"]}>
-                <DropdownItem onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >  View</DropdownItem>
-                <DropdownItem startContent={<FaPencil style={{marginRight:4}} />} key={"edit"} > Edit</DropdownItem>
-                <DropdownItem startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >Delete</DropdownItem>
+              <DropdownMenu dir="rtl" disabledKeys={["edit","delete"]}>
+                <DropdownItem onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >  عرض</DropdownItem>
+                <DropdownItem startContent={<FaPencil style={{marginRight:4}} />} key={"edit"} > تعديل</DropdownItem>
+                <DropdownItem startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >إلغاء</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -214,21 +306,23 @@ export default function App(props) {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
-          <Input
+        <div>
+        <Input
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
-            startContent={<SearchIcon />}
+            placeholder=" أبحث في الطلبات..."
+            startContent={<SearchIcon className="mx-2" />}
             value={filterValue}
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
+        </div>
+        <div className="flex justify-between gap-3 items-end">
           <div className="flex gap-3">
             <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
-                  Status
+              <DropdownTrigger className="">
+                <Button endContent={<ChevronDownIcon className="text-small" />} className="bg-moon-100 text-moon-300/60" variant="flat">
+                  حالة الطلب
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -247,9 +341,9 @@ export default function App(props) {
               </DropdownMenu>
             </Dropdown>
             <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
-                  Columns
+              <DropdownTrigger className=" sm:flex">
+                <Button endContent={<ChevronDownIcon className="text-small" />} className="bg-moon-100 text-moon-300/60" variant="flat">
+                  الأعمدة
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -260,22 +354,22 @@ export default function App(props) {
                 selectionMode="multiple"
                 onSelectionChange={setVisibleColumns}
               >
-                {columns.map((column) => (
+                {props.columns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
                     {capitalize(column.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<PlusIcon />}>
+            {/* <Button color="primary" endContent={<PlusIcon />}>
               Add New
-            </Button>
+            </Button> */}
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {props.data.length} users</span>
+          <span className="text-default-400 text-small"> عدد الطلبات الكلي:  {props.data.length} </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+            عدد الصفوف  :
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -300,7 +394,7 @@ export default function App(props) {
 
   const bottomContent = React.useMemo(() => {
     return (
-      <div className="py-2 px-2 flex justify-between items-center">
+      <div className="py-2 px-2 hidden flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"
@@ -355,7 +449,7 @@ export default function App(props) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No users found"} items={sortedItems}>
+      <TableBody emptyContent={" لا توجد طلبات "} items={sortedItems}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

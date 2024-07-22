@@ -16,7 +16,7 @@
         "@stripe/react-stripe-js": "^1.16.5",
         "@stripe/stripe-js": "^1.54.2",
         "axios": "^1.6.8",
-        "framer-motion": "^11.3.2",
+        "framer-motion": "^11.3.8",
         "keen-slider": "^6.8.6",
         "local-storage": "^2.0.0",
         "next": "14.1.0",
@@ -34,6 +34,7 @@
         "universal-cookie": "^7.0.2"
     },
     "devDependencies": {
+        "@svgr/webpack": "^8.1.0",
         "autoprefixer": "^10.0.1",
         "postcss": "^8",
         "tailwindcss": "^3.3.0"

@@ -1,6 +1,6 @@
 import {React,useEffect,useState} from 'react'
 import { CURRENCY, Theme } from '../local'
-
+import { motion } from 'framer-motion'
 
 
 
@@ -28,7 +28,11 @@ className='flex-col lg:flex-row md:flex-row sm:flex-col'
 
 
 {props.vars&&props.vars.map(varient=>(
-<div onClick={()=>{props.varselect(varient.id,varient.attributes.product_red)}}   className='shadow-md flex-row lg:flex-col md:flex-col sm:flex-row ' style={{padding:"10px 10px"
+<motion.div   whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+
+ onClick={()=>{props.varselect(varient.id,varient.attributes.product_ref)}}   className='shadow-md transition-colors flex-row lg:flex-col md:flex-col sm:flex-row ' style={{padding:"10px 10px"
 ,borderRadius:10,margin:7,border:props.selid==varient.id?"4px solid"+Theme.primary:"4px solid #FAFAFA",cursor:"pointer",
 display:"flex",justifyContent:"center",alignItems:"center"
 }}  key={varient.id} >
@@ -42,13 +46,13 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
 </div>
 <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
 <div style={{fontWeight:"bold",padding:10,paddingBottom:0}}>
-{varient.attributes.size.data.attributes.name_en} <span> / </span> {varient.attributes.color.data.attributes.name_en}
+{varient.attributes.size.data.attributes.name_en} <span> / </span> {varient.attributes.color.data.attributes.name_ar}
 </div>
 <div style={{color:"grey",fontStyle:'oblique'}}>
     {varient.attributes.price} {CURRENCY}
 </div>
 </div>
-</div>
+</motion.div>
 ))}
 
 

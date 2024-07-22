@@ -127,7 +127,7 @@ html{
 
 .dots {
   display: flex;
-  padding: 10px 0;
+ 
   justify-content: center;
 }
 
@@ -284,9 +284,26 @@ border-left: 1px solid #E16D64;
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 1s;
+  transition: 1s;
 }
+
+
+.opera input[type="password"],
+.webkit input[type="password"]
+{
+  font-family: Verdana;
+    letter-spacing: 0.125em;
+ }
+
+
+ input[type='password'] {
+  font-family: large Verdana;
+  font-weight:"bold";
+  letter-spacing: 0.125em;
+}
+
+
 
 .slider:before {
   position: absolute;
@@ -296,8 +313,8 @@ border-left: 1px solid #E16D64;
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 1;
+  transition: 1;
 }
 
 input:checked + .slider {
@@ -323,3 +340,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+
+
+.st1{fill:"#red"}

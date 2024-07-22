@@ -1,19 +1,31 @@
 import React from "react";
-const columns = [
+const dorders = [
   {name: "ID", uid: "id", sortable: true},
   {name: "NAME", uid: "name", sortable: true},
   {name: "PHONE", uid: "phone", sortable: true},
   {name: "CITY", uid: "city", sortable: true},
   {name: "EMAIL", uid: "email",sortable: true },
-  
-
+  {name: "DATE", uid: "date", sortable: true},  
   {name: "STATUS", uid: "status", sortable: true},
   {name: "ACTIONS", uid: "refid"},
 ];
 
+
+const uorders = [
+  {name: "ID", uid: "id", sortable: true},
+  {name: "NAME", uid: "name", sortable: true},
+  {name: "PHONE", uid: "phone", sortable: true},
+  {name: "CITY", uid: "city", sortable: true},
+  {name: "EMAIL", uid: "email",sortable: true },
+  {name: "DATE", uid: "date", sortable: true},  
+  {name: "STATUS", uid: "status", sortable: true},
+  {name: "ACTIONS", uid: "refid"},
+];
+
+
 const statusOptions = [
-  {name: "NOT DELIVERED", uid: "initiated"},
-  {name: "DELIVERED", uid: "delivered"},
+  {name: "غير موصل", uid: "initiated"},
+  {name: "تم التوصيل", uid: "delivered"},
 
 ];
 
@@ -218,4 +230,4 @@ const users = [
   // },
 ];
 
-export {columns, users, statusOptions};
+export {dorders,uorders, users, statusOptions};

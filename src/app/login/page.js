@@ -1,106 +1,217 @@
-
 'use client'
-
 import React from 'react'
-
-import { API_URL } from '../local';
-import {useState,useContext,useEffect} from "react";
-import { Theme } from '../local';
-import LoadingBtn from '../comps/loadingbtn';
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import { useState,useEffect,useContext } from 'react'
+import { motion } from 'framer-motion'
+import {  toast,ToastContainer } from 'react-toastify'
+import { API_URL } from '../local'
+import InputEl from '../comps/inputel'
+import { useRouter } from 'next/navigation';
+import { FaArrowAltCircleLeft,FaArrowCircleLeft,FaArrowCircleRight, FaCheckCircle,FaUserPlus } from 'react-icons/fa'
+import LoadingBtn from '../comps/loadingbtn'
+import { FaLock } from 'react-icons/fa6'
 import { AuthCon } from '../contexts/AuthCon';
-import Image from 'next/image';
-import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
-export default function Login() {
-const [emial, setEmial] = useState("");
 
-const [pass, setpass] = useState("");
-const [lod, setlod] = useState(0);
-const {loginUser}  = useContext(AuthCon);
+import { Theme } from '../local'
+import { FaCircleRight } from 'react-icons/fa6'
+export default function Register() {
+
+  const [name, setname] = useState("");
+  
+  const [gender, setGender] = useState("M");
+  const [age, setAge] = useState("");
+  const [lod, setLod] = useState(false);
+  const [states, setstaes] = useState("");
+  const [cities, setcities] = useState("");
+  const [selected, setSelected] = useState([]);
+  const [cats, setCats] = useState();
+  const [state,setstate]=useState();
+  const [city,setcity]=useState();
+  const [address,setaddress]=useState();
+  const [address2,setaddress2]=useState();
+  const [phone, setPhone] = useState("");
+  const [type, setType] = useState(0);
+  const [email, setemail] = useState("");
+  const [pass, setpass] = useState("");
+  const [cpass, setcpass] = useState("");
+  const {loginUser}  = useContext(AuthCon);
+  
+ const ls = require("local-storage");
 const router = useRouter();
-const ls = require("local-storage")
+  
+const notify = (type,msg)=>{
+
+  const options={
+    hideProgressBar:true,
+    draggable:true,
+    closeButton:false,
+    
+  }
+  switch(type){
+    case 'success':
+      toast.success(msg,options)
+      break;
+
+      case 'error':
+        toast.error(msg,options)
+        break;
+
+        case 'warn':
+          toast.warn(msg,options)
+          break;
+
+        
+
+  }
+ 
+}
+
 
 
 useEffect(()=>{
 
-//  //isLogged(ls.get("atkn"))
-//  console.log("aaaa",ls.get("atkn"))
-
-},[])
-
-const handlelogin=()=>{
- setlod(1);
-//  console.log(loading);
- loginUser(emial,pass)
-
+  //getstate();  
  
+ 
+ },[])
 
-}
+
+
+
+ const handlelogin=()=>{
+  setLod(1);
+ //  console.log(loading);
+  loginUser(email,pass)
+ 
+  
+ 
+ }
+
+
+
+
+  const handleemail =(email)=>{
+    const newemail= email.replace(/ /g,'');
+    setemail(newemail);
+  }
+
+
+
+  const handlestate=(value)=>{
+   // console.log("Aaa",value);
+    setstate(value)
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+        "Content-Type": "application/json",
+      
+    },
+  
+};
+fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+     
+  //  console.log(data.data.attributes.cities.data);
+   setcities(data.data.attributes.cities.data);
+       
+    });
+
+
+    
+
+  }
+
+    return (
+        <div style={{backgroundSize:20}} className="w-full sm:w-full h-full flex min-h-screen  bg-[url('../../public/amblemblack.svg')] bg-moon-200" >  
+     
+           <ToastContainer  limit={3}/>
+
+
+           <div  className="  from-moon-200 to-moon-200 hidden sm:hidden lg:flex  md:w-1/4 lg:w-1/2 xl:w-1/2  " ></div>
+  
+            <div className="  w-full md:w-3/4 lg:w-1/2 xl:w-1/2 p-3 ">
+    <div  style={{backgroundColor:"rgba(255,255,255,1)"}} className='w-full  flex align-middle  rounded-lg transition-transform  justify-center  text-right p-3 md:p-4 lg:p-8 shadow-xl  flex-col items-center ' >
+        
+
+    {/* Old signup stepper */}
+<div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-5 my-3 transition-all" style={{zIndex:100,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+<h1 className="text-center text-2xl font-semibold text-moon-300">تسجيل دخول</h1>
+
+</div>
+
+
+    <div  style={{display:type==0?"block":"none",zIndex:1}} className="w-full transition-all ">
+
+<div>
+
+<div className='w-full  flex align-middle justify-between'>
+<div onClick={()=>{router.push("/register")} } className='inline-flex text-moon-300/60 flex-grow align-middle justify-start' 
+style={{fontSize:15,textDecoration:"underline",cursor:"pointer",textAlign:"left"}}>
+<div style={{marginRight:5}}> <FaUserPlus/> </div>
+<div className='flex align-middle justify-center '> ليس لديك حساب؟ أنشئ حساب</div>
+</div>
+
+</div>
+
+
+</div>
+    <div style={{
+display:"grid",
+margin:"16px 0px",
+gap:10,
+gridTemplateAreas:`
+
+'email'
+'pass'
+
+`
+
+
+   }} >
+
 
    
 
+    <div style={{gridArea:"email"}}>
+      <InputEl outputfunc={(val)=>{handleemail(val)}} label={"البريد الإلكتروني"}/>
+    </div>
 
-    return (
-        <div style={{
-          display:"flex",
-          justifyContent:"center",
-       padding:20,
-          alignItems:"center"
-        }}>
-           
+  
+    <div style={{gridArea:"pass"}}>
+      <InputEl outputfunc={(val)=>{setpass(val)}} ispass label={"كلمة المرور"}/>
+    </div>
 
-           <div style={{position:'absolute', bottom:0,right:0,zIndex:0}}>
-      <Image  src={'/dec2.svg'} width={200} height={200} />
-      </div>
-          
-            <div className=" text-right  to-indigo-600 flex justify-center flex-col items-center w-full">
- 
+  
 
+  
+  
 
-         
-      
-
-    <div style={{zIndex:1,backgroundColor:Theme.secondary}} className=" px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
-      <div className="space-y-4">
-        <h1 className="text-center text-2xl font-semibold text-white ">تسجيل دخول</h1>
-       
-        <div>
-          <label  style={{marginBottom:10}} htmlFor="email" className="block mb-1 text-white font-semibold">البريد الإلكتروني</label>
-          <input value={emial}  type="text" onChange={(event)=>{setEmial(event.target.value)}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-        <div>
-          <label style={{marginBottom:10}} htmlFor="email" className="block mb-1 text-white font-semibold">كلمة المرور</label>
-          <input type="password" value={pass} onChange={(event)=>{setpass(event.target.value)}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-        </div>
-      </div>
+   </div>
 
 
+  <div className='flex flex-col sm:flex-col lg:flex-row ' >
+  <motion.div className='flex-grow p-0 sm:px-0 lg:px-3 ' whileTap={{ scale: 1.03 }}>
+      <LoadingBtn act={()=>{handlelogin()} } icon={<FaLock  />} text={"تسجيل دخول"} lod={lod} />
+      </motion.div>
 
-      <div style={{marginTop:30}}>
+      <motion.div className='flex-grow p-0 sm:px-0 lg:px-3 ' whileTap={{ scale: 1.03 }}>
+      <LoadingBtn color={"lightgrey"} act={()=>{router.push("/register")} } textColor={"grey"} icon={<FaUserPlus  />} text={"تسجيل حساب جديد"} />
+      </motion.div>
 
-      <LoadingBtn act={()=>{handlelogin()}} text={"دخول"} lod={lod} />
-      {/* <button onClick={()=>{}} className="mt-4 w-full bg-primary text-white py-2 rounded-md text-lg tracking-wide">Login</button> */}
-      <button onClick={()=>{router.replace("/register")}} className="mt-4 w-full  text-white py-2 rounded-md text-lg underline tracking-wide"> تسجيل حساب جديد </button>
- 
 
-      </div>
+  </div>
+   
+   
     
     </div>
- 
-</div>
-                {/* <div style={{minHeight:'100vh'}}>
-                    <div style={{height:100}}></div>
-              <div style={{display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column'}}>
-       <input value={emial} placeholder='email' type={"email"} onChange={(event)=>{setEmial(event.target.value)}} />
-       <input value={pass}  placeholder='password' type={"password"} onChange={(event)=>{setpass(event.target.value)}} />
-       <div onClick={upload}> 
-       Login 
-               </div>
-               
-  </div>
-                </div> */}
-           
+
+
+   
+
+    </div>
+    </div>
+            
         </div>
     )
 }
+

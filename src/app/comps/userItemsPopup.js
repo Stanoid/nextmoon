@@ -4,7 +4,7 @@ import { Fragment, useState,useEffect,useContext } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Cartel from './cartel'
 import { XIconreact,XIcon } from '@heroicons/react/outline'
-import { FaTruck,FaClock } from 'react-icons/fa6'
+import { FaTruck,FaClock, FaBoxOpen, FaClipboard, FaX } from 'react-icons/fa6'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import LoadingBtn from './loadingbtn'
 import { Button } from '@nextui-org/react'
@@ -18,7 +18,7 @@ import { API_URL,Theme,CURRENCY,IMG_URL } from '../local'
 
 import { forwardRef, useRef,useImperativeHandle  } from "react"
 
-const deliveryPopup = forwardRef((props, ref) => {
+const ItemsPopup = forwardRef((props, ref) => {
   const [open, setOpen] = useState(true)
   const [scrol,setScrol]=useState(0);
   const [lod,setLod]=useState(0);
@@ -214,12 +214,14 @@ const notify = (type,msg)=>{
                 
                 <div className="h-screen-1/2 flex flex-col py-6 rounded-t-lg rounded-r-lg lg:rounded-r-none lg:rounded-t-none  bg-white shadow-lg overflow-y-hidden">
             
-                  <div className="px-4 sm:px-6 flex align-middle justify-between">
+                  <div className="px-4 py-4 sm:px-6 flex align-middle justify-between">
 
-                  <div  style={{
+                
+
+                  <div  className='text-moon-200/80 flex-grow '  style={{
                       display:"flex",
-                      width:"100%",
-                      color:"teal",
+                     whiteSpace:"nowrap",
+                    
                       justifyContent:"center",
                       alignItems:"center",
                       fontWeight:"bold",  
@@ -229,24 +231,23 @@ const notify = (type,msg)=>{
                      
                     }} >
 
-                      <div style={{
-                        marginRight:10
-                      }}>
-                        <FaTruck/>
-                      </div>
-                                <div>
-                             <span> {props.data&&props.data.name.toString().split(" ")[0]  } </span>
+<div>
+                      تفاصيل الطلب
+                      </div>    
 
-                             <span> {props.data&&props.data.name.toString().split(" ")[props.data&&props.data.name.toString().split(" ").length-1]} </span>
-                                </div>
+                      <div style={{
+                        marginLeft:1
+                      }}>
+                        <FaClipboard/>
+                      </div>
+                        
                                 
                   
                     </div>   
 
                     <div></div>
                  
-                    <div className=' lg:block' onClick={()=>{props.openHandler(false)}} >   <XIcon className="h-8 w-8 
-                     border-2 rounded-full border-black  " aria-hidden="true" /></div>
+               
 
    
 
@@ -276,7 +277,7 @@ const notify = (type,msg)=>{
                   }}
                   >
                     <div  className='bg-amber-700' style={{width:8,height:8,borderRadius:100,marginRight:7}}></div>
-                    <div>Not Delivered</div>
+                    <div>غير موصل</div>
                   </div>
 
                   <div className='shadow-sm text-green-600 bg-green-300 ' 
@@ -291,26 +292,27 @@ const notify = (type,msg)=>{
                   }}
                   >
                     <div  className='bg-green-600' style={{width:8,height:8,borderRadius:100,marginRight:7}}></div>
-                    <div>Delivered</div>
+                    <div>تم التوصيل</div>
                   </div>
                
 
                   </div>
         
-                  <div className='shadow-sm  text-gray-600  ' 
+                  <div className='shadow-sm text-sm text-gray-600  ' 
                   style={{
                     display:"flex",
                     padding:"5px 11px",
                     alignItems:"center",
                     borderRadius:8,
-                    fontSize:"1rem",
+                   
                   
                     justifyContent:"center",
                    
                   }}
                   >
-                    <div  className='' style={{marginRight:7}}><FaClock/></div>
                     <div>{odate}</div>
+                    <div  className='' style={{marginLeft:7}}><FaClock/></div>
+                   
                   </div>
 
                   
@@ -318,50 +320,25 @@ const notify = (type,msg)=>{
 
 
 
-                  <div style={{
+                  <div  style={{
                     margin:"0px 20px",
-                       borderTop:"2px solid "+  "teal",
-                  }} className="mt-6 relative flex-1  ">
+                     
+                  }} className="mt-6 relative flex-1 border-t-2 border-moon-200/80  ">
               
 
               <div id="scrol"   style={{height:"50vh",overflowY:'scroll', overflowX:'hidden',padding:0}}>
                  
-              <div style={{display:"flex",alignItems:"flex-start",flexDirection:"column",justifyContent:"center",padding:20,marginTop:10}} 
+           
+
+
+
+
+                    <div style={{display:"flex",width:"100%",alignItems:"flex-start",flexDirection:"column",justifyContent:"center"
+                    ,padding:"20px 5px 5px 5px",marginTop:10}} 
               className="shadow-md rounded-md ">
-               <div style={{color:"teal",borderBottom:"2px solid teal",fontWeight:"bold"}}>
-                Contacts:
-               </div>
-              <div style={{color:"darkgray",marginTop:15}}>
-               Phone : <span style={{fontWeight:"normal", color:"black"}} >{props.data&&props.data.phone}</span> 
-              </div>
-              <p style={{color:"darkgray",textAlign:"left",marginTop:7,textWrap:"wrap",wordBreak:"break-all"}}>
-               Email : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data&&props.data.email}</span> 
-              </p>
-                    </div>
-
-                    <div style={{display:"flex",alignItems:"flex-start",flexDirection:"column",justifyContent:"center",padding:20,marginTop:10}} 
-              className="shadow-md rounded-md ">
-               <div style={{color:"teal",borderBottom:"2px solid teal",fontWeight:"bold"}}>
-                Address:
-               </div>
-              <div style={{color:"darkgray",marginTop:15}}>
-               City : <span style={{fontWeight:"normal",color:"black"}} >{props.data&&props.data.city}</span> 
-              </div>
-              <p style={{color:"darkgray",textAlign:"left",textWrap:"wrap",wordBreak:"break-all"}}>
-               Line 1 : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data&&props.data.line1}</span> 
-              </p>
-              <p style={{color:"darkgray",textAlign:"left",textWrap:"wrap",wordBreak:"break-all"}}>
-               Line 2 : <span style={{fontWeight:"normal",textWrap:"wrap",color:"black"}} >{props.data&&props.data.line2}</span> 
-              </p>
-                    </div>
-
-
-
-                    <div style={{display:"flex",width:"100%",alignItems:"flex-start",flexDirection:"column",justifyContent:"center",padding:"20px 5px 5px 5px",marginTop:10}} 
-              className="shadow-md rounded-md ">
-               <div style={{color:"teal",borderBottom:"2px solid teal",width:"100%",textAlign:"left",fontWeight:"bold",paddingBottom:15}}>
+               {/* <div style={{color:"teal",borderBottom:"2px solid teal",width:"100%",textAlign:"left",fontWeight:"bold",paddingBottom:15}}>
                  Order items:
-               </div>
+               </div> */}
               <div style={{marginTop:10,width:"100%"}} >
              
               {orderItems&&orderItems.data.map((item,index)=>(
@@ -463,11 +440,10 @@ marginLeft:-10,marginTop:-5
                            </div>
     
 
-  <Button radius={"sm"} color="primary" startContent={<FaTruck/>} onClick={props.data&&props.data.status=="initiated"?()=>{
-                       handleOrderDelivery() ; 
-                       }:()=>{}} isLoading={lod}>
-     {props.data&&props.data.status=="initiated"?"Deliver":"Delivered"}
-    </Button>
+                           <div className=' lg:block flex-grow flex align-middle justify-start  '  >
+                     <Button startContent={<FaX/>} className='bg-red-400/30 font-bold text-red-500' 
+                     onClick={()=>{props.openHandler(false)}} 
+                      variant='shadow' > إخفاء </Button> </div>
 
                           
                          {/* <LoadingBtn 
@@ -498,4 +474,4 @@ marginLeft:-10,marginTop:-5
   )
 })
 
-export default deliveryPopup;
+export default ItemsPopup;

@@ -14,6 +14,7 @@ import {
 import { Flip, Slide, toast, ToastContainer } from "react-toastify";
 import { CartCon, CartContext } from "@/app/contexts/cartContext";
 import OptionEL from "@/app/comps/optionEL";
+import LoadingOverlay from '../comps/loadingOverlay';
 import Head from "next/head";
 import { product } from "@/app/comps/productdata";
 
@@ -21,6 +22,11 @@ const reviews = { href: "#", average: 4, totalCount: 117 };
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
+}
+
+ const metadata = {
+  title: 'Produc',
+  description: '...',
 }
 
 export default function Product({}) {
@@ -36,6 +42,8 @@ export default function Product({}) {
   const [qty,setQty]=useState(1);
   const [mimg,setmimg] = useState();
   const [imgs,setImgs]=useState([]);
+
+  
 
   useEffect(() => {
   
@@ -155,7 +163,7 @@ for (let i = 0; i < vrs.length; i++) {
         qty: qty, 
       });
       console.log("Product Has been added on empty cart: ", db.attributes.name_en);
-      useNotifi("success", "Product has been added to cart");
+      useNotifi("success", "تمت إضافة المنتج إلى السلة");
   
   };
 
@@ -220,7 +228,7 @@ for (let i = 0; i < vrs.length; i++) {
 
   return (
     
-    <div>
+    <div  >
       <Head>
         {/* <title>{"Minimoon | " + db.attributes&&db.attributes.name_en} </title>
         <meta name="description" content={db.attributes.descriptionEn} /> */}
@@ -249,7 +257,7 @@ for (let i = 0; i < vrs.length; i++) {
         <img
         id="mimg"
          onError={()=>{document.getElementById("mimg").src=DEF_IMG}}
-          class="h-auto max-w-full rounded-lg"
+          class="h-full rounded-lg"
           src={ IMG_URL.concat(imgs[mimg]) }
           alt=""
         />
@@ -286,14 +294,16 @@ for (let i = 0; i < vrs.length; i++) {
       style={{
         width: "100%",
         height: "100%",
+        
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        alignItems: "flex-start",
-       padding:20
+        alignItems: "flex-end",
+       padding:3,
+       marginTop:5,
       }}
     >
-      <div className=" ">
+      <div className=" w-full">
         <span
         onClick={()=>{console.log("aaaaaaaaa",imgs)}}
           style={{
@@ -305,31 +315,21 @@ for (let i = 0; i < vrs.length; i++) {
           }}
           class="px-2.5 py-0.5 text-xs   rounded-xl "
         >
-        {db&&db.attributes.subcatagory.data.attributes.name_en}
+        {db&&db.attributes.subcatagory.data.attributes.name_ar}
         
         </span>
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+      alignItems:"center",
+      justifyContent:"space-between",
+           
+           
           }}
         >
-          <div>
-            <h2
-              style={{
-                fontWeight: "bold",
-                fontSize: 20,
-                lineHeight: 1.3,
-              }}
-              className="max-w-xl mt-6 mb-6  font-semibold leading-loose tracking-wide text-gray-700  "
-            >
-              {db&&db.attributes.name_en}
-            </h2>
-          </div>
 
-          <div>
-            <div
+
+<div
               onClick={() => {
                 HandleAddToFav();
               }}
@@ -337,33 +337,53 @@ for (let i = 0; i < vrs.length; i++) {
               style={{
                 color: "#FA5882",
                 backgroundColor: "white",
-
+                
                 fontSize: 25,
                 padding: "8px 12px",
                 paddingTop: 9,
                 paddingBottom: 7,
                 borderRadius: 8,
-                marginLeft: 5,
+               
+              
               }}
             >
               <BsHeartFill />
             </div>
-          </div>
-        </div>
 
-        <div className="flex flex-wrap items-center mb-6">
-          {/* old sellers info div */}
-        </div>
+          <div>
+            <h2
+              style={{
+                fontWeight: "bold",
+                fontSize: 20,
+                width:"100%",
+                
+                lineHeight: 1.3,
+              }}
+              className="max-w-xl mt-6 mb-6 t  text-right font-semibold leading-loose tracking-wide text-gray-700  "
+            >
+              {db&&db.attributes.name_ar}
+            </h2>
+          </div>
+
+         
+          
+          </div>
+        
+
+      
         <p
           style={{
             display: "inline-block",
             fontWeight: "bold",
+            textAlign:"right",
             fontSize: 25,
+         
+            width:"100%",
             color: "black",
           }}
           className="inline-block text-2xl font-semibold  "
         >
-          <span>{price}</span> {CURRENCY}
+          <span> {CURRENCY} {price} </span> 
           <span
             style={{
               marginLeft: "0.5 rem",
@@ -380,9 +400,9 @@ for (let i = 0; i < vrs.length; i++) {
 
         <p
           style={{ fontWeight: 400, fontSize: 15, lineHeight: 1.2 }}
-          className="max-w-xl mt-6 mb-6  font-semibold leading-loose tracking-wide text-gray-900  dark:text-gray-800"
+          className="max-w-xl mt-6 mb-6 text-right  font-semibold leading-loose tracking-wide text-gray-900  dark:text-gray-800"
         >
-          {db&&db.attributes.description_en}
+          {db&&db.attributes.description_ar}
         </p>
       </div>
 
@@ -398,7 +418,7 @@ for (let i = 0; i < vrs.length; i++) {
         }}
       >
         <div style={{width:"100%",padding:"10px",backgroundColor:"#FAFAFA",borderRadius: "10px 10px 0px 0px",}}>
-          <OptionEL varselect={(vid)=>{varselectHandler(vid,prodRef)}} selid={selectedV} vars={db&&db.attributes.varients.data} />
+          <OptionEL varselect={(vid,prodRef)=>{varselectHandler(vid,prodRef)}} selid={selectedV} vars={db&&db.attributes.varients.data} />
 
     
                </div>
@@ -484,11 +504,13 @@ for (let i = 0; i < vrs.length; i++) {
 </div>
 :<div  style={{ width: "100%", padding: "20px 10px" }}>
  
- <SkeletonTheme baseColor="white" highlightColor={Theme.primary}>
+ {/* <SkeletonTheme baseColor="white" highlightColor={Theme.primary}>
  
       <Skeleton count={3} />
    
-  </SkeletonTheme>
+  </SkeletonTheme> */}
+
+  <LoadingOverlay/>
 
  
 </div>

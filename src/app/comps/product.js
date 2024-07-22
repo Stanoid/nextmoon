@@ -4,10 +4,12 @@ import React from 'react'
 
 import Styles from "../styles/Home.module.css"
 import { Theme,CURRENCY, API_URL, IMG_URL, DEF_IMG } from '../local'
-
+import { Tooltip } from '@nextui-org/react'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { useState,useEffect } from 'react'
-
+import { Button } from '@nextui-org/react'
+import { FaHeart } from 'react-icons/fa6'
 import { MAIN_STYLE } from '../styles/style'
 import Head from 'next/head'
 import { BsStarFill,BsCheck2Circle,BsCheckCircleFill,BsCartPlusFill } from 'react-icons/bs'
@@ -43,113 +45,78 @@ export default function Product(props) {
     return (
 
       
-        <div  className="shadow-md"  
-        style={{marginBom:20,display:'block',
+        <motion.div
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        className="   overflow-hidden
+     rounded-none lg:rounded-xl sm:rounded-none border border-gray-100 bg-white shadow-none lg:shadow-md md:shadow-md sm:shadow-none"  
+        style={{display:'block',
         display:"flex",alignItems:"center",justifyContent:"center"
-        ,padding:10,borderRadius:7,textAlign:'left',width:"100%",height:"100%"}}>
+        ,padding:10,textAlign:'left',width:"100%",height:"100%"}}>
 
-
-<div style={{
-  display:loading?'flex':'none' 
-}}>
-<div style={{zIndex:10}}>
-      <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
-      </div>
-</div>
-
-
-
-
-<div style={{
-  display:loading?'none':'flex',alignItems:"normal",justifyContent:"center",flexDirection:"column" 
+<div className=' h-full w-full'  style={{
+  
+  display:loading?'none':'flex',
+  alignItems:"center",justifyContent:"space-between",flexDirection:"column" 
 }} >
-      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} style={{borderRadius:5,
-      cursor:"pointer"}}>
-     
-<img
-id={props.data.id}
-      quality={"50"}
-       width={"100%"}
-        height={"100%"} 
-        
-        style={{objectFit:'cover',width:'100%',height:'100%',borderRadius:12}}
-      
-        // onError={()=>{document.getElementById(props.data.id).src = props.data.img&&JSON.parse(props.data.img)[1]}}
-          className={[Styles.nextimg]} 
-          src={IMG_URL.concat(props.data.img&&JSON.parse(props.data.img)[1])} 
-          />
-
-
-       
-      </div>
-
-      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}}
-       className={Styles.ptfont} style={{color:"#585858",fontSize:'13.5px',cursor:"pointer"
-       ,marginTop:10,marginBottom:5,lineHeight:1.2,textTransform:'capitalize',wordSpacing:0.6,lineBreak:"strict"}} >
-         
-          {props.data.name_en.length>=19?props.data.name_en.slice(0,40)+"...":props.data.name_en}
-          <div style={{color:"grey",fontSize:12,display:'flex',alignItems:'center',padding:"5px 0px"}}>{props.data.seller.username}
-           <BsCheckCircleFill style={{color:Theme.primary,marginLeft:3,display:"block"}} /> </div>
-      </div>
-
-
-
-
-<div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-
-<div className='lg:flex-col md:flex-col flex-col sm:flex-col' style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",}}>
-
-<div style={{cursor:"pointer"}}  onClick={()=>{router.push(`/products?pid=${props.data.id}`);setLoading(true);}} className='' >
-<span className='text-sm lg:text-sm md:text-2xl sm:2xl ' style={{color:"grey"}} 
->  <span style={{fontWeight:"bold",color:Theme.primary}} >{parseFloat(props.data.varients[0].price)} {CURRENCY} </span> 
-</span>
-</div>
-<div style={{display:props.data.subcatagory?"":"none"}}  onClick={()=>{router.push(`/categories?cid=${props.data.subcatagory&&props.data.subcatagory.id}`)}} className=' ' >
-<span style={{color:"white",backgroundColor:Theme.primary,padding:"3px 5px 3px 5px",cursor:"pointer",
-borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.data.subcatagory&&props.data.subcatagory.name_en}
-</span>
-</div>
-</div>
-
-<div style={{display:"flex",alignItems:"center",justifyContent:"center",fontSize:15}}>
-
- <div style={{fontWeight:"bold"}}>4.5 </div> <div style={{color:"gold"}} > <div style={{padding:2,marginTop:-3}} > <BsStarFill/></div> </div> <div style={{color:"lightgray",fontSize:12}}> (12) </div>
-</div>
-
-</div>
     
+  <div sty className='w-full h-48 min-w-full ' style={{position:"relative"}} >
+  <Image  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className=' rounded-md  '  src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
+  layout='fill'
+  objectFit='cover'
+  />
+  
+  <span    onClick={()=>{router.push(`/categories?cid=${props.data.subcatagory.id}`)}}  className="absolute cursor-pointer bottom-0 left-0 m-2 rounded-full bg-black 
+    text-center text-xs p-1 px-3 font-medium text-white">
+      {props.data.subcatagory.name_ar  }
+      </span>
+  <span className="absolute top-0 right-0 p-2 ">
+  <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={"إضافة إلى المفضلة"} >
+    <Button size='sm'  className='text-white bg-moon-200 rounded-full' variant='shadow' isIconOnly startContent={<FaHeart/>} />
+    </Tooltip>
+    </span>
+{/* </object> */}
+    
+
+   
+      </div>
+
       
+      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className="mt-1 px-1 pb-2 w-full">
 
-
-
-
-<div className='shadow-md col-span-5' style={{
-  display:props.atcbtn?"block":"none",
-  marginTop:5,
-    backgroundColor:Theme.secondary,
-    color:"white",
-    padding:"8px 12px",
-    borderRadius:8, }}>
-    <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-    <div style={{
-    color:"white",
-    marginRight:5
-  }}>
-     <BsCartPlusFill/> 
+      <h5 className="text-md text-right tracking-tight text-slate-900">{props.data.name_ar}</h5>
+    
   </div>
-    <span className='text-base' style={{textWrap:"nowrap"}}>  Add to Cart</span>
+
+  <div className="mt-1 mb-0 flex items-start  w-full flex-col justify-between">
+  <div className='flex align-middle justify-end py-2  ' > 
+    {props.data.varients&&props.data.varients.map(vari=>(
+    
+<div className='align-middle justify-center mr-1 '   key={vari.id}>
+<Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={vari.color.name_ar} >
+<div style={{backgroundColor:vari.color.colorCode}} className=' h-3 w-3 rounded-full  ' >
+
+</div>
+</Tooltip>
+
+
+
+</div>
+))}
     </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
+      <p className='text-left w-full '>
+        <span className="text-xl font-bold text-moon-300/75">  {CURRENCY}  {props.data.varients[0].price}</span>
+        <span className="text-sm text-moon-200 line-through">  {CURRENCY} {props.data.varients[0].price+20}</span>
+      </p>
+    
+    </div>
+    
+  {/* <div href="#" className="flex hidden  items-center justify-center rounded-md bg-moon-200 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+      <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+      Add to cart</div > */}
 
 
 
@@ -161,6 +128,6 @@ borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.data.subcatagory&&props.data
     
 
 
-        </div>
+        </motion.div>
     )
 }
