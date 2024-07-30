@@ -30,7 +30,7 @@
         "react-search-box": "^3.0.0",
         "react-simple-image-slider": "^2.4.1",
         "react-toastify": "^10.0.4",
-        "sharp": "^0.33.3",
+        "sharp": "^0.33.4",
         "universal-cookie": "^7.0.2"
     },
     "devDependencies": {
