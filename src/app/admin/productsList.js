@@ -8,10 +8,11 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { TiThMenu } from "react-icons/ti";
 import LoadingBtn from "../comps/loadingbtn";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaTimes, FaEdit } from "react-icons/fa";
+import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
 import { AuthCon } from "../contexts/AuthCon";
 
-function AddProduct(props) {
+function ProductsList(props) {
   const ls = require("local-storage");
   const { logindata, logoutUser } = useContext(AuthCon);
   const router = useRouter();
@@ -41,7 +42,8 @@ function AddProduct(props) {
   const [files, setFiles] = useState([]);
   useEffect(() => {
     // loginval();
-    getColors();
+    getProducts();
+
   }, []);
 
   const handleSubmit = (event) => {
@@ -219,10 +221,9 @@ function AddProduct(props) {
       .then((data) => {
         console.log("sub catagories data ", data);
         setCats(data);
-        setlod(false)
+       
       })
       .then(() => {
-        //getProducts();
       });
   };
 
@@ -314,172 +315,200 @@ function AddProduct(props) {
         padding: 5,
       }}
     >
-      <div
-        style={{
-          width: "70%",
-          display: "grid",
-          gap: 10,
-          gridTemplateAreas: `
-' namear  namear  nameen nameen  ' 
-'descriptionAr descriptionAr descriptionAr descriptionAr'
-'descriptionEn descriptionEn descriptionEn descriptionEn'
-'cat images images images'
-'color size price stock'
-`,
-        }}
-      >
-        <div style={{ gridArea: "namear" }}>
-          <InputEl
-            value={namear}
-            outputfunc={(val) => {
-              setNamear(val);
-            }}
-            label={"إسم المنتج (العربية)"}
-          />
-        </div>
-
-        <div style={{ gridArea: "nameen" }}>
-          <InputEl
-            value={nameen}
-            outputfunc={(val) => {
-              setNameen(val);
-            }}
-            label={"إسم المنتج (الإنجليزية)"}
-          />
-        </div>
-
-        <div style={{ gridArea: "descriptionAr" }}>
-          <InputEl
-            value={descar}
-            outputfunc={(val) => {
-              setDescar(val);
-            }}
-            label={"وصف المنتج (العربية)"}
-          />
-        </div>
-
-        <div style={{ gridArea: "descriptionEn" }}>
-          <InputEl
-            value={descen}
-            outputfunc={(val) => {
-              setDescen(val);
-            }}
-            label={"وصم المنتج (الإنجليوية"}
-          />
-        </div>
-
-        <div style={{ gridArea: "cat" }}>
-          <InputEl
-            value={subc}
-            outputfunc={(val) => {
-              setSubc(val);
-            }}
-            select={true}
-            iscats={true}
-            data={cats}
-            label={"الفئة"}
-          />
-        </div>
-
-        <div style={{ gridArea: "images" }}>
-          <div class="w-full">
-            <form onSubmit={handleSubmit} id="imgForm">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-last-name"
-              >
-                الصور
-              </label>
-
-              <input
-                onChange={(e) => {
-                  setFiles(e.target.files);
-                }}
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border
-     border-gray-200 rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white
-      focus:border-gray-500"
-                id="grid-last-name"
-                accept="image/*"
-                name="imgs"
-                type="file"
-                multiple
-                placeholder={"Images"}
-              />
-
-           
-            </form>
-          </div>
-        </div>
-
-        <div style={{ gridArea: "price" }}>
-          <InputEl
-            value={price}
-            outputfunc={(val) => {
-              setPrice(val);
-            }}
-            num={true}
-            label={"السعر"}
-          />
-        </div>
-
-        <div style={{ gridArea: "stock" }}>
-          <InputEl
-            value={stock}
-            outputfunc={(val) => {
-              setStock(val);
-            }}
-            num={true}
-            label={"الكمية"}
-          />
-        </div>
-
-        <div style={{ gridArea: "color" }}>
-          <InputEl
-            value={color}
-            outputfunc={(val) => {
-              setcolor(val);
-            }}
-            iden={"color"}
-            data={colors}
-            select={true}
-            label={"اللون"}
-          />
-        </div>
-
-        <div style={{ gridArea: "size" }}>
-          <InputEl
-            value={size}
-            outputfunc={(val) => {
-              setSize(val);
-            }}
-            iden={"size"}
-            data={sizes}
-            select={true}
-            label={"المقاس"}
-          />
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <LoadingBtn
-          act={ lod?()=>{}:() => {
-            uploadMedia();
-          }}
-          icon={<FaPlusCircle/>}
-          lod={lod}
-          text={"إضافة المنتج"}
-        />
-      </div>
+   
 
     
+
+      <div
+        className="shadow-md"
+        style={{ marginTop: 20, width: "70%", padding: 10, borderRadius: 10 }}
+      >
+        <div style={{ color: Theme.primary, fontSize: 25, fontWeight: "bold" }}>
+           المنتجات المضافة :
+        </div>
+        <br />
+        <div>
+          <table style={{ width: "100%" }}>
+            <tr style={{ textAlign: "right", marginBottom: 20 }}>
+              <th> {"إسم المنتج (العربية)"} </th>
+             
+             <th>الخيارات</th>
+              <th>الفئة</th>
+              <th>الحالة</th>
+              <th>تعديل</th>
+              <th>حذف</th>
+            </tr>
+            <br />
+           {lod?<div className="flex items-center p-5 text-moon-200 font-bold text-2xl justify-center w-full">
+
+     جارِ تحميل المنتجات...
+         
+           </div>:<>
+            {products &&
+              products.map((product, index) => (
+                <tr
+                  style={{
+                    textAlign: "left",
+                    padding: 5,
+                    backgroundColor: index % 2 == 0 ? "lightgray" : "white",
+                  }}
+                >
+                  <th style={{ padding: 15 }}> { product.name_ar.length>=40?product.name_ar.slice(0,40)+"...":product.name_ar }</th>
+                
+                  <th
+                  dir="ltr"
+                    style={{
+                      
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent:"flex-end"
+                    }}
+                  >
+                    {product.varients &&
+                      product.varients.map((varient, indexo) => (
+                        <div
+                          className="flex-row lg:flex-col md:flex-col sm:flex-row "
+                          style={{
+                            padding: 10,
+                            borderRadius: 10,
+                            cursor: "pointer",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          key={varient.id}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <div
+                              style={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: 7,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                border: "3px solid",
+                                borderColor:
+                                  index % 2 == 0 ? "lightgray" : "white",
+                                marginRight: -10,
+                                zIndex: 10,
+                                marginBottom: -5,
+                                backgroundColor: Theme.primary,
+                                color: "white",
+                                fontSize: 20,
+                              }}
+                            >
+                              {varient.size && varient.size.icon}
+                            </div>
+                            <div
+                              style={{
+                                width: 35,
+                                height: 35,
+                                marginLeft: -10,
+                                marginTop: -5,
+                                borderRadius: 100,
+                                backgroundColor:
+                                  varient.color && varient.color.colorCode,
+                              }}
+                            ></div>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              fontSize: 10,
+                            }}
+                          >
+                            <div
+                              style={{
+                                color: "grey",
+                                fontStyle: "oblique",
+                                fontSize: 15,
+                                marginTop: 5,
+                              }}
+                            >
+                              {varient.price} {CURRENCY}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                  </th>
+
+                  <th style={{ padding: 15 }}>
+                    {" "}
+                    {product.subcatagory && product.subcatagory ? (
+                      product.subcatagory.name_ar
+                    ) : (
+                      <span style={{ color: "red" }}>None</span>
+                    )}
+                  </th>
+                  <th style={{ padding: 15 }}>
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        onChange={() => {
+                          handleStatus(product.status, product.id);
+                        }}
+                        checked={product.status}
+                      />
+                      <span class="slider round"></span>
+                    </label>
+                  </th>
+
+                  <th style={{ padding: 15 }}>
+                    <div
+                      onClick={() => {
+                        props.setpage(15, product.id);
+                      }}
+                      style={{
+                        color: "white",
+                        backgroundColor: Theme.secondary,
+                        padding: 5,
+                        borderRadius: 100,
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <FaEdit />
+                    </div>
+                  </th>
+
+                  <th style={{ padding: 15 }}>
+                    <div
+                      onClick={() => {
+                        deleteEntry(product.id);
+                      }}
+                      style={{
+                        color: "white",
+                        backgroundColor: "#ff2e2e",
+                        padding: 5,
+                        borderRadius: 100,
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <FaTimes />
+                    </div>
+                  </th>
+                </tr>
+              ))}</>}
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default AddProduct;
+export default ProductsList;

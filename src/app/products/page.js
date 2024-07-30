@@ -5,18 +5,17 @@ import React, { useState, useEffect, useContext, useRef, useSear } from "react";
 import { useRouter } from "next/navigation";
 import { API_URL, ROOT_URL, CURRENCY, Theme,IMG_URL,DEF_IMG } from "../local";
 import QuantEl from "../comps/quantel";
-import RootLayout from "@/app/layout";
 import {
   BsHeartFill,
   BsCartPlusFill,
   BsFillCartCheckFill,
 } from "react-icons/bs";
 import { Flip, Slide, toast, ToastContainer } from "react-toastify";
-import { CartCon, CartContext } from "@/app/contexts/cartContext";
-import OptionEL from "@/app/comps/optionEL";
+import { CartCon, CartContext } from "../contexts/cartContext";
+import OptionEL from "../comps/optionEL";
 import LoadingOverlay from '../comps/loadingOverlay';
 import Head from "next/head";
-import { product } from "@/app/comps/productdata";
+
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -24,10 +23,6 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
- const metadata = {
-  title: 'Produc',
-  description: '...',
-}
 
 export default function Product({}) {
   const [db, setDb] = useState(null);
@@ -140,7 +135,7 @@ for (let i = 0; i < vrs.length; i++) {
           setColor(data.data.attributes.varients.data[0].attributes.color.data.attributes.colorCode);
           setDb(data.data);
         }).then(()=>{
-          setLod(false);
+        setLod(false);
         console.log("aaaaa",imgs)
         });
 
@@ -162,7 +157,7 @@ for (let i = 0; i < vrs.length; i++) {
         product_ref:pref,
         qty: qty, 
       });
-      console.log("Product Has been added on empty cart: ", db.attributes.name_en);
+   //   console.log("Product Has been added on empty cart: ", db.attributes.name_en);
       useNotifi("success", "تمت إضافة المنتج إلى السلة");
   
   };
@@ -257,7 +252,7 @@ for (let i = 0; i < vrs.length; i++) {
         <img
         id="mimg"
          onError={()=>{document.getElementById("mimg").src=DEF_IMG}}
-          class="h-full rounded-lg"
+          class=" rounded-lg"
           src={ IMG_URL.concat(imgs[mimg]) }
           alt=""
         />
@@ -359,7 +354,7 @@ for (let i = 0; i < vrs.length; i++) {
                 
                 lineHeight: 1.3,
               }}
-              className="max-w-xl mt-6 mb-6 t  text-right font-semibold leading-loose tracking-wide text-gray-700  "
+              className="max-w-xl mt-6 mb-6 t  text-right font-semibold leading-loose tracking-tight text-gray-700  "
             >
               {db&&db.attributes.name_ar}
             </h2>
@@ -417,7 +412,7 @@ for (let i = 0; i < vrs.length; i++) {
           padding: 20,
         }}
       >
-        <div style={{width:"100%",padding:"10px",backgroundColor:"#FAFAFA",borderRadius: "10px 10px 0px 0px",}}>
+        <div className='bg-moonsec-100/10' style={{width:"100%",padding:"10px",borderRadius: "10px 10px 0px 0px",}}>
           <OptionEL varselect={(vid,prodRef)=>{varselectHandler(vid,prodRef)}} selid={selectedV} vars={db&&db.attributes.varients.data} />
 
     
@@ -428,10 +423,10 @@ for (let i = 0; i < vrs.length; i++) {
 
                <div
             
-             
+             className='bg-moon-100/50 py-4 pb-5'
             style={{
              
-              backgroundColor: "#F2F2F2",
+             
               color: "white",
            
               cursor: "pointer",
@@ -440,7 +435,7 @@ for (let i = 0; i < vrs.length; i++) {
               width:"100%",
               justifyContent:"center",
               flexDirection:"column",
-              padding: "10px",
+              
               borderRadius: "0px 0px 10px 10px",
             }}
           >
@@ -454,29 +449,27 @@ for (let i = 0; i < vrs.length; i++) {
        
 
             <div
-             className="shadow-md"
+             className="shadow-lg shadow-moon-100/70 rounded-md px-6 py-2.5 mt-3 bg-moon-200 "
               onClick={() => {
                 HandleAddToCart();
               }}
               style={{
                 display: "flex",
-                padding:10,
-                borderRadius:10,
-                backgroundColor:Theme.primary,
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
+             
+              <span> أضف إلى السلة  </span>
               <div
                 style={{
                   color: "white",
                   fontSize: 23,
-                  marginRight: 5,
+                  marginLeft: 8,
                 }}
               >
                 <BsCartPlusFill />
               </div>
-              <span> Add to Cart</span>
             </div>
           </div>
             
@@ -502,15 +495,34 @@ for (let i = 0; i < vrs.length; i++) {
     </div>
   </div>
 </div>
-:<div  style={{ width: "100%", padding: "20px 10px" }}>
+:<div  style={{ width: "100%",opacity:0.4, padding: "20px 10px" }}>
  
- {/* <SkeletonTheme baseColor="white" highlightColor={Theme.primary}>
+ <SkeletonTheme baseColor="white" highlightColor={Theme.primary}>
  
-      <Skeleton count={3} />
-   
-  </SkeletonTheme> */}
+   <div className='px-2' >
+   <Skeleton count={4} />
+    </div> 
 
-  <LoadingOverlay/>
+    <div className='flex mt-2 items-center justify-between w-full ' >
+      
+      <div className='mx-2 flex-grow ' >
+        <Skeleton count={3} />
+      </div>
+  
+   
+    
+
+
+    </div>
+
+
+    <div className='mx-2 mt-2 flex-grow ' >
+        <Skeleton count={3} />
+      </div>
+   
+  </SkeletonTheme>
+
+
 
  
 </div>

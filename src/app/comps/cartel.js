@@ -57,7 +57,7 @@ props.removeItem(props.index);
 
 <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-<img width={130} 
+<img width={70} 
 style={{
  borderRadius:5
 }}
@@ -68,11 +68,11 @@ src={ IMG_URL.concat(JSON.parse(props.data.attributes.img)[0])} />
 
 <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}} className='sm:flex-col lg:flex-row' >
 
-<div className='text-xs' style={{padding:5,paddingBottom:0,fontWeight:"bold",textAlign:"right"}}>{props.data.attributes.name_ar}</div>
+<div dir='rtl' className='text-xs' style={{padding:5,paddingBottom:0,fontWeight:"bold",textAlign:"right"}}>{props.data.attributes.name_ar.slice(0,40)+ "..."}</div>
 
 
-      <div style={{fontSize:15,padding:5,color:Theme.primary,paddingTop:0}}>{varient.attributes&&varient.attributes.price} {CURRENCY}
-      <span style={{padding:5,paddingTop:0,color:"black",fontWeight:"bold"}}>{props.qty} Pc/s</span>
+      <div dir='rtl' className='font-semibold text-moon-200/80'>{varient.attributes&&varient.attributes.price} {CURRENCY}
+      <span className=' italic text-gray-300 ' style={{ padding:5,fontSize:9,paddingTop:0,color:"black",fontWeight:"bold"}}>{props.qty} قطعة</span>
 
       </div>
      
@@ -83,11 +83,9 @@ src={ IMG_URL.concat(JSON.parse(props.data.attributes.img)[0])} />
 
 
 
-      <div style={{display:"flex",alignContent:"center",justifyContent:"center",alignSelf:"end",flexDirection:"row-reverse",marginLeft:5}}>
+      <div style={{display:"flex",alignContent:"center",justifyContent:"center",flexDirection:"column",marginLeft:5}}>
 
-      <div style={{fontSize:8,display:props.order?"none":"flex",textAlign:"center",whiteSpace:"nowrap",marginLeft:0,alignItems:"flex-end"}}>
-{varient.attributes&&varient.attributes.size.data.attributes.name_en} <span> <b> / </b> </span> {varient.attributes&&varient.attributes.color.data.attributes.name_ar}
-</div>
+  
 
 
       <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
@@ -99,6 +97,10 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
     marginLeft:-10,marginTop:-5
     ,borderRadius:100,backgroundColor:varient.attributes&&varient.attributes.color.data.attributes.colorCode}} ></div>
 
+</div>
+
+<div style={{fontSize:8,display:props.order?"none":"flex",textAlign:"center",marginLeft:0,alignItems:"flex-end"}}>
+{varient.attributes&&varient.attributes.size.data.attributes.name_en} <span> <b> / </b> </span> {varient.attributes&&varient.attributes.color.data.attributes.name_ar}
 </div>
 
 

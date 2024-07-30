@@ -5,13 +5,13 @@ import Product from "../comps/product";
 import Hero from "../comps/hero";
 import { API_URL, Theme } from "../local";
 import { useState,useRef,useEffect,useContext } from "react";
-
+import Slider from "../comps/mainSlider";
 import Cart from "../comps/cart";
 
 import { product } from "../comps/productdata";
 import { data } from "autoprefixer";
 export default function Home() {
-  const [openCart,setnhbpenCart] = useState(false);
+  const [openCart,setOpenCart] = useState(false);
   const childCompRef = useRef()
   const [lod,setLod]= useState(true)
   const [products,setProducts] = useState([])
@@ -118,7 +118,8 @@ fetch(`${API_URL}products?func=getProductswithSubid&sid=${getQueryVariable("sid"
 
 <>
 
-<div style={{
+<div dir="rtl" style={{
+  
   display:lod?'flex':'none' ,
   justifyContent:"center", 
   alignItems:"center."
@@ -129,7 +130,51 @@ fetch(`${API_URL}products?func=getProductswithSubid&sid=${getQueryVariable("sid"
 </div>
       
    
-    <div style={{ display:lod?'none':'flex' ,justifyContent:'center',alignItems:"flex-start",flexDirection:'column',marginTop:10,width:'100%'}}>
+    <div className="space-y-2 px-1.5" dir="rtl" style={{ display:lod?'none':'flex' ,justifyContent:'center'
+      ,alignItems:"flex-start",flexDirection:'column',marginTop:8,width:'100%'}}>
+  
+    <div style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6  flex sm:flex lg:hidden '>
+           <img width={"100%"} className='rounded-md'  src={"/offers/offer2.png"} />
+           </div>
+
+         
+
+           <div style={{width:'100%',position:"relative"}} 
+           className='lg:col-span-4 h-min xl:col-span-4 md:col-span-3 col-span-6 flex sm:flex lg:hidden md:hidden xl:hidden'>
+           <Slider  slides={[
+            '/offers/offermob8.png',
+            '/offers/offermob9.png',
+            '/offers/offermob7.png',
+            '/offers/offermob6.png',
+            '/offers/offermob5.png',
+            '/offers/offermob4.png',
+            '/offers/offermob3.png',
+            '/offers/offermob2.png',
+            '/offers/offermob1.png',
+           ]} />
+            {/* <Slider  slides={[
+            '/offers/ban1.png',
+            '/offers/ban2.png',
+            '/offers/ban3.png',
+        
+           ]} /> */}
+           </div>
+
+           <div style={{width:'100%',position:"relative"}} 
+           className='lg:col-span-4 h-min xl:col-span-4 md:col-span-3 col-span-6 hidden sm:hidden lg:flex md:flex xl:flex'>
+
+           <Slider  slides={[
+            
+            '/offers/offer1.png',
+            '/offers/offer2.png',
+            '/offers/offer3.png',
+            '/offers/offer4.png',
+            '/offers/offer5.png',
+            '/offers/offer6.png',
+            '/offers/offer7.png' ]} />
+          
+           </div>
+
 
 <div className="p-4" style={{
   fontSize:25,
@@ -137,7 +182,7 @@ fetch(`${API_URL}products?func=getProductswithSubid&sid=${getQueryVariable("sid"
   color:Theme.primary,
   borderBottom:"3px solid "+Theme.primary,
 }}>
-  {products[0]&&products[0].subcatagory.name_en} :
+  {products[0]&&products[0].subcatagory.name_ar} :
 </div>
 
 
@@ -170,7 +215,8 @@ fetch(`${API_URL}products?func=getProductswithSubid&sid=${getQueryVariable("sid"
   color:Theme.primary,
   borderBottom:"3px solid "+Theme.primary,
 }}>
-   Related Products :
+  
+{"منتجات ذات صلة"} :
 </div>
 
 

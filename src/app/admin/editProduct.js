@@ -49,7 +49,10 @@ function EditProduct(props) {
   const [files, setFiles] = useState([]);
   useEffect(() => {
     // loginval();
-    getColors();
+    if(eff){
+      getColors();
+    }
+    
   }, [eff,refr]);
 
   const handleSubmit = (event) => {
@@ -182,7 +185,7 @@ return;
 
   const getProducts = () => {
 
-  
+  setlod(true)
     const requestOptions = {
       method: "GET",
       headers: {
@@ -199,9 +202,11 @@ return;
         setNameen(data.data.attributes.name_en);
         setDescar(data.data.attributes.description_ar)
         setDescen(data.data.attributes.description_en)
+     
          setSubc(data.data.attributes.subcatagory.data&&data.data.attributes.subcatagory.data.id);
          setVarients(data.data.attributes.varients&&data.data.attributes.varients.data);
          let varientDeleteArray = []
+
 
          for (let i = 0; i < data.data.attributes.varients.data.length; i++) {
       varientDeleteArray.push(data.data.attributes.varients.data[i].id);
@@ -209,20 +214,21 @@ return;
           
          }
 
+
          setVarientDelete(varientDeleteArray);
 
          
          
-        
+         setlod(false);
 
       })
       .then(() => {
-        setlod(false);
+       
       });
   };
 
   const getColors = () => {
-
+setlod(true);
     if(!eff){
       return
         }
@@ -314,7 +320,7 @@ return;
 
   const submitProduct = (imgsob) => {
     console.log("vardelete",varientDelete);
-   
+   setlod(true)
 
     //console.log("aaaaa",imgsob);
     if (
@@ -325,6 +331,7 @@ return;
       subc == null 
     ) {
       alert("empty feilds");
+      setlod(false);
       return;
     } else {
       const requestOptions = {
@@ -356,6 +363,7 @@ return;
         .then(() => {
 
           props.setpage(2);
+          setlod(false);
          
         });
     }
@@ -405,7 +413,7 @@ return;
             outputfunc={(val) => {
               setNamear(val);
             }}
-            label={"Product name (Arabic)"}
+            label={"إسم المنتج (العربية)"}
           />
         </div>
 
@@ -415,7 +423,7 @@ return;
             outputfunc={(val) => {
               setNameen(val);
             }}
-            label={"Product name (English)"}
+            label={"إسم المنتج (الإنجليزية)"}
           />
         </div>
 
@@ -425,7 +433,7 @@ return;
             outputfunc={(val) => {
               setDescar(val);
             }}
-            label={"Product description (Arabic)"}
+            label={"وصف المنتج (العربية)"}
           />
         </div>
 
@@ -435,7 +443,7 @@ return;
             outputfunc={(val) => {
               setDescen(val);
             }}
-            label={"Product description (English)"}
+            label={"وصف المنتج (الإنجليزية)"}
           />
         </div>
 
@@ -448,7 +456,7 @@ return;
             select={true}
             iscats={true}
             data={cats}
-            label={"Sub-category"}
+            label={"الفئة"}
           />
         </div>
 {/* 
@@ -486,7 +494,9 @@ return;
         <div style={{ gridArea: "varients" }}>
 
         <div
+        dir="rtl"
         style={{
+          
           padding: 10,
           fontSize: 20,
           fontWeight: "bold",
@@ -496,17 +506,17 @@ return;
         }}
       >
       <div>
-      Product Varients:
+      خيارات المنتج :
         </div> 
 
-      <div style={{display:"grid", gap: 5,
+      <div  style={{display:"grid", gap: 5,
           gridTemplateAreas: `
 '. . . .' 
 '. . . .' 
 
 `,}}>
       {varients&&varients.map((varient,index)=>(
-        <div    className='shadow-md flex-row lg:flex-col md:flex-col sm:flex-row ' style={{padding:"15px 10px"
+        <div  dir="ltr"   className='shadow-md flex-row lg:flex-col md:flex-col sm:flex-row ' style={{padding:"15px 10px"
 ,borderRadius:10,margin:7,cursor:"pointer",
 display:"flex",justifyContent:"center",alignItems:"center"
 }}  key={varient.id} >
@@ -521,9 +531,9 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
     marginLeft:-10,marginTop:-5
     ,borderRadius:100,backgroundColor:varient.attributes.color.data&&varient.attributes.color.data.attributes.colorCode}} ></div>
 </div>
-<div style={{display:"flex",alignItems:"flex-start",justifyContent:"flex",flexDirection:"column"}}>
+<div style={{display:"flex",alignItems:"flex-end",justifyContent:"flex",flexDirection:"column"}}>
 <div style={{fontWeight:"bold",padding:10,paddingBottom:0,fontSize:13}}>
-{varient.attributes.size.data&&varient.attributes.size.data.attributes.name_en} <span> / </span> {varient.attributes.color.data&&varient.attributes.color.data.attributes.name_en}
+{varient.attributes.size.data&&varient.attributes.size.data.attributes.name_en} <span> / </span> {varient.attributes.color.data&&varient.attributes.color.data.attributes.name_ar}
 </div>
 <div style={{color:"grey",fontStyle:'oblique',fontSize:13}}>
     {varient.attributes.price} {CURRENCY}
@@ -536,7 +546,7 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
 
 <div onClick={()=>{removeVHandler(index)}} style={{padding:10,marginTop:10,fontSize:15,backgroundColor:"red",borderRadius:5,color:"white",display:"flex",alignItems:"center",justifyContent:"center"}}>
 <FaTrash style={{marginRight:10}}/> 
-Remove
+حذف
 </div>
 
 
@@ -555,7 +565,7 @@ Remove
               setPrice(val);
             }}
             num={true}
-            label={"Price"}
+            label={"السعر"}
           />
         </div>
 
@@ -566,7 +576,7 @@ Remove
               setStock(val);
             }}
             num={true}
-            label={"Stock"}
+            label={"الكمية"}
           />
         </div>
 
@@ -579,7 +589,7 @@ Remove
             iden={"color"}
             data={colors}
             select={true}
-            label={"Color"}
+            label={"اللون"}
           />
         </div>
 
@@ -592,7 +602,7 @@ Remove
             iden={"size"}
             data={sizes}
             select={true}
-            label={"Size"}
+            label={"المقاس"}
           />
         </div>
 
@@ -600,7 +610,7 @@ Remove
       </div>
 
       <div  className="shadow-sm" onClick={()=>{addVarient()}}  style={{backgroundColor:Theme.secondary,cursor:"pointer",color:"white",borderRadius:5,padding:"5px 10px",margin:"20px 0px",display:"flex",alignItems:"center",justifyContent:"center"}}>
-       <FaPlus/>   <div style={{marginLeft:10}}> Add Varient </div> 
+       <FaPlus/>   <div style={{marginLeft:10}}> إضافة خيار  </div> 
       </div>
 
 
@@ -620,11 +630,11 @@ Remove
         }}
       >
         <LoadingBtn
-          act={() => {
+          act={lod?()=>{}:() => {
             submitProduct();
           }}
           lod={lod}
-          text={"Update product"}
+          text={"تعديل المنتج"}
         />
       </div>
     </div>

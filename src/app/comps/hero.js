@@ -10,7 +10,7 @@ export default function Hero(props) {
     return (
        <div className='p-1.5 lg:p-4 xl:p-4 md:p-4 '>
          
-         <div className='grid grid-cols-6 gap-x-3 gap-y-1.5 sm:gap-y-1.5 lg:gap-y-3' >
+         <div className='grid grid-cols-6 gap-x-1.5 gap-y-1.5 sm:gap-y-1.5 lg:gap-y-1.5' >
 
 {/* <motion.div
  whileHover={{ scale: 1.2 }}
@@ -19,18 +19,8 @@ export default function Hero(props) {
  dragConstraints={{ left: -100, right: 100 }}
 /> */}
 
-<div 
-
-
- animate={{ marginBottom:10 }}
- transition={{ type: "spring", stiffness: 100 ,
-  delay: 2,
-  repeatDelay:1,
-  repeatType:"reverse",
-  repeat: Infinity,
-  
- }}
-style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6 flex sm:flex lg:hidden'>
+<div
+style={{width:"100%",position:"relative"}} className='lg:col-span-2  xl:col-span-2 md:col-span-3 col-span-6 flex sm:flex lg:hidden'>
            <img width={"100%"} className='rounded-md'  src={"/offers/offer5.png"} />
            </div>
 
@@ -40,8 +30,7 @@ style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-
            <div style={{width:'100%',position:"relative"}} 
            className='lg:col-span-4 h-min xl:col-span-4 md:col-span-3 col-span-6 flex sm:flex lg:hidden md:hidden xl:hidden'>
            <Slider  slides={[
-            '/offers/offermob8.png',
-            '/offers/offermob9.png',
+           
             '/offers/offermob7.png',
             '/offers/offermob6.png',
             '/offers/offermob5.png',
@@ -59,31 +48,34 @@ style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-
            </div>
 
            <div style={{width:'100%',position:"relative"}} 
-           className='lg:col-span-4 h-min xl:col-span-4 md:col-span-3 col-span-6 hidden sm:hidden lg:flex md:flex xl:flex'>
+           className='lg:col-span-4  h-min xl:col-span-4 md:col-span-3 col-span-6 hidden sm:hidden lg:flex md:flex xl:flex'>
 
            <Slider  slides={[
-            
+             '/offers/offer7.png',
+             '/offers/offer6.png',
+             '/offers/offer5.png',
             '/offers/offer1.png',
             '/offers/offer2.png',
             '/offers/offer3.png',
             '/offers/offer4.png',
-            '/offers/offer5.png',
-            '/offers/offer6.png',
-            '/offers/offer7.png' ]} />
+           
+            
+           
+             ]} />
           
            </div>
 
-           <div style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6 '>
+           <div style={{width:"100%",position:"relative"}} className='lg:col-span-2    w-full xl:col-span-2 md:col-span-3 col-span-6 '>
            {/* <Image priority={true}  width={100}  style={{width:"100%",auto}}  className="rounded-lg" src={'/offers/offmob2.png'}/> */}
-           <img width={"100%"} className='rounded-md'  src={"/offers/offer3.png"} />
+           <img  style={{objectFit:"cover",width:"100%",height:"100%"}} className='rounded-md'  src={"/offers/ban1.png"} />
            </div>
            
            <div style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6 hidden sm:hidden lg:flex'>
-           <img width={"100%"} className='rounded-md'  src={"/offers/offer5.png"} />
+           <img width={"100%"} className='rounded-md'  src={"/offers/ban3.png"} />
            </div>
 
-           <div style={{width:"100%",position:"relative"}} className='lg:col-span-4 xl:col-span-4 md:col-span-6 col-span-6'>
-           <img width={"100%"} className='rounded-md'  src={"/offers/offer2.png"} />
+           <div style={{width:"100%",position:"relative"}} className='lg:col-span-4 xl:col-span-4 md:col-span-6 col-span-6 hidden sm:hidden lg:flex ' >
+           <img width={"100%"} className='rounded-md'  src={"/offers/offer5.png"} />
            </div>
 
            {/* <div style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6'>

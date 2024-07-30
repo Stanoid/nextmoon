@@ -5,8 +5,6 @@ import logowhite from "../../../public/blk2.jpg";
 import Image from 'next/image'
 
 function PromoComp() {
-
-  
   return (
     <div style={{overflow:"hidden"}} className=' h-min w-full group py-3 rounded-sm  
      transition-all ease-soft-spring 

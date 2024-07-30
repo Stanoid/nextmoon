@@ -30,7 +30,7 @@ export default function NavbarC(props) {
   return (
 
 <>
-<div style={{float:"right",width:"100%",marginBottom:10,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+<div style={{float:"right",width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
 {/* <Dropdown placement="left">
           <DropdownTrigger>
           <Button
@@ -116,7 +116,7 @@ export default function NavbarC(props) {
 >
 <Badge size="lg" content="0" placement="top-right" showOutline={false} variant="flat" color="primary" className="flex bg-moonsec-100 text-white  align-middle justify-center">
 <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-moon-200" content="My Cart">
-<Button onClick={()=>{props.openCart(true)}} isIconOnly className="bg-white text-xl text-moon-200  rounded-lg mx-1" size="lg" variant="shadow"  aria-label="Like">               
+<Button onClick={()=>{props.openCart(true)}} isIconOnly className="  bg-gradient-to-tr from-white to-white/65 text-xl text-moon-200  rounded-lg mx-1" size="lg" variant="shadow"  aria-label="Like">               
         <FaCartShopping  />
       </Button>  
     </Tooltip> 
@@ -131,7 +131,7 @@ export default function NavbarC(props) {
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
 >
 <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-moon-200" content="My Likes" >
-<Button onClick={()=>{props.openFav(true)}} isIconOnly className="bg-white text-xl text-moon-200 mx-1 rounded-lg " size="lg"  variant="shadow"   aria-label="Like">               
+<Button onClick={()=>{props.openFav(true)}} isIconOnly className="bg-gradient-to-tr from-white to-white/65 text-xl text-moon-200 mx-1 rounded-lg " size="lg"  variant="shadow"   aria-label="Like">               
         <FaHeart  />
       </Button>    
 

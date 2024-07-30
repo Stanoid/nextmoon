@@ -18,16 +18,16 @@ export const CartContext = ({children})=>{
 
   
 
-useEffect(() => {
-  if(ls.get("MinimoonCart")){
-  //  console.log("ls already there ")
-  }else{
-    ls.set("MinimoonCart",[]);
-    //console.log("ls initated on null value ")
-  }
+// useEffect(() => {
+//   if(ls.get("MinimoonCart")){
+//   //  console.log("ls already there ")
+//   }else{
+//     ls.set("MinimoonCart",[]);
+//     //console.log("ls initated on null value ")
+//   }
 
-  //handleTotal();
-  }, []);
+//   //handleTotal();
+//   }, [ls.get("MinimoonCart")]);
 
   
   const [CartTotal, setCartTotal] = useState(0);
@@ -80,16 +80,29 @@ useEffect(() => {
 
 
   const addToCart = (ob)=>{
-    //this code dosent make sense but it works
-    console.log("incoming object ",ob)
-    const oldcart = cartData; //????
-    let arr = oldcart
-    
-    arr = arr.push(ob)//??
-    setCartData(cartData)
-    ls.set("MinimoonCart",cartData)
+
+
+    let arr = null
+    if(ls.get("MinimoonCart")){
+        console.log("ls already there ");
+        
+        }else{
+          ls.set("MinimoonCart",[]);
+        console.log("ls initated on null value ",ls.get("MinimoonCart"))
+        }    
+
+
+
+  
+  
+        arr= ls.get("MinimoonCart");
+   
+    arr = arr.concat(ob)//??
+    //setCartData(arr)
+    console.log(arr);
+    ls.set("MinimoonCart",arr)
    // handleTotal();
-    console.log("cart from context (Add) ")//??
+    console.log("cart from context (Add) ",arr)//??
 
   }
 

@@ -10,7 +10,7 @@ function QuantEl(props) {
   return (
   
 
-    <div  style={{padding:"5px 10px",marginBottom:10,backgroundColor:"white",color:"black",borderRadius:5,display:"flex"
+    <div  style={{padding:"8px 10px",marginBottom:10,backgroundColor:"white",color:"black",borderRadius:5,display:"flex"
     ,alignItems:"center",justifyContent:"center"}}>
        <div onClick={()=>{
         if(props.qty>1){

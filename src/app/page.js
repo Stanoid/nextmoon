@@ -11,7 +11,9 @@ import { AuthCon } from "./contexts/AuthCon";
 import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import FeaturedComp from "./comps/featured";
+import SwipeEl from "./comps/swipe"
 import AnimateOnViewEnter from "./comps/AnimateOnViewEnter"
+import HorDiv from "./comps/hordiv"
 import LoadingOverlay from "./comps/loadingOverlay";
 import Cart from "./comps/cart";
 import PromoComp from "./comps/promo";
@@ -93,10 +95,10 @@ setLod(false)
     <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column', width:'100%'}}>
  {lod?<LoadingOverlay/>:<></>} 
  <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
-<div style={{width:"100%"}}>
+<div className="bg-gradient-to-t to-moon-100/30 from-moon-100/50 " style={{width:"100%"}}>
 <Hero  />
   </div> 
-  <div  className="bg-moon-100 flex justify-center "   >
+  <div  className="bg-gradient-to-t from-moon-100 to-moon-100/50 flex justify-center "   >
 
 <div className="w-full lg:w-3/4 " >
 <FeaturedComp/>
@@ -104,23 +106,8 @@ setLod(false)
 
 </div>
 
-<div  style={{width:"90%",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
-
- <div className="flex-col md:flex-row lg:flex-row sm:flex-col" style={{marginTop:15,display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%"}}>
- 
- <div className="flex flex-col sm:flex-col align-middle justify-center" >
 
 
-
-
-
-
-
- </div>
-
-
-  </div> 
-</div>
 
 
 
@@ -155,17 +142,7 @@ product.status?
   */}
 
 
-    <div class="    p-8 px8 lg:px-64 w-full bg-gradient-to-r from-moonsec-100 to-moonsec-100/75  text-right lg:py-16">
-      <div className="min-w-fit" >
-      <h1 class="mb-4 text-3xl font-semibold tracking-tight  leading-tight text-white md:text-5xl lg:text-4xl ">
-      ولما كان تناسي حقوق الإنسان وازدراؤها قد أفضيا إلى أعمال همجية</h1>
-        <p class="text-lg text-center  break-words font-medium text-moon-300/70 lg:text-xl  ">
-              لمّا كان الاعتراف بالكرامة المتأصلة في جميع
-        </p>
-      </div>
-     
-       
-    </div>
+   
 
 </div>:<div  style={{ width: "100%", padding: "20px 10px" }}>
  
@@ -178,6 +155,63 @@ product.status?
  
 </div>
 }
+
+<div className="w-full flex flex-col align-middle h-fit justify-center bg-gradient-to-b from-moonsec-100/90 to-moonsec-100/30 py-4">
+<div className="p-6">
+<h5 className="text-2xl font-black text-right tracking-normal text-white ">عروض سريعة</h5>
+<p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/65 ">
+تخفيضات تصل إلى 50% على مختلف الفئات و لفترة محدودة
+</p>
+</div>
+<div  className="flex w-full align-middle mt-1 justify-center" > 
+<SwipeEl w={350} h={200}  />
+</div>
+
+</div>
+
+
+
+<div className="bg-gradient-to-b to-moonsec-200/20 from-moonsec-100/30 py-6">
+  <div className="p-4 ">
+  <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">: بلوزات طويلة</h5>
+  <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
+تخفيضات تصل إلى 50% على مختلف الفئات و لفترة محدودة
+</p>
+  </div>
+
+   <HorDiv data={product&&products} />
+</div>
+
+
+<div className="bg-gradient-to-b from-moonsec-200/20 to-moon-200/20 py-6">
+  <div className="p-6">
+  <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">:  تيشيرتات</h5>
+  <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
+تخفيضات تصل إلى 50% على مختلف الفئات و لفترة محدودة
+</p>
+  </div>
+
+   <HorDiv data={product&&products} />
+</div>
+
+<div className="p-2 px-2 sm:px-3 lg:px-80 bg-gradient-to-b to-moonsec-200/30 from-moon-200/20 py-6 ">
+<div style={{width:"100%",position:"relative"}} className='lg:col-span-4  xl:col-span-4 md:col-span-6 col-span-6'>
+           <img width={"100%"} className='rounded-md'  src={"/offers/offer2.png"} />
+           </div>
+
+</div>
+  
+
+<div className="bg-gradient-to-b from-moonsec-200/30 to-moonsec-100/30 py-6">
+  <div className="p-6">
+  <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">:  فساتين سهرة</h5>
+  <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
+تخفيضات تصل إلى 50% على مختلف الفئات و لفترة محدودة
+</p>
+  </div>
+
+   <HorDiv data={product&&products} />
+</div>
     
   </div>
  

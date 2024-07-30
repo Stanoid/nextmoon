@@ -4,7 +4,7 @@ import { Fragment, useState,useEffect,useContext } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Cartel from './cartel'
 import { XIconreact,XIcon } from '@heroicons/react/outline'
-import { FaTruck,FaClock, FaBoxOpen, FaClipboard, FaX } from 'react-icons/fa6'
+import { FaTruck,FaClock, FaBoxOpen, FaClipboard, FaX, FaChevronDown,FaCreditCard } from 'react-icons/fa6'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import LoadingBtn from './loadingbtn'
 import { Button } from '@nextui-org/react'
@@ -212,7 +212,12 @@ const notify = (type,msg)=>{
               <div className="relative w-screen tracking-tight text-sm">
               <ToastContainer  limit={3}/>
                 
-                <div className="h-screen-1/2 flex flex-col py-6 rounded-t-lg rounded-r-lg lg:rounded-r-none lg:rounded-t-none  bg-white shadow-lg overflow-y-hidden">
+                <div style={{backgroundSize:20}} className="h-screen-1/2 flex flex-col pt-6 pb-2 rounded-t-lg
+                 rounded-r-lg lg:rounded-r-none lg:rounded-t-none 
+
+                 bg-gradient-to-b from-white to-moon-100/30
+
+                  bg-white  shadow-lg overflow-y-hidden">
             
                   <div className="px-4 py-4 sm:px-6 flex align-middle justify-between">
 
@@ -259,7 +264,7 @@ const notify = (type,msg)=>{
 
                   <div className="px-4 sm:px-6 flex mb-3 align-middle justify-between">
 
-                  <div style={{
+                  <div className='flex items-center justify-start space-x-2' style={{
                       fontWeight:650,
               
                   }}>
@@ -294,6 +299,39 @@ const notify = (type,msg)=>{
                     <div  className='bg-green-600' style={{width:8,height:8,borderRadius:100,marginRight:7}}></div>
                     <div>تم التوصيل</div>
                   </div>
+
+
+
+                  <div className='shadow-sm  text-amber-700 bg-amber-200 ' 
+                  style={{
+                    display:props.data&&props.data.payment_status=="unpaid"?"flex":"none",
+                    padding:"5px 11px",
+                    alignItems:"center",
+                    borderRadius:8,
+                    fontSize:"0.7rem",
+                  
+                    justifyContent:"center",
+                   
+                  }}
+                  >
+                    <div  className='bg-amber-700' style={{width:8,height:8,borderRadius:100,marginRight:7}}></div>
+                    <div>غير مدفوع</div>
+                  </div>
+
+                  <div className='shadow-sm text-green-600 bg-green-300 ' 
+                  style={{
+                    display:props.data&&props.data.payment_status=="paid"?"flex":"none",
+                    padding:"7px 11px",
+                    borderRadius:8,
+                    alignItems:"center",
+                    fontSize:"0.7rem",
+                    justifyContent:"center",
+                   
+                  }}
+                  >
+                    <div  className='bg-green-600' style={{width:8,height:8,borderRadius:100,marginRight:7}}></div>
+                    <div>مدفوع</div>
+                  </div>
                
 
                   </div>
@@ -321,7 +359,7 @@ const notify = (type,msg)=>{
 
 
                   <div  style={{
-                    margin:"0px 20px",
+                    margin:"0px 8px",
                      
                   }} className="mt-6 relative flex-1 border-t-2 border-moon-200/80  ">
               
@@ -335,56 +373,65 @@ const notify = (type,msg)=>{
 
                     <div style={{display:"flex",width:"100%",alignItems:"flex-start",flexDirection:"column",justifyContent:"center"
                     ,padding:"20px 5px 5px 5px",marginTop:10}} 
-              className="shadow-md rounded-md ">
+              className=" ">
                {/* <div style={{color:"teal",borderBottom:"2px solid teal",width:"100%",textAlign:"left",fontWeight:"bold",paddingBottom:15}}>
                  Order items:
                </div> */}
-              <div style={{marginTop:10,width:"100%"}} >
+              <div className='space-y-3.5' style={{marginTop:10,width:"100%"}} >
              
               {orderItems&&orderItems.data.map((item,index)=>(
                 
                 
               
 
-                <div className='shadow-sm' key={index} style={{display:"flex",flexDirection:"row-reverse",marginBottom:10,padding:6,borderRadius:6,alignItems:"center",justifyContent:"space-between"}} >
+                <div className='shadow-md px bg-white rounded-md p-3 px-4' key={index} style={{display:"flex",flexDirection:"row-reverse",alignItems:"center",justifyContent:"space-between"}} >
 
-              <div style={{display:'flex',alignItems:"center",justifyContent:"flex-start"}}>
-             
-             
-<div style={{display:"flex",justifyContent:"center",alignItems:"flex-start",flexDirection:"column",marginRight:10}}>
 
-               <div>{item.name&&item.name}</div> 
-               <div className='text-gray-600' style={{fontWeight:"bold",textAlign:"right",width:"100%"}}>{item.product_ref&&item.product_ref}</div>                 
-              </div>
-              <img
-        style={{objectFit:'cover',width:'25%',height:'100%',borderRadius:12}}
+<div>
+<img
+        style={{objectFit:'cover',width:80,borderRadius:4}}
           src={IMG_URL.concat(item.imgs&&JSON.parse(item.imgs)[0])} 
           />
+</div>
+              <div className='p-3' style={{display:'flex',alignItems:"flex-end",flexDirection:"column",justifyContent:"flex-start"}}>
+             
+             
+<div style={{display:"flex",justifyContent:"center",alignItems:"flex-end",flexDirection:"column"}}>
+
+               <div className='text-lg whitespace-nowrap' >{item.nameAr&&item.nameAr}</div> 
+               
+               <div className='text-gray-400 text-xs '  style={{fontWeight:"bold",textAlign:"right",width:"100%"}}>{item.product_ref&&item.product_ref}</div>                 
+              </div>
+              <div dir='rtl' className='font-semibold '>
+
+      <span className=' italic text-gray-500 ' style={{ padding:5,fontSize:12,paddingTop:0,fontWeight:"bold"}}>{item.qty} قطعة</span>
+     - 
+      <span className=' italic text-moon-200/80 ' style={{ padding:5,fontSize:12,paddingTop:0,fontWeight:"bold"}}>{item.price} {CURRENCY}</span>
+
+      </div>
 
               </div>
 
 
-<div style={{display:"flex",fontWeight:"bold",alignItems:"center",justifyContent:"center",textWrap:"nowrap"}}>
-{item.qty} Pcs
-</div>
+
 
             
 
-              <div style={{display:"flex",alignContent:"center",justifyContent:"center",flexDirection:"column",padding:"0px 10px"}}>
+              <div className='' style={{display:"flex",alignItems:"flex-start",justifyContent:"center",flexDirection:"column",padding:"0px 0px"}}>
 
 <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-<div  style={{width:25,height:25,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
+<div  style={{width:35,height:35,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
 border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
-,backgroundColor:Theme.primary,color:"white",fontSize:14}}>{item.sizeIcom&&item.sizeIcom}</div>
+,backgroundColor:Theme.primary,color:"white",fontSize:16}}>{item.sizeIcom&&item.sizeIcom}</div>
 
-<div style={{width:30,height:30,
-marginLeft:-10,marginTop:-5
+<div style={{width:40,height:40,
+marginLeft:-20,marginTop:-8
 ,borderRadius:100,backgroundColor:item.colorCode&&item.colorCode}} ></div>
 
 </div>
 
-<div style={{fontSize:13,display:props.order?"none":"block",textAlign:"center"}}>
-{item.sizeName&&item.sizeName} <span>  </span> {item.color&&item.color}
+<div className='flex flex-col text-xs ' style={{display:props.order?"none":"block",textAlign:"left"}}>
+ <div>{item.sizeNameEn&&item.sizeNameEn}  </div>  <div className='text-gray-500' >   {item.colorAr&&item.colorAr} </div> 
 </div>
 
 </div>
@@ -421,38 +468,33 @@ marginLeft:-10,marginTop:-5
 
 
 
-                     {/* <div style={{
-                      width:"100%",
-                      display:cartData.length==0?"none":"block",
-                      color:Theme.primary,
-                      fontWeight:"bold",
-                      fontSize:25,
-                      textAlign:"center",
-                      padding:0,
-                      paddingBottom:5
-                     }}> 
-                      Total  : {CartTotal} {CURRENCY} 
-                     </div> */}
+                    
    
-                    <div style={{padding:5, display:"flex",alignItems:'center',flexDirection:"column",justifyContent:'space-between'}}>
-                        <div style={{fontWeight:'bold'}}>
-                          
-                           </div>
+                    <div className='py-3 px-3' style={{height:"100%", display:"flex",alignItems:'center',flexDirection:"row",justifyContent:'space-between'}}>
+                       
     
 
-                           <div className=' lg:block flex-grow flex align-middle justify-start  '  >
-                     <Button startContent={<FaX/>} className='bg-red-400/30 font-bold text-red-500' 
+                           <div className=' lg:block  flex align-middle justify-start  '  >
+                     <Button startContent={<FaChevronDown/>} className='bg-gray-300 font-bold text-white' 
                      onClick={()=>{props.openHandler(false)}} 
-                      variant='shadow' > إخفاء </Button> </div>
+                      variant='shadow' > إخفاء </Button> 
+{props.data.payment_status=="unpaid"?<Button startContent={<FaCreditCard/>} className='bg-moon-200 mx-2 font-bold text-white px-8' 
+                     onClick={()=>{router.push(props.data.url)}} 
+                      variant='shadow' > دفع </Button>:<></> }
+
+                      
+                      </div>
+
+
+<div dir='rtl' className='px-2' style={{fontWeight:'bold',alignItems:"center"  }}>
+ <div className='text-md text-moon-200/80' >
+ المجموع : {props.data&&props.data.total }  <span className='text-gray-500 mx-0.5 italic text-xs'>{CURRENCY}</span> 
+ </div>
+      
+                           </div>
 
                           
-                         {/* <LoadingBtn 
-                         color={props.data&&props.data.status=="initiated"?"teal":"darkgray"}
-                         act={props.data&&props.data.status=="initiated"?()=>{
-                       handleOrderDelivery() ; 
-                       }:()=>{}}  text={props.data&&props.data.status=="initiated"?"Deliver":"Delivered"} lod={lod} /> */}
-                       
-                       
+                   
                        
                        </div>                  
                     {/* /End replace */}

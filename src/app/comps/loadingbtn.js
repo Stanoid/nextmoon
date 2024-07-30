@@ -11,7 +11,7 @@ function LoadingBtn(props) {
  className="mt-4 w-full  text-white py-3 px-5 shadow-lg  rounded-md text-md tracking-wide">
 
 <div style={{display:props.lod?"flex":"none",justifyContent:"center",alignItems:"center"}} className="lds-facebookbtn"><div></div><div></div><div></div></div>
-<span style={{display:props.lod?"none":"flex",flexDirection:"row-reverse",alignItems:"center",justifyContent:"center"}} >{props.icon&&<div style={{marginLeft:5}}>{props.icon}</div>} {props.text}  </span>
+<span style={{display:props.lod?"none":"flex",flexDirection:"row-reverse",alignItems:"center",justifyContent:"center"}} >{props.icon&&<div style={{marginRight:5,marginRight:5}}>{props.icon}</div>} {props.text}  </span>
 
 </button>
 

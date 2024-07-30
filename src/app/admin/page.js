@@ -13,6 +13,7 @@ import AddSubCat from './addsubcat';
 import EditSize from './editsize';
 import Orders from './orders';
 import EditCat from './EditCat';
+import ProductsList from "./productsList"
 import AddCat from './addcat';
 import EditSubCat from './EditSubcat';
 
@@ -171,43 +172,43 @@ function AccounteEl() {
 
       
 
-<ul style={{borderBottom:"2px solid lightgrey",paddingBottom:5}} class="flex flex-wrap scrollable-content 
- text-sm font-medium text-center text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400">
+<ul style={{borderBottom:"2px solid lightgrey",paddingBottom:5}} dir='rtl' class="flex flex-wrap scrollable-content 
+ text-sm font-medium text-right  text-moon-200/80  border-gray-200 dark:border-gray-700 dark:text-gray-400">
 <li onClick={()=>{setPage(1)}} class="me-1">
-        <a style={{backgroundColor: page==1?"rgb(243 244 246)": "white" ,color:page==1?"rgb(37 99 235)":"grey",cursor:"pointer"}} class="inline-block 
-        p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Dashboard</a>
+        <a style={{backgroundColor: page==1?"rgb(243 244 246)": "white" ,color:page==1?Theme.primaryDark:Theme.primary,cursor:"pointer"}} class="inline-block 
+        p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">إضافة منتج</a>
     </li>
     
     <li onClick={()=>{setPage(2)}} class="me-1">
-        <a  aria-current="page" style={{backgroundColor: page==2?"rgb(243 244 246)": "white" ,color:page==2?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3   active dark:bg-gray-800 dark:text-blue-500">Products</a>
+        <a  aria-current="page" style={{backgroundColor: page==2?"rgb(243 244 246)": "white" ,color:page==2?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
+         class="inline-block p-3   active dark:bg-gray-800 dark:text-blue-500">المنتجات</a>
     </li>
 
 
    
     <li onClick={()=>{setPage(3)}} class="me-1" >
-        <a style={{backgroundColor: page==3?"rgb(243 244 246)": "white" ,color:page==3?"rgb(37 99 235)":"grey",cursor:"pointer"}} 
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Sizes</a>
+        <a style={{backgroundColor: page==3?"rgb(243 244 246)": "white" ,color:page==3?Theme.primaryDark:Theme.primary,cursor:"pointer"}} 
+         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">المقاسات</a>
     </li>
     <li onClick={()=>{setPage(4)}} class="me-1">
-        <a  style={{backgroundColor: page==4?"rgb(243 244 246)": "white" ,color:page==4?"rgb(37 99 235)":"grey",cursor:"pointer"}} 
-        class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Colors</a>
+        <a  style={{backgroundColor: page==4?"rgb(243 244 246)": "white" ,color:page==4?Theme.primaryDark:Theme.primary,cursor:"pointer"}} 
+        class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">الألوان</a>
     </li>
 
     <li onClick={()=>{setPage(5)}} class="me-1">
-        <a  style={{backgroundColor: page==5?"rgb(243 244 246)": "white" ,color:page==5?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Categories</a>
+        <a  style={{backgroundColor: page==5?"rgb(243 244 246)": "white" ,color:page==5?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
+         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">الفئات</a>
     </li>
 
     <li onClick={()=>{setPage(6)}} class="me-1" >
-        <a  style={{backgroundColor: page==6?"rgb(243 244 246)": "white" ,color:page==6?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Sub-categories</a>
+        <a  style={{backgroundColor: page==6?"rgb(243 244 246)": "white" ,color:page==6?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
+         class="inline-block p-3 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">الفئات الفرعية</a>
     </li>
 
 
     <li onClick={()=>{setPage(14)}} class="me-1" >
-        <a  style={{backgroundColor: page==14?"rgb(243 244 246)": "white" ,color:page==14?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Orders</a>
+        <a  style={{backgroundColor: page==14?"rgb(243 244 246)": "white" ,color:page==14?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
+         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">الطلبات</a>
     </li>
 
 
@@ -216,22 +217,22 @@ function AccounteEl() {
 
 
       <li onClick={()=>{setPage(10)}} class="me-1" style={{borderLeft:"2px solid lightgrey"}}>
-        <a  style={{backgroundColor: page==10?"rgb(243 244 246)": "white" ,color:page==10?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Promotion codes</a>
+        <a  style={{backgroundColor: page==10?"rgb(243 244 246)": "white" ,color:page==10?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
+         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">العروض الترويجية</a>
     </li>
-
+{/* 
     <li onClick={()=>{setPage(11)}} class="me-1">
-        <a  style={{backgroundColor: page==11?"rgb(243 244 246)": "white" ,color:page==11?"rgb(37 99 235)":"grey",cursor:"pointer"}}
+        <a  style={{backgroundColor: page==11?"rgb(243 244 246)": "white" ,color:page==11?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
          class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Trending products</a>
     </li>
 
     <li onClick={()=>{setPage(12)}} class="me-1">
-        <a  style={{backgroundColor: page==12?"rgb(243 244 246)": "white" ,color:page==12?"rgb(37 99 235)":"grey",cursor:"pointer"}}
+        <a  style={{backgroundColor: page==12?"rgb(243 244 246)": "white" ,color:page==12?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
          class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">On sale</a>
     </li>
 
     <li onClick={()=>{setPage(13)}} class="me-1">
-        <a  style={{backgroundColor: page==13?"rgb(243 244 246)": "white" ,color:page==13?"rgb(37 99 235)":"grey",cursor:"pointer"}}
+        <a  style={{backgroundColor: page==13?"rgb(243 244 246)": "white" ,color:page==13?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
          class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Week highlight</a>
     </li>
 
@@ -239,27 +240,27 @@ function AccounteEl() {
 
 
     <li onClick={()=>{setPage(7)}} class="me-1" style={{borderLeft:"2px solid lightgrey"}}>
-        <a  style={{backgroundColor: page==7?"rgb(243 244 246)": "white" ,color:page==7?"rgb(37 99 235)":"grey",cursor:"pointer"}}
+        <a  style={{backgroundColor: page==7?"rgb(243 244 246)": "white" ,color:page==7?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
          class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Agents</a>
-    </li>
+    </li> */}
 
     <li onClick={()=>{setPage(8)}} class="me-1">
-        <a  style={{backgroundColor: page==8?"rgb(243 244 246)": "white" ,color:page==8?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Sellers</a>
+        <a  style={{backgroundColor: page==8?"rgb(243 244 246)": "white" ,color:page==8?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
+         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"> البائعين </a>
     </li>
 
 
     <li onClick={()=>{setPage(9)}} class="me-1">
-        <a  style={{backgroundColor: page==9?"rgb(243 244 246)": "white" ,color:page==9?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Users</a>
+        <a  style={{backgroundColor: page==9?"rgb(243 244 246)": "white" ,color:page==9?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
+         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">العملاء</a>
     </li>
   
 </ul>
 
 
 <div style={{padding:10}}>
-{page==1 ? <div/> :<></>}
-  {page==2 ? <AddProduct setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
+{page==1 ?  <AddProduct setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
+  {page==2 ?  <ProductsList  setpage={(pid,id)=>{handleEdit(pid,id)}} />  :<></>}
   {page==3 ? <AddSize setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
   {page==4 ? <AddColor  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
   {page==5 ? <AddCat setpage={(catid,id)=>{handleCatEdit(catid,id)}} /> :<></>}

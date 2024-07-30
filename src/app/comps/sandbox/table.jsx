@@ -16,17 +16,19 @@ import {
   Chip,
   User,
   Pagination,
+
 } from "@nextui-org/react";
 import {PlusIcon} from "./PlusIcon";
 import {VerticalDotsIcon} from "./VerticalDotsIcon";
 import { useEffect } from "react";
 import {SearchIcon} from "./SearchIcon";
+import { useRouter } from "next/navigation";
 import {ChevronDownIcon} from "./ChevronDownIcon";
-import { FaEye,FaPencil,FaTrash } from "react-icons/fa6";
+import { FaEye,FaPencil,FaTrash,FaCreditCard } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { color } from "framer-motion";
-import { CURRENCY } from "@/app/local";
+import CURRENCY from "../../local"
 
 const statusColorMap = {
   active: "success",
@@ -41,6 +43,7 @@ export default function App(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = React.useState("all");
+  const router = useRouter();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [columns, setColumns] = React.useState(null);
   const [sortDescriptor, setSortDescriptor] = React.useState({
@@ -259,9 +262,16 @@ switch (props.coldata) {
                   <VerticalDotsIcon className="text-default-300" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu dir="rtl" disabledKeys={["edit","delete"]}>
-                <DropdownItem onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >  عرض</DropdownItem>
-                <DropdownItem startContent={<FaPencil style={{marginRight:4}} />} key={"edit"} > تعديل</DropdownItem>
+              <DropdownMenu dir="rtl" disabledKeys={["delete"]}>
+                <DropdownItem onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >
+                  عرض</DropdownItem>
+
+                
+                {user.payment_status=="paid"? <DropdownItem></DropdownItem> : <DropdownItem onClick={()=>{router.push(user.url)}} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
+ }
+                              
+                
+                
                 <DropdownItem startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >إلغاء</DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -394,7 +404,7 @@ switch (props.coldata) {
 
   const bottomContent = React.useMemo(() => {
     return (
-      <div className="py-2 px-2 hidden flex justify-between items-center">
+      <div className="py-2 px-2  flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"

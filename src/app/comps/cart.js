@@ -30,22 +30,31 @@ const  ls = require('local-storage');
   const [subtotal,setSubtotal]=useState(0);
  
 
-  useEffect(()=>{
-},[])
+//   useEffect(()=>{
+//     console.log(ls.get("MinimoonCart"))
+// },[ls.get("MinimoonCart")])
 
 
 
 
 
 const handleOrder= ()=>{
+
+
+  //console.log(ls.get("MinimoonCart"));
+  if(ls.get("MinimoonCart").length==0){
+    alert("الرجاء إضافة منتجات")
+    return
+  }
+
   setLod(true)
   let payarray = []
   for (let i = 0; i < ls.get("MinimoonCart").length; i++) {
     payarray.push({
-      id: cartData[i].selvar,
-      product_ref:cartData[i].product_ref,
-      qty: cartData[i].qty,
-      desc: cartData[i].data.attributes.description_en 
+      id: ls.get("MinimoonCart")[i].selvar,
+      product_ref:ls.get("MinimoonCart")[i].product_ref,
+      qty: ls.get("MinimoonCart")[i].qty,
+      desc: ls.get("MinimoonCart")[i].data.attributes.description_en 
     
     })
   }
@@ -260,7 +269,7 @@ const notify = (type,msg)=>{
                       Total  : {CartTotal} {CURRENCY} 
                      </div> */}
    
-                    <div style={{padding:20, display:cartData&&cartData.length==0?"none":"flex",alignItems:'center',justifyContent:'center'}}>
+                    <div style={{padding:20, display:ls.get("MinimoonCart")&&ls.get("MinimoonCart").length==0?"none":"flex",alignItems:'center',justifyContent:'center'}}>
                         <div style={{fontSize:15,fontWeight:'bold'}}>
                           
                            </div>
@@ -269,7 +278,7 @@ const notify = (type,msg)=>{
                         
 
                           
-                         <LoadingBtn  icon={<FaCreditCard/>}  act={()=>{
+                         <LoadingBtn  icon={<FaCreditCard/>}   act={()=>{
                        handleOrder() ; 
                        }}  text={"متابعة إلى الدفع"} lod={lod} />
                        </div>                  

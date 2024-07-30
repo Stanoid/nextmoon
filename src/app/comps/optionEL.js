@@ -17,9 +17,10 @@ const varHandler = (id,s)=>{
 
   return (
     <div 
-className='flex-col lg:flex-row md:flex-row sm:flex-col'
+className='flex-col px-8 lg:flex-row md:flex-row sm:flex-col'
     style={{
         width:"100%",
+        
         display:"flex",
 
         justifyContent:"center",
@@ -32,7 +33,8 @@ className='flex-col lg:flex-row md:flex-row sm:flex-col'
       whileTap={{ scale: 0.9 }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
 
- onClick={()=>{props.varselect(varient.id,varient.attributes.product_ref)}}   className='shadow-md transition-colors flex-row lg:flex-col md:flex-col sm:flex-row ' style={{padding:"10px 10px"
+ onClick={()=>{props.varselect(varient.id,varient.attributes.product_ref)}}   className='shadow-md transition-colors flex-row lg:flex-col
+  md:flex-col sm:flex-row min-w-full ' style={{padding:"10px 10px"
 ,borderRadius:10,margin:7,border:props.selid==varient.id?"4px solid"+Theme.primary:"4px solid #FAFAFA",cursor:"pointer",
 display:"flex",justifyContent:"center",alignItems:"center"
 }}  key={varient.id} >

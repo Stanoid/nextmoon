@@ -23,7 +23,7 @@ useEffect(() => {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                // "Authorization": 'Bearer ' + ls.get("atkn")
+              
             },
           
         };

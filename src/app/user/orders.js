@@ -300,13 +300,11 @@ setlod(true);
                       <div class="flex  flex-col ">
                       
 
-<ItemsPopup
-                          ref={childCompRef}
-                          data={ordata?ordata:null}
+{ordata?<ItemsPopup               ref={childCompRef}
+                          data={ordata&&ordata}
                           getOrders={()=>{getOrders()}}
                           openHandler={handleOpenDel}
-                          open={openDel}
-                        />
+                          open={openDel}/>:<div></div> }
                       </div>
               
 

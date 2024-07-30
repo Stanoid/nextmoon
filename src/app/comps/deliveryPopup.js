@@ -463,7 +463,7 @@ marginLeft:-10,marginTop:-5
                            </div>
     
 
-  <Button radius={"sm"} color="primary" startContent={<FaTruck/>} onClick={props.data&&props.data.status=="initiated"?()=>{
+  <Button radius={"sm"} className="bg-moon-200 text-white mt-3" startContent={<FaTruck/>} onClick={props.data&&props.data.status=="initiated"?()=>{
                        handleOrderDelivery() ; 
                        }:()=>{}} isLoading={lod}>
      {props.data&&props.data.status=="initiated"?"Deliver":"Delivered"}
