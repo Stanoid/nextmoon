@@ -2,6 +2,7 @@ import React from 'react'
 import { Tooltip } from '@nextui-org/react';
 import { useEffect,useState,useMemo } from 'react';
 import { IMG_URL } from '../local';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { CURRENCY } from '../local';
 import Image from 'next/image';
@@ -17,10 +18,14 @@ useEffect(() => {
 
 
   return (
-   
-    <div dir='rtl' className=" m-0 lg:m-2 sm:m-2 w-full overflow-hidden
+    <motion.div
+    whileHover={{ scale: 1.03 }}
+    whileTap={{ scale: 0.9 }}
+    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+    
+    onClick={()=>{router.push(`/products?pid=${props.data.id}`)}} dir='rtl' className=" m-0 lg:m-2 sm:m-2 w-full overflow-hidden
     ">
-  <a className="relative mx-3 mt-3 flex h-min overflow-hidden rounded-md lg:rounded-lg" href="#">
+  <div className="relative mx-3 mt-3 flex h-min overflow-hidden rounded-md lg:rounded-lg" href="#">
     {/* <img  className="object-cover  h-60 "
      src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} alt="product image" /> */}
   <div className=' w-full h-60' style={{position:"relative"}} >
@@ -30,7 +35,7 @@ useEffect(() => {
   />
   </div>
     <span className="absolute top-0 left-0 m-2 rounded-full bg-black  text-center text-xs italic tracking-tighter p-1 px-3 font-medium text-white">39% خصم</span>
-  </a>
+  </div>
   
   
   
@@ -71,7 +76,7 @@ useEffect(() => {
       </svg>
         <span  className='mr-2' > إضافة ألى السلة </span> </a >
   </div>
-</div>
+</motion.div>
 
 
 
