@@ -62,7 +62,8 @@ export default function Product(props) {
 }} >
     
   <div sty className='w-full h-48 min-w-full ' style={{position:"relative"}} >
-  <Image  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className=' rounded-md  '  src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
+  <Image quality={20} onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className=' rounded-md  ' 
+    src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
   layout='fill'
   objectFit='cover'
   />
