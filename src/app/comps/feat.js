@@ -1,10 +1,16 @@
 import React from 'react'
+import Image  from 'next/image'
 import PromoComp from './promo'
 function Feat(props) {
   return (
-    <div class="relative group">
-    <div class="overflow-hidden shadow-lg shadow-moon-200/40 aspect-w-1 rounded-md aspect-h-1">
-        <img class="object-cover w-full h-full transition-all rounded-md duration-300 group-hover:scale-150" src={props.img} alt="" />
+    <div class="relative group w-full">
+    <div class="overflow-hidden  shadow-lg shadow-moon-200/40   aspect-video">
+    <Image 
+           
+           quality={25} layout='fill'
+  objectFit='cover'
+  
+  class="rounded-md" src={props.img} alt="" />
     </div>
     <div class="absolute left-3 top-3">
         <p class="sm:px-3 sm:py-1.5 px-1.5 py-1 text-[8px] sm:text-xs font-bold tracking-wide

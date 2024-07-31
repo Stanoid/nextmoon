@@ -20,8 +20,18 @@ export default function Hero(props) {
 /> */}
 
 <div
-style={{width:"100%",position:"relative"}} className='lg:col-span-2  xl:col-span-2 md:col-span-3 col-span-6 flex sm:flex lg:hidden'>
-           <img width={"100%"} className='rounded-md'  src={"/offers/offer5.png"} />
+style={{width:"100%",position:"relative"}} className='lg:col-span-2 h-32 xl:col-span-2 md:col-span-3 
+col-span-6 flex sm:flex lg:hidden'>
+           {/* <Image quality={25} layout='fill'
+  objectFit='cover' className='rounded-md'  src={"/offers/offer5.png"} /> */}
+
+
+
+<Image 
+  fill objectFit='cover'
+  quality={25}
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  className='rounded-md'  src={"/offers/offer5.png"} />
            </div>
 
        
@@ -65,17 +75,28 @@ style={{width:"100%",position:"relative"}} className='lg:col-span-2  xl:col-span
           
            </div>
 
-           <div style={{width:"100%",position:"relative"}} className='lg:col-span-2    w-full xl:col-span-2 md:col-span-3 col-span-6 '>
+           <div style={{width:"100%",position:"relative"}} className='lg:col-span-2  h-56  w-full xl:col-span-2 md:col-span-3 col-span-6 '>
            {/* <Image priority={true}  width={100}  style={{width:"100%",auto}}  className="rounded-lg" src={'/offers/offmob2.png'}/> */}
-           <img  style={{objectFit:"cover",width:"100%",height:"100%"}} className='rounded-md'  src={"/offers/ban1.png"} />
+           <Image 
+         fill objectFit='cover'
+         quality={25}
+         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'   src={"/offers/ban1.png"} />
            </div>
            
-           <div style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6 hidden sm:hidden lg:flex'>
-           <img width={"100%"} className='rounded-md'  src={"/offers/ban3.png"} />
+           <div style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 h-56 md:col-span-3 col-span-6 hidden sm:hidden lg:flex'>
+           <Image 
+           
+           fill objectFit='cover'
+           quality={25}
+           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className='rounded-md'  src={"/offers/ban3.png"} />
            </div>
 
-           <div style={{width:"100%",position:"relative"}} className='lg:col-span-4 xl:col-span-4 md:col-span-6 col-span-6 hidden sm:hidden lg:flex ' >
-           <img width={"100%"} className='rounded-md'  src={"/offers/offer5.png"} />
+           <div style={{width:"100%",position:"relative"}} className='lg:col-span-4 h-56 xl:col-span-4 md:col-span-6 col-span-6 hidden sm:hidden lg:flex ' >
+           <Image 
+         fill objectFit='cover'
+         quality={25}
+         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'  src={"/offers/offer5.png"} />
            </div>
 
            {/* <div style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6'>

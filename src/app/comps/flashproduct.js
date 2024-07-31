@@ -62,9 +62,10 @@ export default function Product(props) {
 }} >
     
   <div sty className='w-full h-48  ' style={{position:"relative"}} >
-  <Image    className=' rounded-md  '  src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
-  layout='fill'
-  objectFit='cover'
+  <Image  fill objectFit='cover'
+  quality={25}
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"    className=' rounded-md  '  src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
+ 
   />
   
   <span     className="absolute cursor-pointer bottom-0 left-0 m-2 rounded-full bg-moonsec-200/80 

@@ -62,10 +62,11 @@ export default function Product(props) {
 }} >
     
   <div sty className='w-full h-48 min-w-full ' style={{position:"relative"}} >
-  <Image quality={20} onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className=' rounded-md  ' 
+  <Image fill objectFit='cover'
+  quality={25}
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className=' rounded-md  ' 
     src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
-  layout='fill'
-  objectFit='cover'
+
   />
   
   <span    onClick={()=>{router.push(`/categories?cid=${props.data.subcatagory.id}`)}}  className="absolute cursor-pointer bottom-0 left-0 m-2 rounded-full bg-black 

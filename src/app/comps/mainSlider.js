@@ -55,7 +55,7 @@ export default (props) => {
   )
 
   return (
-    <div style={{width:"100%"}}>
+    <div className="h-56" style={{width:"100%"}}>
       <div  style={{width:"100%",height:"100%"}}  className="  navigation-wrapper">
         <div style={{width:"100%",height:"100%"}} ref={sliderRef} className="keen-slider">
           
@@ -63,7 +63,13 @@ export default (props) => {
 {props.slides&&props.slides.map((img) => (
     <div key={img}  className="keen-slider__slide">
 {/* <Image priority={true} className="rounded-sm" src={img}layout="fill"  objectFit="cover" /> */}
-<img src={img} className="rounded-md" width={"100%"} />
+<Image 
+           
+           fill objectFit='cover'
+           quality={25}
+           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+           
+  src={img} className="rounded-md" />
     </div>
      ))}
         </div>

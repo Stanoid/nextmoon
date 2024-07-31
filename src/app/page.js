@@ -98,7 +98,7 @@ setLod(false)
 <div className="bg-gradient-to-t to-moon-100/30 from-moon-100/50 " style={{width:"100%"}}>
 <Hero  />
   </div> 
-  <div  className="bg-gradient-to-t from-moon-100 to-moon-100/50 flex justify-center "   >
+  <div  className="bg-gradient-to-t from-moon-100 to-moon-100/50 flex w-full  justify-center "   >
 
 <div className="w-full lg:w-3/4 " >
 <FeaturedComp/>
@@ -194,12 +194,15 @@ product.status?
    <HorDiv data={product&&products} />
 </div>
 
-<div className="p-2 px-2 sm:px-3 lg:px-80 bg-gradient-to-b to-moonsec-200/30 from-moon-200/20 py-6 ">
-<div style={{width:"100%",position:"relative"}} className='lg:col-span-4  xl:col-span-4 md:col-span-6 col-span-6'>
-           <img width={"100%"} className='rounded-md'  src={"/offers/offer2.png"} />
+{/* <div className="p-2 px-2 sm:px-3 lg:px-80 bg-gradient-to-b to-moonsec-200/30 from-moon-200/20 py-6 ">
+<div style={{width:"100%",position:"relative"}} className='lg:col-span-4   h-56  xl:col-span-4 md:col-span-6 col-span-6'>
+<Image 
+style={{width:"100%"}}
+           quality={25} layout='fill'
+  objectFit='cover' className='rounded-md'  src={"/offers/offer2.png"} />
            </div>
 
-</div>
+</div> */}
   
 
 <div className="bg-gradient-to-b from-moonsec-200/30 to-moonsec-100/30 py-6">

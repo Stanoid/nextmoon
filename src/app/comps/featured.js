@@ -9,7 +9,8 @@ function FeaturedComp() {
                 </div>
 
         <div class="grid grid-cols-2 gap-6 mt-4 lg:gap-4 lg:grid-cols-4">
-        <Feat img={"/offers/offermob4.png"} text={"ملابس اطفال"} />
+          <div className='w-full   '><Feat img={"/offers/offermob4.png"} text={"ملابس اطفال"} />
+          </div>
         <Feat img={"/offers/offermob7.png"} text={"الملابس الداخلية"} />     
         <Feat img={"/offers/offermob6.png"} text={"مجموعة الصيف"} />
         <Feat img={"/offers/offermob5.png"} text={" الملابس الرياضية "} />
