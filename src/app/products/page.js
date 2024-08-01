@@ -247,17 +247,17 @@ for (let i = 0; i < vrs.length; i++) {
     }}
   >
     
-    <div style={{ width: "100%",marginBottom:10 }} class="grid gap-4">
+    <div style={{ width: "100%",marginBottom:10 }} className="grid gap-4">
       <div>
         <img
         id="mimg"
          onError={()=>{document.getElementById("mimg").src=DEF_IMG}}
-          class=" rounded-lg"
+          className=" rounded-lg"
           src={ IMG_URL.concat(imgs[mimg]) }
           alt=""
         />
       </div>
-      <div class="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-5 gap-4">
       {imgs&&imgs.length!=0?imgs.map((img,index)=>( 
         
           img?<div style={{cursor:"pointer",
@@ -269,7 +269,7 @@ for (let i = 0; i < vrs.length; i++) {
           }}>
           <img
           id={index}
-            class="h-auto max-w-full rounded-lg"
+            className="h-auto max-w-full rounded-lg"
             style={{width:"100%"}}
             onError={()=>{document.getElementById(index).src=DEF_IMG}}
             src={IMG_URL.concat(img)}
@@ -308,7 +308,7 @@ for (let i = 0; i < vrs.length; i++) {
             padding: "7px 14px",
             fontSize: 15,
           }}
-          class="px-2.5 py-0.5 text-xs   rounded-xl "
+          className="px-2.5 py-0.5 text-xs   rounded-xl "
         >
         {db&&db.attributes.subcatagory.data.attributes.name_ar}
         

@@ -109,31 +109,31 @@ function AccounteEl() {
 
       
 
-<ul style={{borderBottom:"2px solid lightgrey",paddingBottom:5}} class="flex flex-wrap scrollable-content 
+<ul style={{borderBottom:"2px solid lightgrey",paddingBottom:5}} className="flex flex-wrap scrollable-content 
  text-sm font-medium text-center text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400">
-<li onClick={()=>{setPage(1)}} class="me-1">
-        <a style={{backgroundColor: page==1?"rgb(243 244 246)": "white" ,color:page==1?"rgb(37 99 235)":"grey",cursor:"pointer"}} class="inline-block 
+<li onClick={()=>{setPage(1)}} className="me-1">
+        <a style={{backgroundColor: page==1?"rgb(243 244 246)": "white" ,color:page==1?"rgb(37 99 235)":"grey",cursor:"pointer"}} className="inline-block 
         p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Dashboard</a>
     </li>
     
-    {/* <li onClick={()=>{setPage(2)}} class="me-1">
+    {/* <li onClick={()=>{setPage(2)}} className="me-1">
         <a  aria-current="page" style={{backgroundColor: page==2?"rgb(243 244 246)": "white" ,color:page==2?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3   active dark:bg-gray-800 dark:text-blue-500">Products</a>
+         className="inline-block p-3   active dark:bg-gray-800 dark:text-blue-500">Products</a>
     </li>
 
 
    
-    <li onClick={()=>{setPage(3)}} class="me-1" >
+    <li onClick={()=>{setPage(3)}} className="me-1" >
         <a style={{backgroundColor: page==3?"rgb(243 244 246)": "white" ,color:page==3?"rgb(37 99 235)":"grey",cursor:"pointer"}} 
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Sizes</a>
+         className="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Sizes</a>
     </li>
   
 
 
 
-    <li onClick={()=>{setPage(9)}} class="me-1">
+    <li onClick={()=>{setPage(9)}} className="me-1">
         <a  style={{backgroundColor: page==9?"rgb(243 244 246)": "white" ,color:page==9?"rgb(37 99 235)":"grey",cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Users</a>
+         className="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Users</a>
     </li>
    */}
 </ul>

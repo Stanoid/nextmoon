@@ -47,15 +47,16 @@ setLod(false)
           
         };
       
+        
           fetch(`${API_URL}products?func=getAllProducts`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
       
-      
+        
               console.log("data22233",data)
            setProducts(data)
            setLod(false)
-          
+             
            
             }).then(()=>{
               setLod(false)

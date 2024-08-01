@@ -90,7 +90,7 @@ function AccounteEl() {
                             backgroundColor: "white",
                             color: Theme.primary,
                           }}
-                          class="p-2 m-1 text-white  rounded-sm
+                          className="p-2 m-1 text-white  rounded-sm
              
              focus:shadow-outline focus:text-gray-500"
                         >
@@ -105,7 +105,7 @@ function AccounteEl() {
                 ()=>{router.push("/login")}
                 }
                 style={{backgroundColor:Theme.primary,borderRadius:5}}
-                            class="p-2 m-1 text-white  rounded-sm
+                            className="p-2 m-1 text-white  rounded-sm
                              hover:bg-gray-100 hover:text-gray-500
                              
                              focus:outline-none
@@ -125,7 +125,7 @@ function AccounteEl() {
                               ()=>{router.push("/register")}
                               }
                               style={{backgroundColor:Theme.primary,borderRadius:5}}
-                            class="p-2 m-1  text-white rounded-sm
+                            className="p-2 m-1  text-white rounded-sm
                              hover:bg-gray-100 hover:text-gray-500 focus:outline-none
                               focus:shadow-outline focus:text-gray-500">
                                 Register

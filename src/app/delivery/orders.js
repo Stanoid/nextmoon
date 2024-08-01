@@ -296,7 +296,7 @@ setlod(true);
 
    
 
-                      <div class="flex  flex-col ">
+                      <div className="flex  flex-col ">
                       
 
 <DeliveryPopup

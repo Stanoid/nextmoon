@@ -261,9 +261,9 @@ console.log("search")
 
 
 
-{cat&&cat.map(cati=>(
+{cat&&cat.map((cati,index)=>(
     
-    <CatDrop data={cati.attributes.subcatagories.data}  lable={cati.attributes.name_ar}/>
+    <CatDrop key={index} data={cati.attributes.subcatagories.data}  lable={cati.attributes.name_ar}/>
     ))}
 
 
@@ -281,8 +281,8 @@ console.log("search")
             </section>
 
             <section>
-            <div class="  hidden ">
-                      <div class="flex  flex-col ">
+            <div className="  hidden ">
+                      <div className="flex  flex-col ">
                         <Cart
                           ref={childCompRef}
                           openHandler={handleOpenCart}
@@ -291,8 +291,8 @@ console.log("search")
                       </div>
                     </div>
 
-                    <div class="  hidden">
-                      <div class="flex  flex-col ">
+                    <div className="  hidden">
+                      <div className="flex  flex-col ">
                         <Cartl
                           ref={childCompRef}
                           openHandler={handleOpenCartl}
@@ -310,7 +310,7 @@ console.log("search")
                 </div>
             </section>
             <section>
-            <div style={{backgroundSize:20}} class="    p-8 px8 lg:px-64 w-full  bg-[url('../../public/amblemblack.svg')] bg-moon-200  text-right lg:py-16">
+            <div style={{backgroundSize:20}} className="    p-8 px8 lg:px-64 w-full  bg-[url('../../public/amblemblack.svg')] bg-moon-200  text-right lg:py-16">
       <div className="min-w-fit" >
    <div className="flex items-center my-2 justify-center">
    <Logowhite style={{cursor:"pointer"}}  onClick={() => {
@@ -318,12 +318,12 @@ console.log("search")
                         }} width={100} />
   
     </div>  
-    <p class="text-xs text-center  break-words font-medium text-white lg:text-xl  ">
+    <p className="text-xs text-center  break-words font-medium text-white lg:text-xl  ">
        info@minimoon.com
          <br/>
          
         </p>
-        <p class="text-xs text-center  break-words font-medium text-white lg:text-xl  ">
+        <p className="text-xs text-center  break-words font-medium text-white lg:text-xl  ">
          جميع الحقوق محفوظة
          <br/>
          2024
@@ -338,16 +338,16 @@ console.log("search")
             {/* <div
             
               style={{ height: "100vh" }}
-              class=" flex overflow-hidden "
+              className=" flex overflow-hidden "
               x-data="{ sidebarOpen: false }"
             >
-              <div class="flex flex-col w-0 flex-1 overflow-hidden">
+              <div className="flex flex-col w-0 flex-1 overflow-hidden">
                 <div
                   style={{
                     top: 0,
                     backgroundColor: Theme.primary,
                   }}
-                  class="   lg:flex    z-10  shadow"
+                  className="   lg:flex    z-10  shadow"
                 >
                   <div
                     className=""
@@ -402,7 +402,7 @@ console.log("search")
                             backgroundColor: "white",
                             color: Theme.primary,
                           }}
-                          class="p-2 m-1 text-white  rounded-sm
+                          className="p-2 m-1 text-white  rounded-sm
              
              focus:shadow-outline focus:text-gray-500"
                         >
@@ -413,8 +413,8 @@ console.log("search")
                       </div>
                     </div>
 
-                    <div class="  hidden ">
-                      <div class="flex  flex-col ">
+                    <div className="  hidden ">
+                      <div className="flex  flex-col ">
                         <Cart
                           ref={childCompRef}
                           openHandler={handleOpenCart}
@@ -423,8 +423,8 @@ console.log("search")
                       </div>
                     </div>
 
-                    <div class="  hidden">
-                      <div class="flex  flex-col ">
+                    <div className="  hidden">
+                      <div className="flex  flex-col ">
                         <Cartl
                           ref={childCompRef}
                           openHandler={handleOpenCartl}
@@ -433,17 +433,17 @@ console.log("search")
                       </div>
                     </div>
                   </div>
-                  <div class="flex-1 hidden lg:flex md:hidden sm:hidden px-4  justify-between">
+                  <div className="flex-1 hidden lg:flex md:hidden sm:hidden px-4  justify-between">
 
-                    <div class="flex-1 flex   items-center">
-                      <div class="w-2/3 flex md:ml-0">
-                        <label for="search_field" class="sr-only">
+                    <div className="flex-1 flex   items-center">
+                      <div className="w-2/3 flex md:ml-0">
+                        <label for="search_field" className="sr-only">
                           Search
                         </label>
-                        <div class="relative w-full text-white focus-within:text-gray-600">
-                          <div class="absolute inset-y-0 left-0 flex items-center p-2 pointer-events-none">
+                        <div className="relative w-full text-white focus-within:text-gray-600">
+                          <div className="absolute inset-y-0 left-0 flex items-center p-2 pointer-events-none">
                             <svg
-                              class="h-5 w-5"
+                              className="h-5 w-5"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -461,7 +461,7 @@ console.log("search")
                             handleSearch(el);
                           }}
                             id="search_field"
-                            class="block w-full  pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm"
+                            className="block w-full  pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm"
                             placeholder="Search Minimoon"
                           />
                         </div>
@@ -499,7 +499,7 @@ console.log("search")
    </div>
                     
                     </div>
-                    <div class="ml-4 flex items-center md:ml-6">
+                    <div className="ml-4 flex items-center md:ml-6">
                       
                       <AccounteEl media={"m"} />
                       
@@ -516,7 +516,7 @@ console.log("search")
                           backgroundColor: "white",
                           color: Theme.primary,
                         }}
-                        class="p-2 m-1 text-white  rounded-sm
+                        className="p-2 m-1 text-white  rounded-sm
              
                 focus:shadow-outline focus:text-gray-500"
                       >
@@ -537,7 +537,7 @@ console.log("search")
                           backgroundColor: "white",
                           color: Theme.primary,
                         }}
-                        class="p-2 m-1 text-white  rounded-sm
+                        className="p-2 m-1 text-white  rounded-sm
              
              focus:shadow-outline focus:text-gray-500"
                       >
@@ -550,34 +550,34 @@ console.log("search")
                           color: "white",
                           fontWeight: "bold",
                         }}
-                        class="p-2 m-1   rounded-sm
+                        className="p-2 m-1   rounded-sm
                focus:outline-none
                 focus:shadow-outline focus:text-gray-500"
                       >
                         العربية
                       </button>
 
-                      <div class="ml-3 relative" x-data="{ open: false }">
+                      <div className="ml-3 relative" x-data="{ open: false }">
                         <div>
-                          <button class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline"></button>
+                          <button className="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline"></button>
                         </div>
-                        <div class="origin-top-right hidden absolute right-0 mt-2 w-48 rounded-md shadow-lg">
-                          <div class="py-1 rounded-md bg-white shadow-xs">
+                        <div className="origin-top-right hidden absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                          <div className="py-1 rounded-md bg-white shadow-xs">
                             <a
                               href="#"
-                              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                             >
                               Your Profile
                             </a>
                             <a
                               href="#"
-                              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                             >
                               Settings
                             </a>
                             <a
                               href="#"
-                              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                             >
                               Sign out
                             </a>
@@ -619,7 +619,7 @@ console.log("search")
                           backgroundColor: Theme.primary,
                           color: "white",
                         }}
-                        class="p-2 m-1 text-white  rounded-sm
+                        className="p-2 m-1 text-white  rounded-sm
               focus:shadow-outline focus:text-gray-500"
                       >
                         <MdSearch />
