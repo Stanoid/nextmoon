@@ -63,7 +63,7 @@ function AddCat(props) {
         fetch(`${API_URL}catagories`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("cats data ",data.data )
+            
            setSizes(data.data);
           }).then(()=>{
          
@@ -87,7 +87,7 @@ function AddCat(props) {
           fetch(`${API_URL}catagories/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("deleted ",data.data )
+              
            getCats();
             }).then(()=>{
            
@@ -117,7 +117,7 @@ function AddCat(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -181,7 +181,7 @@ function AddCat(props) {
           fetch(`${API_URL}catagories?func=AddCat`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
              getCats();
              alert("size added")
 

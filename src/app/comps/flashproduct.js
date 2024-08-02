@@ -27,7 +27,7 @@ export default function Product(props) {
 //getprice();
 
 // }
-//console.log("img url", IMG_URL.concat(props.data.img&&JSON.parse(props.data.img)[0])) 
+//
 
 
    }, [])

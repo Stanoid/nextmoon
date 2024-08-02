@@ -36,7 +36,7 @@ const [data,setData] = useState([
     placeholder="Placeholder"
     value="Doe"
     data={data}
-    callback={(record) => console.log(record)}
+    callback={(record) => 
   />
 
   )

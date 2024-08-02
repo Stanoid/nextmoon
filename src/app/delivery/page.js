@@ -4,7 +4,11 @@ import React from 'react';
 import { useContext,useEffect,useState } from 'react';
 import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
-import Orders from './orders';
+import dynamic from 'next/dynamic';
+
+const Orders = dynamic(() => import('./orders'))
+
+
 import { AuthCon } from '../contexts/AuthCon';
 
 
@@ -25,9 +29,9 @@ function AccounteEl() {
     
 
     async function loginvalHandler(){
-      console.log("aaaa",loginval())
+      
       loginval.then(function(result) {
-       console.log("aaaa",result)
+       
     });
     }
  
@@ -52,7 +56,7 @@ function AccounteEl() {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){   

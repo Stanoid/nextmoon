@@ -64,7 +64,7 @@ function EditSubCat(props) {
         fetch(`${API_URL}catagories`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("cats data ",data.data )
+            
            setCat(data.data);
           }).then(()=>{
          
@@ -92,7 +92,7 @@ function EditSubCat(props) {
           fetch(`${API_URL}subcatagories/${props.scatid}?populate=catagory`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("SSSScat ",data.data )
+              
              setNamear(data.data.attributes.name_ar);
              setNameen(data.data.attributes.name_en);
              setCatid(data.data.attributes.catagory.data.id)
@@ -121,7 +121,7 @@ function EditSubCat(props) {
           fetch(`${API_URL}subcatagories/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("deleted ",data.data )
+              
            getSubcats();
             }).then(()=>{
            
@@ -151,7 +151,7 @@ function EditSubCat(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -215,7 +215,7 @@ function EditSubCat(props) {
           fetch(`${API_URL}subcatagories/${props.scatid}?func=EditSubCat`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
           
          
 

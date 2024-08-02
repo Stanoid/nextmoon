@@ -38,7 +38,7 @@ function Card(props) {
     };
 
     function handleDragEnd(_, info) {
-       console.log(props.index,props.grnum)
+       
       
 
         if (info.offset.x < -100) {
@@ -54,7 +54,7 @@ function Card(props) {
 
 
         if(props.index==3){
-            console.log("reseted")
+            
             props.setIndex(0);
             
         }
@@ -140,7 +140,7 @@ export default function SwipeEl(props) {
             .then((data) => {
       
       
-              console.log("kkkkkkkkkkkkkkkkkkkkkkkkkk",data)
+              
            setProducts(data)
          
           

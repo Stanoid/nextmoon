@@ -62,7 +62,7 @@ function EditColor(props) {
       fetch(`${API_URL}colors/${id}`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log("deleted ",data.data )
+          
        getcolors();
         }).then(()=>{
        
@@ -89,7 +89,7 @@ function EditColor(props) {
         fetch(`${API_URL}colors/${props.cid}`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("colors data ",data )
+            
             setNamear(data.data.attributes.name_ar);
             setNameen(data.data.attributes.name_en);
             setColorCode(data.data.attributes.colorCode)
@@ -122,7 +122,7 @@ function EditColor(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -188,7 +188,7 @@ function EditColor(props) {
           fetch(`${API_URL}colors/${props.cid}?func=EditColor`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("coloreditfun",data )
+              
               setlod(false);
             }).then(()=>{
          props.setpage(4);

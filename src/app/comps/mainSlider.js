@@ -64,7 +64,7 @@ export default (props) => {
     <div key={img}  className="keen-slider__slide">
 {/* <Image priority={true} className="rounded-sm" src={img}layout="fill"  objectFit="cover" /> */}
 <Image 
-           
+             priority={true}
            fill objectFit='cover'
            quality={25}
            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

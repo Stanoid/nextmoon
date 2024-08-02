@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import ProductCopm from "./comps/product";
-import Hero from "./comps/hero";
-import { API_URL ,Theme} from "./local";
+import dynamic from "next/dynamic";
+const Hero = dynamic(() => import('./comps/hero'))
 
+
+import { API_URL ,Theme} from "./local";
 import { useState,useRef,useEffect,useContext,useMemo,useCallback } from "react";
 import FeatProduct from "./comps/featuredProducts";
 import { AuthCon } from "./contexts/AuthCon";
@@ -53,7 +55,7 @@ setLod(false)
             .then((data) => {
       
         
-              console.log("data22233",data)
+              
            setProducts(data)
            setLod(false)
              
@@ -79,7 +81,7 @@ setLod(false)
         async function getProducts(){
         const responseprod = await fetch(`${API_URL}/item/all`);
         const productso = await  responseprod.json();
-        console.log(productso.data);
+        
         setProducts(productso.data)
 
       }

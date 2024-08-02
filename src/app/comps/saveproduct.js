@@ -12,7 +12,7 @@ function ProductCopm(props) {
 
 useEffect(() => {
 
-//console.log("item data:-",JSON.parse(props.data.img)[0])
+//
 
 }, [])
 

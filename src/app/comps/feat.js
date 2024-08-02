@@ -6,7 +6,7 @@ function Feat(props) {
     <div className="relative group w-full">
     <div className="overflow-hidden  shadow-lg shadow-moon-200/40   aspect-video">
     <Image 
-           
+             priority={true}
            quality={25} layout='fill'
   objectFit='cover'
   

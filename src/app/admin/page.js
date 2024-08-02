@@ -1,21 +1,26 @@
 'use client'
 
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { useContext,useEffect,useState } from 'react';
 import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
-import AddSize from './addSize';
-import AddColor from './AddColor';
-import EditProduct from './editProduct';
-import EditColor from './editColor';
-import PromoCodes from './promoCodes';
-import AddSubCat from './addsubcat';
-import EditSize from './editsize';
-import Orders from './orders';
-import EditCat from './EditCat';
-import ProductsList from "./productsList"
-import AddCat from './addcat';
-import EditSubCat from './EditSubcat';
+
+
+const AddColor = dynamic(() => import('./AddColor'));
+const EditProduct = dynamic(() => import('./editColor'));
+const EditColor = dynamic(() => import('./orders'));
+const PromoCodes = dynamic(() => import('./promoCodes'));
+const AddSubCat = dynamic(() => import('./addsubcat'));
+const EditSize = dynamic(() => import('./editsize'));
+const Orders = dynamic(() => import('./orders'));
+const EditCat = dynamic(() => import('./EditCat'));
+const ProductsList = dynamic(() => import('./productsList'));
+const AddCat = dynamic(() => import('./addcat'));
+const EditSubCat = dynamic(() => import('./EditSubcat'));
+
+
+
 
 import { TiThMenu } from "react-icons/ti";
 import AddProduct from './addproduct';
@@ -50,9 +55,9 @@ function AccounteEl() {
     
 
     async function loginvalHandler(){
-      console.log("aaaa",loginval())
+      
       loginval.then(function(result) {
-       console.log("aaaa",result)
+       
     });
     }
  
@@ -77,7 +82,7 @@ function AccounteEl() {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){   

@@ -62,7 +62,7 @@ function EditCat(props) {
         fetch(`${API_URL}catagories/${props.catid}`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("cats data ",data.data );
+            
             setNamear(data.data.attributes.name_ar);
             setNameen(data.data.attributes.name_en);
          ////set states of inputs
@@ -88,7 +88,7 @@ function EditCat(props) {
           fetch(`${API_URL}catagories/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("deleted ",data.data )
+              
            getCats();
             }).then(()=>{
            
@@ -118,7 +118,7 @@ function EditCat(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -179,7 +179,7 @@ function EditCat(props) {
           fetch(`${API_URL}catagories/${props.catid}?func=EditCat`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
          
           
 

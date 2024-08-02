@@ -1,27 +1,15 @@
 'use client'
-
 import React from 'react';
 import { useContext,useEffect,useState,useRef } from 'react';
 import { Theme ,API_URL} from '../local';
-import InputEl from '../comps/inputel';
-import axios from 'axios';
 import TableComp from '../comps/sandbox/table';
-import { useRouter } from 'next/navigation'
-import Table from '../comps/table';
-import { TiThMenu } from "react-icons/ti";
-import { MdDeliveryDining } from 'react-icons/md';
-import { FaEye } from 'react-icons/fa6';
-import { FaCheck,FaHourglass } from 'react-icons/fa6';
 import DeliveryPopup from '../comps/deliveryPopup';
-import LoadingBtn from '../comps/loadingbtn';
-import { FaTimes,FaEdit } from 'react-icons/fa';
-import { AuthCon } from '../contexts/AuthCon';
+import { useRouter } from 'next/navigation';
 
 
 
 function Orders(props) {
     const ls = require("local-storage")
-    const {logindata,logoutUser}  = useContext(AuthCon);
     const childCompRef = useRef();
     const [namear,setNamear] = useState("");
     const [nameen,setNameen] = useState("");
@@ -62,7 +50,7 @@ function Orders(props) {
       fetch(`${API_URL}orders?func=getDeliveryOrders`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log("Orders ",data )
+          
           setlod(false)
         setOrderdata(data.reverse())
         }).then(()=>{
@@ -77,7 +65,7 @@ function Orders(props) {
 
       const DeliverOrder=(order)=>{
 
-console.log("aaaaaaaaaaa",order)
+
         setOrdata(order);
          setOpenDel(true);
 
@@ -98,7 +86,7 @@ console.log("aaaaaaaaaaa",order)
 //  fetch(`${API_URL}orders?func=deliverOrder`, requestOptions)
 //    .then((response) => response.json())
 //    .then((data) => {
-//      console.log("delivered ",data )
+//      
 //      getOrders();
   
 //    }).then(()=>{
@@ -126,7 +114,7 @@ console.log("aaaaaaaaaaa",order)
         fetch(`${API_URL}colors`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("colors data ",data.data )
+            
            setcolors(data.data);
           }).then(()=>{
          
@@ -156,7 +144,7 @@ console.log("aaaaaaaaaaa",order)
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -222,7 +210,7 @@ console.log("aaaaaaaaaaa",order)
           fetch(`${API_URL}colors`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
              setNamear("");
              setNameen("");
              setColorCode("");
@@ -265,7 +253,7 @@ setlod(true);
     fetch(`${API_URL}orders?func=expireOrder`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("expired",data)
+        
        getOrders();
       }).then(()=>{
      setlod(false)

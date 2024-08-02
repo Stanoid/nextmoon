@@ -2,28 +2,16 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState,useEffect,useContext } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import Cartel from './cartel'
-import { XIconreact,XIcon } from '@heroicons/react/outline'
-import { FaTruck,FaClock, FaBoxOpen, FaClipboard, FaX, FaChevronDown,FaCreditCard } from 'react-icons/fa6'
-import { Flip, toast,ToastContainer } from 'react-toastify'
-import LoadingBtn from './loadingbtn'
+import {  FaClipboard, FaChevronDown,FaCreditCard } from 'react-icons/fa6'
+import {  toast,ToastContainer } from 'react-toastify'
 import { Button } from '@nextui-org/react'
-
 import {CartCon} from '../contexts/cartContext'
-import Image from 'next/image';
-
 import { useRouter } from 'next/navigation'
-
 import { API_URL,Theme,CURRENCY,IMG_URL } from '../local'
-
-import { forwardRef, useRef,useImperativeHandle  } from "react"
+import { forwardRef  } from "react"
 
 const ItemsPopup = forwardRef((props, ref) => {
-  const [open, setOpen] = useState(true)
-  const [scrol,setScrol]=useState(0);
   const [lod,setLod]=useState(0);
-   const {cartData,addToCart,removeFromCart,CartTotal}  = useContext(CartCon);
-  const [total,setTotal]=useState(0);
   const router = useRouter();
 const  ls = require('local-storage');
   const [odate,setOdate]=useState(0);
@@ -32,10 +20,10 @@ const  ls = require('local-storage');
   useEffect(()=>{
 setOrderitems({data:[]})
    getOrderItems();
-//   console.log(new Date(props.data.date));
+//   
 
    var date = new Date(props.data&&props.data.date * 1000);
-console.log(props.data&&props.data.date)
+
 // Hours part from the timestamp
 var hours = date.getHours();
 var m = date.getMonth();
@@ -76,7 +64,7 @@ const getOrderItems= ()=>{
 fetch(`${API_URL}orders?func=getOrderItems`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
-    console.log("orderitems",data );
+    
    
     setOrderitems({data:data})
     setLod(false)
@@ -106,7 +94,7 @@ const createCheckoutSession = ()=>{
 //   fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
 //     .then((response) => response.json())
 //     .then((data) => {
-//       console.log("checoutlinked",data );
+//       
 //       window.location= data.url;
 //     }).then(()=>{
       
@@ -136,7 +124,7 @@ const handleOrderDelivery = ()=>{
  fetch(`${API_URL}orders?func=deliverOrder`, requestOptions)
    .then((response) => response.json())
    .then((data) => {
-     console.log("delivered ",data )
+     
      props.getOrders();
   
    }).then(()=>{

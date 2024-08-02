@@ -64,7 +64,7 @@ function AddSize(props) {
         fetch(`${API_URL}sizes`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("sizes data ",data.data )
+            
            setSizes(data.data);
           }).then(()=>{
          
@@ -91,7 +91,7 @@ function AddSize(props) {
           fetch(`${API_URL}sizes/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("deleted ",data.data )
+              
            getSizes();
             }).then(()=>{
            
@@ -121,7 +121,7 @@ function AddSize(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -187,7 +187,7 @@ function AddSize(props) {
           fetch(`${API_URL}sizes?func=AddSize`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
              setNamear("");
              setNameen("");
              setSicon("");

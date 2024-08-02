@@ -22,9 +22,9 @@ function AccounteEl() {
     
 
     async function loginvalHandler(){
-      console.log("aaaa",loginval())
+      
       loginval.then(function(result) {
-       console.log("aaaa",result)
+       
     });
     }
  
@@ -49,7 +49,7 @@ function AccounteEl() {
   //     .then((response) => response.json())
   //     .then((data) => {
 
-  //     //  console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+  //     //  
 
         
   //  if(data.id){

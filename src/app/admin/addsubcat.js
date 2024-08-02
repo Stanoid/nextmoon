@@ -64,7 +64,7 @@ function AddSubCat(props) {
         fetch(`${API_URL}catagories`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("cats data ",data.data )
+            
            setCat(data.data);
           }).then(()=>{
          
@@ -91,7 +91,7 @@ function AddSubCat(props) {
           fetch(`${API_URL}subcatagories?func=getAllSubcat`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("subcat normal  data ",data )
+              
              setSubcats(data);
             }).then(()=>{
            
@@ -115,7 +115,7 @@ function AddSubCat(props) {
           fetch(`${API_URL}subcatagories/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("deleted ",data.data )
+              
            getSubcats();
             }).then(()=>{
            
@@ -145,7 +145,7 @@ function AddSubCat(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -209,7 +209,7 @@ function AddSubCat(props) {
           fetch(`${API_URL}subcatagories?func=AddSubCat`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
              getSubcats();
              alert("subcat  added")
 

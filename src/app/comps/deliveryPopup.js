@@ -32,10 +32,10 @@ const  ls = require('local-storage');
   useEffect(()=>{
 setOrderitems({data:[]})
    getOrderItems();
-//   console.log(new Date(props.data.date));
+//   
 
    var date = new Date(props.data&&props.data.date * 1000);
-console.log(props.data&&props.data.date)
+
 // Hours part from the timestamp
 var hours = date.getHours();
 var m = date.getMonth();
@@ -76,7 +76,7 @@ const getOrderItems= ()=>{
 fetch(`${API_URL}orders?func=getOrderItems`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
-    console.log("orderitems",data );
+    
    
     setOrderitems({data:data})
     setLod(false)
@@ -106,7 +106,7 @@ const createCheckoutSession = ()=>{
 //   fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
 //     .then((response) => response.json())
 //     .then((data) => {
-//       console.log("checoutlinked",data );
+//       
 //       window.location= data.url;
 //     }).then(()=>{
       
@@ -136,7 +136,7 @@ const handleOrderDelivery = ()=>{
  fetch(`${API_URL}orders?func=deliverOrder`, requestOptions)
    .then((response) => response.json())
    .then((data) => {
-     console.log("delivered ",data )
+     
      props.getOrders();
   
    }).then(()=>{

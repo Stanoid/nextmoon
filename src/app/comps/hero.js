@@ -30,6 +30,8 @@ col-span-6 flex sm:flex lg:hidden'>
 <Image 
   fill objectFit='cover'
   quality={25}
+  //placeholder='empty'
+  priority={true}
   alt={"banner immage"}
   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
   className='rounded-md'  src={"/offers/offer5.png"} />
@@ -81,6 +83,7 @@ col-span-6 flex sm:flex lg:hidden'>
            <Image 
          fill objectFit='cover'
          quality={25}
+         priority={true}
          alt={"banner immage"}
          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'   src={"/offers/ban1.png"} />
            </div>
@@ -90,6 +93,7 @@ col-span-6 flex sm:flex lg:hidden'>
            
            fill objectFit='cover'
            quality={25}
+           priority={true}
            alt={"banner immage"}
            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className='rounded-md'  src={"/offers/ban3.png"} />
@@ -100,6 +104,7 @@ col-span-6 flex sm:flex lg:hidden'>
              alt={"banner immage"}
          fill objectFit='cover'
          quality={25}
+         priority={true}
          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'  src={"/offers/offer5.png"} />
            </div>
 

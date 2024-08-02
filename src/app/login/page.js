@@ -79,7 +79,7 @@ useEffect(()=>{
 
  const handlelogin=()=>{
   setLod(1);
- //  console.log(loading);
+ //  
   loginUser(email,pass)
  
   
@@ -97,7 +97,7 @@ useEffect(()=>{
 
 
   const handlestate=(value)=>{
-   // console.log("Aaa",value);
+   // 
     setstate(value)
   const requestOptions = {
     method: 'GET',
@@ -111,7 +111,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
     .then(response => response.json())
     .then(data =>{
      
-  //  console.log(data.data.attributes.cities.data);
+  //  
    setcities(data.data.attributes.cities.data);
        
     });

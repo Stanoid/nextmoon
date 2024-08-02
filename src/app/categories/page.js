@@ -20,7 +20,7 @@ export default function Home() {
 
     //TODO: get products with category id and save it to products state
 
-//console.log(getQueryVariable("cid"))
+//
 
 
 
@@ -39,7 +39,7 @@ export default function Home() {
       //       return decodeURIComponent(pair[1]);
       //     }
       //   }
-      //   console.log("Query variable %s not found", variable);
+      //   
       // }
 
   const handleOpenCart =(open)=>{

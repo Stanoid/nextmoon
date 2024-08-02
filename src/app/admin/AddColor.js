@@ -62,7 +62,7 @@ function AddColor(props) {
       fetch(`${API_URL}colors/${id}`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log("deleted ",data.data )
+          
        getcolors();
         }).then(()=>{
        
@@ -89,7 +89,7 @@ function AddColor(props) {
         fetch(`${API_URL}colors`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("colors data ",data.data )
+            
            setcolors(data.data);
           }).then(()=>{
          
@@ -119,7 +119,7 @@ function AddColor(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -185,7 +185,7 @@ function AddColor(props) {
           fetch(`${API_URL}colors`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
              setNamear("");
              setNameen("");
              setColorCode("");

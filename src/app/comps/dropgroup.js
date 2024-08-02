@@ -34,7 +34,7 @@ useEffect(() => {
       
       
               
-          console.log("Catagories data ",data.data)
+          
          setCats(data.data);
           
            

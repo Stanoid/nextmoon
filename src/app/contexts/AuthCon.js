@@ -15,7 +15,7 @@ export const AuthenContext = ({ children }) => {
   const router = useRouter();
 
   const loginUser = (cred, pass) => {
-    console.log("started");
+    
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -28,7 +28,7 @@ export const AuthenContext = ({ children }) => {
     fetch(`${API_URL}auth/local`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        
                       
         if (data.jwt) {
           ls.set("atkn", data.jwt);
@@ -75,7 +75,7 @@ export const AuthenContext = ({ children }) => {
 
 
   const loginval = ()=>{
-console.log("loginval ")
+
 
     const requestOptions = {
       method: 'GET',

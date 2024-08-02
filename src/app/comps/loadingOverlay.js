@@ -6,7 +6,7 @@ function LoadingOverlay() {
     
 <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
     <div className='bg-moon-100 rounded-full p-3' >
-    <Logo className="stroke-moon-200  "   width={70} height={70} />
+    <Logo  className="stroke-moon-200  "   width={70} height={70} />
     </div>
 
 {/* <div className='font-semibold text-moon-200 '  style={{marginTop:10}} > ..جار التحميل </div> */}

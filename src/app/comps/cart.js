@@ -31,7 +31,7 @@ const  ls = require('local-storage');
  
 
 //   useEffect(()=>{
-//     console.log(ls.get("MinimoonCart"))
+//     
 // },[ls.get("MinimoonCart")])
 
 
@@ -41,7 +41,7 @@ const  ls = require('local-storage');
 const handleOrder= ()=>{
 
 
-  //console.log(ls.get("MinimoonCart"));
+  //
   if(ls.get("MinimoonCart").length==0){
     alert("الرجاء إضافة منتجات")
     return
@@ -60,7 +60,7 @@ const handleOrder= ()=>{
   }
 
 
-  console.log(payarray)
+  
   
     const requestOptions = {
   method: 'POST',
@@ -75,7 +75,7 @@ const handleOrder= ()=>{
 fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
-    console.log("checoutlinked",data );
+    
     setLod(false)
 window.location= data.url;
   }).then(()=>{
@@ -104,7 +104,7 @@ const createCheckoutSession = ()=>{
 //   fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
 //     .then((response) => response.json())
 //     .then((data) => {
-//       console.log("checoutlinked",data );
+//       
 //       window.location= data.url;
 //     }).then(()=>{
       

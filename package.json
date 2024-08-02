@@ -11,6 +11,7 @@
     "dependencies": {
         "@headlessui/react": "^1.7.18",
         "@heroicons/react": "^1.0.6",
+        "@next/bundle-analyzer": "^14.2.5",
         "@nextui-org/react": "^2.4.2",
         "@plaiceholder/next": "^3.0.0",
         "@stripe/react-stripe-js": "^1.16.5",

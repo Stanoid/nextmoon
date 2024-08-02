@@ -1,18 +1,12 @@
 'use client'
 
-import Image from "next/image";
 import Product from "../comps/product";
-import Hero from "../comps/hero";
+import dynamic from "next/dynamic";
 import { API_URL, Theme } from "../local";
 import { useState,useRef,useEffect,useContext } from "react";
-import Slider from "../comps/mainSlider";
-import Cart from "../comps/cart";
 
-import { product } from "../comps/productdata";
-import { data } from "autoprefixer";
+const Slider = dynamic(() => import("../comps/mainSlider"));
 export default function Home() {
-  const [openCart,setOpenCart] = useState(false);
-  const childCompRef = useRef()
   const [lod,setLod]= useState(true)
   const [products,setProducts] = useState([])
   
@@ -24,7 +18,7 @@ export default function Home() {
 
     //TODO: get products with category id and save it to products state
 
-// console.log(getQueryVariable("sid"))
+// 
 const requestOptions = {
   method: 'GET',
   headers: {
@@ -36,12 +30,12 @@ const requestOptions = {
 fetch(`${API_URL}products?func=getProductswithSubid&sid=${getQueryVariable("sid")}`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
-    console.log("suuuuuuuuuub data ", data);
+    
    setProducts(data);
    return data
   }).then((datasub)=>{
 
-    //console.log("then data ", datasub[0].subcatagory.catagory.id);
+    //
 
     const requestOptionssub = {
       method: 'GET',
@@ -54,7 +48,7 @@ fetch(`${API_URL}products?func=getProductswithSubid&sid=${getQueryVariable("sid"
     fetch(`${API_URL}subcatagories?func=getRelatedsubcats&cid=${datasub[0]&&datasub[0].subcatagory.catagory.id}&sid=${getQueryVariable("sid")} `, requestOptionssub)
       .then((response) => response.json())
       .then((data) => {
-        console.log("related produccts data ", data);
+        
     //setRelatedProducts(data);
     let prodarray = [];
 
@@ -67,7 +61,7 @@ fetch(`${API_URL}products?func=getProductswithSubid&sid=${getQueryVariable("sid"
       }
     
     }
-    console.log("all products",prodarray);
+    
     setRelatedProducts(prodarray);
    
 
@@ -97,16 +91,9 @@ fetch(`${API_URL}products?func=getProductswithSubid&sid=${getQueryVariable("sid"
             return decodeURIComponent(pair[1]);
           }
         }
-        console.log("Query variable %s not found", variable);
+        
       }
 
-  const handleOpenCart =(open)=>{
-    setOpenCart(open)
-
- 
-    
-    
-        }
 
 
     

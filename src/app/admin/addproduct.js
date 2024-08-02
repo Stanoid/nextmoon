@@ -80,7 +80,7 @@ function AddProduct(props) {
     for (let i = 0; i < files.length; i++) {
       const postData = new FormData();
       postData.append("files", files[i]);
-      //console.log("postdata",postData);
+      //
       axios
         .post(`${API_URL}upload`, postData)
         .then((response) => {
@@ -90,7 +90,7 @@ function AddProduct(props) {
 
           tmepar[i] = response.data[0].url;
           
-          console.log("Response image url", response.data[0].url);
+          
           //    setImgs(tmepar);
 
           if (i == files.length - 1) {
@@ -99,7 +99,7 @@ function AddProduct(props) {
         })
         .then(() => {});
     }
-    //console.log("trmpa",tmepar);
+    //
 
     //
     //   setImgs(tmepar);
@@ -117,7 +117,7 @@ function AddProduct(props) {
     fetch(`${API_URL}products/${id}`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("deleted ", data.data);
+        
         getProducts();
       })
       .then(() => {});
@@ -138,7 +138,7 @@ function AddProduct(props) {
     fetch(`${API_URL}products/${id} ?func=EditStatus`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("status updated", data);
+        
       })
       .then(() => {
         getProducts();
@@ -157,7 +157,7 @@ function AddProduct(props) {
     fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Product data ", data);
+        
         setProducts(data);
       })
       .then(() => {
@@ -177,7 +177,7 @@ function AddProduct(props) {
     fetch(`${API_URL}colors`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("color data ", data.data);
+        
         setColors(data.data);
       })
       .then(() => {
@@ -197,7 +197,7 @@ function AddProduct(props) {
     fetch(`${API_URL}sizes`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("sizes data ", data.data);
+        
         setSizes(data.data);
       })
       .then(() => {
@@ -217,7 +217,7 @@ function AddProduct(props) {
     fetch(`${API_URL}subcatagories?func=getAllSubcat`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("sub catagories data ", data);
+        
         setCats(data);
         setlod(false)
       })
@@ -238,7 +238,7 @@ function AddProduct(props) {
     fetch(`${API_URL}users/me`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("aaaaaaaaaaaaaaaaaaaaaaa", data);
+        
 
         if (data.id) {
           if (data.type == 1) {
@@ -252,8 +252,8 @@ function AddProduct(props) {
   };
 
   const submitProduct = (tmepar) => {
-    console.log(tmepar);
-    //console.log("aaaaa",imgsob);
+    
+    //
 
     if (
       namear == "" ||
@@ -295,7 +295,7 @@ function AddProduct(props) {
       fetch(`${API_URL}products?func=AddProduct`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log("added product data", data);
+          
         })
         .then(() => {
           getProducts();

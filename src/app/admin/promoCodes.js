@@ -73,7 +73,7 @@ function PromoCodes(props) {
           fetch(`${API_URL}orders?func=AddPromoCode`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-          console.log("Promo data",data )
+          
         
           setlod(false)
             }).then(()=>{  
@@ -99,7 +99,7 @@ function PromoCodes(props) {
           fetch(`${API_URL}orders?func=testsession`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-          console.log("session data",data )
+          
         
 
             }).then(()=>{
@@ -126,7 +126,7 @@ function PromoCodes(props) {
           fetch(`${API_URL}orders?func=listpromo`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-          console.log("Promo data",data )
+          
           setpromoData(data.data)
           setHasmore(data.has_more);
           setlod(false)

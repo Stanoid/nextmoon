@@ -1,4 +1,5 @@
 import React from "react";
+import dynamic from 'next/dynamic'
 import {
   Table,
   TableHeader,
@@ -13,11 +14,12 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  Chip,
   User,
   Pagination,
 
 } from "@nextui-org/react";
+
+
 import {PlusIcon} from "./PlusIcon";
 import {VerticalDotsIcon} from "./VerticalDotsIcon";
 import { useEffect } from "react";

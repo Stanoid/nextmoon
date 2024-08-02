@@ -4,9 +4,11 @@ import React from 'react';
 import { useContext,useEffect,useState } from 'react';
 import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
-import Orders from './orders';
+//import Orders from './orders';
+import dynamic from 'next/dynamic';
 import { AuthCon } from '../contexts/AuthCon';
 
+const Orders = dynamic(() => import('./orders'))
 
 function AccounteEl() {
     const ls = require("local-storage")
@@ -25,9 +27,9 @@ function AccounteEl() {
     
 
     async function loginvalHandler(){
-      console.log("aaaa",loginval())
+      
       loginval.then(function(result) {
-       console.log("aaaa",result)
+       
     });
     }
  
@@ -52,7 +54,7 @@ function AccounteEl() {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){   

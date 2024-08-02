@@ -89,13 +89,13 @@ function EditProduct(props) {
     for (let i = 0; i < files.length; i++) {
       const postData = new FormData();
       postData.append("files", files[i]);
-      //console.log("postdata",postData);
+      //
       axios
         .post("http://localhost:1337/api/upload", postData)
         .then((response) => {
           const imageId = response.data[0].id;
           tmepar[i] = response.data[0].url;
-          console.log("uhrurhguhrughrughug", response.data[0].url);
+          
           setImgs(tmepar);
         })
         .then(() => {
@@ -124,7 +124,7 @@ return;
 
 
       if(colors[i].id==color){
-        console.log("color ob",colors[i])
+        
         colorob = colors[i]
       }
       
@@ -132,7 +132,7 @@ return;
 
     for (let j = 0; j < sizes.length; j++) {  
             if(sizes[j].id==size){
-              console.log("size ob",sizes[j])
+              
               sizeob = sizes[j];
             }
             
@@ -177,7 +177,7 @@ return;
 
     setVarients(tempo)
 
-    console.log("varrrrrrrrrrrrrrrrrrrrs",varients)
+    
    setEff(false)
    setRefr(!refr);
 
@@ -196,7 +196,7 @@ return;
     fetch(`${API_URL}products/${props.pid}?func=getFullProduct`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Product speced data ", data.data);
+        
        // setProducts(data.data);
         setNamear(data.data.attributes.name_ar)
         setNameen(data.data.attributes.name_en);
@@ -244,7 +244,7 @@ setlod(true);
     fetch(`${API_URL}colors`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("color data ", data.data);
+        
         setColors(data.data);
       })
       .then(() => {
@@ -264,7 +264,7 @@ setlod(true);
     fetch(`${API_URL}sizes`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("sizes data ", data.data);
+        
         setSizes(data.data);
       })
       .then(() => {
@@ -284,7 +284,7 @@ setlod(true);
     fetch(`${API_URL}subcatagories?func=getAllSubcat`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("sub catagories data ", data);
+        
         setCats(data);
       })
       .then(() => {
@@ -295,7 +295,7 @@ setlod(true);
 
   const removeVHandler = (index)=>{
 
-    console.log(index);
+    
    
     let temparv = varients
   
@@ -304,7 +304,7 @@ setlod(true);
     setVarients(temparv);
     setEff(false)
     setRefr(!refr);
-    console.log("aaaa",varients)
+    
 
 
 
@@ -319,10 +319,10 @@ setlod(true);
 
 
   const submitProduct = (imgsob) => {
-    console.log("vardelete",varientDelete);
+    
    setlod(true)
 
-    //console.log("aaaaa",imgsob);
+    //
     if (
       namear == "" ||
       nameen == "" ||
@@ -358,7 +358,7 @@ setlod(true);
       fetch(`${API_URL}products/${props.pid}?func=EditProduct`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log("added product data", data);
+          
         })
         .then(() => {
 

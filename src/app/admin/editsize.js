@@ -64,7 +64,7 @@ function EditSize(props) {
         fetch(`${API_URL}sizes/${props.sid}`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("size data ",data.data )
+            
            //setSizes(data.data);
            setNamear(data.data.attributes.name_ar)
            setNameen(data.data.attributes.name_en)
@@ -94,7 +94,7 @@ function EditSize(props) {
           fetch(`${API_URL}sizes/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("deleted ",data.data )
+              
            getSizes();
             }).then(()=>{
            
@@ -124,7 +124,7 @@ function EditSize(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -185,7 +185,7 @@ function EditSize(props) {
           fetch(`${API_URL}sizes/${props.sid}?func=EditSize`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
               
               setlod(false);
             }).then(()=>{

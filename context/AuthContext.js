@@ -39,11 +39,11 @@ export const AuthProvider = (props)=>{
             fetch(`${API_URL}/auth/local`, requestOptions)
                 .then(response => response.json())
                 .then(data =>{
-                   // console.log(data);
+                   // 
                     
                     if(data.jwt){
                         ls.set("atkn",data.jwt);
-                  //   console.log("thiis tokwn",data.jwt)
+                  //   
                      setUser(data.user.username);
                      setuserData(data.user);
                      setStype(data.user.type)
@@ -180,8 +180,8 @@ export const AuthProvider = (props)=>{
                 fetch(`${API_URL}/users/me?populate=*`, requestOptions)
                     .then(response => response.json())
                     .then(data =>{
-                   //  console.log("after call token",ls.get("atkn"))
-                    //  console.log("dataaftercall",data)
+                   //  
+                    //  
                      
                       if(data.id){
                     setUser(data.username);
@@ -244,7 +244,7 @@ export const AuthProvider = (props)=>{
 
 
              const isLogged = async(chk)=>{
-              console.log("triggered",chk)
+              
                  // let myPromise = new Promise(function(resolve, reject) {
                
                  // });
@@ -262,8 +262,8 @@ export const AuthProvider = (props)=>{
                    fetch(`${API_URL}/users/me?populate=*`, requestOptions)
                        .then(response => response.json())
                        .then(data =>{
-                      // console.log("after call token",ls.get("atkn"))
-                         console.log("dataaftercall",data)
+                      // 
+                         
    
    
                          if(data.id){

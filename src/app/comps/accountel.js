@@ -40,7 +40,7 @@ function AccounteEl() {
       .then((response) => response.json())
       .then((data) => {
         
-      //  console.log("ddddddddddd",data)
+      //  
    if(data.id){
    setLogged(1)
    setUserdata(data);

@@ -6,7 +6,7 @@ function MegaMenu(props) {
     const [rend,SetRend] = useState(0)
     const router = useRouter();
     useEffect(() => {
-     console.log("mega menu data",props.data)
+     
     
     
     }, [rend])

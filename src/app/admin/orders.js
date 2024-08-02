@@ -51,7 +51,7 @@ function Orders(props) {
       fetch(`${API_URL}orders?func=getOrders`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log("Orders ",data )
+          
           setOrderdata(data)
         }).then(()=>{
        
@@ -78,7 +78,7 @@ function Orders(props) {
         fetch(`${API_URL}colors`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("colors data ",data.data )
+            
            setcolors(data.data);
           }).then(()=>{
          
@@ -108,7 +108,7 @@ function Orders(props) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("aaaaaaaaaaaaaaaaaaaaaaa",data)
+      
 
         
   if(data.id){
@@ -174,7 +174,7 @@ function Orders(props) {
           fetch(`${API_URL}colors`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log("added product data",data )
+              
              setNamear("");
              setNameen("");
              setColorCode("");
@@ -217,7 +217,7 @@ setlod(true);
     fetch(`${API_URL}orders?func=expireOrder`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("expired",data)
+        
        getOrders();
       }).then(()=>{
      setlod(false)

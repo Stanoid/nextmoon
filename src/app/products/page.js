@@ -43,7 +43,7 @@ export default function Product({}) {
   useEffect(() => {
   
     setmimg(0);
-    //console.log(getQueryVariable("pid"));
+    //
 
 
     getFullProduct();
@@ -51,7 +51,7 @@ export default function Product({}) {
 
       // callback function to call when event triggers
       const onPageLoad = () => {
-        console.log('page loaded');
+        
        // setLod(true);
       };
   
@@ -68,7 +68,7 @@ export default function Product({}) {
 
       // for (let i = 0; i < product.data.length; i++) {
       //   if (product.data[i].id == getQueryVariable("pid")) {
-      //     console.log("here:", product.data[i]);
+      //     
         
   
         
@@ -123,20 +123,20 @@ for (let i = 0; i < vrs.length; i++) {
       fetch(`${API_URL}products/${getQueryVariable("pid")}?func=getFullProduct`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          //console.log(data.data.attributes.varients.data[0].attributes.price)
+          //
           setImgs(JSON.parse(data.data.attributes.img));
           setPrice(data.data.attributes.varients.data[0].attributes.price);
           setStock(data.data.attributes.varients.data[0].attributes.stock);
           setSelectedV(data.data.attributes.varients.data[0].id);
           setPref(data.data.attributes.varients.data[0].attributes.product_ref)
-          console.log(data.data.attributes.varients.data[0].attributes.product_ref)
+          
           setSelectedC(data.data.attributes.varients.data[0].attributes.color.data.id);
           setSize(data.data.attributes.varients.data[0].attributes.size.data.id);
           setColor(data.data.attributes.varients.data[0].attributes.color.data.attributes.colorCode);
           setDb(data.data);
         }).then(()=>{
         setLod(false);
-        console.log("aaaaa",imgs)
+        
         });
 
 
@@ -150,14 +150,14 @@ for (let i = 0; i < vrs.length; i++) {
     useContext(CartCon);
 
   const HandleAddToCart = () => {
-   console.log(pref)
+   
       addToCart({ 
         data: db, 
         selvar: selectedV, 
         product_ref:pref,
         qty: qty, 
       });
-   //   console.log("Product Has been added on empty cart: ", db.attributes.name_en);
+   //   
       useNotifi("success", "تمت إضافة المنتج إلى السلة");
   
   };
@@ -178,7 +178,7 @@ for (let i = 0; i < vrs.length; i++) {
   const HandleAddToFav = (id) => {
     if (favData.length == 0) {
       addTofav(db);
-      console.log("Product Has been added on empty likes: ", db.nameEn);
+      
       //useNotifi("success","Product has been added to Liked")
     } else {
       if (
@@ -186,10 +186,10 @@ for (let i = 0; i < vrs.length; i++) {
         undefined
       ) {
         addTofav(db);
-        console.log("Product Has been added: to liked ", db.nameEn);
+        
         // useNotifi("success","Product has been added to Liked")
       } else {
-        console.log("Product removed from liked:  ", db.nameEn);
+        
         removeFromFav(db.id);
       }
 
@@ -198,10 +198,10 @@ for (let i = 0; i < vrs.length; i++) {
       // old cart handler (uncontrollable for loop)
       // for (let i = 0; i < cartData.length; i++) {
       //   if(cartData[i].id===parseInt(getQueryVariable("pid"))){
-      //     console.log("Already trigger:",cartData[i].id,parseInt(getQueryVariable("pid")));
+      //     
       //    return
       //   }else{
-      //     console.log("added trigger:",cartData[i].id,parseInt(getQueryVariable("pid")));
+      //     
       //     addToCart(db);
 
       //   }
@@ -218,7 +218,7 @@ for (let i = 0; i < vrs.length; i++) {
         return decodeURIComponent(pair[1]);
       }
     }
-    console.log("Query variable %s not found", variable);
+    
   }
 
   return (
@@ -300,7 +300,7 @@ for (let i = 0; i < vrs.length; i++) {
     >
       <div className=" w-full">
         <span
-        onClick={()=>{console.log("aaaaaaaaa",imgs)}}
+
           style={{
             backgroundColor: Theme.secondary,
             color: "white",

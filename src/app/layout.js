@@ -1,36 +1,23 @@
 "use client";
 import "./globals.css";
 import { React, useEffect, useState, useRef, useContext } from "react";
-import { LOCALE, Theme,API_URL} from "./local";
-import Image from "next/image";
-import logowhite from "../../public/logowhite.svg";
+import { API_URL} from "./local";
 import Cart from "./comps/cart";
-import DropGroup from "./comps/dropgroup";
-import Drop from "./comps/drop";
-import PromoComp from "./comps/promo";
 import { NextUIProvider } from "@nextui-org/react";
 import CatDrop from "./comps/catDrop";
-import AccounteEl from "./comps/accountel";
 import NavbarC from "./comps/navbar";
-import Cartl from "./comps/cartl";
-import {Navbar, NavbarBrand, NavbarContent,Divider, Button,NavbarItem, Link, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
-import { FaSearch,FaLock,FaUserAstronaut, FaUserCircle,FaListAlt,FaCogs,FaPowerOff } from "react-icons/fa";
-import { FaVest } from "react-icons/fa6";
+import dynamic from "next/dynamic";
+
+const Cartl = dynamic(() => import('./comps/cartl'))
+
+import {Divider, Button , Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
+import { FaSearch, FaUserCircle,FaListAlt,FaCogs,FaPowerOff } from "react-icons/fa";
 import AnnounceComp from "./comps/announce";
-import MegaMenu from "./comps/megaMenu";
-import LoadingBtn from "./comps/loadingbtn";
-import { Tooltip } from "@nextui-org/react"
 import { FaUser } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { ScrollShadow } from "@nextui-org/react";
-import redem from "../../public/amblemred.svg"
-import { BsHeartFill } from "react-icons/bs";
-import { MdShoppingCart, MdSearch } from "react-icons/md";
 import { CartContext } from "./contexts/cartContext";
 import AuthenContext from "./contexts/AuthCon";
-import { AuthCon } from "./contexts/AuthCon";
 import localFont from 'next/font/local'
-import Footer from "./footer";
 import Cookies from "universal-cookie";
 import Logowhite from "../../public/logowhite.svg";
 import { useRouter, usePathname } from "next/navigation";
@@ -38,8 +25,7 @@ import { useRouter, usePathname } from "next/navigation";
 const ArFont = localFont({ src: './styles/fonts/alfont_com_SomarGX.ttf' })
 const EnFont = localFont({ src: './styles/fonts/gothambook-webfont.woff2' })
 export default function RootLayout({ children }) {
-  const cookies = new Cookies();
-  const pathname = usePathname();
+ 
   const router = useRouter();
 
 
@@ -83,7 +69,7 @@ export default function RootLayout({ children }) {
     fetch(`${API_URL}catagories?populate=*`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data)
+        
        setCat(data.data);
       }).then(()=>{
      
@@ -110,18 +96,18 @@ export default function RootLayout({ children }) {
   const [utype, setutype] = useState(0);
 
   const handleSearch = (el) =>{
-//console.log(el.target.value)
+//
 
 // if(el.target.value.lenght<4){
-//   console.log("returned")
+//   
 
 //   return;
 // }
 
-console.log("lenght",el.target.value.length)
+
 
 if(el.target.value.length<3){
-console.log("returned-ish")
+
 }else{
 
   const requestOptions = {
@@ -134,7 +120,7 @@ console.log("returned-ish")
   fetch(`${API_URL}products?func=SearchWithkeyword&keyword=${el.target.value}`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
-      console.log("search",data );  
+      
       setSugges(data)
     }).then(()=>{
   
@@ -150,7 +136,7 @@ console.log("returned-ish")
 
   const loginval = ()=>{
     setLogindata(null);
-    console.log("loginval ")
+    
     
         const requestOptions = {
           method: 'GET',
@@ -166,11 +152,11 @@ console.log("returned-ish")
           .then((data) => {
     
             if(data.id){
-      console.log(data);
+      
       setLogindata(data)
     }
 
-    console.log("loginval",data);
+    
     
          
           });
@@ -178,7 +164,7 @@ console.log("returned-ish")
       }
 
   const drawSugg = (el)=>{
-console.log("search")
+
     setEleft(el.target.getBoundingClientRect().left);
     setSearwidth(el.target.getBoundingClientRect().width);
     setEtop(el.target.getBoundingClientRect().top);
@@ -334,348 +320,7 @@ console.log("search")
     </div>
             </section>
 
-            
-            {/* <div
-            
-              style={{ height: "100vh" }}
-              className=" flex overflow-hidden "
-              x-data="{ sidebarOpen: false }"
-            >
-              <div className="flex flex-col w-0 flex-1 overflow-hidden">
-                <div
-                  style={{
-                    top: 0,
-                    backgroundColor: Theme.primary,
-                  }}
-                  className="   lg:flex    z-10  shadow"
-                >
-                  <div
-                    className=""
-                    style={{
-                      color: "white",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      padding: 10,
-                      fontWeight: "bold",
-                      fontSize: 25,
-                    }}
-                  >
-                    <div className="hidden lg:flex sm:hidden md:hidden ">
-                      <Image
-                        onClick={() => {
-                          router.push("/");
-                        }}
-                        src={logowhite}
-                        alt="My SVG"
-                        width={100}
-                      />
-                    </div>
 
-                    <div
-                      className="flex lg:hidden sm:flex md:flex "
-                      style={{
-                        fontSize: 15,
-
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Image
-                        onClick={() => {
-                          router.push("/");
-                        }}
-                        src={logowhite}
-                        alt="My SVG"
-                        width={100}
-                      />
-
-                      <div>
-                        <button
-                          onClick={() => {
-                            handleOpenCart(true);
-                          }}
-                          style={{
-                            fontSize: 20,
-                            marginLeft: 5,
-                            padding: 10,
-                            borderRadius: 100,
-                            backgroundColor: "white",
-                            color: Theme.primary,
-                          }}
-                          className="p-2 m-1 text-white  rounded-sm
-             
-             focus:shadow-outline focus:text-gray-500"
-                        >
-                          <MdShoppingCart />
-                        </button>
-
-                     
-                      </div>
-                    </div>
-
-                    <div className="  hidden ">
-                      <div className="flex  flex-col ">
-                        <Cart
-                          ref={childCompRef}
-                          openHandler={handleOpenCart}
-                          open={openCart}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="  hidden">
-                      <div className="flex  flex-col ">
-                        <Cartl
-                          ref={childCompRef}
-                          openHandler={handleOpenCartl}
-                          open={openCartl}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex-1 hidden lg:flex md:hidden sm:hidden px-4  justify-between">
-
-                    <div className="flex-1 flex   items-center">
-                      <div className="w-2/3 flex md:ml-0">
-                        <label for="search_field" className="sr-only">
-                          Search
-                        </label>
-                        <div className="relative w-full text-white focus-within:text-gray-600">
-                          <div className="absolute inset-y-0 left-0 flex items-center p-2 pointer-events-none">
-                            <svg
-                              className="h-5 w-5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                              />
-                            </svg>
-                          </div>
-                          <input
-                          // onBlur={()=>{setDraw(false)}}
-                          onFocus={(el)=>{drawSugg(el)}}
-                          onChange={(el)=>{
-                            handleSearch(el);
-                          }}
-                            id="search_field"
-                            className="block w-full  pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm"
-                            placeholder="Search Minimoon"
-                          />
-                        </div>
-                      </div>
-                      
-   <div
-   className="z-10 shadow-md"
-   style={{ 
-  position:"absolute",
-  top:eltop+30,
-  left:eleft,
-  fontSize:15,
-  width:searwidth,
-  backgroundColor:"white",
-  borderRadius:"0px 0px 10px 10px",
-  padding:10,
-  borderBottom:"5px solid"+ Theme.primary,
-  display: draw?"block":"none", 
-  }}
-
-   >
-
- {sugges&&sugges.map((sug,index)=>(
-<div key={index} onClick={()=>{location.href=("/products?pid="+sug.id);setDraw(false)}} className="hover:bg-slate-100" style={{color:"grey",padding:10,borderRadius:5,cursor:"pointer"}}>
-    {sug.name_en}
-    </div>
-
-))}
-    
-    
-    
-
-  
-
-   </div>
-                    
-                    </div>
-                    <div className="ml-4 flex items-center md:ml-6">
-                      
-                      <AccounteEl media={"m"} />
-                      
-
-                      <button
-                        onClick={() => {
-                          handleOpenCart(true);
-                        }}
-                        style={{
-                          fontSize: 20,
-                          marginLeft: 20,
-                          padding: 10,
-                          borderRadius: 100,
-                          backgroundColor: "white",
-                          color: Theme.primary,
-                        }}
-                        className="p-2 m-1 text-white  rounded-sm
-             
-                focus:shadow-outline focus:text-gray-500"
-                      >
-                        <MdShoppingCart />
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          handleOpenCartl(true);
-                        }}
-                        style={{
-                          fontSize: 20,
-                          marginLeft: 20,
-                          padding: 10,
-                          paddingTop: 10,
-                          paddingBottom: 8,
-                          borderRadius: 100,
-                          backgroundColor: "white",
-                          color: Theme.primary,
-                        }}
-                        className="p-2 m-1 text-white  rounded-sm
-             
-             focus:shadow-outline focus:text-gray-500"
-                      >
-                        <BsHeartFill />
-                      </button>
-
-                      <button
-                        style={{
-                          marginLeft: 20,
-                          color: "white",
-                          fontWeight: "bold",
-                        }}
-                        className="p-2 m-1   rounded-sm
-               focus:outline-none
-                focus:shadow-outline focus:text-gray-500"
-                      >
-                        العربية
-                      </button>
-
-                      <div className="ml-3 relative" x-data="{ open: false }">
-                        <div>
-                          <button className="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline"></button>
-                        </div>
-                        <div className="origin-top-right hidden absolute right-0 mt-2 w-48 rounded-md shadow-lg">
-                          <div className="py-1 rounded-md bg-white shadow-xs">
-                            <a
-                              href="#"
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                            >
-                              Your Profile
-                            </a>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                            >
-                              Settings
-                            </a>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                            >
-                              Sign out
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="flex lg:hidden sm:flex md:flex"
-                  style={{
-                    width: "100%",
-                    maxHeight: 100,
-                    padding: "5px 10px",
-                    backgroundColor: "white",
-
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div>
-                      <button
-                        onClick={() => {
-                          handleOpenCart(true);
-                        }}
-                        style={{
-                          fontSize: 20,
-                          padding: 10,
-                          borderRadius: 100,
-                          backgroundColor: Theme.primary,
-                          color: "white",
-                        }}
-                        className="p-2 m-1 text-white  rounded-sm
-              focus:shadow-outline focus:text-gray-500"
-                      >
-                        <MdSearch />
-                      </button>
-                    </div>
-
-                    <div>
-                      <input
-                        placeholder="Seach Minimoon.."
-                        style={{
-                          width: "100%",
-                          backgroundColor: "white",
-                          padding: "6px 12px",
-                          fontSize: 13,
-                          color: Theme.secondary,
-                          wordSpacing: "0.1px",
-                          border: "3px solid" + Theme.primary,
-                          outline: "white",
-                          borderRadius: 20,
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      paddingRight: 5,
-                    }}
-                  >
-                   <AccounteEl media={"d"} />
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    padding: 5,
-                    width: "100vw",
-                    position: "sticky",
-                    zIndex: 5,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: Theme.secondary,
-                  }}
-                >
-                <DropGroup/>
-                </div>
-
-                <div className="scrollable-content"  style={{ width: "100%", overflowY: "scroll" }}>
-                  {children}
-                </div>
-              </div>
-            </div> */}
       
          
           </AuthenContext>
