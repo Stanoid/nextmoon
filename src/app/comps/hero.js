@@ -101,9 +101,10 @@ col-span-6 flex sm:flex lg:hidden'>
 
            <div style={{width:"100%",position:"relative"}} className='lg:col-span-4 h-56 xl:col-span-4 md:col-span-6 col-span-6 hidden sm:hidden lg:flex ' >
            <Image 
+           priority
              alt={"banner immage"}
          fill objectFit='cover'
-         quality={60}
+         quality={100}
        
          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'  src={"/offers/offer5.png"} />
            </div>

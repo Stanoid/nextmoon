@@ -66,7 +66,7 @@ export default (props) => {
 <Image 
              priority={true}
            fill objectFit='cover'
-           quality={70}
+           quality={100}
            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
            
   src={img} className="rounded-md" />
