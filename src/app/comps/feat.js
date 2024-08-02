@@ -7,7 +7,7 @@ function Feat(props) {
     <div className="overflow-hidden  shadow-lg shadow-moon-200/40   aspect-video">
     <Image 
              priority={true}
-           quality={25} layout='fill'
+           quality={60} layout='fill'
   objectFit='cover'
   
   className="rounded-md" src={props.img} alt="" />

@@ -30,7 +30,7 @@ useEffect(() => {
      src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} alt="product image" /> */}
   <div className=' w-full h-60' style={{position:"relative"}} >
   <Image  fill objectFit='cover'
-  quality={25}
+  quality={40}
   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
 
   />

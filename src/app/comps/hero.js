@@ -29,7 +29,7 @@ col-span-6 flex sm:flex lg:hidden'>
 
 <Image 
   fill objectFit='cover'
-  quality={25}
+  quality={60}
   //placeholder='empty'
   priority={true}
   alt={"banner immage"}
@@ -82,7 +82,7 @@ col-span-6 flex sm:flex lg:hidden'>
            {/* <Image priority={true}  width={100}  style={{width:"100%",auto}}  className="rounded-lg" src={'/offers/offmob2.png'}/> */}
            <Image 
          fill objectFit='cover'
-         quality={25}
+         quality={60}
          priority={true}
          alt={"banner immage"}
          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'   src={"/offers/ban1.png"} />
@@ -92,7 +92,7 @@ col-span-6 flex sm:flex lg:hidden'>
            <Image 
            
            fill objectFit='cover'
-           quality={25}
+           quality={60}
            priority={true}
            alt={"banner immage"}
            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -103,7 +103,7 @@ col-span-6 flex sm:flex lg:hidden'>
            <Image 
              alt={"banner immage"}
          fill objectFit='cover'
-         quality={25}
+         quality={60}
          priority={true}
          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'  src={"/offers/offer5.png"} />
            </div>
