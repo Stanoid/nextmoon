@@ -208,7 +208,7 @@ style={{width:"100%"}}
 </div> */}
   
 
-<div className="bg-gradient-to-b from-moonsec-200/30 to-moonsec-100/30 py-6">
+<div className="bg-gradient-to-b from-moon-200/20 to-moonsec-100/30 py-6">
   <div className="p-6">
   <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">:  فساتين سهرة</h5>
   <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
