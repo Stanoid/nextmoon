@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation'
 
 
 const AddColor = dynamic(() => import('./AddColor'));
-const EditProduct = dynamic(() => import('./editColor'));
-const EditColor = dynamic(() => import('./orders'));
+const EditProduct = dynamic(() => import('./editProduct'));
+const EditColor = dynamic(() => import('./editColor'));
 const PromoCodes = dynamic(() => import('./promoCodes'));
 const AddSubCat = dynamic(() => import('./addsubcat'));
 const EditSize = dynamic(() => import('./editsize'));
