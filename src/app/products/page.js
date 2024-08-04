@@ -5,11 +5,9 @@ import React, { useState, useEffect, useContext, useRef, useSear } from "react";
 import { useRouter } from "next/navigation";
 import { API_URL, ROOT_URL, CURRENCY, Theme,IMG_URL,DEF_IMG } from "../local";
 import QuantEl from "../comps/quantel";
-import {
-  BsHeartFill,
-  BsCartPlusFill,
-  BsFillCartCheckFill,
-} from "react-icons/bs";
+import { BsHeartFill,BsCartPlusFill } from 'react-icons/bs';
+import ReactImageMagnify from 'react-image-magnify';
+import Lens from "../comps/Lens"
 import { Flip, Slide, toast, ToastContainer } from "react-toastify";
 import { CartCon, CartContext } from "../contexts/cartContext";
 import OptionEL from "../comps/optionEL";
@@ -222,7 +220,6 @@ for (let i = 0; i < vrs.length; i++) {
   }
 
   return (
-    
     <div  >
       <Head>
         {/* <title>{"Minimoon | " + db.attributes&&db.attributes.name_en} </title>
@@ -230,10 +227,15 @@ for (let i = 0; i < vrs.length; i++) {
         <meta name="theme-color" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+
+
+
+
       {/* <ToastContainer  limit={3}/> */}
 
     {
-  !lod? <div className="main " style={{ width: "100%", padding: "20px 10px" }}>
+  !lod? <div className="main p-2 " style={{ width: "100%"}}>
         
 
   <div
@@ -247,45 +249,15 @@ for (let i = 0; i < vrs.length; i++) {
     }}
   >
     
-    <div style={{ width: "100%",marginBottom:10 }} className="grid gap-4">
-      <div>
-        <img
-        id="mimg"
-         onError={()=>{document.getElementById("mimg").src=DEF_IMG}}
-          className=" rounded-lg"
-          src={ IMG_URL.concat(imgs[mimg]) }
-          alt=""
-        />
-      </div>
-      <div className="grid grid-cols-5 gap-4">
-      {imgs&&imgs.length!=0?imgs.map((img,index)=>( 
-        
-          img?<div style={{cursor:"pointer",
-        border:"3px solid white",
-        borderRadius:10,
-        borderColor: mimg==index?Theme.primary:"white",
-        }} onClick={()=>{
-           handleimgselection(index);
-          }}>
-          <img
-          id={index}
-            className="h-auto max-w-full rounded-lg"
-            style={{width:"100%"}}
-            onError={()=>{document.getElementById(index).src=DEF_IMG}}
-            src={IMG_URL.concat(img)}
-            alt=""
-          />
-        </div>:<></>
-          
-     
-         )): <div></div>}
-        
-      </div>
-      
-    </div>
+   
+   <div className='w-full '>
+    <Lens data={imgs} />
+   </div>
+
 
    
     <div
+    className='mt-4 sm:mt-4 lg:mt-2 pl-0 sm:pl-0 lg:pl-3'
       style={{
         width: "100%",
         height: "100%",
@@ -294,8 +266,8 @@ for (let i = 0; i < vrs.length; i++) {
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "flex-end",
-       padding:3,
-       marginTop:5,
+   
+   
       }}
     >
       <div className=" w-full">
@@ -402,13 +374,14 @@ for (let i = 0; i < vrs.length; i++) {
       </div>
 
       <div
-        className=""
+        className="w-full sm:w-full lg:w-1/2"
         style={{
           display: "flex",
+          alignSelf:"center",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "flex-start",
-          width: "100%",
+       
           padding: 20,
         }}
       >

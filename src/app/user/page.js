@@ -54,28 +54,7 @@ function AccounteEl() {
       .then((response) => response.json())
       .then((data) => {
 
-      
 
-        
-  if(data.id){   
-
-  if(data.type==4){
-       
-  }else{
-
-    router.replace("/login")
-
-
-
-    }
-  
-   }else{
-  setLogged(0);
-  router.push("/login")
-
-   }
-    
-     
       });
 
   }

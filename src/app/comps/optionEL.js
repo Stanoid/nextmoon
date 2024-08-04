@@ -17,7 +17,7 @@ const varHandler = (id,s)=>{
 
   return (
     <div 
-className='flex-col px-8 lg:flex-row md:flex-row sm:flex-col'
+className='flex-col px-8 lg:flex-col md:flex-col sm:flex-col'
     style={{
         width:"100%",
         
@@ -33,14 +33,14 @@ className='flex-col px-8 lg:flex-row md:flex-row sm:flex-col'
       whileTap={{ scale: 0.9 }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
 
- onClick={()=>{props.varselect(varient.id,varient.attributes.product_ref)}}   className='shadow-md transition-colors flex-row lg:flex-col
+ onClick={()=>{props.varselect(varient.id,varient.attributes.product_ref)}}   className='shadow-md transition-colors flex-row lg:flex-row
   md:flex-col sm:flex-row min-w-full ' style={{padding:"10px 10px"
 ,borderRadius:10,margin:7,border:props.selid==varient.id?"4px solid"+Theme.primary:"4px solid #FAFAFA",cursor:"pointer",
 display:"flex",justifyContent:"center",alignItems:"center"
 }}  key={varient.id} >
 <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 <div  style={{width:30,height:30,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
-border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
+border:"3px solid white",marginRight:-10,zIndex:0,marginBottom:-5
 ,backgroundColor:Theme.primary,color:"white",fontSize:20}}>{varient.attributes.size.data.attributes.icon}</div>
 <div style={{width:35,height:35,
     marginLeft:-10,marginTop:-5
