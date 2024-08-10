@@ -103,6 +103,16 @@ export default function Product(props) {
 </Tooltip>
 
 
+
+
+
+
+</div>
+
+
+
+))}
+
 <div className='flex py-1   w-full  justify-end items-center space-x-1'>
 
 
@@ -120,13 +130,6 @@ export default function Product(props) {
 
 </div>
 
-
-
-</div>
-
-
-
-))}
     </div>
       <p className='text-right w-full '>
         <span className="text-xl font-bold text-moon-300/75">  {CURRENCY}  {props.data.varients[0].price}</span>
