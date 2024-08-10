@@ -33,7 +33,7 @@ export default function NavbarC(props) {
 useEffect(() => {
 
   loginval();
-setCount(ls.get("MinimoonCart")&&get("MinimoonCart").length )
+setCount(ls.get("MinimoonCart")&&ls.get("MinimoonCart").length )
  
 }, [])
 
