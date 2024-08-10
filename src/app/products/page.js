@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { API_URL, ROOT_URL, CURRENCY, Theme,IMG_URL,DEF_IMG } from "../local";
 import QuantEl from "../comps/quantel";
 import { BsHeartFill,BsCartPlusFill } from 'react-icons/bs';
-import ReactImageMagnify from 'react-image-magnify';
+
 import Lens from "../comps/Lens"
 import { Flip, Slide, toast, ToastContainer } from "react-toastify";
 import { CartCon, CartContext } from "../contexts/cartContext";
