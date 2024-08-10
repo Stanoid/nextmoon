@@ -3,7 +3,6 @@ import ImageZoom from "react-image-zooom";
 import styled,{createGlobalStyle} from "styled-components";
 import { useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
-import { ZoomOutIcon } from "@heroicons/react/outline";
 import { IMG_URL, Theme } from "../local";
 import { motion } from "framer-motion";
 

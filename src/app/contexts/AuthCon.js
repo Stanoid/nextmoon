@@ -129,7 +129,7 @@ export const AuthenContext = ({ children }) => {
 
     const getLoginData = ()=>{
     
-return 12
+
 
     }
 

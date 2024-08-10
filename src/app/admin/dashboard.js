@@ -24,7 +24,7 @@ useEffect(() => {
 ]);
 
  const [options1,setOptions1] = useState({
-  colors: [Theme.secondary, Theme.secondaryDark],
+  colors: [Theme.primary, Theme.primaryLights],
   title: "مبيعات المنتج مقارنة بالأسبوع الماضي",
   chartArea: { width: "40%" },
   hAxis: {

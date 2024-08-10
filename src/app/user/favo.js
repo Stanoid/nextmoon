@@ -303,7 +303,7 @@ setlod(true);
 
 
 <div className='px-4 sm:px-4 lg:px-8'  style={{marginTop:10,width:"100%",borderRadius:10,backgroundColor:""}}>
-<div className='text-moon-200/80 text-2xl mt-3'>
+<div className='text-moon-200/80 font-semibold text-2xl mt-3'>
 المفضلة:
 </div>
 <br/>

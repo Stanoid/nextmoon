@@ -258,22 +258,14 @@ gridTemplateAreas:`
 'sicon sicon sicon sicon'
 
 `
-
-
    }} >
-
-
     <div style={{gridArea:"namear"}}>
       <InputEl value={namear} outputfunc={(val)=>{setNamear(val)}}  label={"إسم اللون (العربية)"}/>
     </div>
-
     <div style={{gridArea:"nameen"}}>
       <InputEl value={nameen} outputfunc={(val)=>{setNameen(val)}} label={"إسم اللون (الإنجليزية)"}/>
     </div>
-
-
     <div style={{gridArea:"sicon"}}>
-     
     <div class="w-full">
     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
      Color code  
@@ -282,13 +274,7 @@ gridTemplateAreas:`
      border-gray-200 rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white
       focus:border-gray-500" id="grid-last-name" type='color' placeholder={"اللون"}/>
   </div>
-
-
     </div>
-
-  
-  
-
    </div>
 
   
