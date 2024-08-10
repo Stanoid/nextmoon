@@ -11,15 +11,18 @@ product.status?
 
 <div className=" min-w-56 rounded-md shadow-md shadow-gray-300 "  key={product.id}>
     
-<ProductCopm atcbtn={true} data={product} /> 
+<ProductCopm atcbtn={props.btn} data={product} /> 
 </div>
 :<></>
 ))}
 
 
-<div  className="  flex justify-center items-center  bg-gradient-to-tr to-moonsec-200/80 from-moonsec-100/80  min-w-40  shadow-lg rounded-md
- text-white font-bold text-lg  " >
+<div  className="  flex justify-center items-center   min-w-40  shadow-lg rounded-md
+font-bold text-lg  " >
+ <a href={`/subcatagories?sid=${props.cid}`} className='flex  text-moon-200  justify-center items-center' > 
+
   <span className='mr-1.5  tracking-tight' >  عرض الكل </span>     <FaCircleArrowRight/>
+  </a> 
 </div>
 
 

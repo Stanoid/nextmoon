@@ -75,7 +75,7 @@ function EditColor(props) {
         
         const getcolor=()=>{
          
-    
+    props.setLod(true)
              
         const requestOptions = {
           method: 'GET',
@@ -96,7 +96,7 @@ function EditColor(props) {
           
           }).then(()=>{
          
-          
+          props.setLod(false)
           })
     
     

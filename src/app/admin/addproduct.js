@@ -166,7 +166,7 @@ function AddProduct(props) {
   };
 
   const getColors = () => {
-    setlod(true)
+    props.setLod(true)
     const requestOptions = {
       method: "GET",
       headers: {
@@ -219,10 +219,10 @@ function AddProduct(props) {
       .then((data) => {
         
         setCats(data);
-        setlod(false)
+       
       })
       .then(() => {
-        //getProducts();
+        props.setLod(false);
       });
   };
 
@@ -298,7 +298,8 @@ function AddProduct(props) {
           
         })
         .then(() => {
-          getProducts();
+          setlod(false)
+        //  getProducts();
         });
     }
   };
@@ -316,7 +317,7 @@ function AddProduct(props) {
     >
       <div
         style={{
-          width: "70%",
+          width: "100%",
           display: "grid",
           gap: 10,
           gridTemplateAreas: `
@@ -364,7 +365,7 @@ function AddProduct(props) {
             outputfunc={(val) => {
               setDescen(val);
             }}
-            label={"وصم المنتج (الإنجليوية"}
+            label={"وصف المنتج (الإنجليزية"}
           />
         </div>
 
@@ -380,6 +381,8 @@ function AddProduct(props) {
             label={"الفئة"}
           />
         </div>
+
+     
 
         <div style={{ gridArea: "images" }}>
           <div class="w-full">
@@ -460,13 +463,16 @@ function AddProduct(props) {
         </div>
       </div>
 
-      <div
+      <div className=""
         style={{
+          width:"100%",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-end",
         }}
       >
+
+        <div>
         <LoadingBtn
           act={ lod?()=>{}:() => {
             uploadMedia();
@@ -475,6 +481,8 @@ function AddProduct(props) {
           lod={lod}
           text={"إضافة المنتج"}
         />
+        </div>
+       
       </div>
 
     

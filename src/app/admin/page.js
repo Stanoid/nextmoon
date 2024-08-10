@@ -5,20 +5,23 @@ import dynamic from 'next/dynamic';
 import { useContext,useEffect,useState } from 'react';
 import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
+import { User } from '@nextui-org/react';
+import { FaBox, FaCreditCard, FaHeart, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser } from 'react-icons/fa6';
+import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
 
-
-const AddColor = dynamic(() => import('./AddColor'));
-const EditProduct = dynamic(() => import('./editProduct'));
-const EditColor = dynamic(() => import('./editColor'));
-const PromoCodes = dynamic(() => import('./promoCodes'));
-const AddSubCat = dynamic(() => import('./addsubcat'));
-const EditSize = dynamic(() => import('./editsize'));
-const Orders = dynamic(() => import('./orders'));
-const EditCat = dynamic(() => import('./EditCat'));
-const ProductsList = dynamic(() => import('./productsList'));
-const AddCat = dynamic(() => import('./addcat'));
-const EditSubCat = dynamic(() => import('./EditSubcat'));
-
+ const AddColor = dynamic(() => import('./AddColor'));
+ const EditProduct = dynamic(() => import('./editProduct'));
+ const EditColor = dynamic(() => import('./editColor'));
+ const PromoCodes = dynamic(() => import('./promoCodes'));
+// const AddSubCat = dynamic(() => import('./addsubcat'));
+ const EditSize = dynamic(() => import('./editsize'));
+ const Orders = dynamic(() => import('./orders'));
+ const EditCat = dynamic(() => import('./EditCat'));
+ const ProductsList = dynamic(() => import('./productsList'));
+ const AddCat = dynamic(() => import('./addcat'));
+ const AddSize = dynamic(() => import('./addSize'));
+ //const EditSubCat = dynamic(() => import('./EditSubcat'));
+ const Dashboard = dynamic(() => import('./dashboard'));
 
 
 
@@ -27,13 +30,15 @@ import AddProduct from './addproduct';
 
 
 import { AuthCon } from '../contexts/AuthCon';
+import { MdFormatSize, MdOutlineAllOut, MdOutlineAutoAwesome, MdOutlineAutoGraph, MdSpeakerPhone } from 'react-icons/md';
+import { BiCategory, BiCategoryAlt } from 'react-icons/bi';
 
 
 function AccounteEl() {
     const ls = require("local-storage")
     const {logindata,logoutUser}  = useContext(AuthCon);
     const router = useRouter(); 
-    const [page,setPage] = useState(1) 
+    const [page,setPage] = useState(0) 
     const [logged,setLogged] = useState(0)
     const [colors,setColors] = useState([])
     const [sizes,setSizes] = useState([])
@@ -42,6 +47,7 @@ function AccounteEl() {
     const [cid,setCid] = useState(null);
     const [catid,setCatid] = useState(null);
     const [scatid,setScatid] = useState(null);
+    const [lod,setLod] =useState(true)
 
     const [userData,setUserdata] = useState(null)
     useEffect(() => {
@@ -161,140 +167,126 @@ function AccounteEl() {
  
 
   return (
-  
-<>
-
-{
-    
-    <div 
-    style={{
-    
-      padding:5,
-      textWrap:"nowrap"
       
-    }}>
+<div dir='rtl' style={{minHeight:"100vh",userSelect:"none",minWidth:"100vw",backgroundSize:50}}  className="w-full   
+bg-[url('../../public/amblemblack.svg')] ">
 
 
-      
+<div className='w-full flex pt-10  flex-col  sm:flex-col lg:flex-row     justify-center'>
 
-<ul style={{borderBottom:"2px solid lightgrey",paddingBottom:5}} dir='rtl' class="flex flex-wrap scrollable-content 
- text-sm font-medium text-right  text-moon-200/80  border-gray-200 dark:border-gray-700 dark:text-gray-400">
-<li onClick={()=>{setPage(1)}} class="me-1">
-        <a style={{backgroundColor: page==1?"rgb(243 244 246)": "white" ,color:page==1?Theme.primaryDark:Theme.primary,cursor:"pointer"}} class="inline-block 
-        p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">إضافة منتج</a>
-    </li>
-    
-    <li onClick={()=>{setPage(2)}} class="me-1">
-        <a  aria-current="page" style={{backgroundColor: page==2?"rgb(243 244 246)": "white" ,color:page==2?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3   active dark:bg-gray-800 dark:text-blue-500">المنتجات</a>
-    </li>
+<div className='min-w-60    p-2 ' >
 
+<div  className='w-full  p-3 flex  flex-col   lg:min-h-96 shadow-lg bg-white'>
+{/* menu */}
 
-   
-    <li onClick={()=>{setPage(3)}} class="me-1" >
-        <a style={{backgroundColor: page==3?"rgb(243 244 246)": "white" ,color:page==3?Theme.primaryDark:Theme.primary,cursor:"pointer"}} 
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">المقاسات</a>
-    </li>
-    <li onClick={()=>{setPage(4)}} class="me-1">
-        <a  style={{backgroundColor: page==4?"rgb(243 244 246)": "white" ,color:page==4?Theme.primaryDark:Theme.primary,cursor:"pointer"}} 
-        class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">الألوان</a>
-    </li>
-
-    <li onClick={()=>{setPage(5)}} class="me-1">
-        <a  style={{backgroundColor: page==5?"rgb(243 244 246)": "white" ,color:page==5?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">الفئات</a>
-    </li>
-
-    <li onClick={()=>{setPage(6)}} class="me-1" >
-        <a  style={{backgroundColor: page==6?"rgb(243 244 246)": "white" ,color:page==6?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">الفئات الفرعية</a>
-    </li>
-
-
-    <li onClick={()=>{setPage(14)}} class="me-1" >
-        <a  style={{backgroundColor: page==14?"rgb(243 244 246)": "white" ,color:page==14?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">الطلبات</a>
-    </li>
+<div >
+<User   
+  name="لينا سامر"
+  description="janeDoe@gmail.com"
+  avatarProps={{
+    className:"bg-moon-200 font-bold text-white"
+  }}
+/>
+</div>
+<div style={{width:"100%",overflowX:"scroll"}} className='flex  sm:flex-row mt-3 lg:flex-col scrollable-content ' >
 
 
 
+<div onClick={()=>{setPage(0)}} style={{backgroundColor:page==0?Theme.primary:"white", color:page==0?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
+<div><MdOutlineAutoGraph/></div><div className='mx-1.5'> لوحة التحكم</div></div>
+
+<div onClick={()=>{setPage(1)}} style={{backgroundColor:page==1?Theme.primary:"white", color:page==1?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
+<div><FaPlusCircle/></div><div className='mx-1.5'> إضافة منتج</div></div>
+
+<div onClick={()=>{setPage(2)}} style={{backgroundColor:page==2?Theme.primary:"white", color:page==2?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap'   >
+<div><FaBoxes/></div><div className='mx-1.5'> المنتجات</div></div>
+
+
+<div onClick={()=>{setPage(3)}} style={{backgroundColor:page==3?Theme.primary:"white", color:page==3?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
+<div><FaRuler/></div><div className='mx-1.5'>  المقاسات</div></div>
 
 
 
-      <li onClick={()=>{setPage(10)}} class="me-1" style={{borderLeft:"2px solid lightgrey"}}>
-        <a  style={{backgroundColor: page==10?"rgb(243 244 246)": "white" ,color:page==10?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">العروض الترويجية</a>
-    </li>
-{/* 
-    <li onClick={()=>{setPage(11)}} class="me-1">
-        <a  style={{backgroundColor: page==11?"rgb(243 244 246)": "white" ,color:page==11?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Trending products</a>
-    </li>
+<div onClick={()=>{setPage(4)}} style={{backgroundColor:page==4?Theme.primary:"white", color:page==4?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start whitespace-nowrap items-center '   >
+<div><FaSwatchbook/></div><div className='mx-1.5'> الألوان</div></div>
 
-    <li onClick={()=>{setPage(12)}} class="me-1">
-        <a  style={{backgroundColor: page==12?"rgb(243 244 246)": "white" ,color:page==12?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">On sale</a>
-    </li>
 
-    <li onClick={()=>{setPage(13)}} class="me-1">
-        <a  style={{backgroundColor: page==13?"rgb(243 244 246)": "white" ,color:page==13?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Week highlight</a>
-    </li>
+<div onClick={()=>{setPage(5)}} style={{backgroundColor:page==5?Theme.primary:"white", color:page==5?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><BiCategory/></div><div className='mx-1.5'> الفئات</div></div>
 
 
 
-
-    <li onClick={()=>{setPage(7)}} class="me-1" style={{borderLeft:"2px solid lightgrey"}}>
-        <a  style={{backgroundColor: page==7?"rgb(243 244 246)": "white" ,color:page==7?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Agents</a>
-    </li> */}
-
-    <li onClick={()=>{setPage(8)}} class="me-1">
-        <a  style={{backgroundColor: page==8?"rgb(243 244 246)": "white" ,color:page==8?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"> البائعين </a>
-    </li>
+{/* <div onClick={()=>{setPage(6)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><BiCategoryAlt/></div><div className='mx-1.5'> الفئات الفرعية</div></div> */}
 
 
-    <li onClick={()=>{setPage(9)}} class="me-1">
-        <a  style={{backgroundColor: page==9?"rgb(243 244 246)": "white" ,color:page==9?Theme.primaryDark:Theme.primary,cursor:"pointer"}}
-         class="inline-block p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">العملاء</a>
-    </li>
-  
-</ul>
+<div onClick={()=>{setPage(14)}} style={{backgroundColor:page==14?Theme.primary:"white", color:page==14?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><FaListCheck/></div><div className='mx-1.5'> الطلبات</div></div>
+
+<div onClick={()=>{setPage(10)}} style={{backgroundColor:page==10?Theme.primary:"white", color:page==10?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><MdSpeakerPhone/></div><div className='mx-1.5'> لعروض الترويجية</div></div>
 
 
-<div style={{padding:10}}>
-{page==1 ?  <AddProduct setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
-  {page==2 ?  <ProductsList  setpage={(pid,id)=>{handleEdit(pid,id)}} />  :<></>}
-  {page==3 ? <AddSize setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
-  {page==4 ? <AddColor  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
-  {page==5 ? <AddCat setpage={(catid,id)=>{handleCatEdit(catid,id)}} /> :<></>}
-  {page==6 ? <AddSubCat setpage={(scatid,id)=>{handleScatEdit(scatid,id)}} /> :<></>}
+{/* <div onClick={()=>{setPage(8)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><FaCreditCard/></div><div className='mx-1.5'> الفئات الفرعية</div></div>
 
 
+<div onClick={()=>{setPage(9)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><FaCreditCard/></div><div className='mx-1.5'> الفئات الفرعية</div></div> */}
 
+<div onClick={()=>{router.push("/logout")}}  className='flex px-2 py-3  bg-red-300 hover:bg-red-500 rounded-sm cursor-pointer whitespace-nowrap transition-colors
+hover:text-white text-white justify-start items-center '   >
+<div><FaPowerOff/></div><div className='mx-1.5'>  تسجيل خروج</div></div>
 
-  {page==15 ? pid?<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} />:<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} /> :<></>}
+</div>
 
-  {page==14 ? <Orders  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
-  {page==10 ? <PromoCodes setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
+</div>
 
+</div>
+<div className='w-full sm:w-full lg:w-2/3  p-2' >
+
+<div className='min-h-96 px-2 py-5 w-full shadow-lg bg-white'>
+
+<div style={{display:lod?"flex":"none"}}  className='w-full min-h-96 flex items-center justify-center' >
+      <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+      </div>
+
+<div style={{display:lod?"none":"block"}} >
+{page==0 ?  <Dashboard lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
+{page==1 ?  <AddProduct lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
+  {page==2 ?  <ProductsList setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} />  :<></>}
+  {page==3 ? <AddSize setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
+  {page==4 ? <AddColor setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
+  {page==5 ? <AddCat setLod={(sta)=>{setLod(sta)}} setpage={(catid,id)=>{handleCatEdit(catid,id)}} /> :<></>}
+  {/* {page==6 ? <AddSubCat  setpage={(scatid,id)=>{handleScatEdit(scatid,id)}} /> :<></>} */}
+  {page==15 ? pid?<EditProduct setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} pid={pid} />:<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} /> :<></>}
+  {page==14 ? <Orders setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
+  {page==10 ? <PromoCodes setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
   {page==16 ? sid?<EditSize setpage={(page)=>{setPage(page)}} sid={sid} />:<EditSize setpage={(page)=>{setPage(page)}} sid={sid} /> :<></>}
-
-  
-  
-  {page==17 ? cid?<EditColor setpage={(page)=>{setPage(page)}} cid={cid} />:<EditColor setpage={(page)=>{setPage(page)}} cid={cid} /> :<></>}
-
-  
-
+  {page==17 ? cid?<EditColor setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} cid={cid} />:<EditColor setpage={(page)=>{setPage(page)}} cid={cid} /> :<></>}
   {page==18 ? catid?<EditCat setpage={(page)=>{setPage(page)}} catid={catid} />:<EditCat setpage={(page)=>{setPage(page)}} catid={catid} /> :<></>}
-  
-  
+  {/* {page==19 ? scatid?<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>} */}
+</div>
 
-  {page==19 ? scatid?<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>}
-  
-  
 
+
+
+</div>
+
+</div>
+
+</div>
 
 
 
@@ -302,13 +294,8 @@ function AccounteEl() {
 
 
 
-     
 
-    </div>
-    
-}
 
-</>
 
 
   )

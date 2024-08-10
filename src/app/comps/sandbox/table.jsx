@@ -1,5 +1,5 @@
 import React from "react";
-import dynamic from 'next/dynamic'
+import { Theme } from "../../local";
 import {
   Table,
   TableHeader,
@@ -18,19 +18,20 @@ import {
   Pagination,
 
 } from "@nextui-org/react";
-
-
+import Image from "next/image";
+import { IMG_URL,CURRENCY } from "../../local";
 import {PlusIcon} from "./PlusIcon";
 import {VerticalDotsIcon} from "./VerticalDotsIcon";
 import { useEffect } from "react";
 import {SearchIcon} from "./SearchIcon";
 import { useRouter } from "next/navigation";
 import {ChevronDownIcon} from "./ChevronDownIcon";
-import { FaEye,FaPencil,FaTrash,FaCreditCard } from "react-icons/fa6";
+import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { color } from "framer-motion";
-import CURRENCY from "../../local"
+import { FaEdit } from "react-icons/fa";
+
 
 const statusColorMap = {
   active: "success",
@@ -38,7 +39,8 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "city", "status", "email","refid","date","total","payment_status","total"];
+const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","varients","cat","name_en","section","icon","img","color","colorCode", "city",
+   "status","pstatus", "email","refid","date","total","payment_status","total","name_ar","description_ar"];
 
 export default function App(props) {
   const [filterValue, setFilterValue] = React.useState("");
@@ -140,6 +142,13 @@ switch (props.coldata) {
           </div>
         );
 
+        case "color":
+          return (
+            <div className=" flex w-full items-center justify-center">
+                    <div style={{backgroundColor:cellValue}} className="w-6 h-6 transition-transform hover:scale-150 cursor-zoom-in rounded-full shadow-lg "></div>
+            </div>
+          );
+          break;
 
         case "total":
           return (
@@ -147,6 +156,7 @@ switch (props.coldata) {
                    {cellValue} <span className="italic text-xs text-gray-600" > {CURRENCY} </span> 
             </div>
           );
+          break;
       case "status":
      let stob = {};
       switch (cellValue) {
@@ -154,16 +164,35 @@ switch (props.coldata) {
        stob.lable = "غير موصل ";
        stob.color = "text-amber-700 bg-amber-200 min-w ";
       stob.dot = "bg-amber-700";
-       
+      stob.istog=false; 
         break;
 
         case "delivered":
           stob.lable = "تم التوصيل";
           stob.color = "text-green-600 bg-green-300 min-w ";
           stob.dot = "bg-green-600";
+          stob.istog=false; 
        
           
            break;
+
+
+           case true:
+            stob.lable = "متاح";
+            stob.color = "text-green-600 bg-green-300 min-w ";
+            stob.dot = "bg-green-600";
+            
+         
+            
+             break;
+
+
+             case false:
+              stob.lable = " غير متاح ";
+              stob.color = "text-amber-700 bg-amber-200 min-w ";
+             stob.dot = "bg-amber-700";
+              
+               break;
 
 
         
@@ -248,6 +277,134 @@ switch (props.coldata) {
       break;
 
 
+      case "img":
+       
+        return(
+         
+
+          <div className=' w-16  h-16' style={{position:"relative"}} >
+          <Image  fill objectFit='cover'
+          quality={40}
+          className="rounded-md"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={IMG_URL.concat(JSON.parse(cellValue)[0]?JSON.parse(cellValue)[0]:JSON.parse(cellValue)[1])} 
+        
+          />
+          </div>
+
+        );
+
+
+
+      break;
+
+
+    
+
+      case "varients":
+        return(
+       <div dir="ltr">
+         
+         {cellValue&&cellValue.map((varient,index)=>(
+    
+    <div
+    className="flex-col "
+    style={{
+      padding: 10,
+      borderRadius: 10,
+      cursor: "pointer",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+    key={varient.id}
+  >
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          width: 30,
+          height: 30,
+          borderRadius: 7,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          border: "3px solid",
+          borderColor: "white",
+          marginRight: -10,
+          zIndex: 10,
+          marginBottom: -5,
+          backgroundColor: Theme.primary,
+          color: "white",
+          fontSize: 20,
+        }}
+      >
+        {varient.size && varient.size.icon}
+      </div>
+      <div
+        style={{
+          width: 35,
+          height: 35,
+          marginLeft: -10,
+          marginTop: -5,
+          borderRadius: 100,
+          backgroundColor:
+            varient.color && varient.color.colorCode,
+        }}
+      ></div>
+    </div>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+     
+      }}
+    >
+      <div
+      className="flex space-x-0.5 text-xs text-moon-300 font-bold mt-1 italic justify-center"
+      >
+         <div> {CURRENCY} </div > <div> {varient.price} </div>  
+      </div>
+    </div>
+  </div>
+   
+    ))}
+       </div>
+        
+        );
+
+      break;
+
+
+      case "name_ar":
+        return(
+       <div className="min-w-40" >
+        {cellValue.slice(0,40)+"..."}
+       </div>
+        
+        );
+
+      break;
+
+      case "description_ar":
+        return(
+       <div className="min-w-44" >
+        {cellValue.slice(0,40)+"..."}
+       </div>
+        
+        );
+
+      break;
+
+    
+
+
       case "refid":
         return (
           <div className="relative flex justify-end items-center gap-2">
@@ -264,21 +421,58 @@ switch (props.coldata) {
                   <VerticalDotsIcon className="text-default-300" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu dir="rtl" disabledKeys={["delete"]}>
-                <DropdownItem onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >
+              <DropdownMenu textValue="a" dir="rtl" disabledKeys={["delete"]}>
+                <DropdownItem textValue="a"  onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >
                   عرض</DropdownItem>
 
                 
-                {user.payment_status=="paid"? <DropdownItem></DropdownItem> : <DropdownItem onClick={()=>{router.push(user.url)}} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
+                {user.payment_status=="paid"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{router.push(user.url)}} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
  }
                               
                 
                 
-                <DropdownItem startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >إلغاء</DropdownItem>
+                <DropdownItem textValue="a" startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >إلغاء</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
         );
+        break;
+
+        case "createdAt":
+          return (
+            <div className="relative flex justify-end items-center gap-2">
+              <Dropdown
+              
+              classNames={{
+                // base: "before:bg-default-200", // change arrow background
+                // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
+              }}
+  
+              backdrop="blur">
+                <DropdownTrigger>
+                  <Button isIconOnly size="sm" variant="light">
+                    <VerticalDotsIcon className="text-default-300" />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
+                  <DropdownItem textValue="a"   onClick={()=>{ props.delorder(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
+                  <div className="py-1 font-bold text-gray-600 "> تعديل المنتج </div>  </DropdownItem>
+
+                 
+      
+                  <DropdownItem textValue="a" startContent={<FaEyeSlash style={{marginRight:4}} />} key={"hid"} >
+                  <div className="py-1 font-bold text-gray-600 ">
+                  إخفاء
+                  </div>
+                  </DropdownItem>
+
+                  <DropdownItem textValue="a"  onClick={()=>{alert("sss")}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
+                  <div className="py-2 font-medium text-red-500">   حذف المنتج </div> </DropdownItem>
+
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          );
       default:
         return cellValue;
     }
@@ -322,7 +516,7 @@ switch (props.coldata) {
         <Input
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder=" أبحث في الطلبات..."
+            placeholder=" أبحث  ..."
             startContent={<SearchIcon className="mx-2" />}
             value={filterValue}
             onClear={() => onClear()}
@@ -334,7 +528,7 @@ switch (props.coldata) {
             <Dropdown>
               <DropdownTrigger className="">
                 <Button endContent={<ChevronDownIcon className="text-small" />} className="bg-moon-100 text-moon-300/60" variant="flat">
-                  حالة الطلب
+                  الحالة 
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -379,7 +573,7 @@ switch (props.coldata) {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small"> عدد الطلبات الكلي:  {props.data.length} </span>
+          <span className="text-default-400 text-small"> عدد  :  {props.data.length} </span>
           <label className="flex items-center text-default-400 text-small">
             عدد الصفوف  :
             <select
@@ -461,7 +655,7 @@ switch (props.coldata) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={" لا توجد طلبات "} items={sortedItems}>
+      <TableBody emptyContent={" لا توجد بيانات "} items={sortedItems}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

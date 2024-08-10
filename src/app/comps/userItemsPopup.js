@@ -2,7 +2,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState,useEffect,useContext } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import {  FaClipboard, FaChevronDown,FaCreditCard } from 'react-icons/fa6'
+import {  FaClipboard, FaChevronDown,FaCreditCard, FaClock } from 'react-icons/fa6'
 import {  toast,ToastContainer } from 'react-toastify'
 import { Button } from '@nextui-org/react'
 import {CartCon} from '../contexts/cartContext'
@@ -65,7 +65,7 @@ fetch(`${API_URL}orders?func=getOrderItems`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
     
-   
+   //console.log(data)
     setOrderitems({data:data})
     setLod(false)
   }).then(()=>{
@@ -372,13 +372,13 @@ const notify = (type,msg)=>{
                 
               
 
-                <div className='shadow-md px bg-white rounded-md p-3 px-4' key={index} style={{display:"flex",flexDirection:"row-reverse",alignItems:"center",justifyContent:"space-between"}} >
+                <div  className='shadow-md px bg-white rounded-md p-3 px-4' key={index} style={{display:"flex",flexDirection:"row-reverse",alignItems:"center",justifyContent:"space-between"}} >
 
 
 <div>
 <img
         style={{objectFit:'cover',width:80,borderRadius:4}}
-          src={IMG_URL.concat(item.imgs&&JSON.parse(item.imgs)[0])} 
+          src={IMG_URL.concat(item.imgs&&JSON.parse(item.imgs)[1])} 
           />
 </div>
               <div className='p-3' style={{display:'flex',alignItems:"flex-end",flexDirection:"column",justifyContent:"flex-start"}}>
@@ -386,7 +386,7 @@ const notify = (type,msg)=>{
              
 <div style={{display:"flex",justifyContent:"center",alignItems:"flex-end",flexDirection:"column"}}>
 
-               <div className='text-lg whitespace-nowrap' >{item.nameAr&&item.nameAr}</div> 
+               <div className='text-md whitespace-nowrap' >{item.nameAr&&item.nameAr.slice(0,20)+"..."}</div> 
                
                <div className='text-gray-400 text-xs '  style={{fontWeight:"bold",textAlign:"right",width:"100%"}}>{item.product_ref&&item.product_ref}</div>                 
               </div>

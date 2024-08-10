@@ -13,7 +13,9 @@ import { CartCon, CartContext } from "../contexts/cartContext";
 import OptionEL from "../comps/optionEL";
 import LoadingOverlay from '../comps/loadingOverlay';
 import Head from "next/head";
-
+import { Accordion,AccordionItem, Avatar } from '@nextui-org/react';
+import { FaAudioDescription, FaParagraph, FaRecycle, FaStar } from 'react-icons/fa6';
+import { FaBars, FaShippingFast, FaTextHeight } from 'react-icons/fa';
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -35,6 +37,7 @@ export default function Product({}) {
   const [qty,setQty]=useState(1);
   const [mimg,setmimg] = useState();
   const [imgs,setImgs]=useState([]);
+  const defaultContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
   
 
@@ -220,7 +223,7 @@ for (let i = 0; i < vrs.length; i++) {
   }
 
   return (
-    <div  >
+    <div className='mt-12' >
       <Head>
         {/* <title>{"Minimoon | " + db.attributes&&db.attributes.name_en} </title>
         <meta name="description" content={db.attributes.descriptionEn} /> */}
@@ -446,6 +449,63 @@ for (let i = 0; i < vrs.length; i++) {
             </div>
           </div>
             
+
+            <div  dir="rtl" className='w-full'>
+            <Accordion selectionMode="multiple">
+
+            <AccordionItem
+        key="1"
+        aria-label="Chung Miller"
+        startContent={
+        <FaBars/>
+        }
+       
+        title="وصف المنتج"
+      >
+        {defaultContent}
+      </AccordionItem>
+
+      <AccordionItem
+        key="2"
+        aria-label="Chung Miller"
+        startContent={
+        <FaRecycle/>
+        }
+       
+        title=" الإرجاع و معلومات و الشحن "
+      >
+        {defaultContent}
+      </AccordionItem>
+      <AccordionItem
+        key="3"
+        aria-label="Chung Miller"
+        startContent={
+        <FaShippingFast/>
+        }
+       
+        title=" شحن مجاني "
+      >
+        {defaultContent}
+      </AccordionItem>
+
+      <AccordionItem
+        key="4" 
+        className='text-center bg-gray-100  p-3 py-0 '
+        aria-label="Chung Miller"
+        startContent={
+        <div className='flex flex-col justify-center items-start text-center w-full text-sm font-semibold'> <FaStar className='text-yellow-400 mb-3 text-2xl' /> 
+        (4.6) 233  تقييم</div>
+        }
+       
+        title=" التقييمات "
+      >
+        {defaultContent}
+      </AccordionItem>
+  
+    
+    </Accordion>
+
+            </div>
               
       
 

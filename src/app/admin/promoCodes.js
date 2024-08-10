@@ -10,7 +10,7 @@ import { TiThMenu } from "react-icons/ti";
 import LoadingBtn from '../comps/loadingbtn';
 import { FaTimes,FaEdit,FaCheck } from 'react-icons/fa';
 import { AuthCon } from '../contexts/AuthCon';
-
+import TableComp from "../comps/sandbox/table"
 
 
 function PromoCodes(props) {
@@ -39,8 +39,8 @@ function PromoCodes(props) {
 
     useEffect(() => {
     // loginval();
- //  getPromoList();
- sessionTest()
+  getPromoList();
+ //sessionTest()
     }, [])
     
    
@@ -110,6 +110,7 @@ function PromoCodes(props) {
         }
 
         const getPromoList=()=>{    
+         props.setLod(true)
           setlod(true)
           const requestOptions = {
             method: 'POST',
@@ -127,14 +128,40 @@ function PromoCodes(props) {
             .then((response) => response.json())
             .then((data) => {
           
-          setpromoData(data.data)
-          setHasmore(data.has_more);
+
+
+              console.log(data);
+
+              let arr = [];
+              for (let i = 0; i < data.data.length; i++) {
+                let ob = {};
+               ob.id = data.data[i].id
+                ob.name = data.data[i].name;
+                ob.code = data.data[i].code;  
+                ob.max_redemptions = data.data[i].max_redemptions||"-"
+                ob.times_redeemed = data.data[i].times_redeemed;
+                ob.percent_off = data.data[i].percent_off;
+                ob.createdAt="ddd"
+                arr.push(ob) 
+               // console.log("rrrr",ob)
+               
+              }
+                 console.log(arr)
+
+
+                 setHasmore(data.has_more);
+              return arr
+
+     
           setlod(false)
     //render promotions TODO
 
 
-            }).then(()=>{
+            }).then((arr)=>{
               setSize(size+1);  
+              setlod(false)
+              setpromoData(arr)
+              props.setLod(false)
             })
       
     
@@ -145,6 +172,7 @@ function PromoCodes(props) {
         //setSize(size+1);
         if(!hasMore){return}
         getPromoList();
+        setlod(false)
 
       }
       
@@ -173,7 +201,7 @@ function PromoCodes(props) {
 
 
    <div style={{
-    width:"70%",
+    width:"100%",
 display:"grid",
 gap:10,
 gridTemplateAreas:`
@@ -190,14 +218,14 @@ gridTemplateAreas:`
    }} >
 
 <div style={{gridArea:"name"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"Promotion name"}/>
+      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"إسم العرض"}/>
     </div>
     <div style={{gridArea:"namear"}}>
-      <InputEl outputfunc={(val)=>{setPromocode(val)}} label={"Promotion code"}/>
+      <InputEl outputfunc={(val)=>{setPromocode(val)}} label={"رمز العرض"}/>
     </div>
 
     <div style={{gridArea:"nameen"}}>
-      <InputEl outputfunc={(val)=>{setDiscount(val)}} min={1} max={100} num={true} label={"Discount Percentage"}/>
+      <InputEl outputfunc={(val)=>{setDiscount(val)}} min={1} max={100} num={true} label={"نسبة التخفيض "}/>
     </div>
 
 
@@ -213,13 +241,13 @@ gridTemplateAreas:`
                 {
                   id:1,
                   attributes:{
-                    name_en:"Expiry date"
+                    name_ar:"تاريخ الإنتهاء "
                   }
                 },
                 {
                   id:2,
                   attributes:{
-                    name_en:"Number of redeems"
+                    name_ar:"عدد إستخدامات  "
                   }
                 },
 
@@ -233,16 +261,16 @@ gridTemplateAreas:`
             }
             
             select={true}
-            label={"Epxiry with:"}
+            label={"نوع العرض :"}
           /> 
     
 
     </div>
     <div style={{gridArea:"ddiv"}}>
 {expiry==1?
-<InputEl outputfunc={(val)=>{setExpirydate(val)}} date={true} label={"Expiration date"}/>
+<InputEl outputfunc={(val)=>{setExpirydate(val)}} date={true} label={"تاريخ الإنتهاء "}/>
 :expiry==2?
-<InputEl outputfunc={(val)=>{setRedeems(val)}} num={true}  label={"NO. of redeems"}/>
+<InputEl outputfunc={(val)=>{setRedeems(val)}} num={true}  label={"عدد الإستخدامات"}/>
 :<></>
 }
 
@@ -251,8 +279,8 @@ gridTemplateAreas:`
     <div style={{gridArea:"first"}}>
 
     <div style={{marginTop:10}}  class="w-full">
-    <div style={{fontSize:20,color:"black",fontWeight:"bold",marginBottom:7}}>
-      Promotion restrictions:
+    <div className='text-lg' style={{color:"black",fontWeight:"bold",marginBottom:7}}>
+      شروط العرض :
     </div>   
     <div  className='w-full' style={{display:"flex",alignItems:"flex-start",flexDirection:"column",justifyContent:"center"}}>
    
@@ -265,8 +293,8 @@ gridTemplateAreas:`
     <FaCheck  />
       </div>
      </div>
-<div style={{marginLeft:7,fontWeight:"bolder",color:"grey"}}>
- Set a minimum amout for orders
+<div style={{marginRight:7,fontWeight:"bolder",color:"grey"}}>
+ إعداد حد أدنى للطلب
 </div>
      </div>
 
@@ -288,8 +316,8 @@ gridTemplateAreas:`
     <FaCheck  />
       </div>
      </div>
-<div style={{marginLeft:7,fontWeight:"bolder",color:"grey"}}>
- Limit promotion code to first transaction only
+<div style={{marginRight:7,fontWeight:"bolder",color:"grey"}}>
+ العرض متوفر لاول عملية شراء فقط
 </div>
      </div>
 
@@ -316,48 +344,45 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center",marginTop:20}}>
 
 
-<LoadingBtn act={()=>{AddPromo()}} lod={lod} text={"Add Promo Code"} />
+<LoadingBtn act={()=>{AddPromo()}} lod={lod} text={" إضافة العرض "} />
 </div>
 
 
-<div className='shadow-md' style={{marginTop:20,width:"70%",padding:10,borderRadius:10}}>
-<div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Added Colors:
-</div>
-<br/>
-<div > 
-<table style={{width:"100%"}}>
-<tr style={{textAlign:"left",marginBottom:20}}>
-    <th>Promo Name</th>
-    <th>Promo Code</th>
-    <th>Redeems limit</th>
-    <th> Times redeemed</th>
-    <th> Percent off </th>
-    {/* <th>status</th>
-    <th>Delete</th> */}
-  </tr>
 
-<br/>
+<div  className='mt-12 w-full' >
 
 
-{promoData&&promoData.map((promo,index)=>(
+{
+  promoData?<TableComp
 
 
-<tr  style={{textAlign:"left",padding:5, backgroundColor:index%2==0?"lightgray":"white"  }}>
-    <th style={{padding:15}} >  {promo.name}</th>
-    <th style={{padding:15}} >  {promo.code}</th>
-    <th  style={{padding:15}} > {promo.max_redemptions?promo.max_redemptions:"-"}</th>
-    <th  style={{padding:15}}> {promo.times_redeemed}  </th>
-    <th  style={{padding:15}}> {promo.percent_off}%  </th>
-    {/* <th  style={{padding:15}}> {promo.valid}  </th> */}
+
+  columns={
+    [
+      {name: "ID", uid: "id", sortable: true},
+      {name: "الإسم (العربية)", uid: "name", sortable: true},
+      {name: " كود العرض", uid: "code", sortable: true}, 
+      {name: "حد الإستخدامات", uid: "max_redemptions", sortable: true},
+      {name: " عدد الإستخدامات", uid: "times_redeemed", sortable: true},
+      {name: "  نسبة الخصم", uid: "percent_off"},
+     
+    ]
+   }
    
-  
- 
-  </tr>
+   data={promoData}
+    />:
+  <div style={{
+    display:lod?'flex':'none' ,
+    alignItems:"center",
+    justifyContent:"center"
+  }}>
+  <div style={{zIndex:10}}>
+        <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+        </div>
+  </div>
+}
 
-))}
-</table>
-</div>
+
 </div>
 
 

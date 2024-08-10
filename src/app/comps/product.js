@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useState,useEffect } from 'react'
 import { Button } from '@nextui-org/react'
-import { FaHeart } from 'react-icons/fa6'
+import { FaHeart, FaStar } from 'react-icons/fa6'
 import { MAIN_STYLE } from '../styles/style'
 import Head from 'next/head'
 import { BsStarFill,BsCheck2Circle,BsCheckCircleFill,BsCartPlusFill } from 'react-icons/bs'
@@ -50,7 +50,7 @@ export default function Product(props) {
         whileTap={{ scale: 0.9 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
         className="   overflow-hidden
-     rounded-none lg:rounded-xl sm:rounded-none border border-gray-100 bg-white shadow-none lg:shadow-md md:shadow-md sm:shadow-none"  
+     rounded-none lg:rounded-md sm:rounded-none border border-gray-100 bg-white shadow-none lg:shadow-md md:shadow-md sm:shadow-none"  
         style={{display:'block',
         display:"flex",alignItems:"center",justifyContent:"center"
         ,padding:10,textAlign:'left',width:"100%",height:"100%"}}>
@@ -85,17 +85,17 @@ export default function Product(props) {
       </div>
 
       
-      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className="mt-1 px-1 pb-2 w-full">
+      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className="mt-2 px-1 pb-2 w-full">
 
-      <h5 dir='rtl' className="text-sm text-right tracking-normal leading-tight text-slate-900">{props.data.name_ar} .</h5>
+      <h5 dir='rtl' className="text-sm text-right tracking-normal whitespace-normal leading-tight text-slate-900">{props.data.name_ar} .</h5>
     
   </div>
 
   <div className="mt-1 mb-0 flex items-start  w-full flex-col justify-between">
-  <div className='flex align-middle justify-end py-2  ' > 
+  <div className='flex align-middle w-full justify-end py-2  ' > 
     {props.data.varients&&props.data.varients.map(vari=>(
     
-<div className='align-middle justify-center mr-1 '   key={vari.id}>
+<div className='align-middle w-full justify-center mr-1 '   key={vari.id}>
 <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={vari.color.name_ar} >
 <div style={{backgroundColor:vari.color.colorCode}} className=' h-3 w-3 rounded-full  ' >
 
@@ -103,8 +103,29 @@ export default function Product(props) {
 </Tooltip>
 
 
+<div className='flex py-1   w-full  justify-end items-center space-x-1'>
+
+
+<div className='text-xs'>
+  (121) <span className='text-moon-200 font-bold' >3.0</span>
+</div>
+
+
+<FaStar className='text-gray-300' />
+  <FaStar className='text-gray-300' />
+  <FaStar className='text-yellow-400' />
+  <FaStar className='text-yellow-400' />
+  <FaStar className='text-yellow-400' />
+
 
 </div>
+
+
+
+</div>
+
+
+
 ))}
     </div>
       <p className='text-right w-full '>

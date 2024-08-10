@@ -8,9 +8,9 @@ import InputEl from '../comps/inputel'
 import { useRouter } from 'next/navigation';
 import { FaArrowAltCircleLeft,FaArrowCircleLeft,FaArrowCircleRight, FaCheckCircle,FaUserPlus } from 'react-icons/fa'
 import LoadingBtn from '../comps/loadingbtn'
-import { FaLock } from 'react-icons/fa6'
+import { FaFacebook, FaGoogle, FaInstagram, FaLock, FaX, FaXTwitter } from 'react-icons/fa6'
 import { AuthCon } from '../contexts/AuthCon';
-
+import { CartCon } from '../contexts/cartContext'
 import { Theme } from '../local'
 import { FaCircleRight } from 'react-icons/fa6'
 export default function Register() {
@@ -37,33 +37,9 @@ export default function Register() {
   
  const ls = require("local-storage");
 const router = useRouter();
-  
-const notify = (type,msg)=>{
 
-  const options={
-    hideProgressBar:true,
-    draggable:true,
-    closeButton:false,
-    
-  }
-  switch(type){
-    case 'success':
-      toast.success(msg,options)
-      break;
-
-      case 'error':
-        toast.error(msg,options)
-        break;
-
-        case 'warn':
-          toast.warn(msg,options)
-          break;
-
-        
-
-  }
- 
-}
+const {useNotifi } =
+useContext(CartCon);
 
 
 
@@ -78,9 +54,12 @@ useEffect(()=>{
 
 
  const handlelogin=()=>{
-  setLod(1);
+ // setLod(1);
  //  
-  loginUser(email,pass)
+ if(loginUser(email,pass)==0){
+ // setLod(0);
+ }
+  
  
   
  
@@ -122,7 +101,8 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
   }
 
     return (
-        <div style={{backgroundSize:20}} className="w-full sm:w-full h-full flex min-h-screen  bg-[url('../../public/amblemblack.svg')] bg-moon-200" >  
+        <div style={{backgroundSize:50}} className="w-full sm:w-full mt-16 h-full flex min-h-screen
+          bg-[url('../../public/amblemblack.svg')] bg-white" >  
      
            <ToastContainer  limit={3}/>
 
@@ -134,7 +114,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
         
 
     {/* Old signup stepper */}
-<div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-5 my-3 transition-all" style={{zIndex:100,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+<div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-5 my-3 transition-all" style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 <h1 className="text-center text-2xl font-semibold text-moon-300">تسجيل دخول</h1>
 
 </div>
@@ -163,7 +143,7 @@ gridTemplateAreas:`
 
 'email'
 'pass'
-
+'soc'
 `
 
 
@@ -181,7 +161,16 @@ gridTemplateAreas:`
       <InputEl outputfunc={(val)=>{setpass(val)}} ispass label={"كلمة المرور"}/>
     </div>
 
+    <div className='my-3' style={{gridArea:"soc"}}>
+     <div className='text-center my-1 '>التسجيل بواسطة</div> 
+   <div className='flex space-x-3 text-2xl flex-row items-center justify-center' >
+   <FaFacebook className='text-[#3E5C9A]' />
+   <FaInstagram className='text-[#C84278]' />  
+   <FaXTwitter/>
+   <FaGoogle className='text-[#DF4B38]' />
+   </div>
   
+    </div>
 
   
   

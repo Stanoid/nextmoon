@@ -1,27 +1,31 @@
 import React from 'react'
+
 import Feat from './feat'
 function FeaturedComp() {
   return (
-    <section dir='rtl' className="py-12 px-8  w-full sm:py-16 lg:py-20">
-    <div className="   ">
-        <div className=" text-right">
-            <h2 className="text-xl  font-bold text-moon-200 ">تصفح الفئات:</h2>
+    <section dir='rtl' className=" w-full my-6 ">
+  
+        <div className=" text-center">
+            <h2 className="text-3xl  font-bold text-moon-200 "> الفئات المميزة </h2>
                 </div>
 
-        <div className="grid grid-cols-2 gap-6 mt-4 lg:gap-4 lg:grid-cols-4">
-          <div className='w-full '><Feat img={"/offers/offermob4.png"} text={"ملابس اطفال"} />
-          </div>
-        <Feat img={"/offers/offermob7.png"} text={"الملابس الداخلية"} />     
-        <Feat img={"/offers/offermob6.png"} text={"مجموعة الصيف"} />
-        <Feat img={"/offers/offermob5.png"} text={" الملابس الرياضية "} />
+ <div className=" mt-4  flex sm:flex lg:flex  
+    py-5 scrollable-content  " style={{alignItems:"center",justifyContent:"center",maxWidth:"100%",overflowX:"scroll",overflowY:"hidden"}} >  
 
-         
+        <Feat text="بجامات" img={"/featured/f1.svg"} />  
+        <Feat text="جلابية" img={"/featured/f2.svg"} />     
+        <Feat text="سراويل" img={"/featured/f3.svg"} />  
+        <Feat text="لانجري" img={"/featured/f4.svg"} />  
+        <Feat text="ملابس TRD" img={"/featured/f5.svg"} />  
+        <Feat text="موضة و اناقة" img={"/featured/f6.svg"} />  
+          
+          </div>
+        
 
           
 
-           
-        </div>
-    </div>
+     
+    
 </section>
 
   )

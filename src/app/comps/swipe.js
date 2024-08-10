@@ -8,6 +8,7 @@ import {
     AnimatePresence
 } from "framer-motion";
 import ProductCopm from "./saveproduct";
+import { set } from "local-storage";
 
 function Card(props) {
     const [exitX, setExitX] = useState(0);
@@ -139,9 +140,13 @@ export default function SwipeEl(props) {
             .then((response) => response.json())
             .then((data) => {
       
-      
+      if(data.length<6){
+setProducts(null);
+      }else{
+        setProducts(data);
+      }
               
-           setProducts(data)
+        
          
           
            

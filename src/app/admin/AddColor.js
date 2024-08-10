@@ -10,7 +10,7 @@ import { TiThMenu } from "react-icons/ti";
 import LoadingBtn from '../comps/loadingbtn';
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import { AuthCon } from '../contexts/AuthCon';
-
+import TableComp from "../comps/sandbox/table"
 
 
 function AddColor(props) {
@@ -74,7 +74,7 @@ function AddColor(props) {
 
         
         const getcolors=()=>{
-         
+         props.setLod(true)
     
              
         const requestOptions = {
@@ -89,11 +89,27 @@ function AddColor(props) {
         fetch(`${API_URL}colors`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            
-           setcolors(data.data);
-          }).then(()=>{
-         
           
+            let arr = [];
+            for (let i = 0; i < data.data.length; i++) {
+              let ob = {};
+             ob.id = data.data[i].id
+              ob.name_ar = data.data[i].attributes.name_ar;
+              ob.name_en = data.data[i].attributes.name_en;  
+              ob.colorCode = data.data[i].attributes.colorCode;
+              ob.color = data.data[i].attributes.colorCode;
+              ob.createdAt = data.data[i].attributes.createdAt;
+   
+              arr.push(ob) 
+             // console.log("rrrr",ob)
+             
+            }
+
+            return arr
+          
+          }).then((arr)=>{
+         props.setLod(false);
+          setcolors(arr)
           })
     
     
@@ -134,7 +150,7 @@ function AddColor(props) {
     }
   
    }else{
-  setLogged(0);
+  //setLogged(0);
   router.push("/login")
 
    }
@@ -159,8 +175,8 @@ function AddColor(props) {
         setlod(true);
 
       
-        
-
+           
+    
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -169,31 +185,34 @@ function AddColor(props) {
             },
             body: JSON.stringify(
                 {
-                  "data":{
+                
                     "name_ar": namear,
                     "name_en": nameen,
                     "colorCode":colorCode,
                     "status": true
-                  }
+               
                   
              
                   }
               )
           
         };
+
+
+        console.log(requestOptions)
       
-          fetch(`${API_URL}colors`, requestOptions)
+          fetch(`${API_URL}colors?func=AddColor`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
               
              setNamear("");
              setNameen("");
              setColorCode("");
-             alert("color added")
+            // alert("color added")
 
               setlod(false);
             }).then(()=>{
-         
+         getcolors();
             
             })
       
@@ -231,7 +250,7 @@ function AddColor(props) {
 
 
    <div style={{
-    width:"70%",
+    width:"100%",
 display:"grid",
 gap:10,
 gridTemplateAreas:`
@@ -245,11 +264,11 @@ gridTemplateAreas:`
 
 
     <div style={{gridArea:"namear"}}>
-      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"Color name (Arabic)"}/>
+      <InputEl value={namear} outputfunc={(val)=>{setNamear(val)}}  label={"إسم اللون (العربية)"}/>
     </div>
 
     <div style={{gridArea:"nameen"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"Color name (English)"}/>
+      <InputEl value={nameen} outputfunc={(val)=>{setNameen(val)}} label={"إسم اللون (الإنجليزية)"}/>
     </div>
 
 
@@ -259,9 +278,9 @@ gridTemplateAreas:`
     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
      Color code  
     </label>
-    <input style={{width:150,height:80}}  onChange={(e)=>{setColorCode(e.target.value)}} class="appearance-none block  bg-gray-200 text-gray-700 border
+    <input style={{width:150,height:80}} value={colorCode} onChange={(e)=>{setColorCode(e.target.value)}} class="appearance-none block  bg-gray-200 text-gray-700 border
      border-gray-200 rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white
-      focus:border-gray-500" id="grid-last-name" type='color' placeholder={"Color code"}/>
+      focus:border-gray-500" id="grid-last-name" type='color' placeholder={"اللون"}/>
   </div>
 
 
@@ -277,54 +296,45 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Add Color"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"إضافة اللون"} />
 </div>
 
 
-<div className='shadow-md' style={{marginTop:20,width:"70%",padding:10,borderRadius:10}}>
-<div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Added Colors:
-</div>
-<br/>
-<div > 
-<table style={{width:"100%"}}>
-<tr style={{textAlign:"left",marginBottom:20}}>
-    <th>Color Name (English)</th>
-    <th>Color Name (Arabic)</th>
-    <th> Color Code</th>
-    <th> Color </th>
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
+<div className='w-full mt-6' > 
 
-<br/>
+{
+  colors?<TableComp
 
 
-{colors&&colors.map((color,index)=>(
+
+  columns={
+    [
+      {name: "ID", uid: "id", sortable: true},
+      {name: "الإسم (العربية)", uid: "name_ar", sortable: true},
+      {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
+      {name: "الرمز", uid: "colorCode", sortable: true},
+      {name: "اللون", uid: "color", sortable: true},
+      {name: "الخيارات", uid: "createdAt"},
+    ]
+   }
+   
+   data={colors}
+    />:
+  <div style={{
+    display:lod?'flex':'none' ,
+    alignItems:"center",
+    justifyContent:"center"
+  }}>
+  <div style={{zIndex:10}}>
+        <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+        </div>
+  </div>
+}
 
 
-<tr  style={{textAlign:"left",padding:5, backgroundColor:index%2==0?"lightgray":"white"  }}>
-    <th style={{padding:15}} >  {color.attributes.name_en}</th>
-    <th  style={{padding:15}} > {color.attributes.name_ar}</th>
-    <th  style={{padding:15}}> {color.attributes.colorCode}  </th>
-    <th> <div style={{width:30,height:30,backgroundColor:color.attributes.colorCode,borderRadius:100}}></div> </th>
-    <th  style={{padding:15}}>
-      <div   onClick={()=>{props.setpage(17,color.id)}} style={{color:"white",backgroundColor:Theme.secondary,padding:5,borderRadius:100,cursor:"pointer",display:"flex",
-      alignItems:"center",justifyContent:"center"}}>
-  <FaEdit  />
-</div>
-</th>
-    <th>
-    <div onClick={()=>{deleteEntry(color.id)}} style={{color:"white",backgroundColor:"#ff2e2e",padding:5,borderRadius:100,
-    cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaTimes  />
-</div>
-</th>
-  </tr>
 
-))}
-</table>
-</div>
+
+
 </div>
 
 

@@ -14,7 +14,7 @@ function AccounteEl() {
     useEffect(() => {
       ls.set("atkn", "");
 
-      router.push("/")
+      router.push("/login")
 
 
    

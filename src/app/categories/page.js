@@ -1,55 +1,77 @@
 'use client'
 
-import Image from "next/image";
 import Product from "../comps/product";
-import Hero from "../comps/hero";
-import { API_URL } from "../local";
+import dynamic from "next/dynamic";
+import { API_URL, Theme,IMG_URL } from "../local";
 import { useState,useRef,useEffect,useContext } from "react";
-
-import Cart from "../comps/cart";
-
-import { product } from "../comps/productdata";
+import { useRouter } from "next/navigation";
+import { FaSlack } from "react-icons/fa6";
+import ProductCopm from "../comps/product";
+import HorDiv from "../comps/hordiv";
+const Slider = dynamic(() => import("../comps/mainSlider"));
 export default function Home() {
-  const [openCart,setOpenCart] = useState(false);
-  const childCompRef = useRef()
+  const [lod,setLod]= useState(true)
+  const [products,setProducts] = useState([])
+const router = useRouter();
+  const [relatedproducts,setRelatedProducts] = useState([])
 
-  const [products,setProducts] = useState(product.data)
 
   
   useEffect(() => {
 
-    //TODO: get products with category id and save it to products state
 
-//
-
-
-
-
+   getCatProducts()
   
     
        }, [])
 
 //TODO: move to a context
-      //  function getQueryVariable(variable) {
-      //   var query = window.location.search.substring(1);
-      //   var vars = query.split("&");
-      //   for (var i = 0; i < vars.length; i++) {
-      //     var pair = vars[i].split("=");
-      //     if (decodeURIComponent(pair[0]) == variable) {
-      //       return decodeURIComponent(pair[1]);
-      //     }
-      //   }
-      //   
-      // }
-
-  const handleOpenCart =(open)=>{
-    setOpenCart(open)
-
- 
-    
-    
+       function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+          }
         }
+        
+      }
 
+
+
+    const getCatProducts = ()=>{
+
+
+
+       
+const requestOptions = {
+  method: 'GET',
+  headers: {
+      "Content-Type": "application/json",
+      // "Authorization": 'Bearer ' + ls.get("atkn")
+  },
+
+};
+fetch(`${API_URL}products?func=getProductswithCatid&cid=${getQueryVariable("cid")}`, requestOptions)
+  .then((response) => response.json())
+  .then((data) => {
+    
+    console.log(data)
+   setProducts(data);
+  setLod(false)
+  }).then(()=>{
+
+    
+  
+  })
+
+
+
+
+
+
+    }
 
     
 
@@ -58,40 +80,111 @@ export default function Home() {
   return (
   
 
-<></>
+<>
+
+<div className=""   style={{
+  
+  display:lod?'flex':'none' ,
+  justifyContent:"center", 
+  alignItems:"center."
+}}>
+<div style={{zIndex:10,width:"100vw",height:"100vh",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+      </div>
+</div>
       
    
-//     <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
+    <div className="space-y-2 px-0 sm:px-0  whitespace-nowrap  " dir="ltr" style={{ display:lod?'none':'flex' ,justifyContent:'center'
+      ,alignItems:"center",flexDirection:'column',marginTop:8,width:'100%'}}>
+  
+  
+  <div  className="w-full py-2 space-x-2 mt-12 overflow-x-hidden flex items-center justify-center ">
 
-//  {/* <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} /> */}
+  {products&&products.map(prd=>(
 
-// <div style={{display:"flex",width:"100%",padding:10}}> 
+<div onClick={()=>{router.push(`/subcatagories?sid=${prd.id}`)}} className="shadow-md min-w-28 w-28 mx-3 rounded-sm hover:scale-105  hover:shadow-medium cursor-pointer  transition-all " > 
+
+<img className="w-full" src={prd.img&&IMG_URL.concat(prd.img.formats.medium.url)} / >
+<div className="py-2 flex items-center  justify-center text-sm  ">
+  {prd.name_ar}
+</div>
+   </div>
+
+))}
 
 
+  </div>
 
-// </div>
-
-//     <div >
+<div >
     
-//     <div     className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  ' style={{width:'100%'}}>
+    <div className='flex mt-8 flex-col justify-center items-center  '
+     style={{width:'100%'}}>
     
-//     {products&&products.map(product=>(
+    {products&&products.map((sub,index)=>(
 
-// <div  key={product.id}>
+<div className="w-full  px-0 sm:px-0 ">
+<div className="my-2 px-2 text-right text-moon-300 font-bold text-xl " >
+  {sub.name_ar} :
+</div>
 
-// <Product data={product} />
+{index%2==0?<div className=" px-0 sm:px-0 lg:px-2  grid w-full lg:gap-x-1 lg:gap-y-2 xl:gap-x-2 xl:gap-y-2
+ md:gap-x-4
+ md:gap-y-4 
+gap-x-0
+ gap-y-0 my-6
+  xl:grid-cols-6
+  lg:grid-cols-6
+   md:grid-cols-4 
+   grid-cols-2  "   >
+  {sub.products&&sub.products.map(prd=>(
+prd.status?  
+<div className="   "  key={prd.id}>
+<ProductCopm atcbtn={false} data={prd} />
+</div>
+:<></>
+))}
+  
+</div>:<div className="w-full"> <HorDiv cid={sub.id} data={sub.products} /> </div>}
 
-// </div>
-// ))}
+
+
+
+  
+  
+  
+  </div>
+
+))}
     
   
 
 
 
-//   </div>
-//   <br/><br/><br/><br/>
-//   </div>
-//   </div>
+  </div>
+  
+  </div>
+
+
+
+<div >
+    
+ 
+  
+  </div>
+
+
+<div>
+
+</div>
+
+
+<br/><br/><br/><br/>
+
+
+
+  </div>
+
+  </>
  
   );
 }

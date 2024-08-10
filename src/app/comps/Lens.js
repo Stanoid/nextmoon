@@ -35,7 +35,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .FullImageZoom {
-      width: 100%;
+      width: 70%;
       grid-area: 1 / 2 / 4 / 5;
     }
   }
@@ -96,16 +96,15 @@ function Lens(props) {
       
       <div id="bb" 
 
-   onMouseDown={()=>{setZoomv(true)}}
+      onMouseDown={()=>{setZoomv(true)}}
       onMouseLeave={()=>{setZoomv(false)}}
       onTouchStart={(e)=>{ e.preventDefault();  setZoomv(true)  }}
       onTouchEnd={()=>{setZoomv(false)}}
        
        
-          style={{minHeight:"500px",backgroundColor:zoomv?Theme.primaryLight:"",color:zoomv?"":Theme.primaryLight,WebkitUserSelect:"none",zIndex:zoomv?30:0}}
-           className="w-full font-medium  lg:w-1/2 transition-all tracking-tight italic  group 
-            touch-none
-             mb-2 rounded-md    ml-0 lg:ml-2 sm:ml-0">
+          style={{backgroundColor:zoomv?Theme.primaryLight:"",color:zoomv?"":Theme.primaryLight,WebkitUserSelect:"none",zIndex:zoomv?30:0}}
+           
+          className={`${zoomv?"w-full":"w-52"}  font-medium  lg:w-1/2 transition-width duration-75 tracking-tight italic  group touch-none mb-2 rounded-md    ml-0 lg:ml-2 sm:ml-0  `}>
       <ImageZoom
            className={`${zoomv?"rounded-b-none":""} FullImageZoom rounded-md     `}
         

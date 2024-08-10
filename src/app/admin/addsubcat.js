@@ -10,7 +10,8 @@ import { TiThMenu } from "react-icons/ti";
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
 import { AuthCon } from '../contexts/AuthCon';
-
+import TableComp from "../comps/sandbox/table"
+import { propagateServerField } from 'next/dist/server/lib/render-server';
 
 
 function AddSubCat(props) {
@@ -51,7 +52,7 @@ function AddSubCat(props) {
         const getCats=()=>{
          
     
-             
+             props.setLod(true)
         const requestOptions = {
           method: 'GET',
           headers: {
@@ -77,6 +78,7 @@ function AddSubCat(props) {
 
         const getSubcats=()=>{
          
+          props.setlod(true)
     
              
           const requestOptions = {
@@ -92,10 +94,31 @@ function AddSubCat(props) {
             .then((response) => response.json())
             .then((data) => {
               
+              console.log(data)
+    
+              let arr = [];
+              for (let i = 0; i < data.length; i++) {
+                let ob = {};
+               ob.id = data[i].id
+                ob.name_ar = data[i].name_ar;
+                ob.name_en = data[i].name_en;  
+                ob.cat = data[i].catagory.name_ar;
+                ob.createdAt = data[i].createdAt;
+     
+                arr.push(ob) 
+               // console.log("rrrr",ob)
+               
+              }
+     
+              return arr
+
+
+
+
              setSubcats(data);
-            }).then(()=>{
-           
-            
+            }).then((arr)=>{
+           setSubcats(arr)
+            props.setlod(false);
             })
       
       
@@ -160,7 +183,7 @@ function AddSubCat(props) {
     }
   
    }else{
-  setLogged(0);
+  //setLogged(0);
   router.push("/login")
 
    }
@@ -253,7 +276,7 @@ function AddSubCat(props) {
 
 
    <div style={{
-    width:"70%",
+    width:"100%",
 display:"grid",
 gap:10,
 gridTemplateAreas:`
@@ -266,15 +289,15 @@ gridTemplateAreas:`
 
 
     <div style={{gridArea:"namear"}}>
-      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"Sub-category name (Arabic)"}/>
+      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"إسم الفئة الفرعية (العربية)"}/>
     </div>
 
     <div style={{gridArea:"nameen"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"Sub-category name (English)"}/>
+      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"إسم الفئة الفرعية (الأنجليزية)"}/>
     </div>
 
     <div style={{gridArea:"cat"}}>
-    <InputEl value={catid} outputfunc={(val)=>{setCatid(val)}} select={true} data={cat}   label={"Category"}/>
+    <InputEl value={catid} outputfunc={(val)=>{setCatid(val)}} select={true} data={cat}   label={"الفئة"}/>
     </div>
 
 
@@ -293,43 +316,39 @@ gridTemplateAreas:`
 </div>
 
 
-<div className='shadow-md' style={{marginTop:20,width:"70%",padding:10,borderRadius:10}}>
-<div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Added Sub-categories:
-</div>
-<br/>
-<div > 
-<table style={{width:"100%"}}>
-<tr style={{textAlign:"left",marginBottom:20}}>
-    <th>Sub-category Name (English)</th>
-    <th>Sub-category Name (Arabic)</th>
+<div  className='mt-12 w-full' >
 
-    <th>Category Name </th>
+
+{
+  subcats?<TableComp
+
+
+
+  columns={
+    [
+      {name: "ID", uid: "id", sortable: true},
+      {name: "الإسم (العربية)", uid: "name_ar", sortable: true},
+      {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
+      {name: "الفئة", uid: "cat", sortable: true},
+    
+      {name: "الخيارات", uid: "createdAt"},
+    ]
+   }
    
-   
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
-<br/>
-{subcats&&subcats.map((size,index)=>(
-<tr  style={{textAlign:"left",padding:5, backgroundColor:index%2==0?"lightgray":"white"  }}>
-    <th style={{padding:15}} >  {size.name_en}  </th>
-    <th  style={{padding:15}} > {size.name_ar}  </th>
-   <th>{size.catagory&&size.catagory.name_en} / {size.catagory&&size.catagory.name_ar}</th>
-    <th  style={{padding:15}}>
-      <div  onClick={()=>{props.setpage(19,size.id)}}  style={{color:"white",backgroundColor:Theme.secondary,padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaEdit  />
-</div>
-</th>
-    <th  style={{padding:15}} >
-    <div onClick={()=>{deleteEntry(size.id)}} style={{color:"white",backgroundColor:"#ff2e2e",padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaTimes  />
-</div>
-</th>
-  </tr>
-))}
-</table>
-</div>
+   data={subcats}
+    />:
+  <div style={{
+    display:lod?'flex':'none' ,
+    alignItems:"center",
+    justifyContent:"center"
+  }}>
+  <div style={{zIndex:10}}>
+        <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+        </div>
+  </div>
+}
+
+
 </div>
 
       
@@ -342,4 +361,4 @@ Added Sub-categories:
   )
 }
 
-export default AddSubCat
+export default AddSubCat;

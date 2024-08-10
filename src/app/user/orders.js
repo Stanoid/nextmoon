@@ -38,7 +38,7 @@ function Orders(props) {
 
     const getOrders=(id)=>{
          
-    
+    props.setLod(true)
       setOpenDel(false)      
              setlod(true)
       const requestOptions = {
@@ -57,7 +57,7 @@ function Orders(props) {
           setlod(false)
         setOrderdata(data.reverse())
         }).then(()=>{
-       
+       props.setLod(false)
         
         })
   

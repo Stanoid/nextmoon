@@ -88,6 +88,7 @@ html{
 
 .scrollable-content {
    /* height: 150px; */
+   display:"none"
  }
  
  .scrollable-content::-webkit-scrollbar {
@@ -416,3 +417,5 @@ input:checked + .slider:before {
 
 
 .st1{fill:"#red"}
+
+

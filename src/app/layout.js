@@ -7,19 +7,19 @@ import { NextUIProvider } from "@nextui-org/react";
 import CatDrop from "./comps/catDrop";
 import NavbarC from "./comps/navbar";
 import dynamic from "next/dynamic";
-
+import Mob from "../../public/mob.svg";
 const Cartl = dynamic(() => import('./comps/cartl'))
 
 import {Divider, Button , Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
 import { FaSearch, FaUserCircle,FaListAlt,FaCogs,FaPowerOff } from "react-icons/fa";
 import AnnounceComp from "./comps/announce";
-import { FaUser } from "react-icons/fa6";
+import { FaUser,FaFacebook, FaInstagram,FaXTwitter,FaGoogle } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { CartContext } from "./contexts/cartContext";
 import AuthenContext from "./contexts/AuthCon";
 import localFont from 'next/font/local'
 import Cookies from "universal-cookie";
-import Logowhite from "../../public/logowhite.svg";
+import Logowhite from "../../public/logored.svg";
 import { useRouter, usePathname } from "next/navigation";
 
 const ArFont = localFont({ src: './styles/fonts/alfont_com_SomarGX.ttf' })
@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
   useEffect(() => {
    
    getCats(); 
-  loginval();
+  //loginval();
    
   }, [ls.get("atkn")])
   
@@ -66,11 +66,12 @@ export default function RootLayout({ children }) {
     
   };
 
-    fetch(`${API_URL}catagories?populate=*`, requestOptions)
+    fetch(`${API_URL}sections?func=getAllSubcat`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        
-       setCat(data.data);
+        console.log("sections",data);
+
+       setCat(data);
       }).then(()=>{
      
       })
@@ -134,34 +135,6 @@ if(el.target.value.length<3){
 
 
 
-  const loginval = ()=>{
-    setLogindata(null);
-    
-    
-        const requestOptions = {
-          method: 'GET',
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
-          },
-        
-      };
-    
-        fetch(`${API_URL}users/me`, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-    
-            if(data.id){
-      
-      setLogindata(data)
-    }
-
-    
-    
-         
-          });
-    
-      }
 
   const drawSugg = (el)=>{
 
@@ -181,90 +154,52 @@ if(el.target.value.length<3){
         <CartContext>
           <AuthenContext>
             <section className="w-full" >
-            <div className="  w-full bg-[url('../../public/amblemblack.svg')] bg-moon-200/90 from-moon-200 to-moon-200 text-white shadow-lg"
+            <div className="  w-full bg-white text-white "
              style={{backgroundSize:20}}>
-        <div className="p-3 w-full  shadow-md  bg-[url('../../public/amblemblack.svg')] bg-moon-200 from-moon-200 to-moon-200 " style={{position:"fixed",
+        <div className="p-2 w-full  shadow-md bg-white " style={{position:"fixed",
           backgroundSize:20,top:0,zIndex:15}} >
-        <NavbarC openCart={(t)=>{handleOpenCart(t)}}  openFav={handleOpenCartl}  />
-       
+        <NavbarC rel={false} cat={cat} openCart={(t)=>{handleOpenCart(t)}}  openFav={handleOpenCartl}  />
+        <div style={{maxWidth:"100%",overflowX:"scroll"}} className=" text-moon-300 text-md whitespace-nowrap  font-medium  transition-colors  py-0.5 w-full
+          space-x-4 flex mt-1 pb-2
+        flex-row-reverse scrollable-content  justify-center items-center  ">
+        
+        <div className=" mx-3   cursor-pointer border-b-4 border-moon-200/60 text-moon-200 pb-0.5 " > الرئيسية </div>
+        
+     
+
+        {cat&&cat.map(ct=>(
+    
+    <CatDrop data={ct}  lable={ct.name_ar}/>
+    ))}
+         <a href="/about" >
+        <div  className=" cursor-pointer hover:border-b-2 border-moon-300/40 pb-0.5 " > من نحن؟ </div>
+        </a>
+        <a href="/contactus" >
+        <div className=" cursor-pointer hover:border-b-2 border-moon-300/40 pb-0.5 " > إتصل بنا </div>
+       </a>
+
+     
+
+
+        </div>
           </div>      
-      <div className="h-16" ></div>
+      <div className="h-14 sm:h-14 lg:h-24" ></div>
        <div className="w-full  p-3" >
     <div className=" flex flex-col  w-full  lg:flex-row-reverse sm:flex-col justify-between   " >
-    <div className="my-3 lg:my-2 md:my-0 sm:my-3   sm:w-full lg:w-2/6 p-2 py-2 ">
-<div style={{display:"flex",width:"100%",alignItems:"center",justifyContent:"space-between"}} >
-        <div className="  lg:w-11/12 sm:w-11/12 w-10/12  " style={{}}>
-        <Input
-          classNames={{
-            base: " h-10 w-full",
-            mainWrapper: "h-full",
-            input: "text-small",
-            inputWrapper: "h-full font-normal text-default-500 bg-white",
-          }}
-          placeholder="Search Minimoon..."
-          size="sm"
-          startContent={<FaSearch style={{marginRight:5}} size={18} />}
-          type="search"
-        />
-        </div>
- 
-
-{logindata&&logindata?<Dropdown   placement="bottom-end">
-          <DropdownTrigger>
-          {/* <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-moon-200" content="My Cart"> */}
-<Button  isIconOnly className="bg-white text-xl  text-moon-200  rounded-full mx-1" size="md" variant="shadow"  aria-label="Like">               
-        <FaUser  />
-      </Button>  
-    {/* </Tooltip> */}
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions " className=" min-w-72  py-2 px-4  " dir="rtl" variant="shadow">
-            <DropdownItem key="profile" className="h-14 gap-2">
-            <p className="font-semibold">{logindata&&logindata.username}</p>
-              <p className="font-normal opacity-50">{logindata&&logindata.email}</p>
-              <Divider className="my-1" />
-            </DropdownItem>
-            
-            <DropdownItem onClick={()=>{router.push("/user")}} className="h-8 text-md " startContent={<FaListAlt/>} key="settings"><span className="text-md" >الطلبات</span>  </DropdownItem>
-            <DropdownItem className="h-8 text-md " startContent={<FaCogs/>} key="team_settings "> <span className="text-md"  > إعدادات الحساب  </span> </DropdownItem>
-        
-            <DropdownItem  startContent={<FaPowerOff/>} onClick={()=>{logoutUser();}} key="logout"  className="text-red-500 h-8 text-md" >
-        <span className="text-md"  > تسجيل خروج </span>       
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>:<motion.div className='flex-grow p-0 sm:px-0 lg:px-3 flex align-middle justify-end ml-2' whileTap={{ scale: 1.03 }}>
-      {/* <LoadingBtn act={()=>{router.push("/login")} } color={Theme.primary} textColor={"white"} icon={<FaLock  />} text={"تسجيل دخول"}  /> */}
-     <Button onClick={()=>{router.push("/login")} } variant="shadow" className="text-white text-xs rounded-lg
-     bg-gradient-to-r from-moonsec-100 to-moonsec-100/70  font-bold shadow-md" endContent={<FaUserCircle />}> تسجيل دخول </Button>
-     </motion.div>
-
-}
-
-     </div>
-</div>
-
-
-<div className="scrollable-content  sm:w-full lg:w-4/6  sm:mr-0 lg:mr-3 mr-0" style={{display:"flex",alignItems:"center",overflowX:"scroll",}} >  
 
 
 
-{cat&&cat.map((cati,index)=>(
-    
-    <CatDrop key={index} data={cati.attributes.subcatagories.data}  lable={cati.attributes.name_ar}/>
-    ))}
 
-
-
-        
-        </div>
       
     </div>
 </div>
 
        </div>
             </section>
-            <section>
-              <AnnounceComp/>
-            </section>
+
+
+            
+          
 
             <section>
             <div className="  hidden ">
@@ -296,23 +231,65 @@ if(el.target.value.length<3){
                 </div>
             </section>
             <section>
-            <div style={{backgroundSize:20}} className="    p-8 px8 lg:px-64 w-full  bg-[url('../../public/amblemblack.svg')] bg-moon-200  text-right lg:py-16">
-      <div className="min-w-fit" >
-   <div className="flex items-center my-2 justify-center">
+            <div style={{backgroundSize:20}} className="    border-t-2 border-gray-500 mt-8 p-8 px-0  pb-3  w-full   text-right">
+      <div className="w-full" >
+   {/* <div className=" hidden sm:hidden lg:flex items-center my-2 justify-center">
    <Logowhite style={{cursor:"pointer"}}  onClick={() => {
                           router.push("/");
                         }} width={100} />
   
-    </div>  
-    <p className="text-xs text-center  break-words font-medium text-white lg:text-xl  ">
-       info@minimoon.com
-         <br/>
-         
-        </p>
-        <p className="text-xs text-center  break-words font-medium text-white lg:text-xl  ">
-         جميع الحقوق محفوظة
-         <br/>
-         2024
+    </div>   */}
+
+    <div className="w-full  flex whitespace-nowrap text-right text-sm font-semibold px-6 lg:px-44 sm  justify-center space-x-3 items-center">
+  
+    <div className=" w-full flex text-moon-200  space-y-1 flex-col items-start justify-center "> 
+    <div className=" w-full "> المملكة السعودية    </div>
+    <div className=" w-full ">الدولار الأمريكي    </div>
+    <div className=" w-full ">اللغة العربية</div>
+  
+     </div>
+
+
+    <div className=" w-full flex space-y-1 flex-col items-start justify-center "> 
+    <div className=" w-full "> من نحن    </div>
+    <div className=" w-full ">قيمنا    </div>
+    <div className=" w-full ">منتجاتنا</div>
+    <div className=" w-full ">متاجرنا</div>
+     </div>
+
+
+
+    <div className=" w-full flex space-y-1 flex-col items-start justify-center "> 
+    <div className=" w-full "> الدعم الفني    </div>
+    <div className=" w-full ">اتصل بنا    </div>
+    <div className=" w-full ">سياسة الشحن
+    </div>
+    <div className=" w-full ">سياسة الارجاع</div>
+     </div>
+
+     <div className=" w-full flex space-y-1 flex-col items-start justify-center "> 
+     <div className=" w-full ">التسجيل    </div>
+    <div className=" w-full ">تسجيل الدخول    </div>
+    <div className=" w-full ">عنواني</div>
+    <div className=" w-full ">طلباتي</div>
+     </div>
+    </div>
+
+    <div className='my-3' >
+     <div className='text-center my-1 font-semibold text-moon-200 '> تابعنا على</div> 
+   <div className='flex space-x-3 text-2xl flex-row items-center justify-center' >
+   <FaFacebook className='text-[#3E5C9A]' />
+   <FaInstagram className='text-[#C84278]' />  
+   <FaXTwitter/>
+   <FaGoogle className='text-[#DF4B38]' />
+   
+   </div>
+  
+    </div>
+    
+    
+        <p className="text-xs text-center border-t-1 border-gray-300 py-2  w-full break-words font-medium text-black lg:text-base  ">
+        جميع الحقوق محفوظة © ميني مون 2024
         </p>
       </div>
      

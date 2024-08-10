@@ -7,7 +7,7 @@ import { XIconreact,XIcon } from '@heroicons/react/outline'
 import { BsCartFill } from 'react-icons/bs'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import { Button } from '@nextui-org/react'
-import { FaCreditCard } from 'react-icons/fa6'
+import { FaCreditCard, FaLock, FaUser } from 'react-icons/fa6'
 import LoadingBtn from './loadingbtn'
 import {CartCon} from '../contexts/cartContext'
 import Image from 'next/image';
@@ -29,19 +29,51 @@ const Cart = forwardRef((props, ref) => {
 const  ls = require('local-storage');
   const [subtotal,setSubtotal]=useState(0);
  
-
-//   useEffect(()=>{
-//     
-// },[ls.get("MinimoonCart")])
+const [logindata,setLogindata]= useState(null)
 
 
+  useEffect(()=>{
+    loginval();
+},[props.open])
+
+
+const loginval = ()=>{
+  setLogindata(null);
+  
+  
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Bearer ' + ls.get("atkn")
+        },
+      
+    };
+  
+      fetch(`${API_URL}users/me`, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+  
+          if(data.id){
+    
+    setLogindata(data)
+
+   // console.log("aaaaaa",data)
+  }
+
+  
+  
+       
+        });
+  
+    }
 
 
 
 const handleOrder= ()=>{
 
 
-  //
+  
   if(ls.get("MinimoonCart").length==0){
     alert("الرجاء إضافة منتجات")
     return
@@ -256,31 +288,17 @@ const notify = (type,msg)=>{
 
 
 
-                     {/* <div style={{
-                      width:"100%",
-                      display:cartData.length==0?"none":"block",
-                      color:Theme.primary,
-                      fontWeight:"bold",
-                      fontSize:25,
-                      textAlign:"center",
-                      padding:0,
-                      paddingBottom:5
-                     }}> 
-                      Total  : {CartTotal} {CURRENCY} 
-                     </div> */}
-   
-                    <div style={{padding:20, display:ls.get("MinimoonCart")&&ls.get("MinimoonCart").length==0?"none":"flex",alignItems:'center',justifyContent:'center'}}>
-                        <div style={{fontSize:15,fontWeight:'bold'}}>
-                          
-                           </div>
-                       
 
-                        
 
-                          
-                         <LoadingBtn  icon={<FaCreditCard/>}   act={()=>{
+                    <div style={{padding:20, display:ls.get("MinimoonCart")&&ls.get("MinimoonCart").length==0?"none":"flex",
+                      alignItems:'center',justifyContent:'center'}}>
+
+                        {logindata?<LoadingBtn  icon={<FaCreditCard className='ml-1.5' />}   act={()=>{
                        handleOrder() ; 
-                       }}  text={"متابعة إلى الدفع"} lod={lod} />
+                       }}  text={"متابعة إلى الدفع"} lod={lod} />:<LoadingBtn   icon={<FaLock className='ml-1.5' />}   act={()=>{
+                        router.push("/login"); props.openHandler(false); 
+                        }}  text={"سجل الدخول للمتابعة إلى الدفع"} color={Theme.secondaryDark} lod={lod} />}
+                        
                        </div>                  
                     {/* /End replace */}
                   </div>

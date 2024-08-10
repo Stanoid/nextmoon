@@ -1,31 +1,27 @@
 'use client'
-
 import React from 'react';
-import { useContext,useEffect,useState } from 'react';
+import { useContext,useEffect,useState,useRef } from 'react';
 import { Theme ,API_URL} from '../local';
-import InputEl from '../comps/inputel';
-import axios from 'axios';
-import { useRouter } from 'next/navigation'
-import { TiThMenu } from "react-icons/ti";
-import { FaCheck,FaHourglass } from 'react-icons/fa6';
-import LoadingBtn from '../comps/loadingbtn';
-import { FaTimes,FaEdit } from 'react-icons/fa';
-import { AuthCon } from '../contexts/AuthCon';
+import TableComp from '../comps/sandbox/table';
+import DeliveryPopup from '../comps/deliveryPopup';
+import { useRouter } from 'next/navigation';
 
 
 
 function Orders(props) {
     const ls = require("local-storage")
-    const {logindata,logoutUser}  = useContext(AuthCon);
-
+    const childCompRef = useRef();
     const [namear,setNamear] = useState("");
     const [nameen,setNameen] = useState("");
     const [colorCode,setColorCode] = useState("");
+    const [openDel,setOpenDel] = useState(false);
     const [colors,setcolors] = useState([])
     const [orderData,setOrderdata] = useState(null);
     const router = useRouter(); 
+    const [ordata,setOrdata] = useState(null)
     const [lod,setlod] = useState(false)
 
+    
 
     useEffect(() => {
     // loginval();
@@ -33,12 +29,15 @@ function Orders(props) {
     }, [])
     
    
-  
+  const handleOpenDel = (open)=>{
+    setOpenDel(open)
+  }
 
     const getOrders=(id)=>{
          
     
-             
+      setOpenDel(false)      
+             setlod(true)
       const requestOptions = {
         method: 'POST',
         headers: {
@@ -48,11 +47,13 @@ function Orders(props) {
       
     };
   
-      fetch(`${API_URL}orders?func=getOrders`, requestOptions)
+      fetch(`${API_URL}orders?func=getAdminOrders`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
           
-          setOrderdata(data)
+          setlod(false)
+          console.log("admin orders",data)
+        setOrderdata(data.reverse())
         }).then(()=>{
        
         
@@ -60,6 +61,42 @@ function Orders(props) {
   
   
       }
+
+
+
+      const DeliverOrder=(order)=>{
+
+
+        setOrdata(order);
+         setOpenDel(true);
+
+    return
+
+//         setlod(true)
+//  const requestOptions = {
+//    method: 'POST',
+//    headers: {
+//        "Content-Type": "application/json",
+//        "Authorization": 'Bearer ' + ls.get("atkn")
+//    },  body: JSON.stringify(
+//     {
+//         "id": id,
+//       }
+//   )
+// };
+//  fetch(`${API_URL}orders?func=deliverOrder`, requestOptions)
+//    .then((response) => response.json())
+//    .then((data) => {
+//      
+//      getOrders();
+  
+//    }).then(()=>{
+  
+   
+//    })
+
+
+ }
 
         
         const getcolors=()=>{
@@ -240,98 +277,66 @@ setlod(true);
     
 <div 
     style={{
-      
-      display:"flex",
-      alignItems:"center",
-      flexDirection:"column",
-      justifyContent:"center",
-      padding:5
+  display:"flex",
+  alignItems:"flex-start",
+  justifyContent:"center"
       
  }}>
 
    
 
+                      <div className="flex  flex-col ">
+                      
+
+<DeliveryPopup
+                          ref={childCompRef}
+                          data={ordata?ordata:null}
+                          getOrders={()=>{getOrders()}}
+                          openHandler={handleOpenDel}
+                          open={openDel}
+                        />
+                      </div>
+              
 
 
 
-<div className='shadow-md' style={{marginTop:20,width:"90%",padding:10,borderRadius:10}}>
-<div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Orders:
-</div>
+
+<div className=''  style={{marginTop:20,padding:15,width:"100%",borderRadius:10,backgroundColor:""}}>
+
 <br/>
-<div > 
-<table  style={{width:"100%"}}>
-<tr style={{textAlign:"left",marginBottom:20}}>
-    <th>Buyer name</th>
-    <th>Order amount</th>
-    <th> Payment Status</th>
-    <th> Order Date </th>
-    <th> Action </th>
-    
-  </tr>
 
-<br/>
-
-
-{orderData&&orderData.map((order,index)=>(
-
-
-<tr  style={{textAlign:"left",padding:5, backgroundColor:index%2==0?"lightgray":"white"  }}>
-    <th style={{padding:15}} >  {order.customer_details&&order.customer_details.name}</th>
-    <th  style={{padding:15}} > {order.amount_total +" "+order.currency.toUpperCase() } </th>
-    <th  style={{padding:15}}> {order.payment_status=="paid"?
-      <div style={{display:'flex',alignItems:"center",justifyContent:"flex-start"}}>
-        
-        <div style={{display:"flex",padding:"3px 15px",alignItems:"center",
-          justifyContent:"center",backgroundColor:"#82FA58",color:"white",borderRadius:30}}>
-          <FaCheck/>
-          <div style={{marginLeft:4}}>Paid</div>
+{
+  orderData?<TableComp
+   data={orderData}
+   columns={
+    [
+      {name: "ID", uid: "id", sortable: true},
+      {name: "اسم العميل", uid: "name", sortable: true},
+      {name: "رقم الهاتف", uid: "phone", sortable: true},
+      {name: "المجموع", uid: "total", sortable: true},
+      {name: "حالة الدفع", uid: "payment_status",sortable: true },
+      {name: "المدينة", uid: "city", sortable: true},
+      {name: "البريد الإلكتروني", uid: "email",sortable: true },
+      {name: "التاريخ", uid: "date", sortable: true},  
+      {name: "حالة الطلب", uid: "status", sortable: true},
+      {name: "التفاصيل", uid: "refid"},
+    ]
+   }
+   
+   delorder={DeliverOrder}
+    />:
+  <div style={{
+    display:lod?'flex':'none' ,
+    alignItems:"center",
+    justifyContent:"center"
+  }}>
+  <div style={{zIndex:10}}>
+        <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
         </div>
-        
-        </div>:
-       <div style={{display:'flex',alignItems:"center",justifyContent:"flex-start"}}>
-        
-       <div style={{display:"flex",padding:"3px 15px",alignItems:"center",
-         justifyContent:"center",backgroundColor:"#FE9A2E",color:"white",borderRadius:30}}>
-         <FaHourglass/>
-         <div style={{marginLeft:4}}>Pending</div>
-       </div>
-       
-       </div>
-       
-      }  </th>
-    <th  style={{padding:15}}> {Date(order.created).toString().slice(0,Date(order.created).toString().indexOf("GMT"))}  </th>
-    <th  style={{padding:15}}> 
-      <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-       <div onClick={()=>{expireOrder(order.id)}} style={{display:order.payment_status=="paid"?"none":"flex",width:100,alignItems:"center",
-        padding:8,borderRadius:30,backgroundColor:"red",color:"white",justifyContent:"center"}}>
-        
-        {lod?
-        <div style={{display:"flex",justifyContent:"center",alignItems:"center"}} className="lds-facebookbtn">
-  <div></div><div></div><div></div></div>: 
-  <div style={{display:"flex",alignContent:"center",justifyContent:"center"}}>
-<div style={{display:"flex",fontSize:17,alignItems:"center",justifyContent:"center",marginRight:5}}> 
-<FaTimes />
-</div>
-<div  style={{display:"flex",alignItems:"center",justifyContent:"center"}}> Cancel </div>
   </div>
-  
 }
-  
-        </div> 
 
-        
-      </div>
-      
-        </th>
-    
-    
 
-  </tr>
-
-))}
-</table>
-</div>
 </div>
 
 

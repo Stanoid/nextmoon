@@ -3,6 +3,9 @@
 import Image from "next/image";
 import ProductCopm from "./comps/product";
 import dynamic from "next/dynamic";
+import ProductFeat from "./comps/productfeat"
+
+
 const Hero = dynamic(() => import('./comps/hero'))
 
 
@@ -98,12 +101,15 @@ setLod(false)
     <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column', width:'100%'}}>
  {lod?<LoadingOverlay/>:<></>} 
  <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
-<div className="bg-gradient-to-t to-moon-100/30 from-moon-100/50 " style={{width:"100%"}}>
+<div className=" mt-12  to-moon-100/30 from-moon-100/30  p-2 sm:p-2 lg:p-3 " style={{width:"100%"}}>
 <Hero  />
   </div> 
-  <div  className="bg-gradient-to-t from-moon-100 to-moon-100/50 flex w-full  justify-center "   >
 
-<div className="w-full lg:w-3/4 " >
+
+
+  <div  className="   from-moon-100/30 to-moon-100/50  flex w-full  justify-center "   >
+
+<div className=" w-full   " >
 <FeaturedComp/>
 </div>
 
@@ -111,7 +117,39 @@ setLod(false)
 
 
 
+<div style={{backgroundSize:50}} className="w-full flex items-center justify-center bg-[url('../../public/amblemblack.svg')] py-5  to-moon-100/30 from-moon-100/50 ">
 
+  
+  <ProductFeat variant={"week"} 
+  title="الأكثر رواجا لهذا الأسبوع" text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذاق.
+" />
+
+</div>
+
+
+
+
+<div className="w-full flex items-center justify-center  py-5   from-moon-100/30 to-moonsec-200/20 ">
+  <ProductFeat variant={"trend"}  title="المنتجات الرائجة" text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذاق.
+" />
+</div>
+
+
+<div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5  bg-[url('../../public/amblemblack.svg')]   to-moonsec-100/40 from-moonsec-200/20 ">
+  <ProductFeat variant={"offer"} title="عروض هذا الاسبوع" text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذاق.
+" />
+</div>
+
+
+
+<div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5    to-moonsec-100/40 from-moonsec-200/20 ">
+  <ProductFeat variant={"never"} title="فرصتك الآن للحصول عليه" text="" />
+</div>
+
+
+<div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5  bg-[url('../../public/amblemblack.svg')]   to-moonsec-100/40 from-moonsec-200/20 ">
+  <ProductFeat variant={"new"} title="منتجات جديدة" text=" هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، " />
+</div>
 
 
 
@@ -159,6 +197,8 @@ product.status?
 </div>
 }
 
+
+
 <div className="w-full flex flex-col align-middle h-fit justify-center bg-gradient-to-b from-moonsec-100/90 to-moonsec-100/30 py-4">
 <div className="p-6">
 <h5 className="text-2xl font-black text-right tracking-normal text-white ">عروض سريعة</h5>
@@ -174,7 +214,7 @@ product.status?
 
 
 
-<div className="bg-gradient-to-b to-moonsec-200/20 from-moonsec-100/30 py-6">
+<div className=" to-moonsec-200/20 from-moonsec-100/30 py-6">
   <div className="p-4 ">
   <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">: بلوزات طويلة</h5>
   <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
@@ -182,11 +222,11 @@ product.status?
 </p>
   </div>
 
-   <HorDiv data={product&&products} />
+   <HorDiv btn={true} data={product&&products} />
 </div>
 
 
-<div className="bg-gradient-to-b from-moonsec-200/20 to-moon-200/20 py-6">
+<div className=" from-moonsec-200/20 to-moon-200/20 py-6">
   <div className="p-6">
   <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">:  تيشيرتات</h5>
   <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
@@ -194,7 +234,7 @@ product.status?
 </p>
   </div>
 
-   <HorDiv data={product&&products} />
+   <HorDiv  btn={true}  data={product&&products} />
 </div>
 
 {/* <div className="p-2 px-2 sm:px-3 lg:px-80 bg-gradient-to-b to-moonsec-200/30 from-moon-200/20 py-6 ">
@@ -208,7 +248,7 @@ style={{width:"100%"}}
 </div> */}
   
 
-<div className="bg-gradient-to-b from-moon-200/20 to-moonsec-100/30 py-6">
+<div className=" from-moon-200/20 to-moonsec-100/30 py-6">
   <div className="p-6">
   <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">:  فساتين سهرة</h5>
   <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">

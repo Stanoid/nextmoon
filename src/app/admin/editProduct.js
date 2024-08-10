@@ -218,17 +218,17 @@ return;
          setVarientDelete(varientDeleteArray);
 
          
-         
-         setlod(false);
-
+       
       })
       .then(() => {
-       
+         
+        props.setLod(false);
+        setlod(false)
       });
   };
 
   const getColors = () => {
-setlod(true);
+props.setLod(true);
     if(!eff){
       return
         }
@@ -382,19 +382,19 @@ setlod(true);
       <div
         style={{
           padding: 10,
-          fontSize: 25,
+          
           fontWeight: "bold",
           alignSelf: "flex-start",
-          borderBottom: "5px solid " + Theme.primary,
+          borderBottom: "3px solid " + Theme.primary,
           marginBottom: 15,
         }}
       >
-        Edit Product:
+        تعديل منتج :
       </div>
 
       <div
         style={{
-          width: "70%",
+          width: "100%",
           display: "grid",
           gap: 10,
           gridTemplateAreas: `
@@ -531,7 +531,7 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
     marginLeft:-10,marginTop:-5
     ,borderRadius:100,backgroundColor:varient.attributes.color.data&&varient.attributes.color.data.attributes.colorCode}} ></div>
 </div>
-<div style={{display:"flex",alignItems:"flex-end",justifyContent:"flex",flexDirection:"column"}}>
+<div style={{display:"flex",alignItems:"center",justifyContent:"flex",flexDirection:"column"}}>
 <div style={{fontWeight:"bold",padding:10,paddingBottom:0,fontSize:13}}>
 {varient.attributes.size.data&&varient.attributes.size.data.attributes.name_en} <span> / </span> {varient.attributes.color.data&&varient.attributes.color.data.attributes.name_ar}
 </div>
@@ -544,7 +544,7 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
 </div>
 </div>
 
-<div onClick={()=>{removeVHandler(index)}} style={{padding:10,marginTop:10,fontSize:15,backgroundColor:"red",borderRadius:5,color:"white",display:"flex",alignItems:"center",justifyContent:"center"}}>
+<div className="py-1 px-1.5 bg-red-600  rounded-sm text-white text-sm" onClick={()=>{removeVHandler(index)}} style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 <FaTrash style={{marginRight:10}}/> 
 حذف
 </div>

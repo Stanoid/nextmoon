@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { API_URL } from "../local";
 import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
+
 export const AuthCon = createContext();
 
 export const AuthenContext = ({ children }) => {
@@ -29,11 +30,32 @@ export const AuthenContext = ({ children }) => {
       .then((response) => response.json())
       .then((data) => {
         
-                      
+            if(data.error){
+              console.log(data.error);
+              switch (data.error.status) {
+                case 400:
+                  useNotifi("error","بريد إلكتروني أو كلمة مرور غير صحيحة")
+                  break;
+              
+                  case 429:
+                    useNotifi("warn","      تجاوزت الحد المسموح للمحاولات, الرجاء المحاولة لاحقآ")
+                    break;
+                
+
+                default:
+                  useNotifi("warn","         حدث حطأ ما, الرجاء المحاولة لاحقآ")
+                  break;
+              }
+
+              return;
+            }           
+        console.log(data)
         if (data.jwt) {
+         setLogindata(data)
           ls.set("atkn", data.jwt);
           switch(data.user.type){
             case 1:
+              
             router.replace("/admin");
             break;
 
@@ -60,9 +82,14 @@ export const AuthenContext = ({ children }) => {
 
 
           //router.replace("/");
+        }else{
+          useNotifi("error","بريد إلكتروني أو كلمة مرور غير صحيحة")
+           return 0;
         }
       });
   };
+         
+
 
 
   const logoutUser = () => {
@@ -91,18 +118,27 @@ export const AuthenContext = ({ children }) => {
       .then((data) => {
 
 
-        setLogindata(data)
+        return data
      
       });
 
-  }
+
+
+  
+    }
+
+    const getLoginData = ()=>{
+    
+return 12
+
+    }
 
   const useNotifi = (type, msg) => {
     const options = {
-      hideProgressBar: true,
+      hideProgressBar: false,
       draggable: true,
-      closeButton: false,
-      autoClose: 3000,
+      closeButton: true,
+      autoClose: 2000,
     };
     switch (type) {
       case "success":
@@ -125,10 +161,11 @@ export const AuthenContext = ({ children }) => {
       value={{
         loginUser,
         logoutUser,
+        getLoginData,
         loginval
       }}
     >
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-center" containerClassName="text-right" reverseOrder={false} />
 
       {children}
     </AuthCon.Provider>

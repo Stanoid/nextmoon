@@ -2,7 +2,7 @@ import React from 'react'
 import MegaMenu from './megaMenu';
 import redem from "../../../public/logoblack.svg";
 import Image from 'next/image';
-import { FaVest } from 'react-icons/fa6';
+import { FaCircleDot, FaVest } from 'react-icons/fa6';
 import {Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
 function CatDrop(props) {
   return (
@@ -11,11 +11,11 @@ function CatDrop(props) {
     <DropdownTrigger>
       <Button
       
-        className=" min-w-32  rounded mx-1  bg-gradient-to-tr from-moon-100 to-moon-100/80  text-moon-300/80  font-semibold  tracking-tight  data-[hover=true]:bg-white"
-        endContent={ <div ><FaVest/></div> }
+        className=" font-medium min-w-36 hover:shadow-md transition-shadow"
+        endContent={ <div className='text-moon-200' ><FaCircleDot/></div> }
       
-        size="sm"
-        variant="shadow"
+        size="lg"
+        variant="flat"
       >
        {props.lable?props.lable:"ملابس نسائية"}
       </Button>
@@ -23,10 +23,10 @@ function CatDrop(props) {
 
   <DropdownMenu
     aria-label="ACME features"
-    // className="  bg-[url('../../public/amblemblack.svg')]"
-   style={{backgroundSize:20}}
+    className="  "
+
     itemClasses={{
-      base: "gap-4",
+      base: "gap-1 bg-gradient-to-b from-moon-100/10 to-moon-100/5  ",
     }}
   >
     <DropdownItem

@@ -6,6 +6,7 @@ import { Theme ,API_URL} from '../local';
 import InputEl from '../comps/inputel';
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
+import TableComp from "../comps/sandbox/table"
 import { TiThMenu } from "react-icons/ti";
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
@@ -50,7 +51,7 @@ function AddSize(props) {
         
         const getSizes=()=>{
          
-    
+    props.setLod(true);
              
         const requestOptions = {
           method: 'GET',
@@ -64,11 +65,26 @@ function AddSize(props) {
         fetch(`${API_URL}sizes`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            
-           setSizes(data.data);
-          }).then(()=>{
-         
+            console.log(data)
+       let arr = [];
+         for (let i = 0; i < data.data.length; i++) {
+           let ob = {};
+          ob.id = data.data[i].id
+           ob.name_ar = data.data[i].attributes.name_ar;
+           ob.name_en = data.data[i].attributes.name_en;  
+           ob.icon = data.data[i].attributes.icon;
+           ob.createdAt = data.data[i].attributes.createdAt;
+
+           arr.push(ob) 
+          // console.log("rrrr",ob)
           
+         }
+
+         return arr
+          }).then((arr)=>{
+          setSizes(arr);
+            props.setLod(false);
+         console.log("ddd",arr)
           })
     
     
@@ -77,7 +93,7 @@ function AddSize(props) {
 
         const deleteEntry=(id)=>{
          
-    
+   // setlod(true)
              
           const requestOptions = {
             method: 'DELETE',
@@ -136,7 +152,7 @@ function AddSize(props) {
     }
   
    }else{
-  setLogged(0);
+  //setLogged(0);
   router.push("/login")
 
    }
@@ -192,9 +208,9 @@ function AddSize(props) {
              setNameen("");
              setSicon("");
              getSizes();
-             alert("size added")
+           //  alert("size added")
 
-              setlod(false);
+             // setlod(false);
             }).then(()=>{
          
             
@@ -234,7 +250,7 @@ function AddSize(props) {
 
 
    <div style={{
-    width:"70%",
+    width:"100%",
 display:"grid",
 gap:10,
 gridTemplateAreas:`
@@ -248,16 +264,16 @@ gridTemplateAreas:`
 
 
     <div style={{gridArea:"namear"}}>
-      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"Size name (Arabic)"}/>
+      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"إسم المقاس (العربية)"}/>
     </div>
 
     <div style={{gridArea:"nameen"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"Size name (English)"}/>
+      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"إسم المقاس (الإنجليزية)"}/>
     </div>
 
 
     <div style={{gridArea:"sicon"}}>
-      <InputEl outputfunc={(val)=>{setSicon(val)}} label={"Size Icon (X,XXL,...)"}/>
+      <InputEl outputfunc={(val)=>{setSicon(val)}} label={"الرمز  (X,XXL,...)"}/>
     </div>
 
   
@@ -270,45 +286,46 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Add Size"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"إضافة المقاس "} />
 </div>
 
 
-<div className='shadow-md' style={{marginTop:20,width:"70%",padding:10,borderRadius:10}}>
-<div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Added Sizes:
+
+<div  className='w-full mt-6'>   
+
+
+
+{
+  sizes?<TableComp
+
+
+
+  columns={
+    [
+      {name: "ID", uid: "id", sortable: true},
+      {name: "الإسم (العربية)", uid: "name_ar", sortable: true},
+      {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
+      {name: "الرمز", uid: "icon", sortable: true},
+    
+      {name: "الخيارات", uid: "createdAt"},
+    ]
+   }
+   
+   data={sizes}
+    />:
+  <div style={{
+    display:lod?'flex':'none' ,
+    alignItems:"center",
+    justifyContent:"center"
+  }}>
+  <div style={{zIndex:10}}>
+        <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+        </div>
+  </div>
+}
+
 </div>
-<br/>
-<div > 
-<table style={{width:"100%"}}>
-<tr style={{textAlign:"left",marginBottom:20}}>
-    <th>Size Name (English)</th>
-    <th>Size Name (Arabic)</th>
-    <th> Size icon</th>
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
-<br/>
-{sizes&&sizes.map((size,index)=>(
-<tr  style={{textAlign:"left",padding:5, backgroundColor:index%2==0?"lightgray":"white"  }}>
-    <th style={{padding:15}} >  {size.attributes.name_en}</th>
-    <th  style={{padding:15}} > {size.attributes.name_ar}</th>
-    <th  style={{padding:15}}> {size.attributes.icon}</th>
-    <th  style={{padding:15}}>
-      <div onClick={()=>{props.setpage(16,size.id)}}  style={{color:"white",backgroundColor:Theme.secondary,padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaEdit  />
-</div>
-</th>
-    <th>
-    <div onClick={()=>{deleteEntry(size.id)}} style={{color:"white",backgroundColor:"#ff2e2e",padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaTimes  />
-</div>
-</th>
-  </tr>
-))}
-</table>
-</div>
-</div>
+
 
       
     </div>

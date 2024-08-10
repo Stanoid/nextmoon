@@ -19,8 +19,8 @@ function InputEl(props) {
         {props.data&&props.data.map((datum,index)=>(
 
 <option  value={datum.id} key={index}>
- { props.iscats?datum.name_en + " / ":datum.attributes.name_en }  
-   { props.iscats?datum.catagory&&datum.catagory&&datum.catagory.name_en :"" } 
+ { props.iscats?datum.name_ar + " / ":datum.attributes.name_ar }  
+   { props.iscats?datum.catagory&&datum.catagory&&datum.catagory.name_ar :"" } 
 </option>
 ))}
         </select>

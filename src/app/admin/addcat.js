@@ -10,7 +10,7 @@ import { TiThMenu } from "react-icons/ti";
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
 import { AuthCon } from '../contexts/AuthCon';
-
+import TableComp from "../comps/sandbox/table"
 
 
 function AddCat(props) {
@@ -19,7 +19,8 @@ function AddCat(props) {
 
     const [namear,setNamear] = useState("");
     const [nameen,setNameen] = useState("");
-    const [sicon,setSicon] = useState("");
+    const [cats,setCats] = useState(null);
+    const [cat,setCat] = useState(null);
     const [sizes,setSizes] = useState([]);
 
 
@@ -28,7 +29,10 @@ function AddCat(props) {
 
 
     useEffect(() => {
-    getCats();
+
+
+      getSections();
+    
    
     }, [])
     
@@ -47,9 +51,10 @@ function AddCat(props) {
     
     
         
-        const getCats=()=>{
-         
-    
+        const getSections=()=>{
+        
+          props.setLod(true);
+      
              
         const requestOptions = {
           method: 'GET',
@@ -60,19 +65,65 @@ function AddCat(props) {
         
       };
     
-        fetch(`${API_URL}catagories`, requestOptions)
+        fetch(`${API_URL}sections`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            
-           setSizes(data.data);
+          setCats(data.data)
           }).then(()=>{
-         
-          
+            
+          getCats();
           })
     
     
         }
 
+
+
+        const getCats=()=>{
+        
+          props.setLod(true)
+      
+             
+        const requestOptions = {
+          method: 'GET',
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": 'Bearer ' + ls.get("atkn")
+          },
+        
+      };
+    
+        fetch(`${API_URL}catagories?populate=section`, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+         
+        //  console.log(data)
+            let arr = [];
+            for (let i = 0; i < data.data.length; i++) {
+              let ob = {};
+             ob.id = data.data[i].id
+              ob.name_ar = data.data[i].attributes.name_ar;
+              ob.name_en = data.data[i].attributes.name_en;  
+              ob.section = data.data[i].attributes.section.data.attributes.name_ar;
+              ob.createdAt = data.data[i].attributes.createdAt;
+   
+              arr.push(ob) 
+             // console.log("rrrr",ob)
+             
+            }
+   
+            return arr
+            
+         
+          }).then((arr)=>{
+            setSizes(arr)
+            
+            props.setLod(false);
+          
+          })
+    
+    
+        }
 
         const deleteEntry=(id)=>{        
           const requestOptions = {
@@ -132,7 +183,7 @@ function AddCat(props) {
     }
   
    }else{
-  setLogged(0);
+  //setLogged(0);
   router.push("/login")
 
    }
@@ -148,7 +199,8 @@ function AddCat(props) {
 
 
 
-  if(namear==""||nameen==""){
+
+  if(namear==""||nameen==""||cat==null){
     alert("Empty Feilds")
     return;
   }
@@ -170,7 +222,7 @@ function AddCat(props) {
                 
                     "name_ar":namear,
                     "name_en":nameen,
-                  
+                    "section":cat,
                     "status": true            
              
                   }
@@ -183,7 +235,7 @@ function AddCat(props) {
             .then((data) => {
               
              getCats();
-             alert("size added")
+           //  alert("size added")
 
               setlod(false);
             }).then(()=>{
@@ -224,12 +276,13 @@ function AddCat(props) {
 
 
 
-   <div style={{
-    width:"70%",
+<div style={{
+    width:"100%",
 display:"grid",
 gap:10,
 gridTemplateAreas:`
 ' namear  namear  nameen nameen  ' 
+' section  . . .   ' 
 
 
 `
@@ -238,13 +291,30 @@ gridTemplateAreas:`
 
 
     <div style={{gridArea:"namear"}}>
-      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"Category name (Arabic)"}/>
+      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"إسم الفئة (العربية)"}/>
     </div>
 
     <div style={{gridArea:"nameen"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"Category name (English)"}/>
+      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"إسم الفئة (الإنجليزية)"}/>
+    </div>
+    
+    
+    <div style={{gridArea:"section"}}>
+    
+    <InputEl
+            value={cat}
+            outputfunc={(val) => {
+              setCat(val);
+            }}
+            iden={"color"}
+            data={cats}
+            select={true}
+            label={"القسم"}
+          />
+
     </div>
 
+ 
 
 
 
@@ -253,50 +323,55 @@ gridTemplateAreas:`
 
    </div>
 
+
+  
+
   
 
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Add Category"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"إضافة الفئة "} />
 </div>
 
 
-<div className='shadow-md' style={{marginTop:20,width:"70%",padding:10,borderRadius:10}}>
-<div style={{color:Theme.primary,fontSize:25,fontWeight:"bold"}}>
-Added Categories:
-</div>
-<br/>
-<div > 
-<table style={{width:"100%"}}>
-<tr style={{textAlign:"left",marginBottom:20}}>
-    <th>Category Name (English)</th>
-    <th>Category Name (Arabic)</th>
+
+<div  className='mt-12 w-full' >
+
+
+{
+  sizes?<TableComp
+
+
+
+  columns={
+    [
+      {name: "ID", uid: "id", sortable: true},
+      {name: "الإسم (العربية)", uid: "name_ar", sortable: true},
+      {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
+      {name: "القسم", uid: "section", sortable: true},
+    
+      {name: "الخيارات", uid: "createdAt"},
+    ]
+   }
    
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
-<br/>
-{sizes&&sizes.map((size,index)=>(
-<tr  style={{textAlign:"left",padding:5, backgroundColor:index%2==0?"lightgray":"white"  }}>
-    <th style={{padding:15}} >  {size.attributes.name_en}</th>
-    <th  style={{padding:15}} > {size.attributes.name_ar}</th>
-   
-    <th  style={{padding:15}}>
-      <div  onClick={()=>{props.setpage(18,size.id)}}  style={{color:"white",backgroundColor:Theme.secondary,padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaEdit  />
+   data={sizes}
+    />:
+  <div style={{
+    display:lod?'flex':'none' ,
+    alignItems:"center",
+    justifyContent:"center"
+  }}>
+  <div style={{zIndex:10}}>
+        <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+        </div>
+  </div>
+}
+
+
 </div>
-</th>
-    <th  style={{padding:15}} >
-    <div onClick={()=>{deleteEntry(size.id)}} style={{color:"white",backgroundColor:"#ff2e2e",padding:5,borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-  <FaTimes  />
-</div>
-</th>
-  </tr>
-))}
-</table>
-</div>
-</div>
+
+
 
       
     </div>

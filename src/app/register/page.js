@@ -6,7 +6,8 @@ import {  toast,ToastContainer } from 'react-toastify'
 import { API_URL } from '../local'
 import InputEl from '../comps/inputel'
 import { useRouter } from 'next/navigation';
-import { FaArrowAltCircleLeft,FaArrowCircleLeft,FaArrowCircleRight, FaCheckCircle } from 'react-icons/fa'
+import { FaArrowCircleLeft, FaCheckCircle } from 'react-icons/fa'
+import { FaFacebook,FaInstagram,FaXTwitter,FaGoogle } from 'react-icons/fa6'
 import LoadingBtn from '../comps/loadingbtn'
 
 import { Theme } from '../local'
@@ -206,7 +207,8 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
   }
 
     return (
-        <div style={{backgroundSize:20}} className="w-full sm:w-full h-full flex min-h-screen  bg-[url('../../public/amblemblack.svg')] bg-moon-200" >  
+        <div style={{backgroundSize:50}} className="w-full sm:w-full mt-16 h-full flex min-h-screen 
+         bg-[url('../../public/amblemblack.svg')] bg-white" >  
      
            <ToastContainer  limit={3}/>
 
@@ -218,7 +220,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
         
 
     {/* Old signup stepper */}
-<div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-5 my-3 transition-all" style={{zIndex:100,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+<div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-5 my-3 transition-all" style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 <h1 className="text-center text-2xl font-semibold text-moon-300">تسجيل حساب</h1>
 <div className='transition-all' style={{display:"flex",justifyContent:"space-between",alignItems:"center",
   marginTop:10,padding:5,width:"100%"}}>
@@ -274,6 +276,8 @@ gridTemplateAreas:`
 'code code phone phone phone'
 'pass pass pass pass pass'
 'confirm confirm confirm confirm confirm'
+'soc soc soc soc soc '
+
 
 `
 
@@ -304,7 +308,17 @@ gridTemplateAreas:`
       <InputEl  outputfunc={(val)=>{setcpass(val)}} ispass label={"تأكيد كلمة المرور"}/>
     </div>
 
+
+    <div className='my-3' style={{gridArea:"soc"}}>
+     <div className='text-center my-1 '>التسجيل بواسطة</div> 
+   <div className='flex space-x-3 text-2xl flex-row items-center justify-center' >
+   <FaFacebook className='text-[#3E5C9A]' />
+   <FaInstagram className='text-[#C84278]' />  
+   <FaXTwitter/>
+   <FaGoogle className='text-[#DF4B38]' />
+   </div>
   
+    </div>
   
 
    </div>
