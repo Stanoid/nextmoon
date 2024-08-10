@@ -11,7 +11,7 @@ function CatDrop(props) {
     <DropdownTrigger>
       <Button
       
-        className=" font-medium min-w-36 hover:shadow-md transition-shadow"
+        className=" font-medium min-w-28 sm:min-w-28 lg:min-w-36 hover:shadow-md transition-shadow"
         endContent={ <div className='text-moon-200' ><FaCircleDot/></div> }
       
         size="lg"
