@@ -154,13 +154,13 @@ setLod(false)
 
 
 {
-  !lod?<div  className="p-0 m-0">
+  !lod?<div  className=" px-1 sm:px-1 lg:px-6 m-0">
     
  
 <div className="  grid  lg:gap-x-1 lg:gap-y-2 xl:gap-x-2 xl:gap-y-2 md:gap-x-4 md:gap-y-4 gap-x-0 gap-y-0 my-6
   xl:grid-cols-6
    md:grid-cols-4 
-   grid-cols-2  " style={{width:"100vw"}}>
+   grid-cols-2  " >
 
 
   {products&&products.map(product=>(
@@ -198,11 +198,11 @@ product.status?
 }
 
 
-
-<div className="w-full flex flex-col align-middle h-fit justify-center bg-gradient-to-b from-moonsec-100/90 to-moonsec-100/30 py-4">
-<div className="p-6">
-<h5 className="text-2xl font-black text-right tracking-normal text-white ">عروض سريعة</h5>
-<p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/65 ">
+<div style={{backgroundSize:50}} className="bg-[url('../../public/amblemblack.svg')]  ">
+<div className="w-full flex flex-col align-middle h-fit justify-center bg-gradient-to-b from-moonsec-100/60 to-moonsec-100/30 py-4">
+<div className="p-6 my-6">
+<h5 className="text-2xl font-black text-center tracking-normal text-white ">عروض سريعة</h5>
+<p className="text-center py-1 font-semibold tracking-tight leading-tight text-moon-300/65 ">
 تخفيضات تصل إلى 50% على مختلف الفئات و لفترة محدودة
 </p>
 </div>
@@ -211,7 +211,7 @@ product.status?
 </div>
 
 </div>
-
+</div>
 
 
 <div className=" to-moonsec-200/20 from-moonsec-100/30 py-6">

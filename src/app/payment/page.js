@@ -14,15 +14,9 @@ function AccounteEl() {
     const router = useRouter(); 
     const [page,setPage] = useState(1) 
 
-    // useEffect(() => {
-    //   ls.set("atkn", "");
-
-    //   router.push("/")
-
-
-   
-  
-    // }, [])
+    useEffect(() => {
+      ls.set("MinimoonCart", "");
+    }, [])
 
 
   return (

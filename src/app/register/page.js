@@ -223,7 +223,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
 <div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-5 my-3 transition-all" style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 <h1 className="text-center text-2xl font-semibold text-moon-300">تسجيل حساب</h1>
 <div className='transition-all' style={{display:"flex",justifyContent:"space-between",alignItems:"center",
-  marginTop:10,padding:5,width:"100%"}}>
+  marginTop:10,padding:5,width:"100%",zIndex:2}}>
   <div className='transition-all' style={{width:40,height:40,borderRadius:100,backgroundColor:type>=0?Theme.secondary:"#e5e7eb",display:"flex",justifyContent:"center",alignItems:"center"}} >
     <span style={{fontSize:15,color:"white"}}>1</span>
   </div>
@@ -241,7 +241,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
 
 </div>
 
-<div  style={{width:"90%",marginTop:-28,height:6,alignSelf:"center",zIndex:-1,backgroundColor:"#e5e7eb"}}>
+<div  style={{width:"90%",marginTop:-28,height:6,alignSelf:"center",zIndex:0,backgroundColor:"#e5e7eb"}}>
   <div className='transition-all'  style={{backgroundColor:Theme.secondary,width:type*50+"%",height:"100%"}}>
 
   </div>

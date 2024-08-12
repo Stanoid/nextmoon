@@ -85,7 +85,7 @@ function AddProduct(props) {
         .post(`${API_URL}upload`, postData)
         .then((response) => {
           const imageId = response.data[0].id;
-
+        
         
 
           tmepar[i] = response.data[0].url;
@@ -388,7 +388,7 @@ function AddProduct(props) {
           <div class="w-full">
             <form onSubmit={handleSubmit} id="imgForm">
               <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                class="block uppercase tracking-wide text-moon-200/80 text-xs font-bold mb-2"
                 for="grid-last-name"
               >
                 الصور

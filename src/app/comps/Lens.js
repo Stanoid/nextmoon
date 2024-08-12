@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
 import { IMG_URL, Theme } from "../local";
 import { motion } from "framer-motion";
-
+import Image from "next/image";
 
 const GlobalStyles = createGlobalStyle`
   #root {
@@ -58,9 +58,6 @@ function Lens(props) {
      <GlobalStyles />
       <div className=" w-full flex flex-col-reverse sm:flex-col-reverse lg:flex-row  ">
        
-       
-       
-       
         <div  style={{
             
             maxWidth:"100%",
@@ -69,15 +66,11 @@ function Lens(props) {
         }} className=" scrollable-content flex flex-row sm:flex-row lg:flex-col space-x-2 lg:space-x-0 sm:space-x-2  lg:space-y-2  ">
        
 
-
        {props.data&&props.data.map((img,index)=>(
- 
- <img
- className=" w-20  rounded-md  object-cover"
- src= {IMG_URL.concat(img)}
- alt="A placeholder"
- onClick={() => handleClick(IMG_URL.concat(img))}
-/>
+ img?
+ <div className="w-14 h-14  relative cursor-pointer" >  
+  <Image quality={40} objectFit="cover" className="rounded-md shadow-sm" fill onClick={() => handleClick(IMG_URL.concat(img))} src= {IMG_URL.concat(img)}  />
+ </div>:<></>
 
  
     ))}
@@ -101,15 +94,15 @@ function Lens(props) {
       onTouchEnd={()=>{setZoomv(false)}}
        
        
-          style={{backgroundColor:zoomv?Theme.primaryLight:"",color:zoomv?"":Theme.primaryLight,WebkitUserSelect:"none",zIndex:zoomv?30:0}}
+          style={{backgroundColor:zoomv?Theme.primary:"",color:zoomv?"":Theme.primary,WebkitUserSelect:"none",zIndex:zoomv?30:0}}
            
-          className={`${zoomv?"w-full":"w-52"}  font-medium  lg:w-1/2 transition-width duration-75 tracking-tight italic  group touch-none mb-2 rounded-md    ml-0 lg:ml-2 sm:ml-0  `}>
+          className={`${zoomv?"w-full":"w-52"}  font-medium  lg:w-1/2 transition-width min-h-80 duration-75 tracking-tight italic  group touch-none mb-2 rounded-md    ml-0 lg:ml-2 sm:ml-0  `}>
       <ImageZoom
            className={`${zoomv?"rounded-b-none":""} FullImageZoom rounded-md     `}
         
           src={galleryImage}
           alt="A image to apply the ImageZoom plugin"
-          zoom="700"
+          zoom="600"
         />
 
 

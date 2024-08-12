@@ -7,6 +7,7 @@ import { useState,useRef,useEffect,useContext } from "react";
 import { useRouter } from "next/navigation";
 import { FaSlack } from "react-icons/fa6";
 import ProductCopm from "../comps/product";
+import Image from "next/image";
 import HorDiv from "../comps/hordiv";
 const Slider = dynamic(() => import("../comps/mainSlider"));
 export default function Home() {
@@ -98,14 +99,23 @@ fetch(`${API_URL}products?func=getProductswithCatid&cid=${getQueryVariable("cid"
       ,alignItems:"center",flexDirection:'column',marginTop:8,width:'100%'}}>
   
   
-  <div  className="w-full py-2 space-x-2 mt-12 overflow-x-hidden flex items-center justify-center ">
+  <div  className="w-full py-2  mt-12 overflow-x-hidden flex items-center justify-center ">
 
   {products&&products.map(prd=>(
 
-<div onClick={()=>{router.push(`/subcatagories?sid=${prd.id}`)}} className="shadow-md min-w-28 w-28 mx-3 rounded-sm hover:scale-105  hover:shadow-medium cursor-pointer  transition-all " > 
+<div onClick={()=>{router.push(`/subcatagories?sid=${prd.id}`)}} className="shadow-md min-w-28 w-28 lg:w-40 lg:min-w-40 mx-1.5 sm:mx-1.5 lg:m-2
+ rounded-sm hover:scale-105  hover:shadow-medium cursor-pointer  transition-all " > 
 
-<img className="w-full" src={prd.img&&IMG_URL.concat(prd.img.formats.medium.url)} / >
-<div className="py-2 flex items-center  justify-center text-sm  ">
+
+
+<div className='w-28 h-28  lg:w-40 lg:h-40  relative ' >
+       
+      
+       <Image quality={20} objectFit="cover" className="rounded-md rounded-b-none" fill  src={prd.img&&IMG_URL.concat(prd.img.formats.medium.url)} />
+      
+         </div>
+
+<div className="py-2 w-28 sm:w-28  lg:w-40  flex items-center rounded-b-md justify-center text-sm  ">
   {prd.name_ar}
 </div>
    </div>
@@ -124,7 +134,7 @@ fetch(`${API_URL}products?func=getProductswithCatid&cid=${getQueryVariable("cid"
 
 <div className="w-full  px-0 sm:px-0 ">
 <div className="my-2 px-2 text-right text-moon-300 font-bold text-xl " >
-  {sub.name_ar} :
+: {sub.name_ar}
 </div>
 
 {index%2==0?<div className=" px-0 sm:px-0 lg:px-2  grid w-full lg:gap-x-1 lg:gap-y-2 xl:gap-x-2 xl:gap-y-2

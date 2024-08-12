@@ -88,11 +88,11 @@ html{
 
 .scrollable-content {
    /* height: 150px; */
-   display:"none"
+   /* display:"none" */
  }
  
  .scrollable-content::-webkit-scrollbar {
-   display: none;
+   /* display: none; */
  }
 
 

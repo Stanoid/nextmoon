@@ -273,7 +273,7 @@ for (let i = 0; i < vrs.length; i++) {
    
       }}
     >
-      <div className=" w-full">
+      <div className=" w-full px-2">
         <span
 
           style={{
@@ -289,6 +289,7 @@ for (let i = 0; i < vrs.length; i++) {
         
         </span>
         <div
+        className=''
           style={{
             display: "flex",
       alignItems:"center",

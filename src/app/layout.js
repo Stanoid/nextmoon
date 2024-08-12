@@ -160,7 +160,7 @@ if(el.target.value.length<3){
           backgroundSize:20,top:0,zIndex:15}} >
         <NavbarC rel={false} cat={cat} openCart={(t)=>{handleOpenCart(t)}}  openFav={handleOpenCartl}  />
         <div style={{maxWidth:"100%",overflowX:"scroll"}} className=" text-moon-300 text-md whitespace-nowrap  font-medium  transition-colors  py-0.5 w-full
-          space-x-4 flex mt-1 pb-2
+          space-x-2 flex mt-1 pb-2
         flex-row-reverse scrollable-content  justify-center items-center  ">
         
         <div className=" mx-3   cursor-pointer border-b-4 border-moon-200/60 text-moon-200 pb-0.5 " > الرئيسية </div>
