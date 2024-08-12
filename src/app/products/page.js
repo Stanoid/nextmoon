@@ -463,8 +463,9 @@ for (let i = 0; i < vrs.length; i++) {
        
         title="وصف المنتج"
       >
-        {defaultContent}
-      </AccordionItem>
+          {db&&db.attributes.description_ar}
+        
+       </AccordionItem>
 
       <AccordionItem
         key="2"

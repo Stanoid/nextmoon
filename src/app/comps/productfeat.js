@@ -39,7 +39,7 @@ gap:8,
 
 
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"nameen"}}>
-    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob3.jpg'/>
+    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full' src='https://miniback-ec254e66064d.herokuapp.com/uploads/34962_26_e93363706d.JPG'/>
    <div className='text-center  text-sm mt-2' >
    منتجات أطفال
     <div className='text-moon-200/80' >
@@ -50,7 +50,7 @@ gap:8,
 
 
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"sicon"}}>
-    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full' src='https://miniback-ec254e66064d.herokuapp.com/uploads/34993_1_fb27517586.JPG'  />
    <div className='text-center text-sm mt-2' >
    منتجات أناقة
     <div className='text-moon-200/80' >
@@ -97,7 +97,7 @@ gap:8,
 
 
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"nameen"}}>
-    <img className='rounded-md -md w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob3.jpg'  />
+    <img className='rounded-md -md w-3/4 sm:w-3/4 lg:w-full' src='https://miniback-ec254e66064d.herokuapp.com/uploads/34890_3_150e72133d.JPG'  />
    <div className='text-center  text-sm mt-2' >
    منتجات أطفال
     <div className='text-moon-200/80' >
@@ -108,7 +108,7 @@ gap:8,
 
 
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"sicon"}}>
-    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='https://miniback-ec254e66064d.herokuapp.com/uploads/34993_1_fb27517586.JPG'  />
    <div className='text-center text-sm mt-2' >
    منتجات أناقة
     <div className='text-moon-200/80' >
@@ -388,7 +388,7 @@ gap:8,
     </div>
 
     <div className=' flex flex-col justify-center items-center sm:items-center lg:items-start '  style={{gridArea:"nameen"}}>
-    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob3.jpg'  />
+    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='https://miniback-ec254e66064d.herokuapp.com/uploads/34890_1_39b42e7c2d.JPG'  />
    <div className='text-right text-md px-4 font-semibold  my-4 ' >
     إسم الفئة | <span className='text-moon-200' >التاريخ</span>
     <div className='text-moon-300/70 leading-tight font-medium text-justify mt-1' >
@@ -398,7 +398,7 @@ gap:8,
     </div>
 
     <div className=' flex flex-col justify-center items-center sm:items-center lg:items-start '  style={{gridArea:"sicon"}}>
-    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='https://miniback-ec254e66064d.herokuapp.com/uploads/34017_4_930c7dc357.JPG'  />
     <div className='text-right text-md px-4 font-semibold  my-4 ' >
     إسم الفئة | <span className='text-moon-200' >التاريخ</span>
     <div className='text-moon-300/70 leading-tight font-medium text-justify mt-1' >
