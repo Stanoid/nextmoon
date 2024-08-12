@@ -164,11 +164,15 @@ if(el.target.value.length<3){
         flex-row-reverse scrollable-content  justify-center items-center  ">
         
         <div className=" mx-3   cursor-pointer border-b-4 border-moon-200/60 text-moon-200 pb-0.5 " > الرئيسية </div>
-        
+    
+   <div className="blok sm:block lg:hidden "  >
+    <div className="w-32"></div>
+    </div>    
      
 
         {cat&&cat.map(ct=>(
     
+
     <CatDrop data={ct}  lable={ct.name_ar}/>
     ))}
          <a href="/about" >
