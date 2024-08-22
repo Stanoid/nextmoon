@@ -5,7 +5,7 @@ import { Theme ,API_URL} from '../local';
 import TableComp from '../comps/sandbox/table';
 import DeliveryPopup from '../comps/deliveryPopup';
 import { useRouter } from 'next/navigation';
-
+import { useSelector } from 'react-redux';
 
 
 function Orders(props) {
@@ -20,7 +20,7 @@ function Orders(props) {
     const router = useRouter(); 
     const [ordata,setOrdata] = useState(null)
     const [lod,setlod] = useState(false)
-
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
     
 
     useEffect(() => {
@@ -42,7 +42,7 @@ function Orders(props) {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
-            "Authorization": 'Bearer ' + ls.get("atkn")
+            "Authorization": 'Bearer ' + udata.jwt
         },
       
     };
@@ -76,7 +76,7 @@ function Orders(props) {
 //    method: 'POST',
 //    headers: {
 //        "Content-Type": "application/json",
-//        "Authorization": 'Bearer ' + ls.get("atkn")
+//        "Authorization": 'Bearer ' + udata.jwt
 //    },  body: JSON.stringify(
 //     {
 //         "id": id,
@@ -106,7 +106,7 @@ function Orders(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
+              "Authorization": 'Bearer ' + udata.jwt
           },
         
       };
@@ -135,7 +135,7 @@ function Orders(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
+          "Authorization": 'Bearer ' + udata.jwt
       },
     
   };
@@ -190,7 +190,7 @@ function Orders(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
             body: JSON.stringify(
                 {
@@ -238,7 +238,7 @@ setlod(true);
       method: 'POST',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
+          "Authorization": 'Bearer ' + udata.jwt
       },
       body: JSON.stringify(
         {

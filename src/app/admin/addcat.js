@@ -11,6 +11,7 @@ import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
 import { AuthCon } from '../contexts/AuthCon';
 import TableComp from "../comps/sandbox/table"
+import { useSelector } from 'react-redux';
 
 
 function AddCat(props) {
@@ -22,6 +23,7 @@ function AddCat(props) {
     const [cats,setCats] = useState(null);
     const [cat,setCat] = useState(null);
     const [sizes,setSizes] = useState([]);
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
 
     const router = useRouter(); 
@@ -60,7 +62,7 @@ function AddCat(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
+              "Authorization": 'Bearer ' + udata.jwt
           },
         
       };
@@ -88,7 +90,7 @@ function AddCat(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
+              "Authorization": 'Bearer ' + udata.jwt
           },
         
       };
@@ -130,7 +132,7 @@ function AddCat(props) {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
           
         };
@@ -159,7 +161,7 @@ function AddCat(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
+          "Authorization": 'Bearer ' + udata.jwt
       },
     
   };
@@ -215,7 +217,7 @@ function AddCat(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
             body: JSON.stringify(
                 {

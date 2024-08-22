@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic';
 import { AuthCon } from '../contexts/AuthCon';
 import { FaBox, FaCreditCard, FaHeart, FaListCheck, FaLock, FaPowerOff, FaRecycle, FaUser } from 'react-icons/fa6';
 import { FaHome } from 'react-icons/fa';
-
+import { useSelector } from 'react-redux';
 const Orders = dynamic(() => import('./orders'))
 const Favo = dynamic(() => import('./favo'))
 const UserData = dynamic(() => import('./userData'))
@@ -20,30 +20,24 @@ const PaymentMeth = dynamic(() => import('./paymentmeth'))
 
 function AccounteEl() {
     const ls = require("local-storage")
-    const {getLoginData,logoutUser,loginval}  = useContext(AuthCon);
+
     const router = useRouter(); 
     const [page,setPage] = useState(1) 
     const [lod,setLod] =useState(true)
-    
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
     useEffect(() => {
-     //loginval();
-   
-     console.log(loginval());
+   loginval();  
   
     }, [])
 
 
 
-    
-
-    async function loginvalHandler(){
+   
+    const loginval = ()=>{
+      if(udata.user.type!=4){router.push("/login")}
+      //console.log(utype)
+         }
       
-      loginval.then(function(result) {
-       
-    });
-    }
- 
-    
 
 
 
@@ -82,8 +76,8 @@ function AccounteEl() {
 
 <div >
 <User   
-      name="لينا سامر"
-      description="janeDoe@gmail.com"
+      name={udata.user.username}
+      description={udata.user.email}
       avatarProps={{
         className:"bg-moon-200 font-bold text-white"
       }}

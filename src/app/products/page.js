@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { API_URL, ROOT_URL, CURRENCY, Theme,IMG_URL,DEF_IMG } from "../local";
 import QuantEl from "../comps/quantel";
 import { BsHeartFill,BsCartPlusFill } from 'react-icons/bs';
-
+import { useDispatch,useSelector } from 'react-redux';
 import Lens from "../comps/Lens"
+
+import { addToCart,removeFromCart } from '../lib/actions/counterAction';
 import { Flip, Slide, toast, ToastContainer } from "react-toastify";
 import { CartCon, CartContext } from "../contexts/cartContext";
 import OptionEL from "../comps/optionEL";
@@ -38,7 +40,8 @@ export default function Product({}) {
   const [mimg,setmimg] = useState();
   const [imgs,setImgs]=useState([]);
   const defaultContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-
+  const cart = useSelector((state) => state)
+  const dispatch = useDispatch();
   
 
   useEffect(() => {
@@ -147,22 +150,27 @@ for (let i = 0; i < vrs.length; i++) {
 
 
 
-  const { cartData, addToCart, addTofav, favData, useNotifi, removeFromFav } =
+  const { cartData, addTofav, favData, useNotifi, removeFromFav } =
     useContext(CartCon);
 
   const HandleAddToCart = () => {
-   
-      addToCart({ 
-        data: db, 
-        selvar: selectedV, 
-        product_ref:pref,
-        qty: qty, 
-      });
+   dispatch(addToCart({ 
+    data: db, 
+    selvar: selectedV, 
+    product_ref:pref,
+    qty: qty, 
+  }))
+     
    //   
       useNotifi("success", "تمت إضافة المنتج إلى السلة");
   
   };
 
+
+  const handleRemoveCart = ()=>{
+    dispatch(removeFromCart(selectedV));
+    useNotifi("success", " Done");
+  }
 
 
 
@@ -448,6 +456,13 @@ for (let i = 0; i < vrs.length; i++) {
                 <BsCartPlusFill />
               </div>
             </div>
+
+            {/* <div onClick={()=>{console.log(cart)}} className='w-8 h-8 bg-red-800 text-white rounded-sm shadow-md '>
+              cart
+            </div>
+            <div onClick={()=>{handleRemoveCart()}} className='w-8 h-8 bg-red-800 text-white rounded-sm shadow-md '>
+              remove from cart 
+              </div> */}
           </div>
             
 

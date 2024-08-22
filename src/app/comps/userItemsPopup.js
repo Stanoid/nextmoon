@@ -9,14 +9,14 @@ import {CartCon} from '../contexts/cartContext'
 import { useRouter } from 'next/navigation'
 import { API_URL,Theme,CURRENCY,IMG_URL } from '../local'
 import { forwardRef  } from "react"
-
+import { useSelector } from 'react-redux'
 const ItemsPopup = forwardRef((props, ref) => {
   const [lod,setLod]=useState(0);
   const router = useRouter();
 const  ls = require('local-storage');
   const [odate,setOdate]=useState(0);
  const [orderItems,setOrderitems] = useState({data:[]});
-
+ const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
   useEffect(()=>{
 setOrderitems({data:[]})
    getOrderItems();
@@ -55,7 +55,7 @@ const getOrderItems= ()=>{
   method: 'POST',
   headers: {
     "Content-Type": "application/json",
-    "Authorization": 'Bearer ' + ls.get("atkn")
+    "Authorization": 'Bearer ' + udata.jwt
 },
   body: JSON.stringify({
      id: props.data&&props.data.refId,
@@ -114,7 +114,7 @@ const handleOrderDelivery = ()=>{
    method: 'POST',
    headers: {
        "Content-Type": "application/json",
-       "Authorization": 'Bearer ' + ls.get("atkn")
+       "Authorization": 'Bearer ' + udata.jwt
    },  body: JSON.stringify(
     {
         "id": props.data&&props.data.id,

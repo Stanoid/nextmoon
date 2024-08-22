@@ -8,6 +8,7 @@ import axios from "axios";
 
 import { useRouter } from "next/navigation";
 import { TiThMenu } from "react-icons/ti";
+import { useSelector } from "react-redux";
 import OptionELEdit from "../comps/optionELedit";
 import LoadingBtn from "../comps/loadingbtn";
 import { FaTimes, FaEdit,FaTrash,FaPlus } from "react-icons/fa";
@@ -23,7 +24,7 @@ function EditProduct(props) {
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [cats, setCats] = useState([]);
-
+  const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
   const [namear, setNamear] = useState("");
   const [nameen, setNameen] = useState("");
   const [descar, setDescar] = useState("");
@@ -190,7 +191,7 @@ return;
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + udata.jwt,
       },
     };
     fetch(`${API_URL}products/${props.pid}?func=getFullProduct`, requestOptions)
@@ -237,7 +238,7 @@ props.setLod(true);
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + udata.jwt,
       },
     };
 
@@ -257,7 +258,7 @@ props.setLod(true);
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + udata.jwt,
       },
     };
 
@@ -277,7 +278,7 @@ props.setLod(true);
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: "Bearer " + ls.get("atkn"),
+        // Authorization: "Bearer " + udata.jwt,
       },
     };
 
@@ -338,7 +339,7 @@ props.setLod(true);
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + ls.get("atkn"),
+          Authorization: "Bearer " + udata.jwt,
         },
         body: JSON.stringify({
           nameen: nameen,

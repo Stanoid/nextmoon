@@ -7,7 +7,7 @@ import TableComp from '../comps/sandbox/table';
 import { useRouter } from 'next/navigation'
 import ItemsPopup from "../comps/userItemsPopup"
 import { AuthCon } from '../contexts/AuthCon';
-
+import { useSelector } from 'react-redux';
 
 
 function Orders(props) {
@@ -23,7 +23,7 @@ function Orders(props) {
     const router = useRouter(); 
     const [ordata,setOrdata] = useState(null)
     const [lod,setlod] = useState(false)
-
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
     
 
     useEffect(() => {
@@ -45,7 +45,7 @@ function Orders(props) {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
-            "Authorization": 'Bearer ' + ls.get("atkn")
+            "Authorization": 'Bearer ' + udata.jwt
         },
       
     };
@@ -101,175 +101,12 @@ function Orders(props) {
  }
 
         
-        const getcolors=()=>{
-         
-    
-             
-        const requestOptions = {
-          method: 'GET',
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
-          },
-        
-      };
-    
-        fetch(`${API_URL}colors`, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            
-           setcolors(data.data);
-          }).then(()=>{
-         
-          
-          })
-    
-    
-        }
-
-    
-
-
-    
-   const loginval = ()=>{
-
-
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
-      },
-    
-  };
-
-    fetch(`${API_URL}users/me`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-
-      
-
-        
-  if(data.id){
-
-  if(data.type==1){
-       
  
-  }else{
+    
 
 
 
-    }
   
-   }else{
-// setLogged(0);
-  router.push("/login")
-
-   }
-    
-     
-      });
-
-  }
-
-
-
- const submitload = ()=>{
-
-
-
-  if(colorCode==""||namear==""||nameen==""){
-    alert("Empty Feilds")
-    return;
-  }
-
-
-        setlod(true);
-
-      
-        
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
-            },
-            body: JSON.stringify(
-                {
-                  "data":{
-                    "name_ar": namear,
-                    "name_en": nameen,
-                    "colorCode":colorCode,
-                    "status": true
-                  }
-                  
-             
-                  }
-              )
-          
-        };
-      
-          fetch(`${API_URL}colors`, requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-              
-             setNamear("");
-             setNameen("");
-             setColorCode("");
-             alert("color added")
-
-              setlod(false);
-            }).then(()=>{
-         
-            
-            })
-      
-
-
-
-    }
-   
-
-
- const expireOrder =(id)=>{
-
-setlod(true);
-
-             
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
-      },
-      body: JSON.stringify(
-        {
-      
-          "id":id,
-     
-          }
-      )
-    
-  };
-
-    fetch(`${API_URL}orders?func=expireOrder`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        
-       getOrders();
-      }).then(()=>{
-     setlod(false)
-      
-      })
-
-
-    }
-
- 
-
-
- 
 
   return (
   

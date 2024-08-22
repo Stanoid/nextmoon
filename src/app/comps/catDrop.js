@@ -2,9 +2,13 @@ import React from 'react'
 import MegaMenu from './megaMenu';
 import redem from "../../../public/logoblack.svg";
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
 import { FaCircleDot, FaVest } from 'react-icons/fa6';
 import {Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
 function CatDrop(props) {
+
+  //const count = useSelector((state) => state.count)
+
   return (
    
     <Dropdown>
@@ -12,7 +16,7 @@ function CatDrop(props) {
       <Button
       
         className=" font-medium min-w-36 hover:shadow-md transition-shadow"
-        endContent={ <div className='text-moon-200' ><FaCircleDot/></div> }
+        endContent={ <div className='text-moon-200' > < FaCircleDot/></div> }
       
         size="lg"
         variant="flat"

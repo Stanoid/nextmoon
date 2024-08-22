@@ -5,7 +5,7 @@ import { useContext,useEffect,useState } from 'react';
 import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic';
-
+import { useSelector } from 'react-redux';
 const Orders = dynamic(() => import('./orders'))
 
 
@@ -17,7 +17,7 @@ function AccounteEl() {
     const {logindata,logoutUser}  = useContext(AuthCon);
     const router = useRouter(); 
     const [page,setPage] = useState(1) 
-
+    const userData = useSelector((state) => state.root.auth.data&&state.root.auth.data)
     useEffect(() => {
      loginval();
    
@@ -47,7 +47,7 @@ function AccounteEl() {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
+          "Authorization": 'Bearer ' + udata.jwt
       },
     
   };

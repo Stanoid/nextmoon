@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { useContext,useEffect,useState } from 'react';
 import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux';
 import { User } from '@nextui-org/react';
 import { FaBox, FaCreditCard, FaHeart, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser } from 'react-icons/fa6';
 import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
@@ -48,71 +49,22 @@ function AccounteEl() {
     const [catid,setCatid] = useState(null);
     const [scatid,setScatid] = useState(null);
     const [lod,setLod] =useState(true)
-
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
     const [userData,setUserdata] = useState(null)
     useEffect(() => {
      loginval();
-   
-  
     }, [])
 
 
 
-    
-
-    async function loginvalHandler(){
-      
-      loginval.then(function(result) {
-       
-    });
-    }
- 
-    
+   
 
 
 
-    
    const loginval = ()=>{
-
-
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
-      },
-    
-  };
-
-    fetch(`${API_URL}users/me`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-
-      
-
-        
-  if(data.id){   
-
-  if(data.type==1){
-       
-  }else{
-
-    router.replace("/login")
-
-
-
-    }
-  
-   }else{
-  setLogged(0);
-  router.push("/login")
-
+if(udata.user.type!=1){router.push("/login")}
+//console.log(utype)
    }
-    
-     
-      });
-
-  }
 
 
 
@@ -181,8 +133,8 @@ bg-[url('../../public/amblemblack.svg')] ">
 
 <div >
 <User   
-  name="لينا سامر"
-  description="janeDoe@gmail.com"
+  name={udata.user.username}
+  description={udata.user.email}
   avatarProps={{
     className:"bg-moon-200 font-bold text-white"
   }}

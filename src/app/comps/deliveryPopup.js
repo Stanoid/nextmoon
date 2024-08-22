@@ -11,7 +11,7 @@ import { Button } from '@nextui-org/react'
 
 import {CartCon} from '../contexts/cartContext'
 import Image from 'next/image';
-
+import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
 
 import { API_URL,Theme,CURRENCY,IMG_URL } from '../local'
@@ -28,6 +28,7 @@ const deliveryPopup = forwardRef((props, ref) => {
 const  ls = require('local-storage');
   const [odate,setOdate]=useState(0);
  const [orderItems,setOrderitems] = useState({data:[]});
+ const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
   useEffect(()=>{
 setOrderitems({data:[]})
@@ -67,7 +68,7 @@ const getOrderItems= ()=>{
   method: 'POST',
   headers: {
     "Content-Type": "application/json",
-    "Authorization": 'Bearer ' + ls.get("atkn")
+    "Authorization": 'Bearer ' + udata.jwt
 },
   body: JSON.stringify({
      id: props.data&&props.data.refId,
@@ -126,7 +127,7 @@ const handleOrderDelivery = ()=>{
    method: 'POST',
    headers: {
        "Content-Type": "application/json",
-       "Authorization": 'Bearer ' + ls.get("atkn")
+       "Authorization": 'Bearer ' + udata.jwt
    },  body: JSON.stringify(
     {
         "id": props.data&&props.data.id,

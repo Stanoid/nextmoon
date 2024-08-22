@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import {  toast,ToastContainer } from 'react-toastify'
 import { API_URL } from '../local'
 import InputEl from '../comps/inputel'
+import { useSelector,useDispatch } from 'react-redux'
+import {login } from "../lib/actions/counterAction"
 import { useRouter } from 'next/navigation';
 import { FaArrowAltCircleLeft,FaArrowCircleLeft,FaArrowCircleRight, FaCheckCircle,FaUserPlus } from 'react-icons/fa'
 import LoadingBtn from '../comps/loadingbtn'
@@ -37,7 +39,8 @@ export default function Register() {
   
  const ls = require("local-storage");
 const router = useRouter();
-
+const sts = useSelector((state) => state)
+const dispatch = useDispatch()
 const {useNotifi } =
 useContext(CartCon);
 
@@ -45,7 +48,7 @@ useContext(CartCon);
 
 useEffect(()=>{
 
-  //getstate();  
+
  
  
  },[])
@@ -54,13 +57,24 @@ useEffect(()=>{
 
 
  const handlelogin=()=>{
- // setLod(1);
- //  
- if(loginUser(email,pass)==0){
- // setLod(0);
- }
-  
- 
+
+  try {
+
+
+    dispatch(login(
+      {
+        "identifier": email,
+        "password": pass,
+      }
+    ))
+    
+  } catch (error) {
+    console.log("error",error)
+  }
+
+
+
+
   
  
  }
@@ -182,6 +196,26 @@ gridTemplateAreas:`
   <motion.div className='flex-grow p-0 sm:px-0 lg:px-3 ' whileTap={{ scale: 1.03 }}>
       <LoadingBtn act={()=>{handlelogin()} } icon={<FaLock  />} text={"تسجيل دخول"} lod={lod} />
       </motion.div>
+
+{/* 
+      <div className='space-x-2'>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(startClock())}
+        >
+          Increment
+        </button>
+
+
+        <button
+          aria-label="Decrement value"
+          onClick={() => console.log(sts)}
+        >
+          Decrement
+        </button>
+      </div> */}
+
+
 
       <motion.div className='flex-grow p-0 sm:px-0 lg:px-3 ' whileTap={{ scale: 1.03 }}>
       <LoadingBtn color={"lightgrey"} act={()=>{router.push("/register")} } textColor={"grey"} icon={<FaUserPlus  />} text={"تسجيل حساب جديد"} />

@@ -10,13 +10,13 @@ import { TiThMenu } from "react-icons/ti";
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
 import { AuthCon } from '../contexts/AuthCon';
-
+import { useSelector } from 'react-redux';
 
 
 function EditSubCat(props) {
     const ls = require("local-storage")
     const {logindata,logoutUser}  = useContext(AuthCon);
-
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
     const [namear,setNamear] = useState("");
     const [nameen,setNameen] = useState("");
     const [sicon,setSicon] = useState("");
@@ -56,7 +56,7 @@ function EditSubCat(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
+              "Authorization": 'Bearer ' + udata.jwt
           },
         
       };
@@ -84,7 +84,7 @@ function EditSubCat(props) {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
           
         };
@@ -113,7 +113,7 @@ function EditSubCat(props) {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
           
         };
@@ -142,7 +142,7 @@ function EditSubCat(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
+          "Authorization": 'Bearer ' + udata.jwt
       },
     
   };
@@ -197,7 +197,7 @@ function EditSubCat(props) {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
             body: JSON.stringify(
                 {

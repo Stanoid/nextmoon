@@ -12,7 +12,7 @@ import LoadingBtn from '../comps/loadingbtn';
 import { AuthCon } from '../contexts/AuthCon';
 import TableComp from "../comps/sandbox/table"
 import { propagateServerField } from 'next/dist/server/lib/render-server';
-
+import { useSelector } from 'react-redux';
 
 function AddSubCat(props) {
     const ls = require("local-storage")
@@ -28,6 +28,7 @@ function AddSubCat(props) {
     const router = useRouter(); 
     const [lod,setlod] = useState(false)
 
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
     useEffect(() => {
     getCats();
@@ -57,7 +58,7 @@ function AddSubCat(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
+              "Authorization": 'Bearer ' + udata.jwt
           },
         
       };
@@ -85,7 +86,7 @@ function AddSubCat(props) {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                // "Authorization": 'Bearer ' + ls.get("atkn")
+                // "Authorization": 'Bearer ' + udata.jwt
             },
           
         };
@@ -130,7 +131,7 @@ function AddSubCat(props) {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
           
         };
@@ -159,7 +160,7 @@ function AddSubCat(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
+          "Authorization": 'Bearer ' + udata.jwt
       },
     
   };
@@ -214,7 +215,7 @@ function AddSubCat(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
             body: JSON.stringify(
                 {

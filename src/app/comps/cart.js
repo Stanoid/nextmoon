@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import Cartel from './cartel'
 import { XIconreact,XIcon } from '@heroicons/react/outline'
 import { BsCartFill } from 'react-icons/bs'
+import { useSelector } from 'react-redux'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import { Button } from '@nextui-org/react'
 import { FaCreditCard, FaLock, FaUser } from 'react-icons/fa6'
@@ -28,45 +29,14 @@ const Cart = forwardRef((props, ref) => {
   const router = useRouter();
 const  ls = require('local-storage');
   const [subtotal,setSubtotal]=useState(0);
- 
+  const cartg = useSelector((state) => state.root.cart.data)
+  const isLogged = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 const [logindata,setLogindata]= useState(null)
 
 
   useEffect(()=>{
-    loginval();
+  
 },[props.open])
-
-
-const loginval = ()=>{
-  setLogindata(null);
-  
-  
-      const requestOptions = {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": 'Bearer ' + ls.get("atkn")
-        },
-      
-    };
-  
-      fetch(`${API_URL}users/me`, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-  
-          if(data.id){
-    
-    setLogindata(data)
-
-   // console.log("aaaaaa",data)
-  }
-
-  
-  
-       
-        });
-  
-    }
 
 
 
@@ -74,31 +44,31 @@ const handleOrder= ()=>{
 
 
   
-  if(ls.get("MinimoonCart").length==0){
+  if(cartg.length==0){
     alert("الرجاء إضافة منتجات")
     return
   }
 
   setLod(true)
   let payarray = []
-  for (let i = 0; i < ls.get("MinimoonCart").length; i++) {
+  for (let i = 0; i < cartg.length; i++) {
     payarray.push({
-      id: ls.get("MinimoonCart")[i].selvar,
-      product_ref:ls.get("MinimoonCart")[i].product_ref,
-      qty: ls.get("MinimoonCart")[i].qty,
-      desc: ls.get("MinimoonCart")[i].data.attributes.description_en 
+      id: cartg[i].selvar,
+      product_ref:cartg[i].product_ref,
+      qty: cartg[i].qty,
+      desc: cartg[i].data.attributes.description_en 
     
     })
   }
 
 
-  
+  console.log(isLogged.jwt);
   
     const requestOptions = {
   method: 'POST',
   headers: {
       "Content-Type": "application/json",
-      "Authorization": 'Bearer ' + ls.get("atkn")
+      "Authorization": 'Bearer ' +  isLogged.jwt
   },
   body: JSON.stringify({
      items: payarray
@@ -107,7 +77,7 @@ const handleOrder= ()=>{
 fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
-    
+    console.log(data)
     setLod(false)
 window.location= data.url;
   }).then(()=>{
@@ -255,7 +225,7 @@ const notify = (type,msg)=>{
                  
       
                       
-               {ls.get("MinimoonCart")&&ls.get("MinimoonCart").length!=0?ls.get("MinimoonCart").map((cart,index)=>(
+               {cartg&&cartg.length!=0?cartg.map((cart,index)=>(
                 
                 <Cartel order={false} 
                 key={index}
@@ -290,10 +260,10 @@ const notify = (type,msg)=>{
 
 
 
-                    <div style={{padding:20, display:ls.get("MinimoonCart")&&ls.get("MinimoonCart").length==0?"none":"flex",
+                    <div style={{padding:20, display:cartg&&cartg.length==0?"none":"flex",
                       alignItems:'center',justifyContent:'center'}}>
 
-                        {logindata?<LoadingBtn  icon={<FaCreditCard className='ml-1.5' />}   act={()=>{
+                        {isLogged?<LoadingBtn  icon={<FaCreditCard className='ml-1.5' />}   act={()=>{
                        handleOrder() ; 
                        }}  text={"متابعة إلى الدفع"} lod={lod} />:<LoadingBtn   icon={<FaLock className='ml-1.5' />}   act={()=>{
                         router.push("/login"); props.openHandler(false); 

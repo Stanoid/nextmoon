@@ -7,6 +7,10 @@ import { NextUIProvider } from "@nextui-org/react";
 import CatDrop from "./comps/catDrop";
 import NavbarC from "./comps/navbar";
 import dynamic from "next/dynamic";
+import {Provider} from "react-redux"
+
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor,store } from "./lib/store";
 import Mob from "../../public/mob.svg";
 const Cartl = dynamic(() => import('./comps/cartl'))
 
@@ -27,7 +31,7 @@ const EnFont = localFont({ src: './styles/fonts/gothambook-webfont.woff2' })
 export default function RootLayout({ children }) {
  
   const router = useRouter();
-
+ 
 
   const [openCart, setOpenCart] = useState(false);
   const [openCartl, setOpenCartl] = useState(false);
@@ -151,6 +155,9 @@ if(el.target.value.length<3){
       </head>
       <body className={ArFont.className} style={{}}>
         <NextUIProvider>
+          <Provider store={store} >
+          <PersistGate loading={null} persistor={persistor}>
+
         <CartContext>
           <AuthenContext>
             <section className="w-full" >
@@ -306,6 +313,8 @@ if(el.target.value.length<3){
          
           </AuthenContext>
         </CartContext>
+  </PersistGate>
+        </Provider>
         </NextUIProvider>
       </body>
     </html>

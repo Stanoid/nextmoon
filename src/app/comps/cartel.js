@@ -1,6 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState,useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import {removeFromCart} from "../lib/actions/counterAction"
+import { useDispatch } from 'react-redux'
 import { XIcon } from '@heroicons/react/outline'
 import { BsChevronDown,BsChevronUp,BsThermometer,BsTrashFill } from 'react-icons/bs'
 import  FaHeartCircleMinus from 'react-icons/fa6'
@@ -16,7 +18,7 @@ import { BsX } from 'react-icons/bs'
 export default function Cartel(props) {
   const [open, setOpen] = useState(true)
   const [varient, setVarient] = useState(true)
-
+ const dispatch = useDispatch();
 
 
 
@@ -108,7 +110,7 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
 
 
       <div
-      onClick={()=>{props.removeItem(props.index)}}
+      onClick={()=>{dispatch(removeFromCart(props.selvar  ))}}
       style={{display:props.order?"none":"flex",alignItems:"center",justifyContent:"center",borderRight:"2px solid lightgrey",paddingRight:10}}>
         <div style={{backgroundColor:"red",padding:2.5,borderRadius:100}}>
         <BsX style={{color:"white",fontSize:25}} />

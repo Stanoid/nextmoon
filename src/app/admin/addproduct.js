@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Theme, API_URL, CURRENCY } from "../local";
 import InputEl from "../comps/inputel";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { TiThMenu } from "react-icons/ti";
 import LoadingBtn from "../comps/loadingbtn";
@@ -33,6 +34,7 @@ function AddProduct(props) {
   const [price, setPrice] = useState(null);
   const [stock, setStock] = useState(null);
   const [lod, setlod] = useState(false);
+  const isLogged = useSelector((state) => state.root.auth.data&&state.root.auth.data)
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
     imgs: "",
@@ -110,7 +112,7 @@ function AddProduct(props) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + isLogged.jwt,
       },
     };
 
@@ -128,7 +130,7 @@ function AddProduct(props) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + isLogged.jwt,
       },
       body: JSON.stringify({
         status: !status,
@@ -151,7 +153,7 @@ function AddProduct(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + isLogged.jwt,
       },
     };
     fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)
@@ -171,7 +173,7 @@ function AddProduct(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + isLogged.jwt,
       },
     };
     fetch(`${API_URL}colors`, requestOptions)
@@ -190,7 +192,7 @@ function AddProduct(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + isLogged.jwt,
       },
     };
 
@@ -231,7 +233,7 @@ function AddProduct(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + isLogged.jwt,
       },
     };
 
@@ -276,7 +278,7 @@ function AddProduct(props) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + ls.get("atkn"),
+          Authorization: "Bearer " + isLogged.jwt,
         },
         body: JSON.stringify({
           nameen: nameen,

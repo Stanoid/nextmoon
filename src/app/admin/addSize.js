@@ -10,7 +10,7 @@ import TableComp from "../comps/sandbox/table"
 import { TiThMenu } from "react-icons/ti";
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
-
+import { useSelector } from 'react-redux';
 import { AuthCon } from '../contexts/AuthCon';
 
 
@@ -24,6 +24,7 @@ function AddSize(props) {
     const [sicon,setSicon] = useState("");
     const [sizes,setSizes] = useState([]);
 
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
     const router = useRouter(); 
     const [lod,setlod] = useState(false)
@@ -57,7 +58,7 @@ function AddSize(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
+              "Authorization": 'Bearer ' + udata.jwt
           },
         
       };
@@ -83,6 +84,7 @@ function AddSize(props) {
          return arr
           }).then((arr)=>{
           setSizes(arr);
+          setlod(false)
             props.setLod(false);
          console.log("ddd",arr)
           })
@@ -99,7 +101,7 @@ function AddSize(props) {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
           
         };
@@ -128,7 +130,7 @@ function AddSize(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
+          "Authorization": 'Bearer ' + udata.jwt
       },
     
   };
@@ -183,7 +185,7 @@ function AddSize(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
             body: JSON.stringify(
                 {

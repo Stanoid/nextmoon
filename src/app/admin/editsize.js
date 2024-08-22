@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import { TiThMenu } from "react-icons/ti";
 import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
-
+import { useSelector } from 'react-redux';
 import { AuthCon } from '../contexts/AuthCon';
 
 
@@ -17,6 +17,7 @@ import { AuthCon } from '../contexts/AuthCon';
 function EditSize(props) {
     const ls = require("local-storage")
     const {logindata,logoutUser}  = useContext(AuthCon);
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
     const [namear,setNamear] = useState("");
     const [nameen,setNameen] = useState("");
@@ -56,7 +57,7 @@ function EditSize(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
+              "Authorization": 'Bearer ' + udata.jwt
           },
         
       };
@@ -86,7 +87,7 @@ function EditSize(props) {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
           
         };
@@ -115,7 +116,7 @@ function EditSize(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
+          "Authorization": 'Bearer ' + udata.jwt
       },
     
   };
@@ -170,7 +171,7 @@ function EditSize(props) {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
             body: JSON.stringify(
                 {      

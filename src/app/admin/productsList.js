@@ -9,30 +9,15 @@ import TableComp from '../comps/sandbox/table';
 import { useRouter } from "next/navigation";
 import { TiThMenu } from "react-icons/ti";
 import LoadingBtn from "../comps/loadingbtn";
+import { useSelector } from "react-redux";
 import { FaTimes, FaEdit } from "react-icons/fa";
 import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
 import { AuthCon } from "../contexts/AuthCon";
 
 function ProductsList(props) {
   const ls = require("local-storage");
-  const { logindata, logoutUser } = useContext(AuthCon);
-  const router = useRouter();
-  const [page, setPage] = useState(1);
-  const [logged, setLogged] = useState(0);
-  const [userData, setUserdata] = useState(null);
-  const [colors, setColors] = useState([]);
-  const [sizes, setSizes] = useState([]);
-  const [cats, setCats] = useState([]);
-  const [namear, setNamear] = useState("");
-  const [nameen, setNameen] = useState("");
-  const [descar, setDescar] = useState("");
-  const [descen, setDescen] = useState("");
-  const [subc, setSubc] = useState(null);
-  const [imgs, setImgs] = useState([]);
-  const [color, setcolor] = useState(null);
-  const [size, setSize] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [stock, setStock] = useState(null);
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
+
   const [lod, setlod] = useState(false);
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
@@ -55,7 +40,7 @@ function ProductsList(props) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + udata.jwt,
       },
     };
 
@@ -73,7 +58,7 @@ function ProductsList(props) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + udata.jwt,
       },
       body: JSON.stringify({
         status: !status,
@@ -102,7 +87,7 @@ function ProductsList(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + ls.get("atkn"),
+        Authorization: "Bearer " + udata.jwt,
       },
     };
     fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)

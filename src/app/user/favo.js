@@ -28,7 +28,7 @@ function Orders(props) {
 
     useEffect(() => {
     // loginval();
-   getOrders();
+   //getOrders();
     }, [])
     
    

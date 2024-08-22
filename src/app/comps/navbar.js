@@ -13,6 +13,7 @@ import { FaSearch,FaListAlt,FaCogs,FaPowerOff } from "react-icons/fa";
 import { FaBaby, FaBabyCarriage, FaBagShopping, FaBasketShopping, FaCartShopping, FaChild, FaCircleDot, FaPersonDress } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { FaVest } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 import { Tooltip } from "@nextui-org/react";
 import { FaHeart } from "react-icons/fa6";
 
@@ -26,14 +27,14 @@ import { BsMenuApp, BsSearch } from "react-icons/bs";
 export default function NavbarC(props) {
 
   const ls = require("local-storage");
-
-
+  const userData = useSelector((state) => state.root.auth.data&&state.root.auth.data)
+  const cartData = useSelector((state) => state.root.cart.data.length)
 
 
 useEffect(() => {
 
-  loginval();
-setCount(ls.get("MinimoonCart")&&ls.get("MinimoonCart").length )
+//loginval();
+
  
 }, [])
 
@@ -56,36 +57,6 @@ setCount(ls.get("MinimoonCart")&&ls.get("MinimoonCart").length )
 
   
 
-  const loginval = ()=>{
-    setLogindata(null);
-    
-    
-        const requestOptions = {
-          method: 'GET',
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
-          },
-        
-      };
-    
-        fetch(`${API_URL}users/me`, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-    
-            if(data.id){
-      
-      setLogindata(data)
-
-      console.log("aaaaaa",data)
-    }
-
-    
-    
-         
-          });
-    
-      }
 
   
 
@@ -131,12 +102,12 @@ setCount(ls.get("MinimoonCart")&&ls.get("MinimoonCart").length )
            className=" min-w-80  text-moon-200  py-2 px-4    "
            dir="rtl" variant="shadow">
          
-         <DropdownItem key="profile" className="h-14 gap-2 text-moon-300">
-            <p className="font-semibold">{"لينا سامر"}</p>
-              <p className="font-normal opacity-50">{"info@minimoon.com"}</p>
+         <DropdownItem style={{display:userData?"block":"none"}} key="profile" className="h-14 gap-2 text-moon-300">
+            <p className="font-semibold">{userData&&userData.user.username}</p>
+              <p className="font-normal opacity-50">{userData&&userData.user.email}</p>
           
             </DropdownItem>
-            <DropdownItem showDivider onClick={()=>{router.push("/user")}} className=" text-lg border-b-1.5  py-2   border-moon-300/30 rounded-none " 
+            <DropdownItem showDivider style={{display:userData?"block":"none"}} onClick={()=>{router.push("/user")}} className=" text-lg border-b-1.5  py-2   border-moon-300/30 rounded-none " 
             startContent={<FaUserAlt/>} key="settings"><span className="text-lg font-bold " >الملف الشخصي</span>
               
               </DropdownItem>
@@ -173,9 +144,31 @@ setCount(ls.get("MinimoonCart")&&ls.get("MinimoonCart").length )
 <DropdownItem className=" text-lg border-b-1.5 py-2  border-moon-300/30 rounded-none " 
             startContent={<FaGlobeAsia/>} key="team_settings "> <span className="text-lg font-bold "  > السعودية (ر.س),  العربية   </span> </DropdownItem>
         
-            <DropdownItem  startContent={<FaPowerOff/>} onClick={()=>{logoutUser();}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
+            <DropdownItem style={{display:userData?"flex":"none"}}  startContent={<FaPowerOff/>} onClick={()=>{router.replace("/logout")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
         <span className="text-md font-bold  "  > تسجيل خروج </span>       
             </DropdownItem>
+
+
+            <DropdownItem style={{display:userData?"none":"block"}}   onClick={()=>{router.replace("/login")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
+
+            <motion.div 
+  whileHover={{ scale: 1.03 }}
+  whileTap={{ scale: 0.9 }}
+  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+>
+<Tooltip className="bg-moon-300 font-medium py-2 px-5 text-moon-200" content="تسجيل دخول" >
+<Button onClick={()=>{router.push("/login")}}  className="bg-gradient-to-tr from-moonsec-100/40   to-moonsec-100
+text-xs font-medium         text-white mx-1 rounded-md " size="sm"    aria-label="Like">               
+     تسجيل دخول
+      </Button>    
+
+
+</Tooltip>
+</motion.div>
+
+            </DropdownItem>
+
+
           </DropdownMenu>
         </Dropdown>
 
@@ -223,7 +216,7 @@ setCount(ls.get("MinimoonCart")&&ls.get("MinimoonCart").length )
 
 
 
-{logindata&&logindata?<motion.div 
+{userData&&userData?<motion.div 
   whileHover={{ scale: 1.03 }}
   whileTap={{ scale: 0.9 }}
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -275,7 +268,7 @@ text-xl           text-moon-300/80 mx-0 rounded-lg " size="lg"    aria-label="Li
   whileTap={{ scale: 0.9 }}
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
 >
-<Badge size="md" content={count} placement="top-left" showOutline={false} variant="flat" color="primary" className="flex bg-moon-200
+<Badge size="md" content={cartData} placement="top-left" showOutline={false} variant="flat" color="primary" className="flex bg-moon-200
  text-white  align-middle justify-center">
 <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-moon-200" content="السلة">
 <Button onClick={()=>{props.openCart(true)}} isIconOnly className="  bg-gradient-to-tr from-white

@@ -10,7 +10,8 @@ import { TiThMenu } from "react-icons/ti";
 import LoadingBtn from '../comps/loadingbtn';
 import { FaTimes,FaEdit,FaCheck } from 'react-icons/fa';
 import { AuthCon } from '../contexts/AuthCon';
-import TableComp from "../comps/sandbox/table"
+import TableComp from "../comps/sandbox/table";
+import { useSelector } from 'react-redux';
 
 
 function PromoCodes(props) {
@@ -35,6 +36,7 @@ function PromoCodes(props) {
 
     const router = useRouter(); 
     const [lod,setlod] = useState(false)
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
 
     useEffect(() => {
@@ -54,7 +56,7 @@ function PromoCodes(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
             body: JSON.stringify(
                 {   
@@ -116,7 +118,7 @@ function PromoCodes(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
+                "Authorization": 'Bearer ' + udata.jwt
             },
             body: JSON.stringify(
                 {      
