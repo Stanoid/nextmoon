@@ -49,8 +49,6 @@ useContext(CartCon);
 useEffect(()=>{
 
 
- 
- 
  },[])
 
 

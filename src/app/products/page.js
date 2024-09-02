@@ -32,6 +32,7 @@ export default function Product({}) {
   const [lod, setLod] = useState(true);
   const [selectedV, setSelectedV] = useState();
   const [pref, setPref] = useState();
+  const [modelno,setModelno] = useState(null);
   const [selectedC, setSelectedC] = useState();
   const [size, setSize] = useState();
   const [color, setColor] = useState();
@@ -328,7 +329,7 @@ for (let i = 0; i < vrs.length; i++) {
             >
               <BsHeartFill />
             </div>
-
+      <div  className='flex flex-col my-3'>
           <div>
             <h2
               style={{
@@ -338,12 +339,27 @@ for (let i = 0; i < vrs.length; i++) {
                 
                 lineHeight: 1.3,
               }}
-              className="max-w-xl mt-6 mb-6 t  text-right font-semibold leading-loose tracking-tight text-gray-700  "
+              className="max-w-xl mt-6  text-right font-semibold leading-loose tracking-tight text-gray-700  "
             >
               {db&&db.attributes.name_ar}
             </h2>
           </div>
 
+          <div>
+            <h2
+              style={{
+                fontWeight: "bold",
+                fontSize: 17,
+                width:"100%",
+                
+                lineHeight: 1.3,
+              }}
+              className="max-w-xl  text-right font-semibold leading-loose tracking-tight text-gray-500  "
+            >
+              {pref} : رقم الصنف
+            </h2>
+          </div>
+   </div>
          
           
           </div>
@@ -386,7 +402,7 @@ for (let i = 0; i < vrs.length; i++) {
       </div>
 
       <div
-        className="w-full sm:w-full lg:w-1/2"
+        className="w-full sm:w-full shadow-md "
         style={{
           display: "flex",
           alignSelf:"center",
@@ -397,7 +413,7 @@ for (let i = 0; i < vrs.length; i++) {
           padding: 20,
         }}
       >
-        <div className='bg-moonsec-100/10' style={{width:"100%",padding:"10px",borderRadius: "10px 10px 0px 0px",}}>
+        <div style={{width:"100%",padding:"10px",borderRadius: "10px 10px 0px 0px",}}>
           <OptionEL varselect={(vid,prodRef)=>{varselectHandler(vid,prodRef)}} selid={selectedV} vars={db&&db.attributes.varients.data} />
 
     
@@ -408,7 +424,7 @@ for (let i = 0; i < vrs.length; i++) {
 
                <div
             
-             className='bg-moon-100/50 py-4 pb-5'
+             className=' py-4 pb-5'
             style={{
              
              

@@ -1,6 +1,7 @@
 import { store } from '../store';
 import * as types from '../types'
-import {loginUser} from "./api/auth/index"
+import {loginUser} from "./api/auth/index";
+import { revalidateTag } from 'next/cache';
 // INITIALIZES CLOCK ON SERVER
 const state = store.getState();
 
@@ -9,6 +10,8 @@ export const login =  (pld) => async (dispatch) =>{
   //console.log(pld);
 
   const res = await loginUser(pld);
+
+
 //console.log(res.user.type);
 //location.replace("/")
  dispatch({ type: types.LOGIN, payload: res })
@@ -112,4 +115,17 @@ export const incrementCount = () => ({ type: types.INCREMENT })
 export const decrementCount = () => ({ type: types.DECREMENT })
 
 // RESET COUNTER
-export const logout = () => ({ type: types.LOGOUT })
+// export const logout = () => ({ type: types.LOGOUT })
+
+
+
+export const logout =  () => async (dispatch) =>{
+  //console.log(pld);
+//revalidateTag("user")
+ dispatch({ type: types.LOGOUT })
+
+
+
+
+ 
+}

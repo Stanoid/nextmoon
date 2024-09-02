@@ -1,8 +1,9 @@
+"use client"
+
 import axios from "axios";
 import {API_URL,IMG_URL} from "../../../../local"
-
-
-export const loginUser = async (pld)=>{
+import { unstable_serialize } from 'swr'
+ const loginFetcher = async (pld)=>{
 
  const res = axios.post(`${API_URL}auth/local`, pld)
       .then(function (response) {
@@ -11,10 +12,45 @@ export const loginUser = async (pld)=>{
       })
       .catch(function (error) {
         console.log(error);
+        return null
       });
+
+
 return await res;
 
 
 }
+
+
+export const loginUser = async (pld)=> {
+
+
+  // console.log(await unstable_cache( await cached_loginUser(pld)));
+  
+  try {
+    //const res = await unstable_cache( await cached_loginUser(pld));
+
+    return await loginFetcher(pld)
+  // try {
+  //   const getCachedUser = unstable_cache(
+  //     async (ob) => await cached_loginUser(ob),
+  //     ['my-app-user'],
+  //     {tags: ["user"],
+  //       revalidate: 60
+  //     }
+  //   );
+
+  //   return await getCachedUser(pld)
+
+  // } catch (error) {
+  //   console.log(error)
+  // }
+
+
+    
+  } catch (error) {
+    console.log(error)
+  }
+} ;
 
 

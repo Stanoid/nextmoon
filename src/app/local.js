@@ -22,11 +22,12 @@ export const DEF_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAACUCA
     // export const IMG_URL = process.env.NEXT_PUBLIC_API_URL || "http://178.18.246.163:1337"
     // export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://178.18.246.163:1337/api/"
 
-       export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "http://192.168.177.110:1337"
-    export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://192.168.177.110:1337/api/"
+    
+   //     export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "http://172.20.10.12:1337"
+   //  export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://172.20.10.12:1337/api/"
 
-   // export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "http://localhost:1337"
-   // export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337/api/"
+   export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "http://localhost:1337"
+   export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337/api/"
 
 
 //    export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "https://miniback-ec254e66064d.herokuapp.com"

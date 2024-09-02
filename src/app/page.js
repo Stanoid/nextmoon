@@ -24,7 +24,7 @@ import Cart from "./comps/cart";
 import PromoComp from "./comps/promo";
 import { product } from "./comps/productdata";
 export default function Home() {
-  const [openCart,setOpenCart] = useState(false);
+  const [openCart,setOpenCart] = useState(false);   
   const childCompRef = useRef()
   const {loginval}  = useContext(AuthCon);
   const [products,setProducts] = useState()
