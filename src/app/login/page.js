@@ -99,31 +99,31 @@ useEffect(()=>{
  
 
 
-   switch(udata&&udata.data.user.type){
-       case 1:
+  //  switch(udata&&udata.data.user.type){
+  //      case 1:
          
-       router.replace("/admin");
-       break;
+  //      router.replace("/admin");
+  //      break;
      
      
-       case 2:
-       router.replace("/agent");
-       break;
+  //      case 2:
+  //      router.replace("/agent");
+  //      break;
      
-       case 3:
-       router.replace("/vendor");
-       break;
-     
-     
-       case 5:
-         router.replace("/delivery");
-         break;
+  //      case 3:
+  //      router.replace("/vendor");
+  //      break;
      
      
-       case 4:
-         router.replace("/");
-       break;
-     }
+  //      case 5:
+  //        router.replace("/delivery");
+  //        break;
+     
+     
+  //      case 4:
+  //        router.replace("/");
+  //      break;
+  //    }
 
 
 

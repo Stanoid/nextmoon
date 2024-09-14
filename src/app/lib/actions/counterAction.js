@@ -14,39 +14,45 @@ export const login =  (pld) => async (dispatch) =>{
 
 //console.log(res.user.type);
 //location.replace("/")
- dispatch({ type: types.LOGIN, payload: res })
-
-// if(res.error){
-//   alert(res.data);
-//   return;
-// }
 
 
-//  switch(res.data.user.type){
-//   case 1:
+
+dispatch({ type: types.LOGIN, payload: res })
+
+
+
+
+if(res.error){
+//  alert(res.data);
+  return;
+}
+
+
+ switch(res.data.user.type){
+  case 1:
     
-//   location.replace("/admin");
-//   break;
+  location.replace("/admin");
+  break;
 
 
-//   case 2:
-//   location.replace("/agent");
-//   break;
+  case 2:
+  location.replace("/agent");
+  break;
 
-//   case 3:
-//   location.replace("/vendor");
-//   break;
-
-
-//   case 5:
-//     location.replace("/delivery");
-//     break;
+  case 3:
+  location.replace("/vendor");
+  break;
 
 
-//   case 4:
-//     location.replace("/");
-//   break;
-// }
+  case 5:
+    location.replace("/delivery");
+    break;
+
+
+  case 4:
+    location.replace("/");
+  break;
+}
 
 
 
