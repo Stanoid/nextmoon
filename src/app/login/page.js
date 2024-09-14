@@ -150,7 +150,7 @@ setLod(true);
 setLod(true);
 setTimeout(() => {
   loginrouter();
-}, 2000);
+}, 10);
 
     })
     
