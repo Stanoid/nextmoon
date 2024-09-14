@@ -152,12 +152,13 @@ useEffect(() => {
 <DropdownItem className=" text-lg border-b-1.5 py-2  border-moon-300/30 rounded-none " 
             startContent={<FaGlobeAsia/>} key="team_settings "> <span className="text-lg font-bold "  > السعودية (ر.س),  العربية   </span> </DropdownItem>
         
-            <DropdownItem style={{display:userData&&!userData.error?"flex":"none"}}  startContent={<FaPowerOff/>} onClick={()=>{router.replace("/logout")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
+            {/* <DropdownItem style={{display:userData&&!userData.error?"flex":"none"}}  startContent={<FaPowerOff/>} onClick={()=>{router.replace("/logout")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
         <span className="text-md font-bold  "  > تسجيل خروج </span>       
             </DropdownItem>
 
 
-            <DropdownItem style={{display:userData&&userData.error?"none":"flex"}}   onClick={()=>{router.replace("/login")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
+            <DropdownItem style={{display:userData&&userData.error?"none":"flex"}}   onClick={()=>{router.replace("/login")}} key="logout" 
+             className="text-gray-600 floa py-2 mt-4" > */}
 
             <motion.div 
   whileHover={{ scale: 1.03 }}
