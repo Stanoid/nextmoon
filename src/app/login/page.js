@@ -36,7 +36,7 @@ export default function Register() {
   const [pass, setpass] = useState("");
   const [cpass, setcpass] = useState("");
   const {loginUser}  = useContext(AuthCon);
-  
+  const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
  const ls = require("local-storage");
 const router = useRouter();
 const sts = useSelector((state) => state)
@@ -53,9 +53,91 @@ useEffect(()=>{
 
 
 
+ const loginrouter = ()=>{
+  
+  console.log(udata)
+  if(udata&&udata.error){
+//   alert(udata.data);
+//   setLod(false)
+
+
+ switch(udata&&udata.data){
+   case 400 :
+     toast.error("كلمة المرور أو البريد الإلكتروني غير صحيحة", {
+       position: "top-right",
+       autoClose: 4000,
+       hideProgressBar: true,
+       closeOnClick: true,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+       theme: "light",
+       
+       });
+   break;
+
+   case 429 :
+   toast.error("عدد طلبات كبير, الرجاء المحاولة لاحقآ", {
+     position: "top-right",
+     autoClose: 4000,
+     hideProgressBar: true,
+     closeOnClick: true,
+     pauseOnHover: true,
+     draggable: true,
+     progress: undefined,
+     theme: "light",
+     
+     });
+ break;
+ }
+   
+
+
+
+  }else{
+   
+ 
+
+
+   switch(udata&&udata.data.user.type){
+       case 1:
+         
+       router.replace("/admin");
+       break;
+     
+     
+       case 2:
+       router.replace("/agent");
+       break;
+     
+       case 3:
+       router.replace("/vendor");
+       break;
+     
+     
+       case 5:
+         router.replace("/delivery");
+         break;
+     
+     
+       case 4:
+         router.replace("/");
+       break;
+     }
+
+
+
+  }
+
+  setLod(false)
+
+ }
+
+
+
 
  const handlelogin=()=>{
-
+setLod(true);
   try {
 
 
@@ -64,10 +146,17 @@ useEffect(()=>{
         "identifier": email,
         "password": pass,
       }
-    ))
+    )).then(()=>{
+setLod(true);
+setTimeout(() => {
+  loginrouter();
+}, 2000);
+
+    })
     
   } catch (error) {
     console.log("error",error)
+    setLod(false)
   }
 
 
@@ -116,7 +205,19 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
         <div style={{backgroundSize:50}} className="w-full sm:w-full mt-16 h-full flex min-h-screen
           bg-[url('../../public/amblemblack.svg')] bg-white" >  
      
-           <ToastContainer  limit={3}/>
+           <ToastContainer 
+           position="top-right"
+           autoClose={3000}
+           hideProgressBar={true}
+           newestOnTop={false}
+           closeOnClick
+           rtl={false}
+           pauseOnFocusLoss
+           draggable
+           pauseOnHover
+           theme="light"
+           limit={3}
+           />
 
 
            <div  className="  from-moon-200 to-moon-200 hidden sm:hidden lg:flex  md:w-1/4 lg:w-1/2 xl:w-1/2  " ></div>

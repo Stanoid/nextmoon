@@ -34,7 +34,7 @@ function AccounteEl() {
 
    
     const loginval = ()=>{
-      if(udata.user.type!=4){router.push("/login")}
+      if(udata.data.user.type!=4){router.push("/login")}
       //console.log(utype)
          }
       
@@ -76,8 +76,8 @@ function AccounteEl() {
 
 <div >
 <User   
-      name={udata.user.username}
-      description={udata.user.email}
+      name={udata.data.user.username}
+      description={udata.data.user.email}
       avatarProps={{
         className:"bg-moon-200 font-bold text-white"
       }}

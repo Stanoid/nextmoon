@@ -8,11 +8,11 @@ import { unstable_serialize } from 'swr'
  const res = axios.post(`${API_URL}auth/local`, pld)
       .then(function (response) {
         //console.log(response);
-        return response.data
+        return {error:false,data:response.data}
       })
       .catch(function (error) {
-        console.log(error);
-        return null
+        console.log("aaaa",error);
+        return {error:true,data:error.response.status};
       });
 
 

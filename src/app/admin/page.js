@@ -62,7 +62,7 @@ function AccounteEl() {
 
 
    const loginval = ()=>{
-if(udata.user.type!=1){router.push("/login")}
+if(udata.data.user.type!=1){router.push("/login")}
 //console.log(utype)
    }
 
@@ -133,8 +133,8 @@ bg-[url('../../public/amblemblack.svg')] ">
 
 <div >
 <User   
-  name={udata.user.username}
-  description={udata.user.email}
+  name={udata.data.user.username}
+  description={udata.data.user.email}
   avatarProps={{
     className:"bg-moon-200 font-bold text-white"
   }}

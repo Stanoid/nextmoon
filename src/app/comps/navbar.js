@@ -102,15 +102,23 @@ useEffect(() => {
            className=" min-w-80  text-moon-200  py-2 px-4    "
            dir="rtl" variant="shadow">
          
-         <DropdownItem style={{display:userData?"flex":"none"}} key="profile" className="h-14 gap-2 text-moon-300">
-            <p className="font-semibold">{userData&&userData.user.username}</p>
-              <p className="font-normal opacity-50">{userData&&userData.user.email}</p>
-          
-            </DropdownItem>
-            <DropdownItem showDivider style={{display:userData?"flex":"none"}} onClick={()=>{router.push("/user")}} className=" text-lg border-b-1.5  py-2   border-moon-300/30 rounded-none " 
-            startContent={<FaUserAlt/>} key="settings"><span className="text-lg font-bold " >الملف الشخصي</span>
-              
-              </DropdownItem>
+      {userData&&userData.error?<></>:
+      <>
+      
+      <DropdownItem style={{display:userData?"flex":"none"}} key="profile" className="h-14 gap-2 text-moon-300">
+      <p className="font-semibold">{userData&&userData.data.user.username}</p>
+        <p className="font-normal opacity-50">{userData&&userData.data.user.email}</p>
+    
+      </DropdownItem>
+      <DropdownItem showDivider style={{display:userData?"flex":"none"}} onClick={()=>{router.push("/user")}} className=" text-lg border-b-1.5  py-2   border-moon-300/30 rounded-none " 
+      startContent={<FaUserAlt/>} key="settings"><span className="text-lg font-bold " >الملف الشخصي</span>
+        
+        </DropdownItem>  
+      </>
+      
+    
+      }
+
             <DropdownItem className=" text-lg border-b-1.5 py-2  border-moon-300/30 rounded-none " 
             startContent={<FaHome/>} key="team_settings "> <span className="text-lg font-bold "  >  الرئيسية  </span> </DropdownItem>
 {/* 
@@ -144,12 +152,12 @@ useEffect(() => {
 <DropdownItem className=" text-lg border-b-1.5 py-2  border-moon-300/30 rounded-none " 
             startContent={<FaGlobeAsia/>} key="team_settings "> <span className="text-lg font-bold "  > السعودية (ر.س),  العربية   </span> </DropdownItem>
         
-            <DropdownItem style={{display:userData?"flex":"none"}}  startContent={<FaPowerOff/>} onClick={()=>{router.replace("/logout")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
+            <DropdownItem style={{display:userData&&!userData.error?"flex":"none"}}  startContent={<FaPowerOff/>} onClick={()=>{router.replace("/logout")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
         <span className="text-md font-bold  "  > تسجيل خروج </span>       
             </DropdownItem>
 
 
-            <DropdownItem style={{display:userData?"none":"flex"}}   onClick={()=>{router.replace("/login")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
+            <DropdownItem style={{display:userData&&userData.error?"none":"flex"}}   onClick={()=>{router.replace("/login")}} key="logout"  className="text-gray-600 floa py-2 mt-4" >
 
             <motion.div 
   whileHover={{ scale: 1.03 }}
@@ -216,7 +224,7 @@ text-xs font-medium         text-white mx-1 rounded-md " size="sm"    aria-label
 
 
 
-{userData&&userData?<motion.div 
+{userData&&!userData.error?<motion.div 
   whileHover={{ scale: 1.03 }}
   whileTap={{ scale: 0.9 }}
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
