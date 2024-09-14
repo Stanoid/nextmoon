@@ -55,7 +55,7 @@ function EditCat(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + udata.jwt
+              "Authorization": 'Bearer ' + udata.data.jwt
           },
         
       };
@@ -81,7 +81,7 @@ function EditCat(props) {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
           
         };
@@ -110,7 +110,7 @@ function EditCat(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.jwt
+          "Authorization": 'Bearer ' + udata.data.jwt
       },
     
   };
@@ -165,7 +165,7 @@ function EditCat(props) {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
             body: JSON.stringify(
                 {

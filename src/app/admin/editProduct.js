@@ -191,7 +191,7 @@ return;
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.jwt,
+        Authorization: "Bearer " + udata.data.jwt,
       },
     };
     fetch(`${API_URL}products/${props.pid}?func=getFullProduct`, requestOptions)
@@ -238,7 +238,7 @@ props.setLod(true);
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.jwt,
+        Authorization: "Bearer " + udata.data.jwt,
       },
     };
 
@@ -258,7 +258,7 @@ props.setLod(true);
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.jwt,
+        Authorization: "Bearer " + udata.data.jwt,
       },
     };
 
@@ -278,7 +278,7 @@ props.setLod(true);
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: "Bearer " + udata.jwt,
+        // Authorization: "Bearer " + udata.data.jwt,
       },
     };
 
@@ -339,7 +339,7 @@ props.setLod(true);
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + udata.jwt,
+          Authorization: "Bearer " + udata.data.jwt,
         },
         body: JSON.stringify({
           nameen: nameen,

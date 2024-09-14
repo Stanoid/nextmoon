@@ -55,7 +55,7 @@ function AddColor(props) {
         method: 'DELETE',
         headers: {
             "Content-Type": "application/json",
-            "Authorization": 'Bearer ' + udata.jwt
+            "Authorization": 'Bearer ' + udata.data.jwt
         },
       
     };
@@ -82,7 +82,7 @@ function AddColor(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + udata.jwt
+              "Authorization": 'Bearer ' + udata.data.jwt
           },
         
       };
@@ -127,7 +127,7 @@ function AddColor(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.jwt
+          "Authorization": 'Bearer ' + udata.data.jwt
       },
     
   };
@@ -182,7 +182,7 @@ function AddColor(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
             body: JSON.stringify(
                 {

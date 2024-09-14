@@ -58,7 +58,7 @@ function AddSize(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + udata.jwt
+              "Authorization": 'Bearer ' + udata.data.jwt
           },
         
       };
@@ -101,7 +101,7 @@ function AddSize(props) {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
           
         };
@@ -130,7 +130,7 @@ function AddSize(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.jwt
+          "Authorization": 'Bearer ' + udata.data.jwt
       },
     
   };
@@ -185,7 +185,7 @@ function AddSize(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
             body: JSON.stringify(
                 {

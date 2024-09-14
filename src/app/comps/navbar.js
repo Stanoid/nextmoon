@@ -110,7 +110,7 @@ useEffect(() => {
         <p className="font-normal opacity-50">{userData&&userData.data.user.email}</p>
     
       </DropdownItem>
-      <DropdownItem showDivider style={{display:userData?"flex":"none"}} onClick={()=>{router.push("/user")}} className=" text-lg border-b-1.5  py-2   border-moon-300/30 rounded-none " 
+      <DropdownItem showDivider  onClick={()=>{router.push("/user")}} className=" text-lg border-b-1.5  py-2   border-moon-300/30 rounded-none " 
       startContent={<FaUserAlt/>} key="settings"><span className="text-lg font-bold " >الملف الشخصي</span>
         
         </DropdownItem>  

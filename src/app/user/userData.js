@@ -64,7 +64,7 @@ const [logindata,setLogindata]= useState(null)
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + udata.jwt
+              "Authorization": 'Bearer ' + udata.data.jwt
           },
         
       };
@@ -106,7 +106,7 @@ const [logindata,setLogindata]= useState(null)
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
           
         };
@@ -135,7 +135,7 @@ props.setLod(true)
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.jwt
+          "Authorization": 'Bearer ' + udata.data.jwt
       },
     
   };
@@ -183,7 +183,7 @@ props.setLod(true)
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
             body: JSON.stringify(
                 {

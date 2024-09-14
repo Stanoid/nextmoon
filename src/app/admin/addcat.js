@@ -62,7 +62,7 @@ function AddCat(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + udata.jwt
+              "Authorization": 'Bearer ' + udata.data.jwt
           },
         
       };
@@ -90,7 +90,7 @@ function AddCat(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + udata.jwt
+              "Authorization": 'Bearer ' + udata.data.jwt
           },
         
       };
@@ -132,7 +132,7 @@ function AddCat(props) {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
           
         };
@@ -161,7 +161,7 @@ function AddCat(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.jwt
+          "Authorization": 'Bearer ' + udata.data.jwt
       },
     
   };
@@ -217,7 +217,7 @@ function AddCat(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
             body: JSON.stringify(
                 {

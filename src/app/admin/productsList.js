@@ -40,7 +40,7 @@ function ProductsList(props) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.jwt,
+        Authorization: "Bearer " + udata.data.jwt,
       },
     };
 
@@ -58,7 +58,7 @@ function ProductsList(props) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.jwt,
+        Authorization: "Bearer " + udata.data.jwt,
       },
       body: JSON.stringify({
         status: !status,
@@ -87,7 +87,7 @@ function ProductsList(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.jwt,
+        Authorization: "Bearer " + udata.data.jwt,
       },
     };
     fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)

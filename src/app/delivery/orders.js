@@ -42,7 +42,7 @@ function Orders(props) {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
-            "Authorization": 'Bearer ' + udata.jwt
+            "Authorization": 'Bearer ' + udata.data.jwt
         },
       
     };
@@ -76,7 +76,7 @@ function Orders(props) {
 //    method: 'POST',
 //    headers: {
 //        "Content-Type": "application/json",
-//        "Authorization": 'Bearer ' + udata.jwt
+//        "Authorization": 'Bearer ' + udata.data.jwt
 //    },  body: JSON.stringify(
 //     {
 //         "id": id,
@@ -106,7 +106,7 @@ function Orders(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + udata.jwt
+              "Authorization": 'Bearer ' + udata.data.jwt
           },
         
       };
@@ -135,7 +135,7 @@ function Orders(props) {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.jwt
+          "Authorization": 'Bearer ' + udata.data.jwt
       },
     
   };
@@ -190,7 +190,7 @@ function Orders(props) {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.jwt
+                "Authorization": 'Bearer ' + udata.data.jwt
             },
             body: JSON.stringify(
                 {
@@ -238,7 +238,7 @@ setlod(true);
       method: 'POST',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.jwt
+          "Authorization": 'Bearer ' + udata.data.jwt
       },
       body: JSON.stringify(
         {

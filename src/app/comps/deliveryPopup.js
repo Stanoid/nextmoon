@@ -68,7 +68,7 @@ const getOrderItems= ()=>{
   method: 'POST',
   headers: {
     "Content-Type": "application/json",
-    "Authorization": 'Bearer ' + udata.jwt
+    "Authorization": 'Bearer ' + udata.data.jwt
 },
   body: JSON.stringify({
      id: props.data&&props.data.refId,
@@ -127,7 +127,7 @@ const handleOrderDelivery = ()=>{
    method: 'POST',
    headers: {
        "Content-Type": "application/json",
-       "Authorization": 'Bearer ' + udata.jwt
+       "Authorization": 'Bearer ' + udata.data.jwt
    },  body: JSON.stringify(
     {
         "id": props.data&&props.data.id,
