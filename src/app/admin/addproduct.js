@@ -112,7 +112,7 @@ function AddProduct(props) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
 
@@ -130,7 +130,7 @@ function AddProduct(props) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
       body: JSON.stringify({
         status: !status,
@@ -153,7 +153,7 @@ function AddProduct(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
     fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)
@@ -173,7 +173,7 @@ function AddProduct(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
     fetch(`${API_URL}colors`, requestOptions)
@@ -192,7 +192,7 @@ function AddProduct(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
 
@@ -233,7 +233,7 @@ function AddProduct(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
 
@@ -278,7 +278,7 @@ function AddProduct(props) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + isLogged.jwt,
+          Authorization: "Bearer " + isLogged.data.jwt,
         },
         body: JSON.stringify({
           nameen: nameen,
