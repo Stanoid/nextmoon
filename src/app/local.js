@@ -23,15 +23,15 @@ export const DEF_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAACUCA
     // export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://178.18.246.163:1337/api/"
 
     
-       export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "http://192.168.82.110:1337"
-    export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://192.168.82.110:1337/api/"
+   //     export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "http://192.168.79.110:1337"
+   //  export const API_URL = process.env.NEXT_PUBLIC_API_URL ||    "http://192.168.79.110:1337/api/"
 
    // export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "http://localhost:1337"
    // export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337/api/"
 
 
-//    export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "https://miniback-ec254e66064d.herokuapp.com"
-//    export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://miniback-ec254e66064d.herokuapp.com/api/"
+   export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL || "https://miniback-ec254e66064d.herokuapp.com"
+   export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://miniback-ec254e66064d.herokuapp.com/api/"
 
 
    export const ROOT_URL = process.env.NEXT_PUBLIC_ROOT_URL || "http://192.168.51.110:1337/api/"
@@ -41,4 +41,6 @@ export const DEF_IMG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAACUCA
     // export const ROOT_URL = process.env.NEXT_PUBLIC_ROOT_URL || "https://ecmrc-demo.vercel.app/uploads"
     // export const IMG_CONFIG_URL = process.env.NEXT_PUBLIC_IMG_CONFIG_URL || "http://res.cloudinary.com"
     
-    
+   //  powerful-iguana-fg5qix7k8550qu2stj4agzih.herokudns.com
+
+   // boiling-tortoise-i4o2mriuytyzxaagx6402vuy.herokudns.com

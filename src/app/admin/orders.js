@@ -36,7 +36,7 @@ function Orders(props) {
 
     const getOrders=(id)=>{
          
-    
+      
       setOpenDel(false)      
              setlod(true)
       const requestOptions = {

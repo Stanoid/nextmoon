@@ -68,7 +68,7 @@ const handleOrder= ()=>{
   method: 'POST',
   headers: {
       "Content-Type": "application/json",
-      "Authorization": 'Bearer ' +  isLogged.jwt
+      "Authorization": 'Bearer ' +  isLogged.data.jwt
   },
   body: JSON.stringify({
      items: payarray
