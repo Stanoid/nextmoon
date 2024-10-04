@@ -191,13 +191,13 @@ return;
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.data.jwt,
+        //Authorization: "Bearer " + udata.data.jwt,
       },
     };
     fetch(`${API_URL}products/${props.pid}?func=getFullProduct`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        
+        console.log("peodddddddddddddddd",data)
        // setProducts(data.data);
         setNamear(data.data.attributes.name_ar)
         setNameen(data.data.attributes.name_en);

@@ -11,7 +11,7 @@ import { unstable_serialize } from 'swr'
         return {error:false,data:response.data}
       })
       .catch(function (error) {
-        console.log("aaaa",error);
+        //console.log("aaaa",error);
         return {error:true,data:error.response.status};
       });
 

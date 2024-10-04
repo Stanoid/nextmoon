@@ -21,6 +21,7 @@ function AddCat(props) {
     const [namear,setNamear] = useState("");
     const [nameen,setNameen] = useState("");
     const [cats,setCats] = useState(null);
+    const [secs,setSecs] = useState(null);
     const [cat,setCat] = useState(null);
     const [sizes,setSizes] = useState([]);
     const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
@@ -62,15 +63,16 @@ function AddCat(props) {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + udata.data.jwt
+              //"Authorization": 'Bearer ' + udata.data.jwt
           },
         
       };
     
-        fetch(`${API_URL}sections`, requestOptions)
+        fetch(`${API_URL}sections?func=getSections`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-          setCats(data.data)
+          console.log("sections",data)  
+          setSecs(data)
           }).then(()=>{
             
           getCats();
@@ -99,7 +101,7 @@ function AddCat(props) {
           .then((response) => response.json())
           .then((data) => {
          
-        //  console.log(data)
+         console.log("thisone",data)
             let arr = [];
             for (let i = 0; i < data.data.length; i++) {
               let ob = {};
@@ -306,10 +308,12 @@ gridTemplateAreas:`
     <InputEl
             value={cat}
             outputfunc={(val) => {
+              alert(val)
               setCat(val);
             }}
             iden={"color"}
-            data={cats}
+            data={secs}
+            iscats={true}
             select={true}
             label={"القسم"}
           />

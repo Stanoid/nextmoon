@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 function AddCat(props) {
     const ls = require("local-storage")
     // const {logindata,logoutUser}  = useContext(AuthCon);
+
 const [logindata,setLogindata]= useState(null)
 
     const [namear,setNamear] = useState("");
@@ -33,7 +34,7 @@ const [logindata,setLogindata]= useState(null)
     useEffect(() => {
 
 
-      loginval();
+      //loginval();
     
    
     }, [])
@@ -278,16 +279,16 @@ gridTemplateAreas:`
 
 
     <div style={{gridArea:"namear"}}>
-      <InputEl value={logindata&&logindata.username}  outputfunc={(val)=>{setNamear(val)}} label={" الإسم بالكامل"}/>
+      <InputEl value={udata&&udata.data.user.username}  outputfunc={(val)=>{setNamear(val)}} label={" الإسم بالكامل"}/>
     </div>
 
     <div style={{gridArea:"nameen"}}>
-      <InputEl value={logindata&&logindata.email} outputfunc={(val)=>{setNameen(val)}} label={" البريد الإلكتروني"}/>
+      <InputEl value={udata&&udata.data.user.email} disabled={true} outputfunc={(val)=>{setNameen(val)}} label={" البريد الإلكتروني"}/>
     </div>
     
     
     <div style={{gridArea:"section"}}>
-    <InputEl value={logindata&&logindata.id} outputfunc={(val)=>{setNameen(val)}} label={"  رقم الهاتف"}/>
+    <InputEl value={udata&&udata.data.user.id}  outputfunc={(val)=>{setNameen(val)}} label={"  رقم الهاتف"}/>
 
     </div>
 

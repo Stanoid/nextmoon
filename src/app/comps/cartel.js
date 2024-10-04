@@ -70,7 +70,11 @@ src={ IMG_URL.concat(JSON.parse(props.data.attributes.img)[0])} />
 
 <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}} className='sm:flex-col lg:flex-row' >
 
-<div dir='rtl' className='text-xs' style={{padding:5,paddingBottom:0,fontWeight:"bold",textAlign:"right"}}>{props.data.attributes.name_ar.slice(0,40)+ "..."}</div>
+<div dir='rtl' className='text-xs' style={{padding:5,
+paddingBottom:0,fontWeight:"bold",textAlign:"right"}}>
+  {props.data.attributes.name_ar.length>40?props.data.attributes.name_ar.slice(0,40)+ "..."
+:props.data.attributes.name_ar
+  }</div>
 
 
       <div dir='rtl' className='font-semibold text-moon-200/80'>{varient.attributes&&varient.attributes.price} {CURRENCY}

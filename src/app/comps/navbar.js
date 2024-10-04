@@ -38,6 +38,33 @@ useEffect(() => {
  
 }, [])
 
+const handleSearch = ()=>{
+alert("TODO search")
+}
+
+
+const handleAccount=(type)=>{
+
+  switch(type){
+    case 1:
+      router.push("/admin")
+      break;
+
+      case 4:
+      router.push("/")
+      break;
+
+
+      case 5:
+      router.push("/delivery")
+      break;
+
+      default:
+        router.push("/")
+        break;
+  }
+
+}
 
 
 
@@ -220,18 +247,20 @@ text-xs font-medium         text-white mx-1 rounded-md " size="sm"    aria-label
 
 
 
-<div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+<div className="space-x-2" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
 
-{userData&&!userData.error?<motion.div 
+{userData&&!userData.error&&userData?<motion.div 
   whileHover={{ scale: 1.03 }}
   whileTap={{ scale: 0.9 }}
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
 >
+  
 <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-moon-200" content="حسابي" >
-<Button onClick={()=>{router.push("/user")}} isIconOnly className="bg-gradient-to-tr from-white to-white/65 
-text-2xl font-black          text-moon-300/80 mx-0 rounded-lg " size="lg"    aria-label="Like">               
+<Button onClick={()=>{handleAccount(userData&&userData.data.user.type)}}
+ isIconOnly className="bg-gradient-to-tr from-moon-200/60  to-moon-200/20 
+text-2xl font-black          text-gray-600 mx-0 rounded-full " size="md"    aria-label="Like">               
         <FaUserCircle  />
       </Button>    
 
@@ -253,21 +282,44 @@ text-xs font-medium         text-white mx-1 rounded-md " size="sm"    aria-label
 </motion.div>}
 
 
-
 <motion.div 
   whileHover={{ scale: 1.03 }}
   whileTap={{ scale: 0.9 }}
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
 >
 <Tooltip className="bg-moon-300  py-2 px-5 text-moon-200" content=" بحث " >
-<Button onClick={()=>{props.openFav(true)}} isIconOnly className="bg-gradient-to-tr from-white to-white/65 
-text-xl           text-moon-300/80 mx-0 rounded-lg " size="lg"    aria-label="Like">               
+<Button onClick={()=>{ handleSearch() }} isIconOnly className="bg-gradient-to-tr from-moon-200/60  to-moon-200/20  
+text-xl           text-gray-600 mx-0 rounded-full " size="md"    aria-label="Like">               
         <FaSearch  />
       </Button>    
 
 
 </Tooltip>
 </motion.div>
+
+
+
+
+{
+  userData&&!userData.error?
+  <motion.div 
+  whileHover={{ scale: 1.03 }}
+  whileTap={{ scale: 0.9 }}
+  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+>
+<Tooltip className="bg-moon-300  py-2 px-5 text-moon-200" content=" بحث " >
+<Button onClick={()=>{props.openFav(true)}} isIconOnly className="bg-gradient-to-tr from-moon-200/60  to-moon-200/20 
+text-xl           text-gray-600 mx-0 rounded-full " size="md"    aria-label="Like">               
+        <FaHeart  />
+      </Button>    
+
+
+</Tooltip>
+</motion.div>:<></>
+}
+
+
+
 
 
 
@@ -279,8 +331,8 @@ text-xl           text-moon-300/80 mx-0 rounded-lg " size="lg"    aria-label="Li
 <Badge size="md" content={cartData} placement="top-left" showOutline={false} variant="flat" color="primary" className="flex bg-moon-200
  text-white  align-middle justify-center">
 <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-moon-200" content="السلة">
-<Button onClick={()=>{props.openCart(true)}} isIconOnly className="  bg-gradient-to-tr from-white
- to-white/65 text-3xl text-moon-300/70  rounded-lg mx-0" size="md"  aria-label="Like">               
+<Button onClick={()=>{props.openCart(true)}} isIconOnly className="  bg-gradient-to-tr from-moon-200/60  to-moon-200/20
+ text-3xl text-gray-600  rounded-full mx-0" size="md"  aria-label="Like">               
         <MdOutlineShoppingBag  />
       </Button>  
     </Tooltip> 

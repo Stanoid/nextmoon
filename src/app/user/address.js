@@ -33,7 +33,7 @@ const [logindata,setLogindata]= useState(null)
     useEffect(() => {
 
 
-      loginval();
+//      loginval();
     
    
     }, [])

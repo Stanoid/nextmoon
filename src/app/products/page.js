@@ -43,7 +43,7 @@ export default function Product({}) {
   const defaultContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
   const cart = useSelector((state) => state)
   const dispatch = useDispatch();
-  
+  const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
   useEffect(() => {
   
@@ -186,37 +186,72 @@ for (let i = 0; i < vrs.length; i++) {
   // const router = useRouter();
 
   const HandleAddToFav = (id) => {
-    if (favData.length == 0) {
-      addTofav(db);
+
+
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": 'Bearer ' + udata.data.jwt
+      },
+      body: JSON.stringify(
+          {
+          
+              "pid":db.id,
+           
+                     
+       
+            }
+        )
+    
+  };
+
+    fetch(`${API_URL}likes?func=AddToLikes`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+
+      console.log("sections",data)  
+    
+      }).then(()=>{
+          
+    
+      })
+
+
+
+
+    // if (favData.length == 0) {
+    //   addTofav(db);
       
-      //useNotifi("success","Product has been added to Liked")
-    } else {
-      if (
-        favData.find((obj) => obj.id === parseInt(getQueryVariable("pid"))) ==
-        undefined
-      ) {
-        addTofav(db);
+    //   //useNotifi("success","Product has been added to Liked")
+    // } else {
+    //   if (
+    //     favData.find((obj) => obj.id === parseInt(getQueryVariable("pid"))) ==
+    //     undefined
+    //   ) {
+    //     addTofav(db);
         
-        // useNotifi("success","Product has been added to Liked")
-      } else {
+    //     // useNotifi("success","Product has been added to Liked")
+    //   } else {
         
-        removeFromFav(db.id);
-      }
+    //     removeFromFav(db.id);
+    //   }
 
-      // const object = array.find(obj => obj.id === 3);
+    //   // const object = array.find(obj => obj.id === 3);
 
-      // old cart handler (uncontrollable for loop)
-      // for (let i = 0; i < cartData.length; i++) {
-      //   if(cartData[i].id===parseInt(getQueryVariable("pid"))){
-      //     
-      //    return
-      //   }else{
-      //     
-      //     addToCart(db);
+    //   // old cart handler (uncontrollable for loop)
+    //   // for (let i = 0; i < cartData.length; i++) {
+    //   //   if(cartData[i].id===parseInt(getQueryVariable("pid"))){
+    //   //     
+    //   //    return
+    //   //   }else{
+    //   //     
+    //   //     addToCart(db);
 
-      //   }
-      //   }
-    }
+    //   //   }
+    //   //   }
+    // }
   };
 
   function getQueryVariable(variable) {

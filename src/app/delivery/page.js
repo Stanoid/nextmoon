@@ -47,7 +47,7 @@ function AccounteEl() {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.data.jwt
+          "Authorization": 'Bearer ' + userData.data.jwt
       },
     
   };
@@ -113,7 +113,7 @@ function AccounteEl() {
 
       
 
-<ul style={{borderBottom:"2px solid lightgrey",paddingBottom:5}} className="flex flex-wrap scrollable-content 
+<ul style={{borderBottom:"2px solid lightgrey",paddingBottom:5}} className="flex mt-6 flex-wrap scrollable-content 
  text-sm font-medium text-center text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400">
 <li onClick={()=>{setPage(1)}} className="me-1">
         <a style={{backgroundColor: page==1?"rgb(243 244 246)": "white" ,color:page==1?"rgb(37 99 235)":"grey",cursor:"pointer"}} className="inline-block 

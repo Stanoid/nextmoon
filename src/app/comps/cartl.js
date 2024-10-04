@@ -8,10 +8,10 @@ import { CartCon } from '../contexts/cartContext'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import LoadingBtn from './loadingbtn'
 import Image from 'next/image';
-
+import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
-
-import { API_URL, Theme } from '../local'
+import LikeEl from "./likel"
+import { API_URL, Theme,IMG_URL } from '../local'
 
 
 import { forwardRef, useRef,useImperativeHandle  } from "react"
@@ -27,28 +27,50 @@ const {favData,removeFromFav}  = useContext(CartCon);
 
   const [open, setOpen] = useState(true)
   const [scrol,setScrol]=useState(0);
+  const [likesData,setLikesData] = useState(null);
   const [lod,setLod]=useState(0);
   const [total,setTotal]=useState(0);
   const router = useRouter();
-
+  const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
 const  ls = require('local-storage');
   const [subtotal,setSubtotal]=useState(0);
  
 
   useEffect(()=>{
-
-    if(ls.get("cart")){
-
-    }else{
-      ls.set("cart",[])
-    }
-   
+  if(udata)
+getLikes();   
 
 },[])
 
 
 
+const getLikes=()=>{
+        
+ // props.setLod(true);
+
+     
+const requestOptions = {
+  method: 'GET',
+  headers: {
+      "Content-Type": "application/json",
+      "Authorization": 'Bearer ' + udata.data.jwt
+  },
+
+};
+
+fetch(`${API_URL}likes?func=getLikes`, requestOptions)
+  .then((response) => response.json())
+  .then((data) => {
+  console.log("likes",data) 
+setLikesData(data);
+  }).then(()=>{
+    
+  
+  })
+
+
+}
 
    
 
@@ -153,15 +175,9 @@ const notify = (type,msg)=>{
 
                      <div id="scrol"   style={{height:"100vh",overflowY:'scroll', overflowX:'hidden',padding:10}}>
                  
-                     {favData.length!=0?favData.map((cart,index)=>(
+                     {likesData&&likesData.length!=0?likesData.map((like,index)=>(
                 
-                <Cartel order={false} 
-                key={index}
-                index={index}
-                data={cart.data}
-                selvar={cart.selvar}
-                 removeItem={()=>{}} 
-                 qty={cart.qty}/>
+              <LikeEl closeModal={()=>{props.openHandler(false)}} id={like.products[0].id} price={like.products[0].varients[0].price} name={like.products[0].name_en} index={index} img={IMG_URL.concat(JSON.parse(like.products[0].img)[0]?JSON.parse(like.products[0].img)[0]:JSON.parse(like.products[0].img)[1])}  />
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
