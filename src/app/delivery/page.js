@@ -119,6 +119,10 @@ function AccounteEl() {
         <a style={{backgroundColor: page==1?"rgb(243 244 246)": "white" ,color:page==1?"rgb(37 99 235)":"grey",cursor:"pointer"}} className="inline-block 
         p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Dashboard</a>
     </li>
+    <li onClick={()=>{router.push("/logout")}} className="me-1">
+        <a style={{backgroundColor: page==1?"rgb(243 244 246)": "white" ,color:page==1?"rgb(37 99 235)":"grey",cursor:"pointer"}} className="inline-block 
+        p-3  hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Logout</a>
+    </li>
     
     {/* <li onClick={()=>{setPage(2)}} className="me-1">
         <a  aria-current="page" style={{backgroundColor: page==2?"rgb(243 244 246)": "white" ,color:page==2?"rgb(37 99 235)":"grey",cursor:"pointer"}}

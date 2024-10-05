@@ -1,7 +1,7 @@
 "use client";
 import "./globals.css";
 import { React, useEffect, useState, useRef, useContext } from "react";
-import { API_URL} from "./local";
+import { API_URL ,Theme} from "./local";
 import Cart from "./comps/cart";
 import { NextUIProvider } from "@nextui-org/react";
 import CatDrop from "./comps/catDrop";
@@ -25,6 +25,7 @@ import localFont from 'next/font/local'
 import Cookies from "universal-cookie";
 import Logowhite from "../../public/logored.svg";
 import { useRouter, usePathname } from "next/navigation";
+import { BsX } from "react-icons/bs";
 
 const ArFont = localFont({ src: './styles/fonts/alfont_com_SomarGX.ttf' })
 const EnFont = localFont({ src: './styles/fonts/gothambook-webfont.woff2' })
@@ -40,7 +41,8 @@ export default function RootLayout({ children }) {
   const [eltop,setEtop] = useState(null)
   const [cat,setCat] = useState(null);
   const [logindata,setLogindata] = useState(null)
-  
+  const [searchTog,setSearchTog] = useState(false);
+
   const [draw,setDraw] = useState(false)
   const [searwidth,setSearwidth] = useState(0);
   const [sugges,setSugges] = useState([])
@@ -113,6 +115,8 @@ export default function RootLayout({ children }) {
 
 if(el.target.value.length<3){
 
+  setSugges([]);
+  
 }else{
 
   const requestOptions = {
@@ -163,12 +167,115 @@ if(el.target.value.length<3){
             <section className="w-full" >
             <div className="  w-full bg-white text-white "
              style={{backgroundSize:20}}>
-        <div className="p-2 w-full  shadow-md bg-white " style={{position:"fixed",
+        <div className="p-2 w-full transition-all  shadow-md bg-white " style={{position:"fixed",
           backgroundSize:20,top:0,zIndex:15}} >
-        <NavbarC rel={false} cat={cat} openCart={(t)=>{handleOpenCart(t)}}  openFav={handleOpenCartl}  />
+
+        <NavbarC rel={false} searchTog={searchTog} setSearchTog={(sta)=>{setSearchTog(sta)}} cat={cat} openCart={(t)=>{handleOpenCart(t)}}  openFav={handleOpenCartl}  />
+       
+
+        <div style={{display:searchTog?"flex":"none"}} className="flex-1 flex mt-3 items-center">
+                      <div className=" w-full sm:m-full lg:w-1/2  flex md:ml-0">
+                        <label for="search_field" className="sr-only">
+                          Search
+                        </label>
+                        <div className="relative w-full text-white focus-within:text-gray-600">
+                          <div className="absolute inset-y-0 left-0 flex items-center  p-2 pointer-events-none">
+                            <svg
+                              className="h-5 w-5 text-moon-200"
+                            fill={Theme.secondary}
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                              />
+                            </svg>
+                          </div>
+                          <input
+                          // onBlur={()=>{setDraw(false)}}
+                          onFocus={(el)=>{drawSugg(el)}}
+                          autoComplete="off"
+                          onChange={(el)=>{
+                            handleSearch(el);
+                          }}
+                            id="search_field"
+                            className="block w-full 
+                          border-2 border-moonsec-100
+                            pl-8 pr-3 py-2 rounded-md text-moon-300/40
+                             placeholder-moon-300/40 focus:outline-none focus:placeholder-gray-400 sm:text-sm"
+                            placeholder="Search Minimoon"
+                          />
+                        </div>
+                      </div>
+                      
+   <div
+   className="z-30 border-2 border-t-0 border-b-5 border-moonsec-100 shadow-md"
+   style={{ 
+  position:"absolute",
+  top:eltop+36,
+  left:eleft,
+  fontSize:15,
+  width:searwidth,
+  backgroundColor:"white",
+  borderRadius:"0px 0px 10px 10px",
+  padding:10,
+  
+  
+  display: draw?"block":"none", 
+  }}
+
+   >
+
+<div className="flex w-full text-red-500  text-2xl font-bold justify-end align-middle items-center">
+
+<div
+onClick={()=>{ setDraw(false) }}
+className="flex cursor-pointer items-center" >
+  <div className="text-sm font-bold text-moon-300/60 " >
+  إخفاء
+  </div>
+  
+
+<BsX/>
+</div>
+
+</div>
+
+ {sugges&&sugges.length==0?
+  <div className="h-40 flex text-moon-200 w-full justify-center items-center align-middle">
+<div className="inline">
+لاتوجد نتائج
+
+
+</div>
+ </div> :sugges.map((sug,index)=>(
+
+<div key={index} onClick={()=>{location.href=("/products?pid="+sug.id);setDraw(false)}} className="hover:bg-slate-100" style={{color:"grey",padding:10,borderRadius:5,cursor:"pointer"}}>
+    {sug.name_en}
+    </div>
+
+))}
+    
+    
+    
+
+  
+
+   </div>                  
+  </div>
+       
+       
         <div style={{maxWidth:"100%",overflowX:"scroll"}} className=" text-moon-300 text-md whitespace-nowrap  font-medium  transition-colors  py-0.5 w-full
           space-x-2 flex mt-1 pb-2
         flex-row-reverse scrollable-content  justify-center items-center  ">
+
+
+
+
+
+
+
         
         <div className=" mx-3   cursor-pointer border-b-4 border-moon-200/60 text-moon-200 pb-0.5 " > الرئيسية </div>
     
@@ -193,10 +300,21 @@ if(el.target.value.length<3){
 
 
         </div>
+
+
+
+
+
+
+
+
           </div>      
       <div className="h-14 sm:h-14 lg:h-24" ></div>
        <div className="w-full  p-3" >
     <div className=" flex flex-col  w-full  lg:flex-row-reverse sm:flex-col justify-between   " >
+
+  
+  
 
 
 
@@ -307,6 +425,8 @@ if(el.target.value.length<3){
        
     </div>
             </section>
+
+          
 
 
       

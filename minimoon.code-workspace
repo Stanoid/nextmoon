@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "."
+		},
+		{
+			"path": "../nextmoon-0da7e7c18c226e0b5bc0830b404e430387c8ce68"
 		}
 	],
 	"settings": {

@@ -267,7 +267,7 @@ for (let i = 0; i < vrs.length; i++) {
   }
 
   return (
-    <div className='mt-12' >
+    <div className='mt-24' >
       <Head>
         {/* <title>{"Minimoon | " + db.attributes&&db.attributes.name_en} </title>
         <meta name="description" content={db.attributes.descriptionEn} /> */}

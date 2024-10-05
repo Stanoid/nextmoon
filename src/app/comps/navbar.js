@@ -39,7 +39,7 @@ useEffect(() => {
 }, [])
 
 const handleSearch = ()=>{
-alert("TODO search")
+props.setSearchTog(!props.searchTog)
 }
 
 
@@ -272,8 +272,7 @@ text-2xl font-black          text-gray-600 mx-0 rounded-full " size="md"    aria
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
 >
 <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-moon-200" content="تسجيل دخول" >
-<Button onClick={()=>{router.push("/login")}}  className="bg-gradient-to-tr from-moonsec-100/40   to-moonsec-100
-text-xs font-medium         text-white mx-1 rounded-md " size="sm"    aria-label="Like">               
+<Button onClick={()=>{router.push("/login")}}  className="bg-gradient-to-tr from-moonsec-100/40    to-moonsec-100 text-xs font-mediumtext-white mx-1 rounded-md " size="sm"    aria-label="Like">               
      تسجيل دخول
       </Button>    
 
@@ -288,8 +287,8 @@ text-xs font-medium         text-white mx-1 rounded-md " size="sm"    aria-label
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
 >
 <Tooltip className="bg-moon-300  py-2 px-5 text-moon-200" content=" بحث " >
-<Button onClick={()=>{ handleSearch() }} isIconOnly className="bg-gradient-to-tr from-moon-200/60  to-moon-200/20  
-text-xl           text-gray-600 mx-0 rounded-full " size="md"    aria-label="Like">               
+<Button onClick={()=>{ handleSearch() }} isIconOnly className={`${props.searchTog?"bg-moonsec-100 text-white":" text-gray-600 bg-gradient-to-tr from-moon-200/60  to-moon-200/20"}  
+text-xl     transition-colors       mx-0 rounded-full `} size="md"    aria-label="Like">               
         <FaSearch  />
       </Button>    
 
