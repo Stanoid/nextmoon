@@ -15,6 +15,7 @@ import { API_URL, Theme,IMG_URL } from '../local'
 
 
 import { forwardRef, useRef,useImperativeHandle  } from "react"
+import { error } from 'console'
 
 
 
@@ -59,7 +60,9 @@ const requestOptions = {
 
 };
 
-fetch(`${API_URL}likes?func=getLikes`, requestOptions)
+try {
+  
+  fetch(`${API_URL}likes?func=getLikes`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
   console.log("likes",data) 
@@ -69,8 +72,12 @@ fetch(`${API_URL}likes?func=getLikes`, requestOptions)
 
   }).then(()=>{
     
-  
+   
   })
+
+} catch (error) {
+  console.log(error)
+}
 
 
 }
