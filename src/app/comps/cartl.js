@@ -65,7 +65,7 @@ try {
   fetch(`${API_URL}likes?func=getLikes`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
-  console.log("likes",data) 
+  //console.log("likes",data) 
   if(data){
     setLikesData(data);
   }
@@ -76,7 +76,7 @@ try {
   })
 
 } catch (error) {
-  console.log(error)
+  //console.log(error)
 }
 
 
