@@ -114,8 +114,8 @@ const handleColorSelect =(color)=>{
       descar == "" ||
       descen == "" ||
       subc == null ||
-      color == null ||
-      size == null ||
+      colorSelect.length==0 ||
+      sizeSelect.length==0 ||
       code == "" ||
       stock == null ||
       price == null ||
@@ -317,8 +317,8 @@ const handleColorSelect =(color)=>{
       descar == "" ||
       descen == "" ||
       subc == null ||
-      color == null ||
-      size == null ||
+      colorSelect.length==0 ||
+      sizeSelect.length==0 ||
       code == "" ||
       stock == null ||
       price == null ||
