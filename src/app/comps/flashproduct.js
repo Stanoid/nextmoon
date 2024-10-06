@@ -84,19 +84,27 @@ export default function Product(props) {
 
       <h5 className="text-md text-right tracking-tight text-slate-900">{props.data.name_ar}</h5>
       <div className='flex align-middle  w-full justify-start py-2  ' > 
-    {props.data.varients&&props.data.varients.map(vari=>(
+   
+      {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
     
-<div className='align-middle justify-center mr-1 '   key={vari.id}>
-<Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={vari.color.name_ar} >
-<div style={{backgroundColor:vari.color.colorCode}} className=' h-3 w-3 rounded-full  ' >
+    <div className='align-middle w-full justify-center mr-1 '   key={color.id}>
+    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
+    <div style={{backgroundColor:color.colorCode}} className=' h-3 w-3 rounded-full  ' >
+    
+    </div>
+    </Tooltip>
+    
+    
+    
+    
+    
+    
+    </div>
+    
+    
+    
+    )) :<div></div> }
 
-</div>
-</Tooltip>
-
-
-
-</div>
-))}
     </div>
 <div className=' w-full' >
 <p className='text-right w-full  '>

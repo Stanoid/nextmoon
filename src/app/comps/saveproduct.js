@@ -48,19 +48,25 @@ useEffect(() => {
 
 
     <div className='flex align-middle justify-end py-2 ' > 
-    {props.data.varients&&props.data.varients.map(vari=>(
+    {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
     
-<div className='align-middle justify-center px-1 '   key={vari.id}>
-<Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={vari.color.name_ar} >
-<div style={{backgroundColor:vari.color.colorCode}} className=' h-3 w-3 rounded-full  ' >
-
-</div>
-</Tooltip>
-
-
-
-</div>
-))}
+    <div className='align-middle w-full justify-center mr-1 '   key={color.id}>
+    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
+    <div style={{backgroundColor:color.colorCode}} className=' h-3 w-3 rounded-full  ' >
+    
+    </div>
+    </Tooltip>
+    
+    
+    
+    
+    
+    
+    </div>
+    
+    
+    
+    )) :<div></div> }
     </div>
     <div className="mt-1 mb-3 flex items-start  w-full justify-between">
       <p className='text-right w-full '>

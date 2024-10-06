@@ -55,6 +55,8 @@ const handleOrder= ()=>{
     payarray.push({
       id: cartg[i].selvar,
       product_ref:cartg[i].product_ref,
+      color: cartg[i].color ,
+      size: cartg[i].size ,
       qty: cartg[i].qty,
       desc: cartg[i].data.attributes.description_en 
     
@@ -231,6 +233,8 @@ const notify = (type,msg)=>{
                 key={index}
                 index={index}
                 data={cart.data}
+                size={cart.size}
+                color={cart.color}
                 selvar={cart.selvar}
                  removeItem={removeFromCart} 
                  qty={cart.qty}
@@ -268,6 +272,7 @@ const notify = (type,msg)=>{
                        }}  text={"متابعة إلى الدفع"} lod={lod} />:<LoadingBtn   icon={<FaLock className='ml-1.5' />}   act={()=>{
                         router.push("/login"); props.openHandler(false); 
                         }}  text={"سجل الدخول للمتابعة إلى الدفع"} color={Theme.secondaryDark} lod={lod} />}
+
                         
                        </div>                  
                     {/* /End replace */}

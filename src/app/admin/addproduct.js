@@ -121,7 +121,8 @@ const handleColorSelect =(color)=>{
       price == null ||
       files == []
     ) {
-      alert("empty feilds");
+      // alert("empty feildsfff  ",code);
+      // console.log(sizeSelect,)
       return;
     }
 
@@ -324,7 +325,7 @@ const handleColorSelect =(color)=>{
       price == null ||
       files == []
     ) {
-      alert("empty feilds");
+      alert("empty sub feilds");
       return;
     } else {
       //setlod(true);
@@ -356,6 +357,7 @@ const handleColorSelect =(color)=>{
           
         })
         .then(() => {
+        //  console.log(data)
           setlod(false)
         //  getProducts();
         });

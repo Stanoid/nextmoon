@@ -1,6 +1,6 @@
 import {React,useEffect,useState} from 'react'
 import { CURRENCY, Theme } from '../local'
-import { motion } from 'framer-motion'
+import { color, motion } from 'framer-motion'
 
 
 
@@ -35,35 +35,31 @@ className=' '
 
 
 
-{props.vars&&props.vars.map(varient=>(
-<motion.div   whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
 
- onClick={()=>{props.varselect(varient.id,varient.attributes.product_ref)}}   className='shadow-md transition-colors flex-row lg:flex-row
-  md:flex-col sm:flex-row  ' style={{padding:"10px 10px",color:props.selid==varient.id?"white":"black"
-,borderRadius:5,margin:7,backgroundColor:props.selid==varient.id?Theme.primary:"white",cursor:"pointer",
-display:"flex",justifyContent:"center",alignItems:"center"
-}}  key={varient.id} >
-{/* <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-<div  style={{width:30,height:30,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
-border:"3px solid white",marginRight:-10,zIndex:0,marginBottom:-5
-,backgroundColor:Theme.primary,color:"white",fontSize:20}}>{varient.attributes.size.data.attributes.icon}</div>
-<div style={{width:35,height:35,
-    marginLeft:-10,marginTop:-5
-    ,borderRadius:100,backgroundColor:varient.attributes.color.data.attributes.colorCode}} ></div>
-</div> */}
-<div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
+
+<div className='flex space-x-3'>
+
+
+
+{props.vars[0].attributes.sizes.data&&props.vars[0].attributes.sizes.data.map(size=>(
+
+<div onClick={()=>{props.sizeSelect(size.id)}} key={size.id} className='border-4 px-2  py-2 rounded-md ' style={{borderColor: props.size==size.id?
+     Theme.primary : "grey" , display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
 <div style={{fontWeight:"bold",padding:"3px 4px"}}>
-{varient.attributes.size.data.attributes.icon} <span> </span>
+{size.attributes.icon} <span> </span>
 </div>
 {/* <div style={{color:props.selid==varient.id?"white":"black"
 ,fontStyle:'oblique'}}>
     {varient.attributes.price} {CURRENCY}
 </div> */}
 </div>
-</motion.div>
+
+
 ))}
+
+
+</div>
+
 
 
 
@@ -111,29 +107,27 @@ className=''
 
 
 
+<div className='flex space-x-3'>
 
-{props.vars&&props.vars.map(varient=>(
-<motion.div   whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
 
- onClick={()=>{props.varselect(varient.id,varient.attributes.product_ref)}}   className='shadow-md transition-colors flex-row lg:flex-row
-  md:flex-col sm:flex-row  ' style={{color:props.selid==varient.id?"white":"black"
-,borderRadius:100,margin:7,backgroundColor:props.selid==varient.id?Theme.primary:"white",cursor:"pointer",
-display:"flex",justifyContent:"center",alignItems:"center"
-}}  key={varient.id} >
-<div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
-<div style={{width:35,height:35,borderRadius:100,backgroundColor:varient.attributes.color.data.attributes.colorCode}} ></div>
+{props.vars[0].attributes.colors.data&&props.vars[0].attributes.colors.data.map(color=>(
+
+<div key={color.id} onClick={()=>{props.colorSelect(color.id)}} className='rounded-full cursor-pointer border-4 '  style={{ borderColor: props.color==color.id? Theme.primary: "white" , display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
+<div style={{backgroundColor:color.attributes.colorCode}} className='w-9 h-9 rounded-full'>
+
 </div>
-{/* <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
-<div style={{fontWeight:"bold",padding:"3px 4px"}}>
-{varient.attributes.size.data.attributes.icon} <span> </span>
-</div>
-
+{/* <div style={{color:props.selid==varient.id?"white":"black"
+,fontStyle:'oblique'}}>
+    {varient.attributes.price} {CURRENCY}
 </div> */}
-</motion.div>
+</div>
+
+
 ))}
+
+
+</div>
 
 
 

@@ -36,6 +36,9 @@ export default function Product({}) {
   const [selectedC, setSelectedC] = useState();
   const [size, setSize] = useState();
   const [color, setColor] = useState();
+  const [sizesel, setSizesel] = useState(null);
+  const [colorsel, setColorsel] = useState(null);
+  
   const [stock,setStock] = useState(0);
   const [qty,setQty]=useState(1);
   const [mimg,setmimg] = useState();
@@ -134,10 +137,12 @@ for (let i = 0; i < vrs.length; i++) {
           setStock(data.data.attributes.varients.data[0].attributes.stock);
           setSelectedV(data.data.attributes.varients.data[0].id);
           setPref(data.data.attributes.varients.data[0].attributes.product_ref)
-          
-          setSelectedC(data.data.attributes.varients.data[0].attributes.color.data.id);
-          setSize(data.data.attributes.varients.data[0].attributes.size.data.id);
-          setColor(data.data.attributes.varients.data[0].attributes.color.data.attributes.colorCode);
+          setSizesel(data.data.attributes.varients.data[0].attributes.sizes.data[0].id);
+          setColorsel(data.data.attributes.varients.data[0].attributes.colors.data[0].id);
+
+          setSelectedC(data.data.attributes.varients.data[0].attributes.colors.data[0].id);
+          setSize(data.data.attributes.varients.data[0].attributes.sizes.data[0].id);
+          setColor(data.data.attributes.varients.data[0].attributes.colors.data[0].attributes.colorCode);
           setDb(data.data);
         }).then(()=>{
         setLod(false);
@@ -158,6 +163,8 @@ for (let i = 0; i < vrs.length; i++) {
    dispatch(addToCart({ 
     data: db, 
     selvar: selectedV, 
+    color: colorsel,
+    size: sizesel,
     product_ref:pref,
     qty: qty, 
   }))
@@ -449,7 +456,12 @@ for (let i = 0; i < vrs.length; i++) {
         }}
       >
         <div style={{width:"100%",padding:"10px",borderRadius: "10px 10px 0px 0px",}}>
-          <OptionEL varselect={(vid,prodRef)=>{varselectHandler(vid,prodRef)}} selid={selectedV} vars={db&&db.attributes.varients.data} />
+         <OptionEL varselect={(vid,prodRef)=>{varselectHandler(vid,prodRef)}} 
+         size={sizesel}
+         color={colorsel}
+         sizeSelect={(sid)=>{setSizesel(sid)}}
+         colorSelect={(cid)=>{setColorsel(cid)}}
+         selid={selectedV} vars={db&&db.attributes.varients.data} />
 
     
                </div>
