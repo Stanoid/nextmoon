@@ -63,7 +63,10 @@ fetch(`${API_URL}likes?func=getLikes`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
   console.log("likes",data) 
-setLikesData(data);
+  if(data){
+    setLikesData(data);
+  }
+
   }).then(()=>{
     
   
