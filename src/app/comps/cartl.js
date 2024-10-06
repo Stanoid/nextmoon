@@ -15,7 +15,7 @@ import { API_URL, Theme,IMG_URL } from '../local'
 
 
 import { forwardRef, useRef,useImperativeHandle  } from "react"
-import { error } from 'console'
+
 
 
 
