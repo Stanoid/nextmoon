@@ -24,8 +24,11 @@ function AddProduct(props) {
   const [cats, setCats] = useState([]);
 
   const [namear, setNamear] = useState("");
+  const[sizeSelect,setSizeselect] = useState([]);
+  const[colorSelect,setColorselect] = useState([])
   const [nameen, setNameen] = useState("");
   const [descar, setDescar] = useState("");
+  const [code, setCode] = useState("");
   const [descen, setDescen] = useState("");
   const [subc, setSubc] = useState(null);
   const [imgs, setImgs] = useState([]);
@@ -36,6 +39,11 @@ function AddProduct(props) {
   const [lod, setlod] = useState(false);
   const isLogged = useSelector((state) => state.root.auth.data&&state.root.auth.data)
   const [products, setProducts] = useState([]);
+
+  const [eff, setEff] = useState(true);
+  const [refr, setRefr] = useState(true);
+
+
   const [formData, setFormData] = useState({
     imgs: "",
   });
@@ -43,12 +51,57 @@ function AddProduct(props) {
   const [files, setFiles] = useState([]);
   useEffect(() => {
     // loginval();
-    getColors();
-  }, []);
+    if(eff){
+      getColors();
+    }
+    
+  }, [eff,refr]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+const handleSizesSelect =(size)=>{
+
+  for (let index = 0; index < sizes.length; index++) {
+
+    if(sizes[index].id==size){
+      return <div className="flex flex-col justify-center items-center space-y-0.5" >
+        <div>
+        {sizes[index].attributes.icon}
+        </div>
+
+        <div>
+        {sizes[index].attributes.name_ar}
+        </div>
+      </div>
+    }
+    
+  }
+
+}
+
+const handleColorSelect =(color)=>{
+
+  for (let index = 0; index < colors.length; index++) {
+
+    if(colors[index].id==color){
+      return <div className="flex flex-col justify-center items-center space-y-0.5" >
+        <div style={{backgroundColor:colors[index].attributes.colorCode}} className=" w-5 h-5 rounded-full ">
+        
+        </div>
+
+        <div>
+        {colors[index].attributes.name_ar}
+        </div>
+      </div>
+    }
+    
+  }
+
+}
+
+
 
   const uploadMedia = () => {
     if (lod) {
@@ -63,6 +116,7 @@ function AddProduct(props) {
       subc == null ||
       color == null ||
       size == null ||
+      code == "" ||
       stock == null ||
       price == null ||
       files == []
@@ -199,7 +253,7 @@ function AddProduct(props) {
     fetch(`${API_URL}sizes`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        
+      //  console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",data.data)        
         setSizes(data.data);
       })
       .then(() => {
@@ -265,6 +319,7 @@ function AddProduct(props) {
       subc == null ||
       color == null ||
       size == null ||
+      code == "" ||
       stock == null ||
       price == null ||
       files == []
@@ -286,6 +341,7 @@ function AddProduct(props) {
           descen: descen,
           descar: descar,
           subc: subc,
+          code: code,
           color: color,
           size: size,
           stock: stock,
@@ -327,7 +383,9 @@ function AddProduct(props) {
 'descriptionAr descriptionAr descriptionAr descriptionAr'
 'descriptionEn descriptionEn descriptionEn descriptionEn'
 'cat images images images'
-'color size price stock'
+'size sizeSelect sizeSelect sizeSelect'
+'color colorSelect colorSelect colorSelect'
+'price stock code code'
 `,
         }}
       >
@@ -438,11 +496,33 @@ function AddProduct(props) {
           />
         </div>
 
+
+        <div style={{ gridArea: "size" }}>
+          <InputEl
+            value={size}
+            outputfunc={(val) => {
+              let oldSizes = sizeSelect;
+              oldSizes.push(val)
+              setSizeselect(oldSizes);
+              setEff(false)
+              setRefr(!refr);
+            }}
+            iden={"size"}
+            data={sizes}
+            select={true}
+            label={"المقاس"}
+          />
+        </div>
+
         <div style={{ gridArea: "color" }}>
           <InputEl
             value={color}
             outputfunc={(val) => {
-              setcolor(val);
+              let oldColors = colorSelect;
+              oldColors.push(val)
+              setColorselect(oldColors);
+              setEff(false)
+              setRefr(!refr);
             }}
             iden={"color"}
             data={colors}
@@ -451,18 +531,50 @@ function AddProduct(props) {
           />
         </div>
 
-        <div style={{ gridArea: "size" }}>
+        <div style={{ gridArea: "code" }}>
           <InputEl
-            value={size}
+            value={code}
             outputfunc={(val) => {
-              setSize(val);
+              //setStock(val);
+              setCode(val);
             }}
-            iden={"size"}
-            data={sizes}
-            select={true}
-            label={"المقاس"}
+            num={false}
+            label={"كود المنتج"}
           />
         </div>
+
+        <div className="bg-gray-100 rounded-md  flex justify-center items-center " style={{ gridArea: "sizeSelect" }}>
+          {sizeSelect.length==0?<div className="flex w-full text-gray-400 h-full justify-center items-center" >
+           إختر مقاسات 
+          </div>:
+          sizeSelect&&sizeSelect.map((size,index)=>(
+           <div className="mx-3 ">
+           {handleSizesSelect(size)} 
+           </div>
+          ))
+          }
+      
+        </div>
+
+        <div className="bg-gray-100 rounded-md  flex justify-center items-center " style={{ gridArea: "colorSelect" }}>
+          {colorSelect.length==0?<div className="flex w-full text-gray-400 h-full justify-center items-center" >
+           إختر الألوان 
+          </div>:
+          colorSelect&&colorSelect.map((color,index)=>(
+            <div className="mx-3 ">
+            {handleColorSelect(color)} 
+            </div>
+          ))
+          }
+      
+        </div>
+
+      
+
+     
+
+        
+    
       </div>
 
       <div className=""

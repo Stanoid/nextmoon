@@ -38,7 +38,7 @@ const  ls = require('local-storage');
  
 
   useEffect(()=>{
-  if(udata)
+  if(udata&&udata.data.jwt)
 getLikes();   
 
 },[])

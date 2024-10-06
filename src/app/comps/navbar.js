@@ -51,7 +51,7 @@ const handleAccount=(type)=>{
       break;
 
       case 4:
-      router.push("/")
+      router.push("/user")
       break;
 
 
