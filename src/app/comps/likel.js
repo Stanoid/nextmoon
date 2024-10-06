@@ -5,7 +5,7 @@ import {CURRENCY} from '../local'
 import { useRouter } from 'next/navigation'
 import { BsX } from 'react-icons/bs'
 function LikeEl(props) {
-
+// 
     const router = useRouter();
     return (
 <a href={`/products?pid=${props.id}`} >
