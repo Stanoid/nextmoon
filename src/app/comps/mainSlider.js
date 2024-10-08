@@ -55,7 +55,7 @@ export default (props) => {
   )
 
   return (
-    <div className="h-56" style={{width:"100%"}}>
+    <div className="h-64" style={{width:"100%"}}>
       <div  style={{width:"100%",height:"100%"}}  className="  navigation-wrapper">
         <div style={{width:"100%",height:"100%"}} ref={sliderRef} className="keen-slider">
           
@@ -66,8 +66,8 @@ export default (props) => {
 <Image 
              priority={true}
            fill objectFit='cover'
-           quality={100}
-           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+       
+       
            
   src={img} className="rounded-md" />
     </div>

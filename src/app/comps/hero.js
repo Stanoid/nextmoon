@@ -107,13 +107,13 @@ col-span-6 flex sm:flex lg:hidden'>
            className='lg:col-span-4  h-min xl:col-span-4 md:col-span-3 col-span-6 hidden sm:hidden lg:flex md:flex xl:flex'>
 
            <Slider  slides={[
-             '/offers/offer7.png',
+            
              '/offers/offer6.png',
-             '/offers/offer5.png',
+        
             '/offers/offer1.png',
             '/offers/offer2.png',
             '/offers/offer3.png',
-            '/offers/offer4.png',
+  
            
             
            
