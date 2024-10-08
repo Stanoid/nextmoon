@@ -111,7 +111,8 @@ fetch(`${API_URL}products?func=getProductswithCatid&cid=${getQueryVariable("cid"
 <div className='w-28 h-28  lg:w-40 lg:h-40  relative ' >
        
       
-       <Image quality={20} objectFit="cover" className="rounded-md rounded-b-none" fill  src={prd.img&&IMG_URL.concat(prd.img.formats.medium.url)} />
+       <Image quality={20} objectFit="cover" className="rounded-md rounded-b-none" fill 
+        src={"https://res.cloudinary.com/strapimedia/image/upload/v1728387477/minimoon_assets/g2lsfkim9mi7dwc1ofxs.jpg"} />
       
          </div>
 
