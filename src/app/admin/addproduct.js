@@ -273,7 +273,7 @@ function AddProduct(props) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setColors(data.data);
+        setColors(data);
       })
       .then(() => {
         getSizes();
@@ -614,6 +614,7 @@ function AddProduct(props) {
             iden={"color"}
             data={colors}
             select={true}
+            iscats={true}
             label={"اللون"}
           />
         </div>
