@@ -28,7 +28,7 @@ gap:8,
 // `
    }} >
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"namear"}}>
-    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full ' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full ' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg'  />
    <div className='text-center text-sm mt-2' >
    منتجات أمهات
     <div className='text-moon-200/80' >
@@ -39,7 +39,8 @@ gap:8,
 
 
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"nameen"}}>
-    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'/>
+    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full' src='
+    https://res.cloudinary.com/strapimedia/image/upload/v1728387477/minimoon_assets/g2lsfkim9mi7dwc1ofxs.jpg'/>
    <div className='text-center  text-sm mt-2' >
    منتجات أطفال
     <div className='text-moon-200/80' >
@@ -50,7 +51,7 @@ gap:8,
 
 
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"sicon"}}>
-    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md w-3/4 sm:w-3/4 lg:w-full' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg'  />
    <div className='text-center text-sm mt-2' >
    منتجات أناقة
     <div className='text-moon-200/80' >
@@ -86,7 +87,7 @@ gap:8,
 
     <div className=' w-full gap-2 flex flex-col sm:flex-col lg:flex-row'>
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"namear"}}>
-    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg'  />
    <div className='text-center text-sm mt-2' >
    منتجات أمهات
     <div className='text-moon-200/80' >
@@ -97,7 +98,7 @@ gap:8,
 
 
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"nameen"}}>
-    <img className='rounded-md -md w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md -md w-3/4 sm:w-3/4 lg:w-full' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg'  />
    <div className='text-center  text-sm mt-2' >
    منتجات أطفال
     <div className='text-moon-200/80' >
@@ -108,7 +109,7 @@ gap:8,
 
 
     <div className=' flex flex-col justify-center items-center '  style={{gridArea:"sicon"}}>
-    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg'  />
    <div className='text-center text-sm mt-2' >
    منتجات أناقة
     <div className='text-moon-200/80' >
@@ -262,7 +263,7 @@ display:props.variant=="never"?"flex":"none",
 <div className='mx-2 min-w-10 lg:hidden'></div>
 
     <div className=' flex flex-col mx-2 justify-center min-w-36 items-center py-2 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg ' src='/offers/offermob6.jpg' width={"100%"} />
+    <img className='rounded-full shadow-lg ' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -279,7 +280,7 @@ display:props.variant=="never"?"flex":"none",
 
     
     <div className=' flex flex-col mx-2 justify-center items-center min-w-36 py-2 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg' src='/offers/offermob6.jpg' width={"100%"} />
+    <img className='rounded-full shadow-lg' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -295,7 +296,7 @@ display:props.variant=="never"?"flex":"none",
 
     
     <div className=' flex flex-col mx-2 justify-center items-center py-2 min-w-36 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg ' src='/offers/offermob6.jpg' width={"100%"} />
+    <img className='rounded-full shadow-lg ' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -312,7 +313,7 @@ display:props.variant=="never"?"flex":"none",
 
     
     <div className=' flex flex-col mx-2 justify-center items-center py-2  min-w-36'  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg ' src='/offers/offermob6.jpg' width={"100%"} />
+    <img className='rounded-full shadow-lg ' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -330,7 +331,7 @@ display:props.variant=="never"?"flex":"none",
 
     
     <div className=' flex flex-col mx-2 justify-center items-center py-2  min-w-36'  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg' src='/offers/offermob6.jpg' width={"100%"} />
+    <img className='rounded-full shadow-lg' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -378,7 +379,7 @@ gap:8,
    }} >
     <div className=' w-full  flex gap-2 items-center flex-col sm:flex-col lg:flex-row '>
     <div className=' flex flex-col justify-center  items-center sm:items-center lg:items-start '  style={{gridArea:"namear"}}>
-    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg' />
+    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' />
     <div className='text-right text-md px-4 font-semibold  my-4 ' >
     إسم الفئة | <span className='text-moon-200' >التاريخ</span>
     <div className='text-moon-300/70 leading-tight font-medium text-justify mt-1' >
@@ -388,7 +389,7 @@ gap:8,
     </div>
 
     <div className=' flex flex-col justify-center items-center sm:items-center lg:items-start '  style={{gridArea:"nameen"}}>
-    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg'  />
    <div className='text-right text-md px-4 font-semibold  my-4 ' >
     إسم الفئة | <span className='text-moon-200' >التاريخ</span>
     <div className='text-moon-300/70 leading-tight font-medium text-justify mt-1' >
@@ -398,7 +399,7 @@ gap:8,
     </div>
 
     <div className=' flex flex-col justify-center items-center sm:items-center lg:items-start '  style={{gridArea:"sicon"}}>
-    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='/offers/offermob6.jpg'  />
+    <img className='rounded-md  w-3/4 sm:w-3/4 lg:w-full' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg'  />
     <div className='text-right text-md px-4 font-semibold  my-4 ' >
     إسم الفئة | <span className='text-moon-200' >التاريخ</span>
     <div className='text-moon-300/70 leading-tight font-medium text-justify mt-1' >

@@ -488,7 +488,7 @@ function AddProduct(props) {
             </form> */}
 
 <CldUploadWidget
-  uploadPreset="minimoon"
+  uploadPreset="minimoon_assets"
   onQueuesStart={()=>{setImglod(true)}}
 
   onSuccess={(result, { widget }) => {

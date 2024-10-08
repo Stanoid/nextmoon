@@ -56,58 +56,6 @@ function EditProduct(props) {
     
   }, [eff,refr]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const uploadMedia = () => {
-    if (
-      namear == "" ||
-      nameen == "" ||
-      descar == "" ||
-      descen == "" ||
-      subc == null ||
-      color == null||
-      size == null ||
-      stock == null||
-      price == null||
-      files == []
-    ) {
-      alert("empty feilds");
-      return;
-    }
-
-    if (files == []) {
-      alert("Please upload images");
-      return;
-    }
-
-    setlod(true);
-
-    var tmepar = [];
-
-    
-    for (let i = 0; i < files.length; i++) {
-      const postData = new FormData();
-      postData.append("files", files[i]);
-      //
-      axios
-        .post("http://localhost:1337/api/upload", postData)
-        .then((response) => {
-          const imageId = response.data[0].id;
-          tmepar[i] = response.data[0].url;
-          
-          setImgs(tmepar);
-        })
-        .then(() => {
-          if (i == files.length - 1) {
-            submitProduct();
-          }
-        });
-    }
- 
-  };
-
 
   const addVarient= ()=>{
 
