@@ -26,13 +26,13 @@ import Cookies from "universal-cookie";
 import Logowhite from "../../public/logored.svg";
 import { useRouter, usePathname } from "next/navigation";
 import { BsX } from "react-icons/bs";
-
+import { useSelector } from "react-redux";
 const ArFont = localFont({ src: './styles/fonts/alfont_com_SomarGX.ttf' })
 const EnFont = localFont({ src: './styles/fonts/gothambook-webfont.woff2' })
 export default function RootLayout({ children }) {
  
   const router = useRouter();
- 
+  //const userData = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
   const [openCart, setOpenCart] = useState(false);
   const [openCartl, setOpenCartl] = useState(false);
@@ -343,11 +343,20 @@ className="flex cursor-pointer items-center" >
 
                     <div className="  hidden">
                       <div className="flex  flex-col ">
-                        {/* <Cartl
-                          ref={childCompRef}
-                          openHandler={handleOpenCartl}
-                          open={openCartl}
-                        /> */}
+
+                      {/* {
+                        
+  userData&&!userData.error?
+  <Cartl
+  ref={childCompRef}
+  openHandler={handleOpenCartl}
+  open={openCartl}
+/>:<></>
+} */}
+
+
+
+                    
                       </div>
                     </div>
             </section>

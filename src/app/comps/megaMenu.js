@@ -57,7 +57,8 @@ function MegaMenu(props) {
 
 <div className='w-28 h-28  lg:w-40 lg:h-40  relative ' >
      
-       <Image quality={20} objectFit="cover" className="rounded-md rounded-b-none" fill  src={props.data.img.url&&IMG_URL.concat(props.data.img.formats.medium.url)} />
+       <Image quality={20} objectFit="cover" className="rounded-md rounded-b-none" fill 
+        src={"https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg"} />
 
          </div>
          <div className='text-center p-2 w-28 lg:w-40  bg-moonsec-100/20 text-gray-900  ' > {props.cat} </div>
