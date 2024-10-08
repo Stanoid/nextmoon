@@ -120,11 +120,11 @@ function AddProduct(props) {
       if (colors[index].id == color) {
         return (
           <div
-            style={{ backgroundColor: colors[index].attributes.colorCode }}
+            style={{ backgroundColor: colors[index].colorCode }}
             className="flex p-3 rounded-md mx-1 text-sm flex-col space-y-1 justify-center items-center "
           >
             <div className=" bg-black/50 text-white px-3 py-0.5 rounded-md  ">
-              {colors[index].attributes.name_ar}
+              {colors[index].name_ar}
             </div>
 
             <div
