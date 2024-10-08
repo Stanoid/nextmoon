@@ -7,7 +7,9 @@ function LoadingBtn(props) {
  
 
 
-<button onClick={props.act} style={{display:"flex",alignItems:"center",color:props.textColor?props.textColor:"",justifyContent:"center",backgroundColor:props.color?props.color:Theme.primary}}
+<button onClick={props.act} style={{display:"flex",alignItems:"center",color:props.textColor?props.textColor:""
+
+,justifyContent:"center",backgroundColor:props.color?props.color:Theme.primary}}
  className="mt-4 w-full  text-white py-3 px-5 shadow-lg  rounded-md text-md tracking-wide">
 
 <div style={{display:props.lod?"flex":"none",justifyContent:"center",alignItems:"center"}} className="lds-facebookbtn"><div></div><div></div><div></div></div>
