@@ -19,7 +19,7 @@ product.status?
 
 <div  className="  flex justify-center items-center   min-w-40  shadow-lg rounded-md
 font-bold text-lg  " >
- <a href={`/subcatagories?sid=${props.cid}`} className='flex  text-moon-200  justify-center items-center' > 
+ <a href={ props.home?"#":`/subcatagories?sid=${props.cid}`} className='flex  text-moon-200  justify-center items-center' > 
 
   <span className='mr-1.5  tracking-tight' >  عرض الكل </span>     <FaCircleArrowRight/>
   </a> 

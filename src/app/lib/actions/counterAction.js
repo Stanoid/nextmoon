@@ -63,7 +63,7 @@ if(res.error){
 
 export const addToCart =  (pld) => async (dispatch,getState) =>{
 const state = getState();
-console.log(state.root.cart.data)
+//console.log(state.root.cart.data)
 //return
 
 
@@ -72,20 +72,32 @@ console.log(state.root.cart.data)
 var nnccr = JSON.parse(JSON.stringify(carr));
 //return [] //hard reset
 
-const i = carr.findIndex(e => e.data.id === pld.data.id);
-if (i > -1) {
-  console.log("index",i);
-  // We know that at least 1 object that matches has been found at the index i
-   //const nqty = carr[i].data.qty + 1 ;
-   //carr[i].data.qty = nqty
-   nnccr[i].qty = nnccr[i].qty +1;
-console.log(nnccr)
+// console.log("nccr",nnccr);
+// console.log("pld",pld)
 
-dispatch({ type: types.ADDTOCART, payload: nnccr })
+const i = carr.findIndex(e => e.data.id === pld.data.id && e.color==pld.color && e.size==pld.size);
+if (i > -1  ) {
+
+
+  if(nnccr[i].color==pld.color && nnccr[i].size==pld.size){
+    console.log("match sizes and clors")
+    nnccr[i].qty = nnccr[i].qty +1;
+    dispatch({ type: types.ADDTOCART, payload: nnccr })
+  }else{
+    console.log(" not match sizes and clors")
+    const ncarr =  carr.concat(pld);
+    dispatch({ type: types.ADDTOCART, payload: ncarr })
+  }
+
+
+//console.log(nnccr)
+
+
+
 }else{
 
   const ncarr =  carr.concat(pld);
-  console.log("length",ncarr)
+  //console.log("length",ncarr)
   dispatch({ type: types.ADDTOCART, payload: ncarr })
 
 
@@ -104,7 +116,7 @@ var nnccr = JSON.parse(JSON.stringify(carr));
 
 for (let i = 0; i < nnccr.length; i++) {
  
-  if(nnccr[i].selvar==pld){
+  if(nnccr[i].selvar==pld.id && nnccr[i].color==pld.color && nnccr[i].size==pld.size ){
     nnccr.splice(i, 1);
   }
   

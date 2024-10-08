@@ -222,7 +222,7 @@ product.status?
 </p>
   </div>
 
-   <HorDiv btn={true} data={product&&products} />
+   <HorDiv home={true} btn={true} data={product&&products} />
 </div>
 
 
@@ -234,7 +234,7 @@ product.status?
 </p>
   </div>
 
-   <HorDiv  btn={true}  data={product&&products} />
+   <HorDiv home={true} btn={true}  data={product&&products} />
 </div>
 
 {/* <div className="p-2 px-2 sm:px-3 lg:px-80 bg-gradient-to-b to-moonsec-200/30 from-moon-200/20 py-6 ">
@@ -256,7 +256,7 @@ style={{width:"100%"}}
 </p>
   </div>
 
-   <HorDiv data={product&&products} />
+   <HorDiv home={true} data={product&&products} />
 </div>
     
   </div>

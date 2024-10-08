@@ -44,7 +44,7 @@ function Lens(props) {
 
   const [zoomv,setZoomv] = useState(false)
   const [galleryImage, setGalleryImage] = useState(
-    IMG_URL.concat(props.data[0])
+    props.data[0].url
   );
 
   
@@ -69,7 +69,8 @@ function Lens(props) {
        {props.data&&props.data.map((img,index)=>(
  img?
  <div className="w-14 h-14  relative cursor-pointer" >  
-  <Image quality={40} objectFit="cover" className="rounded-md shadow-sm" fill onClick={() => handleClick(IMG_URL.concat(img))} src= {IMG_URL.concat(img)}  />
+  <Image quality={40} objectFit="cover" className="rounded-md shadow-sm" fill onClick={() => 
+    handleClick(img.url)} src= {img.thumb}  />
  </div>:<></>
 
  

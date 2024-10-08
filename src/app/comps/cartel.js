@@ -63,7 +63,7 @@ export default function Cartel(props) {
             style={{
               borderRadius: 5,
             }}
-            src={IMG_URL.concat(JSON.parse(props.data.attributes.img)[0])}
+            src={JSON.parse(props.data.attributes.img)[0].thumb}
           />
         </div>
 
@@ -86,25 +86,25 @@ export default function Cartel(props) {
               textAlign: "right",
             }}
           >
-            {props.data.attributes.name_ar.length > 40
-              ? props.data.attributes.name_ar.slice(0, 40) + "..."
+            {props.data.attributes.name_ar.length > 30
+              ? props.data.attributes.name_ar.slice(0, 30) + "..."
               : props.data.attributes.name_ar}
           </div>
 
-          <div dir="rtl" className="font-semibold text-moon-200/80">
-            {varient && varient.attributes.price} {CURRENCY}
-            <span
+          <div  className="flex flex-col">
+          <div dir="rtl" className="font-semibold text-moon-200/80" >  {varient && varient.attributes.price} {CURRENCY} </div>  
+          <div
               className=" italic text-gray-300 "
               style={{
                 padding: 5,
-                fontSize: 9,
+                fontSize: 12,
                 paddingTop: 0,
                 color: "black",
                 fontWeight: "bold",
               }}
             >
               {props.qty} قطعة
-            </span>
+            </div>
           </div>
         </div>
 
@@ -163,7 +163,9 @@ export default function Cartel(props) {
 
         <div
           onClick={() => {
-            dispatch(removeFromCart(props.selvar));
+            dispatch(removeFromCart(
+             {id: props.selvar, color:props.color, size:props.size}
+            ));
           }}
           style={{
             display: props.order ? "none" : "flex",

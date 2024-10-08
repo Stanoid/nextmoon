@@ -14,7 +14,7 @@ import { MAIN_STYLE } from '../styles/style'
 import Head from 'next/head'
 import { BsStarFill,BsCheck2Circle,BsCheckCircleFill,BsCartPlusFill } from 'react-icons/bs'
 import { useRouter } from 'next/navigation'
-
+import { CldImage } from 'next-cloudinary'
 
 
 export default function Product(props) {
@@ -62,11 +62,20 @@ export default function Product(props) {
 }} >
     
   <div sty className='w-full h-48  ' style={{position:"relative"}} >
-  <Image  fill objectFit='cover'
+  {/* <Image  fill objectFit='cover'
   quality={50}
   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"    className=' rounded-md  '  src={props.data&&IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
  
-  />
+  /> */}
+
+<CldImage
+  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}
+  fill objectFit='cover'
+   className=' rounded-md  ' 
+  src={JSON.parse(props.data.img)[0].id}
+   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  alt="Description of my image"
+/>
   
   <span     className="absolute cursor-pointer bottom-0 left-0 m-2 rounded-full bg-moonsec-200/80 
     text-center text-xs p-1 px-3 tracking-tight whitespace-nowrap font-medium text-white">
@@ -82,23 +91,17 @@ export default function Product(props) {
       
       <div   className=" flex flex-col justify-center items-center">
 
-      <h5 className="text-md text-right tracking-tight text-slate-900">{props.data.name_ar}</h5>
-      <div className='flex align-middle  w-full justify-start py-2  ' > 
+      <h5 className="text-md text-right tracking-tight text-slate-900">{props.data.length>40?props.data.name_ar.slice(0,40)+"...":props.data.name_ar}</h5>
+      <div className='flex align-middle items-center   justify-center py-2  ' > 
    
       {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
     
-    <div className='align-middle w-full justify-center mr-1 '   key={color.id}>
+    <div className='align-middle w-full justify-center mx-1 '   key={color.id}>
     <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
-    <div style={{backgroundColor:color.colorCode}} className=' h-3 w-3 rounded-full  ' >
+    <div style={{backgroundColor:color.colorCode}} className=' h-4 w-4 rounded-full  ' >
     
     </div>
     </Tooltip>
-    
-    
-    
-    
-    
-    
     </div>
     
     

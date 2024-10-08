@@ -6,6 +6,8 @@ import Styles from "../styles/Home.module.css"
 import { Theme,CURRENCY, API_URL, IMG_URL, DEF_IMG } from '../local'
 import { Tooltip } from '@nextui-org/react'
 import Image from 'next/image'
+import { CldImage } from 'next-cloudinary';
+
 import { motion } from 'framer-motion'
 import { useState,useEffect } from 'react'
 import { Button } from '@nextui-org/react'
@@ -62,13 +64,24 @@ export default function Product(props) {
 }} >
     
   <div sty className='w-full h-48 min-w-full ' style={{position:"relative"}} >
-  <Image fill objectFit='cover'
+  {/* <Image fill objectFit='cover'
   quality={25}
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className=' rounded-md  ' 
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}
+    className=' rounded-md  ' 
     src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
 
-  />
+  /> */}
+
+  <div onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}>
+<CldImage
   
+  fill objectFit='cover'
+   className=' rounded-md  ' 
+  src={JSON.parse(props.data.img)[0].thumb}
+   //sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  alt="Description of my image"
+/>
+</div>
   <span    onClick={()=>{router.push(`/categories?cid=${props.data.subcatagory.id}`)}}  className="absolute cursor-pointer bottom-0 left-0 m-2 rounded-full bg-black 
     text-center text-xs p-1 px-3 font-medium text-white">
       {props.data.subcatagory.name_ar  }
