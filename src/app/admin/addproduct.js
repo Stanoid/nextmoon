@@ -269,9 +269,10 @@ function AddProduct(props) {
         Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
-    fetch(`${API_URL}colors`, requestOptions)
+    fetch(`${API_URL}products?func=getColorsAdmin`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setColors(data.data);
       })
       .then(() => {
