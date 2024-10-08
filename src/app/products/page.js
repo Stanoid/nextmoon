@@ -132,11 +132,14 @@ for (let i = 0; i < vrs.length; i++) {
         .then((response) => response.json())
         .then((data) => {
           //
+
+
+          
           setImgs(JSON.parse(data.data.attributes.img));
           setPrice(data.data.attributes.varients.data[0].attributes.price);
           setStock(data.data.attributes.varients.data[0].attributes.stock);
           setSelectedV(data.data.attributes.varients.data[0].id);
-          setPref(data.data.attributes.varients.data[0].attributes.product_ref)
+          setPref(data.data.attributes.varients.data[0].attributes.product_ref);
           setSizesel(data.data.attributes.varients.data[0].attributes.sizes.data[0].id);
           setColorsel(data.data.attributes.varients.data[0].attributes.colors.data[0].id);
 
