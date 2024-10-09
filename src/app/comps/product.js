@@ -106,7 +106,7 @@ export default function Product(props) {
 
   <div className="mt-1 mb-0 flex items-start  w-full flex-col justify-between">
   <div className='flex align-middle w-full justify-end py-2  ' > 
-    {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
+    {props.data.varients[0].colors&&props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
     
 <div className='align-middle w-full justify-center mr-1 '   key={color.id}>
 <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
