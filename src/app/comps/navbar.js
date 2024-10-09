@@ -306,7 +306,7 @@ text-xl     transition-colors       mx-0 rounded-full `} size="md"    aria-label
   whileTap={{ scale: 0.9 }}
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
 >
-<Tooltip className="bg-moon-300  py-2 px-5 text-moon-200" content=" بحث " >
+<Tooltip className="bg-moon-300  py-2 px-5 text-moon-200" content=" المفضلة " >
 <Button onClick={()=>{props.openFav(true)}} isIconOnly className="bg-gradient-to-tr from-moon-200/60  to-moon-200/20 
 text-xl           text-gray-600 mx-0 rounded-full " size="md"    aria-label="Like">               
         <FaHeart  />

@@ -46,16 +46,21 @@ useEffect(() => {
 />
 
   </div>
-    <span className="absolute top-0 left-0 m-2 rounded-full bg-black  text-center text-xs italic tracking-tighter p-1 px-3 font-medium text-white">39% خصم</span>
+    <span className="absolute top-0 left-0 m-2
+     rounded-full bg-black  text-center text-xs italic tracking-tighter p-1 px-3 font-medium text-white">39% خصم</span>
   </div>
   
   
   
   
   <div className="mt-4 px-3 pb-5">
-    <a href="#">
-      <h5 className="text-md tracking-tight whitespace-normal text-slate-900">{props.data.length>40?props.data.name_ar.slice(0,40)+"...":props.data.name_ar }</h5>
-    </a>
+ 
+  <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className="mt-2 px-1 flex justify-start  w-full">
+
+      <h5  className="text-base  
+        tracking-normal  text-white bg-moon-200 inline font-bold px-4 py-1  rounded-full ">{props.data&&props.data.varients[0].code} </h5>
+    
+  </div>
 
 
     <div className='flex align-middle justify-end py-2 ' > 
@@ -79,12 +84,14 @@ useEffect(() => {
     
     )) :<div></div> }
     </div>
-    <div className="mt-1 mb-3 flex items-start  w-full justify-between">
-      <p className='text-right w-full '>
-        <span className="text-xl font-bold text-moon-300/75">  {CURRENCY}  {props.data.varients[0].price}</span>
-        <span className="text-sm text-moon-200 line-through">  {CURRENCY} {props.data.varients[0].price+20}</span>
-      </p>
-    </div>
+ <div className=' w-full flex flex-col  '>
+        <div className="text-xl font-bold text-moon-300/75 flex flex-row-reverse  justify-end  " > <div>{CURRENCY} </div> <div> {props.data.varients[0].price} 
+          </div>  </div>
+
+          <div className="text-sm text-moon-200 line-through flex flex-row-reverse   justify-end" > <div>{CURRENCY} </div> <div> {props.data.varients[0].price+20} 
+          </div>  </div>
+      
+      </div>
    
     
     <a  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}} style={{display:props.actbtn?"flex":"none"}}  className="  items-center justify-center

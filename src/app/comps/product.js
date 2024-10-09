@@ -98,9 +98,10 @@ export default function Product(props) {
       </div>
 
       
-      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className="mt-2 px-1 pb-2 w-full">
+      <div  onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}  className="mt-2 px-1 flex justify-end  w-full">
 
-      <h5 dir='rtl' className="text-sm text-right tracking-normal whitespace-normal leading-tight text-slate-900">{props.data.name_ar} .</h5>
+      <h5  className="text-base  
+        tracking-normal  text-white bg-moon-200 inline font-bold px-4 py-1  rounded-full ">{props.data&&props.data.varients[0].code} </h5>
     
   </div>
 
@@ -144,10 +145,14 @@ export default function Product(props) {
 </div>
 
     </div>
-      <p className='text-right w-full '>
-        <span className="text-xl font-bold text-moon-300/75">  {CURRENCY}  {props.data.varients[0].price}</span>
-        <span className="text-sm text-moon-200 line-through">  {CURRENCY} {props.data.varients[0].price+20}</span>
-      </p>
+      <div className=' w-full flex flex-col justify-end '>
+        <div className="text-xl font-bold text-moon-300/75 flex flex-row  justify-end  " > <div>{CURRENCY} </div> <div> {props.data.varients[0].price} 
+          </div>  </div>
+
+          <div className="text-sm text-moon-200 line-through flex flex-row   justify-end" > <div>{CURRENCY} </div> <div> {props.data.varients[0].price+20} 
+          </div>  </div>
+      
+      </div>
     
     </div>
     

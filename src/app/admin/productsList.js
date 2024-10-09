@@ -95,7 +95,7 @@ function ProductsList(props) {
       .then((data) => {
         
         setProducts(data);
-        console.log(data)
+        console.log("ssssssssssssssssssssssssss",data)
       })
       .then(() => {
         props.setLod(false);
@@ -128,7 +128,7 @@ function ProductsList(props) {
       {name: "ID", uid: "id", sortable: true},
       {name: ".", uid: "img", sortable: true},
       {name: "الإسم", uid: "name_ar", sortable: true}, 
-      {name: "الأنواع", uid: "varients", sortable: true},
+      {name: "السعر", uid: "varients", sortable: true},
       {name: "حالة المنتج", uid: "status", sortable: true},
       {name: "تعديل", uid: "createdAt"},
     ]

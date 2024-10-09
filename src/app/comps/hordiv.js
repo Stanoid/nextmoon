@@ -9,7 +9,7 @@ function HorDiv(props) {
 {props.data&&props.data.map(product=>(
 product.status?  
 
-<div className=" min-w-56 rounded-md shadow-md shadow-gray-300 "  key={product.id}>
+<div className=" flex justify-center items-center min-w-56 rounded-md shadow-md shadow-gray-300 "  key={product.id}>
     
 <ProductCopm atcbtn={props.btn} data={product} /> 
 </div>

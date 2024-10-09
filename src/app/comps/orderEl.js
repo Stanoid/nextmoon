@@ -16,18 +16,16 @@ import { CURRENCY, IMG_URL, Theme } from "../local";
 import { BsX } from "react-icons/bs";
 import { color } from "framer-motion";
 
-export default function Cartel(props) {
+export default function OrderEl(props) {
   const [open, setOpen] = useState(true);
   const [varient, setVarient] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setVarient(props.data.attributes.varients.data[0]);
+   
   }, []);
 
-  const removeid = () => {
-    props.removeItem(props.index);
-  };
+  
 
   return (
     <div
@@ -63,7 +61,7 @@ export default function Cartel(props) {
             style={{
               borderRadius: 5,
             }}
-            src={JSON.parse(props.data.attributes.img)[0].url}
+            src={props.img&&props.img}
           />
         </div>
 
@@ -86,13 +84,13 @@ export default function Cartel(props) {
               textAlign: "right",
             }}
           >
-            {props.data.attributes.name_ar.length > 30
-              ? props.data.attributes.name_ar.slice(0, 30) + "..."
-              : props.data.attributes.name_ar}
+            {props.name.length > 30
+              ? props.name.slice(0, 30) + "..."
+              : props.name}
           </div>
 
           <div  className="flex flex-col">
-          <div dir="rtl" className="font-semibold text-moon-200/80" >  {varient && varient.attributes.price} {CURRENCY} </div>  
+          <div dir="rtl" className="font-semibold text-moon-200/80" >  {props.price&&props.price} {CURRENCY} </div>  
           <div
               className=" italic text-gray-300 "
               style={{
@@ -139,47 +137,22 @@ export default function Cartel(props) {
                 fontSize: 14,
               }}
             >
-              {varient &&
-                varient.attributes.sizes.data.map((size) => {
-                  if (size.id == props.size) {
-                    return size.attributes.icon;
-                  }
-                })}
+
+              {props.size.icon}
+          
             </div>
 
-            {varient &&
-              varient.attributes.colors.data.map((color) => {
-                if (color.id == props.color) {
-                  return (
-                    <div
-                      style={{ backgroundColor: color.attributes.colorCode }}
+        
+
+<div  style={{ backgroundColor: props.color.colorCode }}
                       className="w-7 h-7 rounded-full"
                     ></div>
-                  );
-                }
-              })}
           </div>
         </div>
 
-        <div
-          onClick={() => {
-            dispatch(removeFromCart(
-             {id: props.selvar, color:props.color, size:props.size}
-            ));
-          }}
-          style={{
-            display: props.order ? "none" : "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRight: "2px solid lightgrey",
-            paddingRight: 10,
-          }}
-        >
-          <div
-            style={{ backgroundColor: "red", padding: 2.5, borderRadius: 100 }}
-          >
-            <BsX style={{ color: "white", fontSize: 25 }} />
-          </div>
+        <div className="flex items-center justify-center w-16 h-16 rounded-full text-white font-bold bg-moon-200 "  >
+        
+          <div> {props.code} </div>
         </div>
       </div>
     </div>

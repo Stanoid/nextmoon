@@ -8,6 +8,7 @@ import { Button } from '@nextui-org/react'
 import {CartCon} from '../contexts/cartContext'
 import { useRouter } from 'next/navigation'
 import { API_URL,Theme,CURRENCY,IMG_URL } from '../local'
+import OrderEl from './orderEl'
 import { forwardRef  } from "react"
 import { useSelector } from 'react-redux'
 const ItemsPopup = forwardRef((props, ref) => {
@@ -15,10 +16,12 @@ const ItemsPopup = forwardRef((props, ref) => {
   const router = useRouter();
 const  ls = require('local-storage');
   const [odate,setOdate]=useState(0);
- const [orderItems,setOrderitems] = useState({data:[]});
+ const [orderItems,setOrderitems] = useState(null);
  const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
   useEffect(()=>{
-setOrderitems({data:[]})
+
+    
+setOrderitems(null)
    getOrderItems();
 //   
 
@@ -58,15 +61,15 @@ const getOrderItems= ()=>{
     "Authorization": 'Bearer ' + udata.data.jwt
 },
   body: JSON.stringify({
-     id: props.data&&props.data.refId,
+     id: props.data&&props.data.id,
     })
 };
 fetch(`${API_URL}orders?func=getOrderItems`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
     
-   //console.log(data)
-    setOrderitems({data:data})
+   console.log("orderitems",data);
+    setOrderitems(data)
     setLod(false)
   }).then(()=>{
     
@@ -367,64 +370,74 @@ const notify = (type,msg)=>{
                </div> */}
               <div className='space-y-3.5' style={{marginTop:10,width:"100%"}} >
              
-              {orderItems&&orderItems.data.map((item,index)=>(
+              {orderItems&&orderItems.map((item,index)=>(
                 
-                
+               <OrderEl 
+               size={item.size}
+               color={item.color}
+               img={item.img}
+               price={item.price} 
+               code={item.code}
+               name={item.name}
+               qty={item.qty}
+               //code={item.code}
+               
+               />
               
 
-                <div  className='shadow-md px bg-white rounded-md p-3 px-4' key={index} style={{display:"flex",flexDirection:"row-reverse",alignItems:"center",justifyContent:"space-between"}} >
+//                 <div  className='shadow-md px bg-white rounded-md p-3 px-4' key={index} style={{display:"flex",flexDirection:"row-reverse",alignItems:"center",justifyContent:"space-between"}} >
 
 
-<div>
-<img
-        style={{objectFit:'cover',width:80,borderRadius:4}}
-          src={IMG_URL.concat(item.imgs&&JSON.parse(item.imgs)[1])} 
-          />
-</div>
-              <div className='p-3' style={{display:'flex',alignItems:"flex-end",flexDirection:"column",justifyContent:"flex-start"}}>
+// <div>
+// <img
+//         style={{objectFit:'cover',width:80,borderRadius:4}}
+//           src={IMG_URL.concat(item.imgs&&JSON.parse(item.imgs)[1])} 
+//           />
+// </div>
+//               <div className='p-3' style={{display:'flex',alignItems:"flex-end",flexDirection:"column",justifyContent:"flex-start"}}>
              
              
-<div style={{display:"flex",justifyContent:"center",alignItems:"flex-end",flexDirection:"column"}}>
+// <div style={{display:"flex",justifyContent:"center",alignItems:"flex-end",flexDirection:"column"}}>
 
-               <div className='text-md whitespace-nowrap' >{item.nameAr&&item.nameAr.slice(0,20)+"..."}</div> 
+//                <div className='text-md whitespace-nowrap' >{item.nameAr&&item.nameAr.slice(0,20)+"..."}</div> 
                
-               <div className='text-gray-400 text-xs '  style={{fontWeight:"bold",textAlign:"right",width:"100%"}}>{item.product_ref&&item.product_ref}</div>                 
-              </div>
-              <div dir='rtl' className='font-semibold '>
+//                <div className='text-gray-400 text-xs '  style={{fontWeight:"bold",textAlign:"right",width:"100%"}}>{item.product_ref&&item.product_ref}</div>                 
+//               </div>
+//               <div dir='rtl' className='font-semibold '>
 
-      <span className=' italic text-gray-500 ' style={{ padding:5,fontSize:12,paddingTop:0,fontWeight:"bold"}}>{item.qty} قطعة</span>
-     - 
-      <span className=' italic text-moon-200/80 ' style={{ padding:5,fontSize:12,paddingTop:0,fontWeight:"bold"}}>{item.price} {CURRENCY}</span>
+//       <span className=' italic text-gray-500 ' style={{ padding:5,fontSize:12,paddingTop:0,fontWeight:"bold"}}>{item.qty} قطعة</span>
+//      - 
+//       <span className=' italic text-moon-200/80 ' style={{ padding:5,fontSize:12,paddingTop:0,fontWeight:"bold"}}>{item.price} {CURRENCY}</span>
 
-      </div>
+//       </div>
 
-              </div>
+//               </div>
 
 
 
 
             
 
-              <div className='' style={{display:"flex",alignItems:"flex-start",justifyContent:"center",flexDirection:"column",padding:"0px 0px"}}>
+//               <div className='' style={{display:"flex",alignItems:"flex-start",justifyContent:"center",flexDirection:"column",padding:"0px 0px"}}>
 
-<div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-<div  style={{width:35,height:35,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
-border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
-,backgroundColor:Theme.primary,color:"white",fontSize:16}}>{item.sizeIcom&&item.sizeIcom}</div>
+// <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+// <div  style={{width:35,height:35,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
+// border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
+// ,backgroundColor:Theme.primary,color:"white",fontSize:16}}>{item.sizeIcom&&item.sizeIcom}</div>
 
-<div style={{width:40,height:40,
-marginLeft:-20,marginTop:-8
-,borderRadius:100,backgroundColor:item.colorCode&&item.colorCode}} ></div>
+// <div style={{width:40,height:40,
+// marginLeft:-20,marginTop:-8
+// ,borderRadius:100,backgroundColor:item.colorCode&&item.colorCode}} ></div>
 
-</div>
+// </div>
 
-<div className='flex flex-col text-xs ' style={{display:props.order?"none":"block",textAlign:"left"}}>
- <div>{item.sizeNameEn&&item.sizeNameEn}  </div>  <div className='text-gray-500' >   {item.colorAr&&item.colorAr} </div> 
-</div>
+// <div className='flex flex-col text-xs ' style={{display:props.order?"none":"block",textAlign:"left"}}>
+//  <div>{item.sizeNameEn&&item.sizeNameEn}  </div>  <div className='text-gray-500' >   {item.colorAr&&item.colorAr} </div> 
+// </div>
 
-</div>
+// </div>
                 
-                </div>    
+//                 </div>    
                ))
              
               }

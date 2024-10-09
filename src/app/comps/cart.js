@@ -55,6 +55,9 @@ const handleOrder= ()=>{
     payarray.push({
       id: cartg[i].selvar,
       product_ref:cartg[i].product_ref,
+      name:cartg[i].name,
+      img:cartg[i].img,
+      code:cartg[i].code,
       color: cartg[i].color ,
       size: cartg[i].size ,
       qty: cartg[i].qty,

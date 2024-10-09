@@ -287,7 +287,7 @@ switch (props.coldata) {
           <Image  fill objectFit='cover'
           quality={40}
           className="rounded-md"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={IMG_URL.concat(JSON.parse(cellValue)[0]?JSON.parse(cellValue)[0]:JSON.parse(cellValue)[1])} 
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={JSON.parse(cellValue)[0].url} 
         
           />
           </div>
@@ -326,7 +326,7 @@ switch (props.coldata) {
         justifyContent: "center",
       }}
     >
-      <div
+      {/* <div
         style={{
           width: 30,
           height: 30,
@@ -345,8 +345,8 @@ switch (props.coldata) {
         }}
       >
         {varient.size && varient.size.icon}
-      </div>
-      <div
+      </div> */}
+      {/* <div
         style={{
           width: 35,
           height: 35,
@@ -356,7 +356,7 @@ switch (props.coldata) {
           backgroundColor:
             varient.color && varient.color.colorCode,
         }}
-      ></div>
+      ></div> */}
     </div>
     <div
       style={{

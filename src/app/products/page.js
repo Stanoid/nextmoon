@@ -134,7 +134,7 @@ for (let i = 0; i < vrs.length; i++) {
           //
 
 
-          
+
           setImgs(JSON.parse(data.data.attributes.img));
           setPrice(data.data.attributes.varients.data[0].attributes.price);
           setStock(data.data.attributes.varients.data[0].attributes.stock);
@@ -166,6 +166,9 @@ for (let i = 0; i < vrs.length; i++) {
    dispatch(addToCart({ 
     data: db, 
     selvar: selectedV, 
+    name:db.attributes.name_ar,
+    code:db.attributes.varients.data[0].attributes.code,
+    img: JSON.parse(db.attributes.img)[0].url,
     color: colorsel,
     size: sizesel,
     product_ref:pref,

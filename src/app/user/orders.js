@@ -68,7 +68,7 @@ function Orders(props) {
 
       const DeliverOrder=(order)=>{
 
-
+//console.log("oooooooooorder data",order);
         setOrdata(order);
          setOpenDel(true);
 

@@ -91,7 +91,11 @@ export default function Product(props) {
       
       <div   className=" flex flex-col justify-center items-center">
 
-      <h5 className="text-md text-right tracking-tight text-slate-900">{props.data.length>40?props.data.name_ar.slice(0,40)+"...":props.data.name_ar}</h5>
+   
+      <h5  className="text-base  
+        tracking-normal  text-white bg-moon-200 inline font-bold px-4 py-1  rounded-full ">{props.data&&props.data.varients[0].code} </h5>
+
+
       <div className='flex align-middle items-center   justify-center py-2  ' > 
    
       {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
