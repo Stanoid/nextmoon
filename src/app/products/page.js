@@ -38,7 +38,7 @@ export default function Product({}) {
   const [color, setColor] = useState();
   const [sizesel, setSizesel] = useState(null);
   const [colorsel, setColorsel] = useState(null);
-  
+  const [pcode,setPcode] = useState(null);
   const [stock,setStock] = useState(0);
   const [qty,setQty]=useState(1);
   const [mimg,setmimg] = useState();
@@ -140,6 +140,7 @@ for (let i = 0; i < vrs.length; i++) {
           setStock(data.data.attributes.varients.data[0].attributes.stock);
           setSelectedV(data.data.attributes.varients.data[0].id);
           setPref(data.data.attributes.varients.data[0].attributes.product_ref);
+          setPcode(data.data.attributes.varients.data[0].attributes.code);
           setSizesel(data.data.attributes.varients.data[0].attributes.sizes.data[0].id);
           setColorsel(data.data.attributes.varients.data[0].attributes.colors.data[0].id);
 
@@ -404,7 +405,7 @@ for (let i = 0; i < vrs.length; i++) {
               }}
               className="max-w-xl  text-right font-semibold leading-loose tracking-tight text-gray-500  "
             >
-              {pref} : رقم الصنف
+              {pcode} : رقم الصنف
             </h2>
           </div>
    </div>
@@ -547,7 +548,13 @@ for (let i = 0; i < vrs.length; i++) {
        
         title="وصف المنتج"
       >
-          {db&&db.attributes.description_ar}
+        مجموعة متنوعة من الخيارات: متوفرة بألوان وأشكال متعددة لتناسب ذوقك الشخصي.✅
+
+جودة متينة: تحافظ على الحالة المثالية حتى بعد عدة غسلات.✅
+
+راحة فائقة: خفيفة الوزن ومريحة، مثالية للارتداء طوال اليوم.✅
+
+مثالية للهدايا: هدية ممتازة لأحبائك أو هدية فاخرة لنفسك.✅
         
        </AccordionItem>
 
@@ -560,7 +567,24 @@ for (let i = 0; i < vrs.length; i++) {
        
         title=" الإرجاع و معلومات و الشحن "
       >
-        {defaultContent}
+        <p className='text-right'>
+
+        سياسة الاستبدال والاسترجاع
+سياسة الاستبدال: 
+
+
+- الإستبدال حق مضمون كل عملائنا وهو يشمل جميع المنتجات التي نعرضها على متجرنا.
+- جميع المنتجات المعروضة على متجرنا قابلة لسياسة الإستبدال وفق الشروط والأحكام المنصوص عليها في هذه الصفحة.
+- يمكن الإستبدال إذا كان المنتج بنفس حالته الأصلية عند الشراء ومغلفا بالغلاف الأصلي.
+- الاستبدال خلال خمسة (5) أيام من تاريخ الشراء.
+- يرجى التواصل معنا عبر صفحة اتصل بنا أو عبر أرقامنا الهاتفية من أجل طلب الإستبدال.
+- يرجى تصوير المنتج وإرساله مع تحديد المدينة والعنوان ورقم الطلب ليتم إستبداله بمنتج اخر في حالة كان المنتج فاسدا أو به عيب معين .
+
+
+عند ارسال الطلبية , في حالة حدوث خطا في المقاس من طرف الشركة تتكفل الشركة المسؤولية و جميع التكاليف (سعر التوصيل )
+ في حالة قام العميل بطلب مقاس ما و عند استلام الطلبية وجد ان المقاس لا يناسبه يتحمل العميل المسؤولية الكاملة و جميع التكاليف في حالة ما اراد تغيير المنتج بمقاس اخر ( التكاليف تتمثل في سعر الشحن )
+
+        </p>
       </AccordionItem>
       <AccordionItem
         key="3"
@@ -571,7 +595,7 @@ for (let i = 0; i < vrs.length; i++) {
        
         title=" شحن مجاني "
       >
-        {defaultContent}
+       
       </AccordionItem>
 
       <AccordionItem
