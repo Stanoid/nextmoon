@@ -238,6 +238,7 @@ const notify = (type,msg)=>{
                 data={cart.data}
                 size={cart.size}
                 color={cart.color}
+                code={cart.code}
                 selvar={cart.selvar}
                  removeItem={removeFromCart} 
                  qty={cart.qty}

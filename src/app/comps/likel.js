@@ -8,19 +8,20 @@ function LikeEl(props) {
 // 
     const router = useRouter();
     return (
-<a href={`/products?pid=${props.id}`} >
+
     <motion.div
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.9 }}
+        //whileHover={{ scale: 1.03 }}
+        //whileTap={{ scale: 0.9 }}
      //onClick={()=>{revalidatePath('/products?pid=${props.id}') ; props.closeModal()}}
-       onClick={()=>{ router.refresh(); router.push(`/products?pid=${props.id}`);  props.closeModal()}}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }} key={props.index} className='flex flex-row my-3 shadow-md rounded-sm p-2 justify-between align-middle ' > 
-  
-    <div sty className='w-20 h-20 min-w-20  ' style={{position:"relative"}} >
+      //  onClick={()=>{ router.refresh(); router.push(`/products?pid=${props.id}`);  props.closeModal()}}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }} key={props.index} className='flex flex-row  
+        shadow-md rounded-sm p-2 items-center justify-between align-middle ' > 
+  <a  href={`/products?pid=${props.id}`} >
+    <div sty className='w-20 h-24 min-w-20  ' style={{position:"relative"}} >
       <Image fill objectFit='cover'
       alt={props.name}
       quality={25}
-       onClick={()=>{router.push(`/products?pid=${props.id}`)}}  className=' rounded-md  ' 
+       onClick={()=>{router.push(`/products?pid=${props.id}`); props.closeModal() }}  className=' rounded-md  ' 
         src={props.img} 
     
       />
@@ -30,6 +31,7 @@ function LikeEl(props) {
     
        
           </div>
+        </a>
       
     <div className='flex flex-col px-2' dir='rtl' >
                <div className='text-gray-400 text-lg'>
@@ -50,7 +52,7 @@ function LikeEl(props) {
       </div>
                 
                 </motion.div>
-                </a>
+                
   )
 }
 

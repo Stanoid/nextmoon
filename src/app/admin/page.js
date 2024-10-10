@@ -14,18 +14,18 @@ import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
  const EditProduct = dynamic(() => import('./editProduct'));
  const EditColor = dynamic(() => import('./editColor'));
  const PromoCodes = dynamic(() => import('./promoCodes'));
-// const AddSubCat = dynamic(() => import('./addsubcat'));
+//  const AddSubCat = dynamic(() => import('./addsubcat'));
+
  const EditSize = dynamic(() => import('./editsize'));
  const Orders = dynamic(() => import('./orders'));
  const EditCat = dynamic(() => import('./EditCat'));
  const ProductsList = dynamic(() => import('./productsList'));
  const AddCat = dynamic(() => import('./addcat'));
  const AddSize = dynamic(() => import('./addSize'));
- //const EditSubCat = dynamic(() => import('./EditSubcat'));
+ const EditSubCat = dynamic(() => import('./EditSubcat'));
  const Dashboard = dynamic(() => import('./dashboard'));
 
-
-
+ 
 import { TiThMenu } from "react-icons/ti";
 import AddProduct from './addproduct';
 
@@ -174,9 +174,9 @@ hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start i
 
 
 
-{/* <div onClick={()=>{setPage(6)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+<div onClick={()=>{setPage(6)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
-<div><BiCategoryAlt/></div><div className='mx-1.5'> الفئات الفرعية</div></div> */}
+<div><BiCategoryAlt/></div><div className='mx-1.5'> الفئات الفرعية</div></div>
 
 
 <div onClick={()=>{setPage(14)}} style={{backgroundColor:page==14?Theme.primary:"white", color:page==14?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
@@ -221,7 +221,7 @@ hover:text-white text-white justify-start items-center '   >
   {page==3 ? <AddSize setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
   {page==4 ? <AddColor setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
   {page==5 ? <AddCat setLod={(sta)=>{setLod(sta)}} setpage={(catid,id)=>{handleCatEdit(catid,id)}} /> :<></>}
-  {/* {page==6 ? <AddSubCat  setpage={(scatid,id)=>{handleScatEdit(scatid,id)}} /> :<></>} */}
+  {page==6 ? <AddSubCat  setpage={(scatid,id)=>{handleScatEdit(scatid,id)}} /> :<></>}
   {page==15 ? pid?<EditProduct setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} pid={pid} />:<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} /> :<></>}
   {page==14 ? <Orders setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
   {page==10 ? <PromoCodes setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}

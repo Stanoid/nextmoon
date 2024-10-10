@@ -13,7 +13,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor,store } from "./lib/store";
 import Mob from "../../public/mob.svg";
 const Cartl = dynamic(() => import('./comps/cartl'))
-
+import { FaCircleDot } from "react-icons/fa6";
 import {Divider, Button , Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
 import { FaSearch, FaUserCircle,FaListAlt,FaCogs,FaPowerOff } from "react-icons/fa";
 import AnnounceComp from "./comps/announce";
@@ -62,7 +62,7 @@ export default function RootLayout({ children }) {
   const getCats=()=>{
          
     
-             
+          
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -173,7 +173,7 @@ if(el.target.value.length<3){
         <NavbarC rel={false} searchTog={searchTog} setSearchTog={(sta)=>{setSearchTog(sta)}} cat={cat} openCart={(t)=>{handleOpenCart(t)}}  openFav={handleOpenCartl}  />
        
 
-        <div style={{display:searchTog?"flex":"none"}} className="flex-1 flex mt-3 items-center">
+        <div style={{display:searchTog?"flex":"none"  }} className="flex-1 flex mt-3 items-center">
                       <div className=" w-full sm:m-full lg:w-1/2  flex md:ml-0">
                         <label for="search_field" className="sr-only">
                           Search
@@ -252,7 +252,7 @@ className="flex cursor-pointer items-center" >
  </div> :sugges.map((sug,index)=>(
 
 <div key={index} onClick={()=>{location.href=("/products?pid="+sug.id);setDraw(false)}} className="hover:bg-slate-100" style={{color:"grey",padding:10,borderRadius:5,cursor:"pointer"}}>
-    {sug.name_en}
+    {sug.name_ar}
     </div>
 
 ))}
@@ -344,16 +344,12 @@ className="flex cursor-pointer items-center" >
                     <div className="  hidden">
                       <div className="flex  flex-col ">
 
-                      {/* {
-                        
-  userData&&!userData.error?
+                   
   <Cartl
   ref={childCompRef}
   openHandler={handleOpenCartl}
   open={openCartl}
-/>:<></>
-} */}
-
+/>
 
 
                     
@@ -381,8 +377,8 @@ className="flex cursor-pointer items-center" >
     <div className="w-full  flex whitespace-nowrap text-right text-sm font-semibold px-6 lg:px-44 sm  justify-center space-x-3 items-center">
   
     <div className=" w-full flex text-moon-200  space-y-1 flex-col items-start justify-center "> 
-    <div className=" w-full "> المملكة السعودية    </div>
-    <div className=" w-full ">الدولار الأمريكي    </div>
+    <div className=" w-full ">  الجزائر    </div>
+    <div className=" w-full "> الدينار الجزائري    </div>
     <div className=" w-full ">اللغة العربية</div>
   
      </div>

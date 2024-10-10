@@ -108,6 +108,11 @@ export default function Cartel(props) {
           </div>
         </div>
 
+
+        <div className="bg-moon-200 text-white px-2 py-1 text-sm rounded-full ">
+          {props.code}
+        </div>
+
         <div
           style={{
             display: "flex",

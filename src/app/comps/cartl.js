@@ -7,6 +7,7 @@ import { BsHeartFill } from 'react-icons/bs'
 import { CartCon } from '../contexts/cartContext'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import LoadingBtn from './loadingbtn'
+
 import Image from 'next/image';
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
@@ -14,7 +15,8 @@ import LikeEl from "./likel"
 import { API_URL, Theme,IMG_URL } from '../local'
 
 
-import { forwardRef, useRef,useImperativeHandle  } from "react"
+import { forwardRef, useRef  } from "react"
+
 
 
 
@@ -39,8 +41,10 @@ const  ls = require('local-storage');
  
 
   useEffect(()=>{
-  if(udata&&udata.data.jwt)
-getLikes();   
+  if(udata&&udata.data.jwt){
+    getLikes(); 
+  }
+  
 
 },[])
 
@@ -65,7 +69,7 @@ try {
   fetch(`${API_URL}likes?func=getLikes`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
-  //console.log("likes",data) 
+  console.log("likes",data) 
   if(data){
     setLikesData(data);
   }
@@ -186,8 +190,11 @@ const notify = (type,msg)=>{
                      <div id="scrol"   style={{height:"100vh",overflowY:'scroll', overflowX:'hidden',padding:10}}>
                  
                      {likesData&&likesData.length!=0?likesData.map((like,index)=>(
-                
-              <LikeEl closeModal={()=>{props.openHandler(false)}} id={like.products[0].id} price={like.products[0].varients[0].price} name={like.products[0].name_en} index={index} img={IMG_URL.concat(JSON.parse(like.products[0].img)[0]?JSON.parse(like.products[0].img)[0]:JSON.parse(like.products[0].img)[1])}  />
+                like.products.length!=0?
+              <LikeEl closeModal={()=>{props.openHandler(false)}} id={like.products[0]?.id} 
+              price={like.products[0]?.varients[0]?.price}
+               name={like.products[0]?.name_en} 
+              index={index} img={JSON.parse(like.products[0].img)[0].url }  />:<></>
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>

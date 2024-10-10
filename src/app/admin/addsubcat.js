@@ -31,7 +31,7 @@ function AddSubCat(props) {
     const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
     useEffect(() => {
-    getCats();
+    //getCats();
    
     }, [])
     

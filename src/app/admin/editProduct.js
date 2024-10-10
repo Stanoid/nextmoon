@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Theme, API_URL, CURRENCY } from "../local";
 import InputEl from "../comps/inputel";
 import axios from "axios";
-
+import { BsX } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import { TiThMenu } from "react-icons/ti";
 import { useSelector } from "react-redux";
@@ -33,14 +33,21 @@ function EditProduct(props) {
   const [imgs, setImgs] = useState([]);
   const [color, setcolor] = useState(null);
   const [size, setSize] = useState(null);
+
+  const [sizeSelect, setSizeselect] = useState([]);
+  const [colorSelect, setColorselect] = useState([]);
+
   const [price, setPrice] = useState(null);
   const [stock, setStock] = useState(null);
+  const [code, setCode] = useState(null);
   const [lod, setlod] = useState(false);
   const [varientDelete,setVarientDelete] = useState([]);
 
   const [eff, setEff] = useState(true);
   const [refr, setRefr] = useState(true);
-
+  const isLogged = useSelector(
+    (state) => state.root.auth.data && state.root.auth.data
+  );
   const [varients,setVarients]= useState([])
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
@@ -132,6 +139,91 @@ return;
 
   }
 
+
+  const handleSizeRemove = (index) => {
+    console.log(index);
+    let oldar = sizeSelect;
+    oldar.splice(index, 1);
+    console.log(oldar);
+    setSizeselect(oldar);
+    setEff(false);
+    setRefr(!refr);
+  };
+
+  const handleColorRemove = (index) => {
+    console.log(index);
+    let oldar = colorSelect;
+    oldar.splice(index, 1);
+    console.log(oldar);
+    setColorselect(oldar);
+    setEff(false);
+    setRefr(!refr);
+  };
+
+  const handleSizesSelect = (size, ind) => {
+    for (let index = 0; index < sizes.length; index++) {
+      if (sizes[index].id == size) {
+        return (
+          <div className="flex mx-1 flex-col justify-center items-center space-y-1 text-sm border-2 border-gray-400 p-1 rounded-md">
+            {/* <div>
+        {sizes[index].attributes.icon}
+        </div> */}
+
+            <div>{sizes[index].attributes.name_ar}</div>
+            <div
+              onClick={() => {
+                handleSizeRemove(ind);
+              }}
+              className=" flex group px-0.5 rounded-sm cursor-pointer hover:bg-red-300   transition-colors justify-center
+         items-center text-base  text-white "
+            >
+              <div className=" text-red-500 group-hover:text-white  text-sm ">
+                حذف
+              </div>
+
+              <div className="w-4 h-4 mr-0.5 flex items-center justify-center  rounded-full bg-red-300">
+                <BsX />
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+  };
+
+  const handleColorSelect = (color, ind) => {
+    for (let index = 0; index < colors.length; index++) {
+      if (colors[index].id == color) {
+        return (
+          <div
+            style={{ backgroundColor: colors[index].colorCode }}
+            className="flex p-3 rounded-md mx-1 text-sm flex-col space-y-1 justify-center items-center "
+          >
+            <div className=" bg-black/50 text-white px-3 py-0.5 rounded-md  ">
+              {colors[index].name_ar}
+            </div>
+
+            <div
+              onClick={() => {
+                handleColorRemove(ind);
+              }}
+              className=" flex group px-0.5 rounded-sm cursor-pointer hover:bg-red-300   transition-colors justify-center
+         items-center text-base  text-white "
+            >
+              <div className=" text-red-500 group-hover:text-white  text-sm ">
+                حذف
+              </div>
+
+              <div className="w-4 h-4 mr-0.5 flex items-center justify-center  rounded-full bg-red-300">
+                <BsX />
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+  };
+
   const getProducts = () => {
 
   setlod(true)
@@ -151,9 +243,26 @@ return;
         setNameen(data.data.attributes.name_en);
         setDescar(data.data.attributes.description_ar)
         setDescen(data.data.attributes.description_en)
-     
+        let sizearr = [];
+        data.data.attributes.varients.data[0].attributes.sizes.data.forEach(element => {
+          console.log(element.id);
+          sizearr.push(element.id);
+          setSizeselect(sizearr);
+        });
+
+        let colorarr = [];
+        data.data.attributes.varients.data[0].attributes.colors.data.forEach(element => {
+          console.log("colors",element.id);
+          colorarr.push(element.id);
+          setColorselect(colorarr);
+        });
+        
          setSubc(data.data.attributes.subcatagory.data&&data.data.attributes.subcatagory.data.id);
-         setVarients(data.data.attributes.varients&&data.data.attributes.varients.data);
+         setVarients(data.data.attributes.varients&&data.data.attributes.varients.data[0].id);
+         setPrice(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.price);
+         setStock(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.stock);
+         setCode(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.code);
+         
          let varientDeleteArray = []
 
 
@@ -177,49 +286,46 @@ return;
   };
 
   const getColors = () => {
-props.setLod(true);
-    if(!eff){
-      return
-        }
-
+    props.setLod(true);
     const requestOptions = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.data.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
-
-    fetch(`${API_URL}colors`, requestOptions)
+    fetch(`${API_URL}products?func=getColorsAdmin`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        
-        setColors(data.data);
+        console.log(data);
+        setColors(data);
       })
       .then(() => {
         getSizes();
       });
   };
 
+
   const getSizes = () => {
     const requestOptions = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.data.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
 
     fetch(`${API_URL}sizes`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        
+        //  console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",data.data)
         setSizes(data.data);
       })
       .then(() => {
         getCats();
       });
   };
+
 
   const getCats = () => {
     const requestOptions = {
@@ -276,8 +382,13 @@ props.setLod(true);
       namear == "" ||
       nameen == "" ||
       descar == "" ||
+      colorSelect.length == 0 ||
+      sizeSelect.length == 0 ||
       descen == "" ||
-      subc == null 
+      subc == null ,
+      price==null,
+      code==null,
+      stock==null
     ) {
       alert("empty feilds");
       setlod(false);
@@ -292,11 +403,17 @@ props.setLod(true);
         body: JSON.stringify({
           nameen: nameen,
           namear: namear,
+          color:colorSelect,
+          size:sizeSelect,
+          price:price,
+          code:code,
+          stock:stock,
+          varient:varients,
           descen: descen,
           descar: descar,
           subc: subc,
-          vartoDelete: varientDelete,
-         varients:varients
+        //   vartoDelete: varientDelete,
+        //  varients:varients
         
         }),
       };
@@ -351,8 +468,10 @@ props.setLod(true);
 'descriptionAr descriptionAr descriptionAr descriptionAr'
 'descriptionEn descriptionEn descriptionEn descriptionEn'
 'cat . . .'
-'varients  varients  varients varients '
-'color size price stock'
+'size sizeSelect sizeSelect sizeSelect'
+'color colorSelect colorSelect colorSelect'
+'price stock code code'
+
 `,
         }}
       >
@@ -440,7 +559,115 @@ props.setLod(true);
         </div> */}
 
 
-        <div style={{ gridArea: "varients" }}>
+
+<div style={{ gridArea: "size" }}>
+          <InputEl
+            value={size}
+            outputfunc={(val) => {
+              if (sizeSelect.includes(parseInt(val))) {
+                return;
+              }
+              let oldSizes = sizeSelect;
+              oldSizes.push(parseInt(val));
+              setSizeselect(oldSizes);
+              setEff(false);
+              setRefr(!refr);
+            }}
+            iden={"size"}
+            data={sizes}
+            select={true}
+            label={"المقاس"}
+          />
+        </div>
+
+        <div style={{ gridArea: "color" }}>
+          <InputEl
+            value={color}
+            outputfunc={(val) => {
+              if (colorSelect.includes(parseInt(val))) {
+                return;
+              }
+              let oldColors = colorSelect;
+              oldColors.push(parseInt(val));
+              setColorselect(oldColors);
+              setEff(false);
+              setRefr(!refr);
+            }}
+            iden={"color"}
+            data={colors}
+            select={true}
+            iscats={true}
+            label={"اللون"}
+          />
+        </div>
+
+        <div
+          className="bg-gray-100  rounded-md  flex justify-center items-center "
+          style={{ gridArea: "sizeSelect" }}
+        >
+          {sizeSelect.length == 0 ? (
+            <div className="flex w-full text-gray-400 h-full justify-center items-center">
+              إختر مقاسات
+            </div>
+          ) : (
+            sizeSelect &&
+            sizeSelect.map((size, index) => handleSizesSelect(size, index))
+          )}
+        </div>
+
+        <div
+          className="bg-gray-100 rounded-md  flex justify-center items-center "
+          style={{ gridArea: "colorSelect" }}
+        >
+          {colorSelect.length == 0 ? (
+            <div className="flex w-full text-gray-400 h-full justify-center items-center">
+              إختر الألوان
+            </div>
+          ) : (
+            colorSelect &&
+            colorSelect.map((color, index) => handleColorSelect(color, index))
+          )}
+        </div>
+
+
+        <div style={{ gridArea: "price" }}>
+          <InputEl
+            value={price}
+            outputfunc={(val) => {
+              setPrice(val);
+            }}
+            num={true}
+            label={"السعر"}
+          />
+        </div>
+      
+        <div style={{ gridArea: "code" }}>
+          <InputEl
+            value={code}
+            outputfunc={(val) => {
+              //setStock(val);
+              setCode(val);
+            }}
+            num={false}
+            label={"كود المنتج"}
+          />
+        </div>
+        <div style={{ gridArea: "stock" }}>
+          <InputEl
+            value={stock}
+            outputfunc={(val) => {
+              setStock(val);
+            }}
+            num={true}
+            label={"الكمية"}
+          />
+        </div>
+
+
+
+
+
+        {/* <div style={{ gridArea: "varients" }}>
 
         <div
         dir="rtl"
@@ -475,14 +702,15 @@ display:"flex",justifyContent:"center",alignItems:"center"
 <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 <div  style={{width:30,height:30,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
 border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
-,backgroundColor:Theme.primary,color:"white",fontSize:20}}>{varient.attributes.size.data&&varient.attributes.size.data.attributes.icon}</div>
+,backgroundColor:Theme.primary,color:"white",fontSize:20}}>{varient.attributes.sizes.data[0]&&varient.attributes.sizes.data[0].attributes.icon}</div>
 <div style={{width:35,height:35,
     marginLeft:-10,marginTop:-5
-    ,borderRadius:100,backgroundColor:varient.attributes.color.data&&varient.attributes.color.data.attributes.colorCode}} ></div>
+    ,borderRadius:100,backgroundColor:varient.attributes.colors.data[0]&&varient.attributes.colors.data[0].attributes.colorCode}} ></div>
 </div>
 <div style={{display:"flex",alignItems:"center",justifyContent:"flex",flexDirection:"column"}}>
 <div style={{fontWeight:"bold",padding:10,paddingBottom:0,fontSize:13}}>
-{varient.attributes.size.data&&varient.attributes.size.data.attributes.name_en} <span> / </span> {varient.attributes.color.data&&varient.attributes.color.data.attributes.name_ar}
+{varient.attributes.sizes.data[0]&&varient.attributes.sizes.data[0].attributes.name_en} <span> / </span> 
+{varient.attributes.colors.data[0]&&varient.attributes.colors.data[0].attributes.name_ar}
 </div>
 <div style={{color:"grey",fontStyle:'oblique',fontSize:13}}>
     {varient.attributes.price} {CURRENCY}
@@ -505,9 +733,9 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
 
       </div>
 
-        </div>
+        </div> */}
 
-        <div style={{ gridArea: "price" }}>
+        {/* <div style={{ gridArea: "price" }}>
           <InputEl
             value={price}
             outputfunc={(val) => {
@@ -553,14 +781,14 @@ border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
             select={true}
             label={"المقاس"}
           />
-        </div>
+        </div> */}
 
         
       </div>
 
-      <div  className="shadow-sm" onClick={()=>{addVarient()}}  style={{backgroundColor:Theme.secondary,cursor:"pointer",color:"white",borderRadius:5,padding:"5px 10px",margin:"20px 0px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      {/* <div  className="shadow-sm" onClick={()=>{addVarient()}}  style={{backgroundColor:Theme.secondary,cursor:"pointer",color:"white",borderRadius:5,padding:"5px 10px",margin:"20px 0px",display:"flex",alignItems:"center",justifyContent:"center"}}>
        <FaPlus/>   <div style={{marginLeft:10}}> إضافة خيار  </div> 
-      </div>
+      </div> */}
 
 
 <div style={{
