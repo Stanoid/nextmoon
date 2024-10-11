@@ -130,7 +130,7 @@ className=''
 <div 
 style={{
     
-  color: props.color==color.id? Theme.primary: Theme.secondaryDark ,
+  color: props.color==color.id? Theme.primary: Theme.primaryDark ,
 }}
 className='font-semibold' >
     {color.attributes.name_ar}
