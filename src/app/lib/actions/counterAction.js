@@ -81,7 +81,7 @@ if (i > -1  ) {
 
   if(nnccr[i].color==pld.color && nnccr[i].size==pld.size){
     console.log("match sizes and clors")
-    nnccr[i].qty = nnccr[i].qty +1;
+    nnccr[i].qty = nnccr[i].qty + pld.qty;
     dispatch({ type: types.ADDTOCART, payload: nnccr })
   }else{
     console.log(" not match sizes and clors")

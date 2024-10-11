@@ -35,6 +35,7 @@ function QuantEl(props) {
 
        <div
        onClick={()=>{
+        console.log(props.stock)
         if(props.qty<props.stock){
           props.quantHandler(props.qty+1)
         }
