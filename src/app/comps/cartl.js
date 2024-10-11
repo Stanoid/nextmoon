@@ -26,12 +26,14 @@ const Cart = forwardRef((props, ref) => {
 
   
 
-const {favData,removeFromFav}  = useContext(CartCon);
+const {favData,removeFromFav,useNotifi}  = useContext(CartCon);
 
   const [open, setOpen] = useState(true)
+  const [refr, setRefr] = useState(true)
   const [scrol,setScrol]=useState(0);
   const [likesData,setLikesData] = useState(null);
   const [lod,setLod]=useState(0);
+
   const [total,setTotal]=useState(0);
   const router = useRouter();
   const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
@@ -42,13 +44,13 @@ const  ls = require('local-storage');
 
   useEffect(()=>{
 
-    console.log("likes jwt",udata&&udata.data.jwt)
+   // console.log("likes jwt",udata&&udata.data.jwt)
   if(udata&&udata.data.jwt){
     getLikes(); 
   }
   
 
-},[])
+},[props.open,refr])
 
 
 
@@ -90,6 +92,38 @@ try {
 
    
 
+const removeFav = (id)=>{
+
+
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + udata.data.jwt,
+      },
+      body: JSON.stringify({
+       id:id
+      }),
+    };
+
+    fetch(`${API_URL}likes?func=removeLike`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+       // console.log(data);
+       setRefr(!refr);
+        useNotifi("success", "تمت إزالة المنتج من المفضلة");
+
+      })
+      .then(() => {
+    
+      });
+  
+
+
+
+
+}
 
 
 
@@ -193,9 +227,10 @@ const notify = (type,msg)=>{
                  
                      {likesData&&likesData.length!=0?likesData.map((like,index)=>(
                 like.products.length!=0?
-              <LikeEl closeModal={()=>{props.openHandler(false)}} id={like.products[0]?.id} 
+              <LikeEl lid={like.id} removeFav={(id)=>{removeFav(id)}} closeModal={()=>{props.openHandler(false)}} id={like.products[0]?.id} 
               price={like.products[0]?.varients[0]?.price}
                name={like.products[0]?.name_en} 
+               code={like.products[0]?.varients[0]?.code}
               index={index} img={JSON.parse(like.products[0].img)[0].url }  />:<></>
            
                )):

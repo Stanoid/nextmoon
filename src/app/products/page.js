@@ -8,7 +8,7 @@ import QuantEl from "../comps/quantel";
 import { BsHeartFill,BsCartPlusFill } from 'react-icons/bs';
 import { useDispatch,useSelector } from 'react-redux';
 import Lens from "../comps/Lens"
-
+import { motion } from 'framer-motion';
 import { addToCart,removeFromCart } from '../lib/actions/counterAction';
 import { Flip, Slide, toast, ToastContainer } from "react-toastify";
 import { CartCon, CartContext } from "../contexts/cartContext";
@@ -201,6 +201,11 @@ for (let i = 0; i < vrs.length; i++) {
 
   const HandleAddToFav = (id) => {
 
+    if(!udata){
+      useNotifi("error", "الرجاء تسجيل الدخول لإضافة المنتج للمفضلة");
+    return;
+
+    }
 
 
     const requestOptions = {
@@ -225,7 +230,8 @@ for (let i = 0; i < vrs.length; i++) {
       .then((response) => response.json())
       .then((data) => {
 
-      console.log("sections",data)  
+        useNotifi("success", "تمت إضافة المنتج إلى المفضلة");
+
     
       }).then(()=>{
           
@@ -358,7 +364,11 @@ for (let i = 0; i < vrs.length; i++) {
         >
 
 
-<div
+<motion.div
+
+whileHover={{ scale: 1.03 }}
+whileTap={{ scale: 0.9 }}
+transition={{ type: "spring", stiffness: 400, damping: 17 }}
               onClick={() => {
                 HandleAddToFav();
               }}
@@ -377,7 +387,9 @@ for (let i = 0; i < vrs.length; i++) {
               }}
             >
               <BsHeartFill />
-            </div>
+            </motion.div>
+
+
       <div  className='flex flex-col my-3'>
           <div>
             <h2
@@ -503,7 +515,8 @@ for (let i = 0; i < vrs.length; i++) {
 
        
 
-            <div
+        <div className='flex flex-col space-y-2 justify-center items-center' >
+        <div
              className="shadow-lg shadow-moon-100/70 rounded-md px-6 py-2.5 mt-3 bg-moon-200 "
               onClick={() => {
                 HandleAddToCart();
@@ -526,6 +539,34 @@ for (let i = 0; i < vrs.length; i++) {
                 <BsCartPlusFill />
               </div>
             </div>
+
+
+            <div
+             className="shadow-lg shadow-moon-100/70 rounded-md px-6 py-2.5 mt-3 text-moon-300 bg-white "
+              onClick={() => {
+                HandleAddToFav();
+              }}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+             
+              <span> أضف إلى المفضلة  </span>
+              <div className='text-pink-600'
+                style={{
+                 
+                  fontSize: 23,
+                  marginLeft: 8,
+                }}
+              >
+                <BsHeartFill />
+              </div>
+            </div>
+
+
+        </div>
 
             {/* <div onClick={()=>{console.log(cart)}} className='w-8 h-8 bg-red-800 text-white rounded-sm shadow-md '>
               cart

@@ -32,6 +32,10 @@ function LikeEl(props) {
        
           </div>
         </a>
+
+        <div className="bg-moon-200 text-white px-2 py-1 text-sm rounded-full ">
+          {props.code}
+        </div>
       
     <div className='flex flex-col px-2' dir='rtl' >
                <div className='text-gray-400 text-lg'>
@@ -43,7 +47,7 @@ function LikeEl(props) {
                  </div>
 
                  <div
-      onClick={()=>{alert("TODO: remove from likes")}}
+      onClick={()=>{props.removeFav(props.lid)}}
       style={{display:props.order?"none":"flex",alignItems:"center",justifyContent:"center",borderRight:"0px solid lightgrey",paddingRight:10}}>
         <div style={{backgroundColor:"red",padding:2.5,borderRadius:100}}>
         <BsX style={{color:"white",fontSize:25}} />
