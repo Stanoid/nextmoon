@@ -33,7 +33,7 @@ function LikeEl(props) {
           </div>
         </a>
 
-        <div className="bg-moon-200 text-white px-2 py-1 text-sm rounded-full ">
+        <div className="bg-moon-200 text-white px-2 mx-2 py-1 text-sm rounded-full ">
           {props.code}
         </div>
       
