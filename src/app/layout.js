@@ -345,11 +345,11 @@ className="flex cursor-pointer items-center" >
                       <div className="flex  flex-col ">
 
                    
-  {/* <Cartl
+  <Cartl
   ref={childCompRef}
   openHandler={handleOpenCartl}
   open={openCartl}
-/> */}
+/>
 
 
                     

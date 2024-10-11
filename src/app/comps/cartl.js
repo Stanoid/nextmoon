@@ -41,6 +41,8 @@ const  ls = require('local-storage');
  
 
   useEffect(()=>{
+
+    console.log("likes jwt",udata&&udata.data.jwt)
   if(udata&&udata.data.jwt){
     getLikes(); 
   }
