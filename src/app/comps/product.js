@@ -86,11 +86,11 @@ export default function Product(props) {
     text-center text-xs p-1 px-3 font-medium text-white">
       {props.data.subcatagory.name_ar  }
       </span>
-  <span className="absolute top-0 right-0 p-2 ">
+  {/* <span className="absolute top-0 right-0 p-2 ">
   <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={"إضافة إلى المفضلة"} >
     <Button size='sm'  className='text-white bg-moon-200 rounded-full' variant='shadow' isIconOnly startContent={<FaHeart/>} />
     </Tooltip>
-    </span>
+    </span> */}
 {/* </object> */}
     
 
