@@ -217,7 +217,8 @@ function EditSubCat(props) {
             .then((data) => {
               
           
-         
+              props.notifi("success"," تم تعديل الفئة الفرعية")
+
 
               setlod(false);
 

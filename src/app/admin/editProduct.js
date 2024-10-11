@@ -427,7 +427,7 @@ return;
           
         })
         .then(() => {
-
+          props.notifi("success","تم تعديل المنتج")
           props.setpage(2);
           setlod(false);
          

@@ -11,7 +11,6 @@ import { FaTimes,FaEdit } from 'react-icons/fa';
 import LoadingBtn from '../comps/loadingbtn';
 import { AuthCon } from '../contexts/AuthCon';
 import TableComp from "../comps/sandbox/table"
-import { propagateServerField } from 'next/dist/server/lib/render-server';
 import { useSelector } from 'react-redux';
 
 function AddSubCat(props) {
@@ -31,7 +30,7 @@ function AddSubCat(props) {
     const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
     useEffect(() => {
-    //getCats();
+    getCats();
    
     }, [])
     
@@ -79,7 +78,7 @@ function AddSubCat(props) {
 
         const getSubcats=()=>{
          
-          props.setlod(true)
+          props.setLod(true)
     
              
           const requestOptions = {
@@ -119,81 +118,19 @@ function AddSubCat(props) {
              setSubcats(data);
             }).then((arr)=>{
            setSubcats(arr)
-            props.setlod(false);
+            props.setLod(false);
             })
       
       
           }
   
 
-        const deleteEntry=(id)=>{        
-          const requestOptions = {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + udata.data.jwt
-            },
-          
-        };
       
-          fetch(`${API_URL}subcatagories/${id}`, requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-              
-           getSubcats();
-            }).then(()=>{
-           
-            
-            })
-      
-      
-          }
 
     
 
 
-    
-   const loginval = ()=>{
-
-
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + udata.data.jwt
-      },
-    
-  };
-
-    fetch(`${API_URL}users/me`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-
-      
-
-        
-  if(data.id){
-
-  if(data.type==1){
-       
- 
-  }else{
-
-
-
-    }
-  
-   }else{
-  //setLogged(0);
-  router.push("/login")
-
-   }
-    
-     
-      });
-
-  }
-
+   
 
 
  const submitload = ()=>{
@@ -235,7 +172,7 @@ function AddSubCat(props) {
             .then((data) => {
               
              getSubcats();
-             alert("subcat  added")
+           props.notifi("success","تمت إضافة الفئة الفرعية")
 
               setlod(false);
             }).then(()=>{
@@ -313,7 +250,7 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Add Sub-category"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"إضافة فئة فرعية"} />
 </div>
 
 
@@ -332,7 +269,7 @@ gridTemplateAreas:`
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "الفئة", uid: "cat", sortable: true},
     
-      {name: "الخيارات", uid: "createdAt"},
+      // {name: "الخيارات", uid: "createdAt"},
     ]
    }
    

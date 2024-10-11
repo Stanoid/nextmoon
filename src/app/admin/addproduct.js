@@ -376,6 +376,7 @@ function AddProduct(props) {
         .then((data) => {})
         .then(() => {
           //  console.log(data)
+          props.notifi("success","تمت إضافة  المنتج")
           setlod(false);
           //  getProducts();
         });
@@ -631,6 +632,8 @@ function AddProduct(props) {
           />
         </div>
 
+
+
         <div
           className="bg-gray-100  rounded-md  flex justify-center items-center "
           style={{ gridArea: "sizeSelect" }}
@@ -658,6 +661,8 @@ function AddProduct(props) {
             colorSelect.map((color, index) => handleColorSelect(color, index))
           )}
         </div>
+
+
       </div>
 
       <div

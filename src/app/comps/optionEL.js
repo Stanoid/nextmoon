@@ -16,7 +16,7 @@ const varHandler = (id,s)=>{
 
 
   return (
-    <div >
+    <div className='space-y-3' >
 
     
     <div 
@@ -43,8 +43,10 @@ className=' '
 
 {props.vars[0].attributes.sizes.data&&props.vars[0].attributes.sizes.data.map(size=>(
 
-<div onClick={()=>{props.sizeSelect(size.id)}} key={size.id} className='border-4 px-2  py-2 rounded-md ' style={{borderColor: props.size==size.id?
-     Theme.primary : "grey" , display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
+<div onClick={()=>{props.sizeSelect(size.id)}} key={size.id} className='border-4 px-2 transition-all py-2 rounded-md '
+ style={{borderColor: props.size==size.id?Theme.primary : "grey" , 
+    backgroundColor: props.size==size.id?Theme.primary : "white" , 
+ display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
 <div style={{fontWeight:"bold",padding:"3px 4px"}}>
 {size.attributes.icon} <span> </span>
 </div>
@@ -113,14 +115,30 @@ className=''
 
 {props.vars[0].attributes.colors.data&&props.vars[0].attributes.colors.data.map(color=>(
 
-<div key={color.id} onClick={()=>{props.colorSelect(color.id)}} className='rounded-full cursor-pointer border-4 '  style={{ borderColor: props.color==color.id? Theme.primary: "white" , display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
-<div style={{backgroundColor:color.attributes.colorCode}} className='w-9 h-9 rounded-full'>
+<div className='flex flex-col justify-center items-center space-y-1' >
+
+
+<div key={color.id} onClick={()=>{props.colorSelect(color.id)}} className='rounded-full transition-all cursor-pointer border-4 ' 
+ style={{ borderColor: props.color==color.id? Theme.primary: "white" , display:"flex"
+ ,alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
+<div style={{backgroundColor:color.attributes.colorCode}} className='w-9 h-9  rounded-full'>
 
 </div>
-{/* <div style={{color:props.selid==varient.id?"white":"black"
-,fontStyle:'oblique'}}>
-    {varient.attributes.price} {CURRENCY}
-</div> */}
+
+</div>
+
+<div 
+style={{
+    
+  color: props.color==color.id? Theme.primary: Theme.secondaryDark ,
+}}
+className='font-semibold' >
+    {color.attributes.name_ar}
+</div>
+
+
+
+
 </div>
 
 

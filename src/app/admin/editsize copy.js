@@ -185,7 +185,7 @@ function EditSize(props) {
           fetch(`${API_URL}sizes/${props.sid}?func=EditSize`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              
+              props.notifi("success"," تم تعديل المقاس")
               
               setlod(false);
             }).then(()=>{

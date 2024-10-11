@@ -240,6 +240,7 @@ function AddCat(props) {
               
              getCats();
            //  alert("size added")
+           props.notifi("success","تمت إضافة الفئة ")
 
               setlod(false);
             }).then(()=>{
@@ -308,7 +309,7 @@ gridTemplateAreas:`
     <InputEl
             value={cat}
             outputfunc={(val) => {
-              alert(val)
+           
               setCat(val);
             }}
             iden={"color"}
@@ -357,7 +358,7 @@ gridTemplateAreas:`
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "القسم", uid: "section", sortable: true},
     
-      {name: "الخيارات", uid: "createdAt"},
+      // {name: "الخيارات", uid: "createdAt"},
     ]
    }
    

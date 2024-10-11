@@ -210,7 +210,7 @@ function AddColor(props) {
              setNameen("");
              setColorCode("");
             // alert("color added")
-
+            props.notifi("success","تمت إضافة  اللون")
               setlod(false);
             }).then(()=>{
          getcolors();
@@ -301,7 +301,7 @@ gridTemplateAreas:`
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "الرمز", uid: "colorCode", sortable: true},
       {name: "اللون", uid: "color", sortable: true},
-      {name: "الخيارات", uid: "createdAt"},
+      // {name: "الخيارات", uid: "createdAt"},
     ]
    }
    

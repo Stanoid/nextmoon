@@ -211,6 +211,7 @@ function AddSize(props) {
              setSicon("");
              getSizes();
            //  alert("size added")
+           props.notifi("success","تمت إضافة  المقاس")
 
              // setlod(false);
             }).then(()=>{
@@ -309,7 +310,7 @@ gridTemplateAreas:`
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "الرمز", uid: "icon", sortable: true},
     
-      {name: "الخيارات", uid: "createdAt"},
+      // {name: "الخيارات", uid: "createdAt"},
     ]
    }
    

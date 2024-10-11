@@ -415,7 +415,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 
                 lineHeight: 1.3,
               }}
-              className="max-w-xl  text-right font-semibold leading-loose tracking-tight text-gray-500  "
+              className="max-w-xl mt-2  text-right font-semibold leading-loose tracking-tight text-gray-500  "
             >
               {pcode} : رقم الصنف
             </h2>
@@ -445,10 +445,10 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
               marginLeft: "0.5 rem",
               fontSize: "1 rem",
               lineHeight: "1.5 rem",
-              fontWeight: 400,
+              
               textDecorationLine: "line-through",
             }}
-            className="ml-3 text-base font-normal text-gray-500 line-through dark:text-gray-400"
+            className="ml-3 text-base font-medium  text-red-600 line-through dark:text-gray-400"
           >
             {price + 21} {CURRENCY}
           </span>

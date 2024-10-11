@@ -9,12 +9,12 @@ import { useSelector } from 'react-redux';
 import { User } from '@nextui-org/react';
 import { FaBox, FaCreditCard, FaHeart, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser } from 'react-icons/fa6';
 import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
-
+                                                       
  const AddColor = dynamic(() => import('./AddColor'));
  const EditProduct = dynamic(() => import('./editProduct'));
  const EditColor = dynamic(() => import('./editColor'));
  const PromoCodes = dynamic(() => import('./promoCodes'));
-//  const AddSubCat = dynamic(() => import('./addsubcat'));
+ const AddSubCat = dynamic(() => import('./addsubcat'));
 
  const EditSize = dynamic(() => import('./editsize'));
  const Orders = dynamic(() => import('./orders'));
@@ -31,6 +31,7 @@ import AddProduct from './addproduct';
 
 
 import { AuthCon } from '../contexts/AuthCon';
+import { CartCon } from '../contexts/cartContext';
 import { MdFormatSize, MdOutlineAllOut, MdOutlineAutoAwesome, MdOutlineAutoGraph, MdSpeakerPhone } from 'react-icons/md';
 import { BiCategory, BiCategoryAlt } from 'react-icons/bi';
 
@@ -51,6 +52,7 @@ function AccounteEl() {
     const [lod,setLod] =useState(true)
     const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
     const [userData,setUserdata] = useState(null)
+    const {useNotifi} = useContext(CartCon);
     useEffect(() => {
      loginval();
     }, [])
@@ -76,6 +78,12 @@ if(udata.data.user.type!=1){router.push("/login")}
 
 
   }
+
+
+  const notifi = (type,message)=>{
+useNotifi(type,message);
+  }
+
 
   
   const handleSizeEdit = (pageid,id)=>{
@@ -188,12 +196,10 @@ hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start i
 <div><MdSpeakerPhone/></div><div className='mx-1.5'> لعروض الترويجية</div></div>
 
 
-{/* <div onClick={()=>{setPage(8)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
-hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
-<div><FaCreditCard/></div><div className='mx-1.5'> الفئات الفرعية</div></div>
 
 
-<div onClick={()=>{setPage(9)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+
+{/* <div onClick={()=>{setPage(9)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><FaCreditCard/></div><div className='mx-1.5'> الفئات الفرعية</div></div> */}
 
@@ -215,20 +221,20 @@ hover:text-white text-white justify-start items-center '   >
       </div>
 
 <div style={{display:lod?"none":"block"}} >
-{page==0 ?  <Dashboard lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
-{page==1 ?  <AddProduct lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
-  {page==2 ?  <ProductsList setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} />  :<></>}
-  {page==3 ? <AddSize setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
-  {page==4 ? <AddColor setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
-  {page==5 ? <AddCat setLod={(sta)=>{setLod(sta)}} setpage={(catid,id)=>{handleCatEdit(catid,id)}} /> :<></>}
-  {page==6 ? <AddSubCat  setpage={(scatid,id)=>{handleScatEdit(scatid,id)}} /> :<></>}
-  {page==15 ? pid?<EditProduct setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} pid={pid} />:<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} /> :<></>}
-  {page==14 ? <Orders setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
-  {page==10 ? <PromoCodes setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
-  {page==16 ? sid?<EditSize setpage={(page)=>{setPage(page)}} sid={sid} />:<EditSize setpage={(page)=>{setPage(page)}} sid={sid} /> :<></>}
-  {page==17 ? cid?<EditColor setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} cid={cid} />:<EditColor setpage={(page)=>{setPage(page)}} cid={cid} /> :<></>}
-  {page==18 ? catid?<EditCat setpage={(page)=>{setPage(page)}} catid={catid} />:<EditCat setpage={(page)=>{setPage(page)}} catid={catid} /> :<></>}
-  {/* {page==19 ? scatid?<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>} */}
+{page==0 ?  <Dashboard notifi={(type,message)=>{notifi(type,message)}} lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
+{page==1 ?  <AddProduct  notifi={(type,message)=>{notifi(type,message)}}  lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
+  {page==2 ?  <ProductsList  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} />  :<></>}
+  {page==3 ? <AddSize  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
+  {page==4 ? <AddColor  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
+  {page==5 ? <AddCat  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(catid,id)=>{handleCatEdit(catid,id)}} /> :<></>}
+  {page==6 ? <AddSubCat  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(scatid,id)=>{handleScatEdit(scatid,id)}} /> :<></>}
+  {page==15 ? pid?<EditProduct  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} pid={pid} />:<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} /> :<></>}
+  {page==14 ? <Orders  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
+  {page==10 ? <PromoCodes  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
+  {page==16 ? sid?<EditSize  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} sid={sid} />:<EditSize setpage={(page)=>{setPage(page)}} sid={sid} /> :<></>}
+  {page==17 ? cid?<EditColor  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} cid={cid} />:<EditColor setpage={(page)=>{setPage(page)}} cid={cid} /> :<></>}
+  {page==18 ? catid?<EditCat  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} catid={catid} />:<EditCat setpage={(page)=>{setPage(page)}} catid={catid} /> :<></>}
+  {page==19 ? scatid?<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>}
 </div>
 
 
