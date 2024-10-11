@@ -90,9 +90,9 @@ function AccounteEl() {
  hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
 <div><FaBox/></div><div className='mx-1.5'> الطلبات</div></div>
 
-<div onClick={()=>{setPage(2)}} style={{backgroundColor:page==2?Theme.primary:"white", color:page==2?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+{/* <div onClick={()=>{setPage(2)}} style={{backgroundColor:page==2?Theme.primary:"white", color:page==2?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
  hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap'   >
-<div><FaHeart/></div><div className='mx-1.5'> المفضلة</div></div>
+<div><FaHeart/></div><div className='mx-1.5'> المفضلة</div></div> */}
 
 
 <div onClick={()=>{setPage(3)}} style={{backgroundColor:page==3?Theme.primary:"white", color:page==3?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors

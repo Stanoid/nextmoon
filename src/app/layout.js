@@ -204,7 +204,7 @@ if(el.target.value.length<3){
                           border-2 border-moonsec-100
                             pl-8 pr-3 py-2 rounded-md text-moon-300/40
                              placeholder-moon-300/40 focus:outline-none focus:placeholder-gray-400 sm:text-sm"
-                            placeholder="Search Minimoon"
+                            placeholder="إبحث إسم منتج أو كود المنتج"
                           />
                         </div>
                       </div>
@@ -252,7 +252,9 @@ className="flex cursor-pointer items-center" >
  </div> :sugges.map((sug,index)=>(
 
 <div key={index} onClick={()=>{location.href=("/products?pid="+sug.id);setDraw(false)}} className="hover:bg-slate-100" style={{color:"grey",padding:10,borderRadius:5,cursor:"pointer"}}>
-    {sug.name_ar}
+    {sug.name_ar} / {sug.name_ar} 
+    <h5  className="text-sm  
+        tracking-normal  text-white bg-moon-200 inline mx-2 font-bold px-4 py-1  rounded-full "> {sug.varients[0].code}</h5>
     </div>
 
 ))}
