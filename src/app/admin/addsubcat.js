@@ -103,7 +103,7 @@ function AddSubCat(props) {
                 ob.name_ar = data[i].name_ar;
                 ob.name_en = data[i].name_en;  
                 ob.cat = data[i].catagory.name_ar;
-                ob.createdAt = data[i].createdAt;
+                ob.scate = data[i].createdAt;
      
                 arr.push(ob) 
                // console.log("rrrr",ob)
@@ -261,7 +261,7 @@ gridTemplateAreas:`
   subcats?<TableComp
 
 
-
+editScat={(scat)=>{props.setpage(19,scat.id)}}
   columns={
     [
       {name: "ID", uid: "id", sortable: true},
@@ -269,7 +269,7 @@ gridTemplateAreas:`
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "الفئة", uid: "cat", sortable: true},
     
-      // {name: "الخيارات", uid: "createdAt"},
+      {name: "الخيارات", uid: "scate"},
     ]
    }
    

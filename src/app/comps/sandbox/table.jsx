@@ -39,7 +39,7 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","varients","cat","name_en","section","icon","img","color","colorCode", "city",
+const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","varients","cat","name_en","section","icon","img","color","scate","colore","cate","colorCode","size", "city",
    "status","pstatus", "email","refid","date","total","payment_status","total","name_ar","description_ar"];
 
 export default function App(props) {
@@ -474,6 +474,127 @@ switch (props.coldata) {
               </Dropdown>
             </div>
           );
+          break;
+
+
+          case "size":
+            return (
+              <div className="relative flex justify-end items-center gap-2">
+                <Dropdown
+                
+                classNames={{
+                  // base: "before:bg-default-200", // change arrow background
+                  // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
+                }}
+    
+                backdrop="blur">
+                  <DropdownTrigger>
+                    <Button isIconOnly size="sm" variant="light">
+                      <VerticalDotsIcon className="text-default-300" />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
+                    <DropdownItem textValue="a"   onClick={()=>{ props.editSize(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
+                    <div className="py-1 font-bold text-gray-600 "> تعديل المقاس </div>  </DropdownItem>
+  
+                   
+
+  
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
+            );
+            break;
+
+            case "colore":
+              return (
+                <div className="relative flex justify-end items-center gap-2">
+                  <Dropdown
+                  
+                  classNames={{
+                    // base: "before:bg-default-200", // change arrow background
+                    // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
+                  }}
+      
+                  backdrop="blur">
+                    <DropdownTrigger>
+                      <Button isIconOnly size="sm" variant="light">
+                        <VerticalDotsIcon className="text-default-300" />
+                      </Button>
+                    </DropdownTrigger>
+                    <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
+                      <DropdownItem textValue="a"   onClick={()=>{ props.editColor(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
+                      <div className="py-1 font-bold text-gray-600 "> تعديل اللون </div>  </DropdownItem>
+    
+                     
+  
+    
+                    </DropdownMenu>
+                  </Dropdown>
+                </div>
+              );
+              break;
+
+              case "cate":
+                return (
+                  <div className="relative flex justify-end items-center gap-2">
+                    <Dropdown
+                    
+                    classNames={{
+                      // base: "before:bg-default-200", // change arrow background
+                      // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
+                    }}
+        
+                    backdrop="blur">
+                      <DropdownTrigger>
+                        <Button isIconOnly size="sm" variant="light">
+                          <VerticalDotsIcon className="text-default-300" />
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
+                        <DropdownItem textValue="a"   onClick={()=>{ props.editCat(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
+                        <div className="py-1 font-bold text-gray-600 "> تعديل الفئة </div>  </DropdownItem>
+      
+                       
+    
+      
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
+                );
+                break;
+
+                case "scate":
+                  return (
+                    <div className="relative flex justify-end items-center gap-2">
+                      <Dropdown
+                      
+                      classNames={{
+                        // base: "before:bg-default-200", // change arrow background
+                        // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
+                      }}
+          
+                      backdrop="blur">
+                        <DropdownTrigger>
+                          <Button isIconOnly size="sm" variant="light">
+                            <VerticalDotsIcon className="text-default-300" />
+                          </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
+                          <DropdownItem textValue="a"   onClick={()=>{ props.editScat(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
+                          <div className="py-1 font-bold text-gray-600 "> تعديل الفئة الفرعية </div>  </DropdownItem>
+        
+                         
+      
+        
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+                  );
+                  break;
+
+
+
       default:
         return cellValue;
     }

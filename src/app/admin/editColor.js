@@ -189,7 +189,7 @@ function EditColor(props) {
           fetch(`${API_URL}colors/${props.cid}?func=EditColor`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              
+              props.notifi("success","تم نعديل اللون")
               setlod(false);
             }).then(()=>{
          props.setpage(4);
@@ -276,7 +276,7 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Edit Color"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"تعديل اللون "} />
 </div>
 
 

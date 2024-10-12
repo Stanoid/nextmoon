@@ -99,7 +99,7 @@ function AddColor(props) {
               ob.name_en = data.data[i].attributes.name_en;  
               ob.colorCode = data.data[i].attributes.colorCode;
               ob.color = data.data[i].attributes.colorCode;
-              ob.createdAt = data.data[i].attributes.createdAt;
+              ob.colore = data.data[i].attributes.createdAt;
    
               arr.push(ob) 
              // console.log("rrrr",ob)
@@ -293,7 +293,7 @@ gridTemplateAreas:`
   colors?<TableComp
 
 
-
+editColor={(color)=>{props.setpage(17,color.id)}}
   columns={
     [
       {name: "ID", uid: "id", sortable: true},
@@ -301,7 +301,7 @@ gridTemplateAreas:`
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "الرمز", uid: "colorCode", sortable: true},
       {name: "اللون", uid: "color", sortable: true},
-      // {name: "الخيارات", uid: "createdAt"},
+      {name: "الخيارات", uid: "colore"},
     ]
    }
    

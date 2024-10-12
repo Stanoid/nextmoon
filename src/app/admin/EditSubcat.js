@@ -298,7 +298,7 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Update sub-category"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={" تعديل الفئة الفرعية"} />
 </div>
 
 

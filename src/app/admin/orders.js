@@ -295,6 +295,7 @@ setlod(true);
                           getOrders={()=>{getOrders()}}
                           openHandler={handleOpenDel}
                           open={openDel}
+                          isadmin={true}
                         />
                       </div>
               

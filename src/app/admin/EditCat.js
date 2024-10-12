@@ -183,7 +183,7 @@ function EditCat(props) {
               
          
           
-
+props.notifi("success","تم تعديل الفئة")
               setlod(false);
             }).then(()=>{
            props.setpage(5);
@@ -257,7 +257,7 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Update Category"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"تعديل الفئة "} />
 </div>
 
 

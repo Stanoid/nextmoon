@@ -74,7 +74,7 @@ function AddSize(props) {
            ob.name_ar = data.data[i].attributes.name_ar;
            ob.name_en = data.data[i].attributes.name_en;  
            ob.icon = data.data[i].attributes.icon;
-           ob.createdAt = data.data[i].attributes.createdAt;
+           ob.size = data.data[i].attributes.createdAt;
 
            arr.push(ob) 
           // console.log("rrrr",ob)
@@ -302,7 +302,7 @@ gridTemplateAreas:`
   sizes?<TableComp
 
 
-
+editSize={(size)=>{props.setpage(16,size.id)}}
   columns={
     [
       {name: "ID", uid: "id", sortable: true},
@@ -310,9 +310,11 @@ gridTemplateAreas:`
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "الرمز", uid: "icon", sortable: true},
     
-      // {name: "الخيارات", uid: "createdAt"},
+     {name: "الخيارات", uid: "size"},
     ]
    }
+   
+   
    
    data={sizes}
     />:

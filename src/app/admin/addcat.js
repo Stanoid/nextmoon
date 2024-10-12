@@ -109,7 +109,7 @@ function AddCat(props) {
               ob.name_ar = data.data[i].attributes.name_ar;
               ob.name_en = data.data[i].attributes.name_en;  
               ob.section = data.data[i].attributes.section.data.attributes.name_ar;
-              ob.createdAt = data.data[i].attributes.createdAt;
+              ob.cate = data.data[i].attributes.createdAt;
    
               arr.push(ob) 
              // console.log("rrrr",ob)
@@ -350,7 +350,7 @@ gridTemplateAreas:`
   sizes?<TableComp
 
 
-
+editCat={(cat)=>{ props.setpage(18,cat.id) }}
   columns={
     [
       {name: "ID", uid: "id", sortable: true},
@@ -358,7 +358,7 @@ gridTemplateAreas:`
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "القسم", uid: "section", sortable: true},
     
-      // {name: "الخيارات", uid: "createdAt"},
+     {name: "الخيارات", uid: "cate"},
     ]
    }
    

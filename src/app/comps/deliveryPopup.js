@@ -8,7 +8,7 @@ import { FaTruck,FaClock } from 'react-icons/fa6'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import LoadingBtn from './loadingbtn'
 import { Button } from '@nextui-org/react'
-
+import OrderEl from './orderEl'
 import {CartCon} from '../contexts/cartContext'
 import Image from 'next/image';
 import { useSelector } from 'react-redux'
@@ -27,11 +27,11 @@ const deliveryPopup = forwardRef((props, ref) => {
   const router = useRouter();
 const  ls = require('local-storage');
   const [odate,setOdate]=useState(0);
- const [orderItems,setOrderitems] = useState({data:[]});
+ const [orderItems,setOrderitems] = useState(null);
  const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
 
   useEffect(()=>{
-setOrderitems({data:[]})
+setOrderitems(null)
    getOrderItems();
 //   
 
@@ -71,7 +71,7 @@ const getOrderItems= ()=>{
     "Authorization": 'Bearer ' + udata.data.jwt
 },
   body: JSON.stringify({
-     id: props.data&&props.data.refId,
+     id: props.data&&props.data.id,
     })
 };
 fetch(`${API_URL}orders?func=getOrderItems`, requestOptions)
@@ -79,7 +79,7 @@ fetch(`${API_URL}orders?func=getOrderItems`, requestOptions)
   .then((data) => {
     
    
-    setOrderitems({data:data})
+   setOrderitems(data)
     setLod(false)
   }).then(()=>{
     
@@ -365,58 +365,25 @@ const notify = (type,msg)=>{
                </div>
               <div style={{marginTop:10,width:"100%"}} >
              
-              {orderItems&&orderItems.data.map((item,index)=>(
+              {orderItems&&orderItems.map((item,index)=>(
                 
-                
+                <OrderEl 
+                size={item.size}
+                color={item.color}
+                img={item.img}
+                price={item.price} 
+                code={item.code}
+                name={item.name}
+                qty={item.qty}
               
-
-                <div className='shadow-sm' key={index} style={{display:"flex",flexDirection:"row-reverse",marginBottom:10,padding:6,borderRadius:6,alignItems:"center",justifyContent:"space-between"}} >
-
-              <div style={{display:'flex',alignItems:"center",justifyContent:"flex-start"}}>
-             
-             
-<div style={{display:"flex",justifyContent:"center",alignItems:"flex-start",flexDirection:"column",marginRight:10}}>
-
-               <div>{item.name&&item.name}</div> 
-               <div className='text-gray-600' style={{fontWeight:"bold",textAlign:"right",width:"100%"}}>{item.product_ref&&item.product_ref}</div>                 
-              </div>
-              <img
-        style={{objectFit:'cover',width:'25%',height:'100%',borderRadius:12}}
-          src={IMG_URL.concat(item.imgs&&JSON.parse(item.imgs)[0])} 
-          />
-
-              </div>
-
-
-<div style={{display:"flex",fontWeight:"bold",alignItems:"center",justifyContent:"center",textWrap:"nowrap"}}>
-{item.qty} Pcs
-</div>
-
-            
-
-              <div style={{display:"flex",alignContent:"center",justifyContent:"center",flexDirection:"column",padding:"0px 10px"}}>
-
-<div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-<div  style={{width:25,height:25,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",
-border:"3px solid white",marginRight:-10,zIndex:10,marginBottom:-5
-,backgroundColor:Theme.primary,color:"white",fontSize:14}}>{item.sizeIcom&&item.sizeIcom}</div>
-
-<div style={{width:30,height:30,
-marginLeft:-10,marginTop:-5
-,borderRadius:100,backgroundColor:item.colorCode&&item.colorCode}} ></div>
-
-</div>
-
-<div style={{fontSize:13,display:props.order?"none":"block",textAlign:"center"}}>
-{item.sizeName&&item.sizeName} <span>  </span> {item.color&&item.color}
-</div>
-
-</div>
                 
-                </div>    
-               ))
-             
-              }
+                />
+               
+ 
+ 
+                ))
+              
+               }
 
 
 <div style={{
@@ -464,7 +431,7 @@ marginLeft:-10,marginTop:-5
                            </div>
     
 
-  <Button radius={"sm"} className="bg-moon-200 text-white mt-3" startContent={<FaTruck/>} onClick={props.data&&props.data.status=="initiated"?()=>{
+  <Button style={{display:props.isadmin?"none":"block"}} radius={"sm"} className="bg-moon-200 text-white mt-3" startContent={<FaTruck/>} onClick={props.data&&props.data.status=="initiated"?()=>{
                        handleOrderDelivery() ; 
                        }:()=>{}} isLoading={lod}>
      {props.data&&props.data.status=="initiated"?"Deliver":"Delivered"}

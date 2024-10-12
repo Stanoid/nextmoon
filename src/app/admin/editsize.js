@@ -267,7 +267,7 @@ gridTemplateAreas:`
    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
 
 
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Update Size"} />
+<LoadingBtn act={()=>{submitload()}} lod={lod} text={"تعديل المقاس "} />
 </div>
 
       

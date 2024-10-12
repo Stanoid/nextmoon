@@ -40,7 +40,7 @@ function AccounteEl() {
     const ls = require("local-storage")
     const {logindata,logoutUser}  = useContext(AuthCon);
     const router = useRouter(); 
-    const [page,setPage] = useState(0) 
+    const [page,setPage] = useState(1) 
     const [logged,setLogged] = useState(0)
     const [colors,setColors] = useState([])
     const [sizes,setSizes] = useState([])
@@ -152,9 +152,9 @@ bg-[url('../../public/amblemblack.svg')] ">
 
 
 
-<div onClick={()=>{setPage(0)}} style={{backgroundColor:page==0?Theme.primary:"white", color:page==0?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+{/* <div onClick={()=>{setPage(0)}} style={{backgroundColor:page==0?Theme.primary:"white", color:page==0?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
-<div><MdOutlineAutoGraph/></div><div className='mx-1.5'> لوحة التحكم</div></div>
+<div><MdOutlineAutoGraph/></div><div className='mx-1.5'> لوحة التحكم</div></div> */}
 
 <div onClick={()=>{setPage(1)}} style={{backgroundColor:page==1?Theme.primary:"white", color:page==1?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
@@ -234,7 +234,7 @@ hover:text-white text-white justify-start items-center '   >
   {page==16 ? sid?<EditSize  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} sid={sid} />:<EditSize setpage={(page)=>{setPage(page)}} sid={sid} /> :<></>}
   {page==17 ? cid?<EditColor  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} cid={cid} />:<EditColor setpage={(page)=>{setPage(page)}} cid={cid} /> :<></>}
   {page==18 ? catid?<EditCat  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} catid={catid} />:<EditCat setpage={(page)=>{setPage(page)}} catid={catid} /> :<></>}
-  {page==19 ? scatid?<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>}
+  {page==19 ? scatid?<EditSubCat  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>}
 </div>
 
 
