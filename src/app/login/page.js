@@ -227,7 +227,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
         
 
     {/* Old signup stepper */}
-<div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-5 my-3 transition-all" style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+<div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-3  transition-all" style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 <h1 className="text-center text-2xl font-semibold text-moon-300">تسجيل دخول</h1>
 
 </div>
@@ -274,16 +274,7 @@ gridTemplateAreas:`
       <InputEl outputfunc={(val)=>{setpass(val)}} ispass label={"كلمة المرور"}/>
     </div>
 
-    <div className='my-3' style={{gridArea:"soc"}}>
-     <div className='text-center my-1 '>التسجيل بواسطة</div> 
-   <div className='flex space-x-3 text-2xl flex-row items-center justify-center' >
-   <FaFacebook className='text-[#3E5C9A]' />
-   <FaInstagram className='text-[#C84278]' />  
-   <FaXTwitter/>
-   <FaGoogle className='text-[#DF4B38]' />
-   </div>
-  
-    </div>
+    
 
   
   
@@ -320,6 +311,21 @@ gridTemplateAreas:`
       <LoadingBtn color={"lightgrey"} act={()=>{router.push("/register")} } textColor={"grey"} icon={<FaUserPlus  />} text={"تسجيل حساب جديد"} />
       </motion.div>
 
+
+  </div>
+
+  <div className=' flex justify-center items-center'>
+
+  <div className='my-3' style={{gridArea:"soc"}}>
+     <div className='text-center my-1 '>التسجيل بواسطة</div> 
+   <div className='flex space-x-3 text-2xl flex-row items-center justify-center' >
+   <FaFacebook className='text-[#3E5C9A]' />
+   <FaInstagram className='text-[#C84278]' />  
+   <FaXTwitter/>
+   <FaGoogle className='text-[#DF4B38]' />
+   </div>
+  
+    </div>
 
   </div>
    

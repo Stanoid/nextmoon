@@ -14,6 +14,7 @@ import { FaTimes, FaEdit } from "react-icons/fa";
 import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
 import { AuthCon } from "../contexts/AuthCon";
 
+
 function ProductsList(props) {
   const ls = require("local-storage");
     const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
@@ -47,7 +48,7 @@ function ProductsList(props) {
     fetch(`${API_URL}products/${id}`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        
+        props.notifi("success","تم حذف المنتج")
         getProducts();
       })
       .then(() => {});
@@ -61,13 +62,21 @@ function ProductsList(props) {
         Authorization: "Bearer " + udata.data.jwt,
       },
       body: JSON.stringify({
-        status: !status,
+        status: status,
       }),
     };
 
     fetch(`${API_URL}products/${id} ?func=EditStatus`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
+
+        if(status){
+          props.notifi("success","تم إظهار المنتج")
+
+        }else{
+          props.notifi("success","تم إخفاء المنتج")
+
+        }
         
       })
       .then(() => {
@@ -134,6 +143,8 @@ function ProductsList(props) {
     ]
    }
    delorder={handleEdit}
+   deleteProduct={deleteEntry}
+   statusChange={handleStatus}
    data={products}
     />:
   <div style={{

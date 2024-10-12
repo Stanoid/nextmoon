@@ -427,7 +427,9 @@ switch (props.coldata) {
                   عرض</DropdownItem>
 
                 
-                {user.payment_status=="paid"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{router.push(user.url)}} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
+                {user.payment_status=="paid"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{
+                  router.push(user.url)
+                }} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
  }
                               
                 
@@ -461,13 +463,13 @@ switch (props.coldata) {
 
                  
       
-                  <DropdownItem textValue="a" startContent={<FaEyeSlash style={{marginRight:4}} />} key={"hid"} >
+                  <DropdownItem textValue="a" onClick={()=>{props.statusChange(!user.status,user.id)}} startContent={<FaEyeSlash style={{marginRight:4}} />} key={"hid"} >
                   <div className="py-1 font-bold text-gray-600 ">
-                  إخفاء
+                  إخفاء/إظهار
                   </div>
                   </DropdownItem>
 
-                  <DropdownItem textValue="a"  onClick={()=>{alert("sss")}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
+                  <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
                   <div className="py-2 font-medium text-red-500">   حذف المنتج </div> </DropdownItem>
 
                 </DropdownMenu>
@@ -497,7 +499,8 @@ switch (props.coldata) {
                     <DropdownItem textValue="a"   onClick={()=>{ props.editSize(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
                     <div className="py-1 font-bold text-gray-600 "> تعديل المقاس </div>  </DropdownItem>
   
-                   
+                    <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
+                  <div className="py-2 font-medium text-red-500">   حذف المقاس </div> </DropdownItem>
 
   
                   </DropdownMenu>
@@ -526,7 +529,8 @@ switch (props.coldata) {
                       <DropdownItem textValue="a"   onClick={()=>{ props.editColor(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
                       <div className="py-1 font-bold text-gray-600 "> تعديل اللون </div>  </DropdownItem>
     
-                     
+                      <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
+                      <div className="py-2 font-medium text-red-500">   حذف اللون </div> </DropdownItem>
   
     
                     </DropdownMenu>
@@ -554,7 +558,9 @@ switch (props.coldata) {
                       <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
                         <DropdownItem textValue="a"   onClick={()=>{ props.editCat(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
                         <div className="py-1 font-bold text-gray-600 "> تعديل الفئة </div>  </DropdownItem>
-      
+                      
+                        <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
+                      <div className="py-2 font-medium text-red-500">   حذف الفئة </div> </DropdownItem>
                        
     
       
@@ -584,7 +590,8 @@ switch (props.coldata) {
                           <DropdownItem textValue="a"   onClick={()=>{ props.editScat(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
                           <div className="py-1 font-bold text-gray-600 "> تعديل الفئة الفرعية </div>  </DropdownItem>
         
-                         
+                          <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
+                          <div className="py-2 font-medium text-red-500">   حذف الفئة الفرعية </div> </DropdownItem>
       
         
                         </DropdownMenu>

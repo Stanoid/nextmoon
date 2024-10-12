@@ -109,7 +109,8 @@ function AddSize(props) {
           fetch(`${API_URL}sizes/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              
+             props.notifi("success","تم حذف المقاس") ;
+             
            getSizes();
             }).then(()=>{
            
@@ -303,6 +304,7 @@ gridTemplateAreas:`
 
 
 editSize={(size)=>{props.setpage(16,size.id)}}
+deleteProduct={deleteEntry}
   columns={
     [
       {name: "ID", uid: "id", sortable: true},

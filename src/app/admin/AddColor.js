@@ -63,7 +63,8 @@ function AddColor(props) {
       fetch(`${API_URL}colors/${id}`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          
+          props.notifi("success","تم حذف اللون") ;
+
        getcolors();
         }).then(()=>{
        
@@ -292,7 +293,7 @@ gridTemplateAreas:`
 {
   colors?<TableComp
 
-
+  deleteProduct={deleteEntry}
 editColor={(color)=>{props.setpage(17,color.id)}}
   columns={
     [

@@ -142,7 +142,8 @@ function AddCat(props) {
           fetch(`${API_URL}catagories/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              
+              props.notifi("success","تم حذف الفئة") ;
+
            getCats();
             }).then(()=>{
            
@@ -349,7 +350,7 @@ gridTemplateAreas:`
 {
   sizes?<TableComp
 
-
+  deleteProduct={deleteEntry}
 editCat={(cat)=>{ props.setpage(18,cat.id) }}
   columns={
     [

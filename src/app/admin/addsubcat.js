@@ -98,14 +98,17 @@ function AddSubCat(props) {
     
               let arr = [];
               for (let i = 0; i < data.length; i++) {
-                let ob = {};
-               ob.id = data[i].id
-                ob.name_ar = data[i].name_ar;
-                ob.name_en = data[i].name_en;  
-                ob.cat = data[i].catagory.name_ar;
-                ob.scate = data[i].createdAt;
-     
-                arr.push(ob) 
+                if(data[i].catagory){
+                  let ob = {};
+                  ob.id = data[i].id
+                   ob.name_ar = data[i].name_ar;
+                   ob.name_en = data[i].name_en;  
+                   ob.cat = data[i].catagory.name_ar;
+                   ob.scate = data[i].createdAt;
+        
+                   arr.push(ob) 
+                }
+           
                // console.log("rrrr",ob)
                
               }
@@ -129,6 +132,29 @@ function AddSubCat(props) {
 
     
 
+          const deleteEntry=(id)=>{        
+            const requestOptions = {
+              method: 'DELETE',
+              headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": 'Bearer ' + udata.data.jwt
+              },
+            
+          };
+        
+            fetch(`${API_URL}subcatagories/${id}`, requestOptions)
+              .then((response) => response.json())
+              .then((data) => {
+                props.notifi("success"," تم حذف الفئة الفرعية") ;
+  
+             getCats();
+              }).then(()=>{
+             
+              
+              })
+        
+        
+            }
 
    
 
@@ -260,7 +286,7 @@ gridTemplateAreas:`
 {
   subcats?<TableComp
 
-
+  deleteProduct={deleteEntry}
 editScat={(scat)=>{props.setpage(19,scat.id)}}
   columns={
     [
