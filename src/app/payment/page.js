@@ -25,8 +25,9 @@ function AccounteEl() {
 
       if (firstRenderRef.current) {
         firstRenderRef.current = false;
-      } else {
         orderhandler(getQueryVariable("orderid"));
+      } else {
+        //orderhandler(getQueryVariable("orderid"));
         setRefr(false);        
       }
     }, [])
