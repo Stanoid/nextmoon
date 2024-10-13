@@ -49,10 +49,11 @@ const  ls = require('local-storage');
 
   if (firstRenderRef.current) {
     firstRenderRef.current = false;
-  } else {
     if(udata&&udata.data.jwt){
       getLikes(); 
-    }        
+    }
+  } else {
+            
   }
 
   
