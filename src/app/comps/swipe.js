@@ -1,4 +1,4 @@
-import { useState,useEffect,useRef,useCallback } from "react";
+import { useState,useEffect,useCallback } from "react";
 import Product from "./flashproduct";
 import { API_URL } from "../local";
 import {
@@ -116,17 +116,11 @@ export default function SwipeEl(props) {
     const [products, setProducts] = useState(null);
     const [prc,setPrc] = useState(null);
     const [lod, setLod] = useState(0);
-    const firstRenderRef = useRef(true);
+
 
     useEffect(() => {
       
-        if (firstRenderRef.current) {
-            firstRenderRef.current = false;
-          } else {
-            getAllProducts();        
-          }
-
-
+    getAllProducts()
      
     }, [])
     

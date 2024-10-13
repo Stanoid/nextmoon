@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
   const [cat,setCat] = useState(null);
   const [logindata,setLogindata] = useState(null)
   const [searchTog,setSearchTog] = useState(false);
-  const firstRenderRef = useRef(true)
+
   const [draw,setDraw] = useState(false)
   const [searwidth,setSearwidth] = useState(0);
   const [sugges,setSugges] = useState([])
@@ -51,14 +51,7 @@ export default function RootLayout({ children }) {
   
   useEffect(() => {
    
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-    } else {
-      getCats();        
-    }
-
-
-    
+   getCats(); 
   //loginval();
    
   }, [])
