@@ -33,7 +33,7 @@ const {favData,removeFromFav,useNotifi}  = useContext(CartCon);
   const [scrol,setScrol]=useState(0);
   const [likesData,setLikesData] = useState(null);
   const [lod,setLod]=useState(0);
-
+  const firstRenderRef = useRef(true);
   const [total,setTotal]=useState(0);
   const router = useRouter();
   const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
@@ -45,12 +45,19 @@ const  ls = require('local-storage');
   useEffect(()=>{
 
    // console.log("likes jwt",udata&&udata.data.jwt)
-  if(udata&&udata.data.jwt){
-    getLikes(); 
+ 
+
+  if (firstRenderRef.current) {
+    firstRenderRef.current = false;
+  } else {
+    if(udata&&udata.data.jwt){
+      getLikes(); 
+    }        
   }
+
   
 
-},[props.open,refr])
+},[props.open])
 
 
 
@@ -76,6 +83,7 @@ try {
   console.log("likes",data) 
   if(data){
     setLikesData(data);
+    
   }
 
   }).then(()=>{
@@ -84,7 +92,8 @@ try {
   })
 
 } catch (error) {
-  console.log(error)
+  console.log(error);
+  router.push("/logout")
 }
 
 

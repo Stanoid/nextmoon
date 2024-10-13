@@ -7,7 +7,7 @@ import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux';
 import { User } from '@nextui-org/react';
-import { FaBox, FaCreditCard, FaHeart, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser } from 'react-icons/fa6';
+import { FaBox, FaCreditCard, FaHeart, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser, FaWarehouse } from 'react-icons/fa6';
 import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
                                                        
  const AddColor = dynamic(() => import('./AddColor'));
@@ -15,7 +15,7 @@ import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
  const EditColor = dynamic(() => import('./editColor'));
  const PromoCodes = dynamic(() => import('./promoCodes'));
  const AddSubCat = dynamic(() => import('./addsubcat'));
-
+ const WereHouse = dynamic(() => import('./wharehouse'));
  const EditSize = dynamic(() => import('./editsize'));
  const Orders = dynamic(() => import('./orders'));
  const EditCat = dynamic(() => import('./EditCat'));
@@ -191,6 +191,11 @@ hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start i
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><FaListCheck/></div><div className='mx-1.5'> الطلبات</div></div>
 
+
+<div onClick={()=>{setPage(20)}} style={{backgroundColor:page==20?Theme.primary:"white", color:page==20?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><FaWarehouse/></div><div className='mx-1.5'> المخزون</div></div>
+
 <div onClick={()=>{setPage(10)}} style={{backgroundColor:page==10?Theme.primary:"white", color:page==10?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><MdSpeakerPhone/></div><div className='mx-1.5'> لعروض الترويجية</div></div>
@@ -235,6 +240,11 @@ hover:text-white text-white justify-start items-center '   >
   {page==17 ? cid?<EditColor  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} cid={cid} />:<EditColor setpage={(page)=>{setPage(page)}} cid={cid} /> :<></>}
   {page==18 ? catid?<EditCat  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} catid={catid} />:<EditCat setpage={(page)=>{setPage(page)}} catid={catid} /> :<></>}
   {page==19 ? scatid?<EditSubCat  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>}
+  
+  
+  {page==20 ? <WereHouse  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} 
+  scatid={scatid} /> :<></>}
+
 </div>
 
 

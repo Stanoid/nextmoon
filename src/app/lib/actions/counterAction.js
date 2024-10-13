@@ -125,10 +125,19 @@ for (let i = 0; i < nnccr.length; i++) {
 //console.log(nnccr)
 
 
-  dispatch({ type: types.REMOVEFROMCART, payload: nnccr })
+  dispatch({ type: types.CLEARCART, payload: nnccr })
 
 
 }
+
+
+export const clearCart =  (pld) => async (dispatch,getState) =>{
+  const state = getState();
+  
+    dispatch({ type: types.REMOVEFROMCART, payload: [] })
+  
+  
+  }
 
 
   

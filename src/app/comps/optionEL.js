@@ -43,7 +43,7 @@ className=' '
 
 {props.vars[0].attributes.sizes.data&&props.vars[0].attributes.sizes.data.map(size=>(
 
-<div onClick={()=>{props.sizeSelect(size.id)}} key={size.id} className='border-4 px-2 transition-all py-2 rounded-md '
+<div onClick={()=>{props.sizeSelect(size.id)}} key={size.id} className='border-4 cursor-pointer px-2 transition-all py-2 rounded-md '
  style={{borderColor: props.size==size.id?Theme.primary : "grey" , 
     backgroundColor: props.size==size.id?Theme.primary : "white" , 
  display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>

@@ -420,6 +420,24 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
               {pcode} : رقم الصنف
             </h2>
           </div>
+
+          <div >
+            <h2
+              style={{
+                fontWeight: "bold",
+                fontSize: 21,
+                color: stock<=0?"red":"gray",
+                width:"100%",
+                
+                lineHeight: 1.3,
+              }}
+              className="max-w-xl mt-2  text-right font-semibold leading-loose tracking-tight text-gray-500  "
+            >
+        الكمية :  {stock}      قطعة 
+            </h2>
+          </div>
+
+
    </div>
          
           
@@ -522,7 +540,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 HandleAddToCart();
               }}
               style={{
-                display: "flex",
+                display: stock<=0? "none" :"flex" ,
                 justifyContent: "center",
                 alignItems: "center",
               }}

@@ -26,6 +26,7 @@ import { product } from "./comps/productdata";
 export default function Home() {
   const [openCart,setOpenCart] = useState(false);   
   const childCompRef = useRef()
+  const firstRenderRef = useRef(true)
   const {loginval}  = useContext(AuthCon);
   const [products,setProducts] = useState()
   const [lod,setLod] = useState(true);
@@ -34,7 +35,12 @@ export default function Home() {
   useEffect(() => {
    
 setLod(false)
-  getAllProducts();
+if (firstRenderRef.current) {
+  firstRenderRef.current = false;
+} else {
+  getAllProducts();        
+}
+ 
   //  calculation;
     
        }, [])

@@ -80,6 +80,12 @@ const cartReducer = (state = initialCartState, { type, payload }) => {
         }
         break;
 
+        case types.CLEARCART:
+          return {
+            data: payload,
+          }
+          break;
+
       
     default:
       return state
