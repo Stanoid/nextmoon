@@ -19,6 +19,7 @@ import { API_URL,Theme,CURRENCY } from '../local'
 
 import { forwardRef, useRef,useImperativeHandle  } from "react"
 import { product } from './productdata'
+import { FaArrowAltCircleRight } from 'react-icons/fa'
 
 const Cart = forwardRef((props, ref) => {
   const [open, setOpen] = useState(true)
@@ -41,8 +42,9 @@ const [logindata,setLogindata]= useState(null)
 
 
 const handleOrder= ()=>{
-
-
+  props.openHandler(false);
+  router.push("/checkout")
+return
   
   if(cartg.length==0){
     alert("الرجاء إضافة منتجات")
@@ -271,11 +273,11 @@ const notify = (type,msg)=>{
                     <div style={{padding:20, display:cartg&&cartg.length==0?"none":"flex",
                       alignItems:'center',justifyContent:'center'}}>
 
-                        {isLogged?<LoadingBtn  icon={<FaCreditCard className='ml-1.5' />}   act={()=>{
+                        {isLogged?<LoadingBtn  icon={<FaArrowAltCircleRight className='ml-1.5' />}   act={()=>{
                        handleOrder() ; 
-                       }}  text={"متابعة إلى الدفع"} lod={lod} />:<LoadingBtn   icon={<FaLock className='ml-1.5' />}   act={()=>{
+                       }}  text={"متابعة  "} lod={lod} />:<LoadingBtn   icon={<FaLock className='ml-1.5' />}   act={()=>{
                         router.push("/login"); props.openHandler(false); 
-                        }}  text={"سجل الدخول للمتابعة إلى الدفع"} color={Theme.secondaryDark} lod={lod} />}
+                        }}  text={"سجل الدخول للمتابعة  "} color={Theme.secondaryDark} lod={lod} />}
 
                         
                        </div>                  

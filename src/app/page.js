@@ -64,7 +64,7 @@ if (firstRenderRef.current) {
             .then((response) => response.json())
             .then((data) => {
       
-        
+           
               
            setProducts(data)
            setLod(false)

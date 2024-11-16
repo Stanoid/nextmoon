@@ -22,7 +22,9 @@ export default function Cartel(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     setVarient(props.data.attributes.varients.data[0]);
+
   }, []);
 
   const removeid = () => {
@@ -31,7 +33,7 @@ export default function Cartel(props) {
 
   return (
     <div
-      className="shadow-md"
+      className="shadow-md w-full"
       style={{
         display: "flex",
         borderRadius: 10,

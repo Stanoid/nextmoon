@@ -82,9 +82,10 @@ try {
   .then((response) => response.json())
   .then((data) => {
   console.log("likes",data) 
-  if(data){
-    setLikesData(data);
+  if(data.data==null){
     
+  }else{
+    setLikesData(data);
   }
 
   }).then(()=>{
