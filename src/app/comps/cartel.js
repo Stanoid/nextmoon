@@ -19,11 +19,21 @@ import { color } from "framer-motion";
 export default function Cartel(props) {
   const [open, setOpen] = useState(true);
   const [varient, setVarient] = useState(null);
+  const [varients, setVarients] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-    setVarient(props.data.attributes.varients.data[0]);
+    setVarients(props.data.attributes.varients.data);
+    // setVarient(props.data.attributes.varients.data[0]);
+    
+    for (let i = 0; i < props.data.attributes.varients.data.length; i++) {
+      if(props.data.attributes.varients.data[i].id==props.selvar){
+        setVarient(props.data.attributes.varients.data[i]);
+      }
+      
+    }
+    
+    console.log(props.data.attributes.varients.data)
 
   }, []);
 
@@ -146,12 +156,15 @@ export default function Cartel(props) {
                 fontSize: 14,
               }}
             >
-              {varient &&
-                varient.attributes.sizes.data.map((size) => {
-                  if (size.id == props.size) {
-                    return size.attributes.icon;
+
+            {varient&&varient.attributes.sizes.data[0].attributes.icon}
+
+              {/* {varients &&
+                varients.map((vari) => {
+                  if (vari.id == props.selvar) {
+                    return vari.id;
                   }
-                })}
+                })} */}
             </div>
 
             {varient &&

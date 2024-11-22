@@ -53,7 +53,7 @@ function Orders(props) {
       fetch(`${API_URL}orders?func=getUserOrders`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          
+          console.log(data)
           setlod(false)
         setOrderdata(data.reverse())
         }).then(()=>{
@@ -139,7 +139,7 @@ function Orders(props) {
 
 
 <div className='px-4 sm:px-4 lg:px-8'  style={{marginTop:10,width:"100%",borderRadius:10,backgroundColor:""}}>
-<div className='text-moon-200/80 text-2xl mt-3'>
+<div className='text-moon-200/80  text-2xl mt-3'>
 الطلبات:
 </div>
 <br/>
@@ -152,7 +152,10 @@ function Orders(props) {
       {name: "التاريخ", uid: "date", sortable: true},  
       {name: "إجمالي السعر", uid: "total", sortable: true},
     
+      {name: "طريقة الدفع", uid: "payment_type",sortable: true },
       {name: "حالة الدفع", uid: "payment_status",sortable: true },
+
+      {name: "التوصيل", uid: "delivery_type",sortable: true },
       {name: "حالة الطلب", uid: "status", sortable: true},
       {name: "التفاصيل", uid: "refid"},
     ]

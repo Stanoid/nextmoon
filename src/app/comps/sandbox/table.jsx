@@ -1,5 +1,6 @@
 import React from "react";
 import { Theme } from "../../local";
+import moment from "moment";
 import {
   Table,
   TableHeader,
@@ -40,7 +41,7 @@ const statusColorMap = {
 };
 
 const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","varients","cat","name_en","section","icon","img","color","scate","colore","cate","colorCode","size", "city",
-   "status","pstatus", "email","refid","date","total","payment_status","total","name_ar","description_ar"];
+   "status","pstatus", "email","refid","date","delivery_type","total","payment_type","payment_status","total","name_ar","description_ar","code","price","qty","colorname","sizeo","imgsingle"];
 
 export default function App(props) {
   const [filterValue, setFilterValue] = React.useState("");
@@ -158,6 +159,8 @@ switch (props.coldata) {
             </div>
           );
           break;
+
+
       case "status":
      let stob = {};
       switch (cellValue) {
@@ -167,6 +170,13 @@ switch (props.coldata) {
       stob.dot = "bg-amber-700";
       stob.istog=false; 
         break;
+
+        case "processed":
+          stob.lable = "غير موصل ";
+          stob.color = "text-amber-700 bg-amber-200 min-w ";
+         stob.dot = "bg-amber-700";
+         stob.istog=false; 
+           break;
 
         case "delivered":
           stob.lable = "تم التوصيل";
@@ -199,6 +209,9 @@ switch (props.coldata) {
         
       
         default:
+          stob.lable = cellValue;
+          stob.color = "text-gray-700 bg-gray-200 min-w ";
+         stob.dot = "bg-gray-700";
           break;
       }
 
@@ -214,7 +227,7 @@ switch (props.coldata) {
         borderRadius:10
       
       }} > 
-      <div   className={stob.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,fontSize:10}}></div>
+      <div   className={stob.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,marginRight:7,fontSize:10}}></div>
       {stob.lable} 
       </div>);
        break;
@@ -255,10 +268,93 @@ switch (props.coldata) {
            borderRadius:10
          
          }} > 
-         <div   className={stobp.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,fontSize:10}}></div>
+         <div   className={stobp.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,marginRight:7,fontSize:10}}></div>
          {stobp.lable} 
          </div>);
          break;
+
+
+         case "delivery_type":
+          let delob = {};
+           switch (cellValue) {
+             case "delivery":
+              delob.lable = "توصيل لعنوان";
+              delob.color = "text-moonsec-200 bg-moonsec-200/10 ";
+              delob.dot = "bg-moonsec-200";
+            
+             break;
+     
+             case "pickup":
+              delob.lable = "إستلام من مركز";
+              delob.color = "text-moonsec-100 bg-moonsec-100/10 ";
+              delob.dot = "bg-moonsec-100";
+            
+               
+                break;
+             default:
+               break;
+           }
+     
+     
+           return (<div className={delob.color} style={{
+             display:"flex",
+             whiteSpace:"nowrap",
+             alignItems:"center",
+             justifyContent:"center",
+       
+             padding:"4px 10px",
+             borderRadius:10
+           
+           }} > 
+           <div   className={delob.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,marginRight:7,fontSize:10}}></div>
+           {delob.lable} 
+           </div>);
+           break;
+  
+
+
+
+           case "payment_type":
+          let payob = {};
+           switch (cellValue) {
+             case "online":
+              payob.lable = "إلكتروني";
+              payob.color = "text-moon-200 bg-moon-200/10  ";
+              payob.dot = "bg-moon-200";
+            
+             break;
+     
+             case "delivery":
+              payob.lable = "عند الإستلام";
+              payob.color = "text-moonsec-100 bg-moonsec-100/10 ";
+              payob.dot = "bg-moonsec-100";
+            
+               
+                break;
+             default:
+               break;
+           }
+     
+     
+           return (<div className={payob.color} style={{
+             display:"flex",
+             whiteSpace:"nowrap",
+             alignItems:"center",
+             justifyContent:"center",
+       
+             padding:"4px 10px",
+             borderRadius:10
+           
+           }} > 
+           <div   className={payob.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,marginRight:7,fontSize:10}}></div>
+           {payob.lable} 
+           </div>);
+           break;
+
+
+
+
+
       case "date":
         var date = new Date(cellValue * 1000);
         var hours = date.getHours();
@@ -270,13 +366,14 @@ switch (props.coldata) {
           day: 'numeric',});
         var minutes =   date.getMinutes();
         return(
-         <div className="whitespace-nowrap" > {y} </div> 
+         <div className="whitespace-nowrap" > {y} - <span className="" > {hours}:{minutes} </span> </div> 
         );
 
 
 
       break;
 
+      
 
       case "img":
        
@@ -297,6 +394,38 @@ switch (props.coldata) {
 
 
       break;
+
+      case 'code':
+      return(
+        <div className="px-6 py-2 text-white bg-moon-200 rounded-full" >{cellValue}</div>
+      );
+      break;
+
+      case 'price':
+        return(
+          <div className="text-moon-200 font-bold flex " > <div className="mr-2" >{CURRENCY}</div> <div>{cellValue}</div>  </div>
+        );
+        break;
+   
+      case "imgsingle":
+       
+      return(
+       
+
+        <div className=' w-16  h-16' style={{position:"relative"}} >
+        <Image  fill objectFit='cover'
+        quality={40}
+        className="rounded-md"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={cellValue} 
+      
+        />
+        </div>
+
+      );
+
+
+
+    break;
 
 
     
@@ -427,7 +556,7 @@ switch (props.coldata) {
                   عرض</DropdownItem>
 
                 
-                {user.payment_status=="paid"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{
+                {user.payment_status=="paid"||user.payment_type=="delivery"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{
                   router.push(user.url)
                 }} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
  }
@@ -641,7 +770,7 @@ switch (props.coldata) {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div>
+        <div style={{display:props.checkout?"none":"block"}}>
         <Input
             isClearable
             className="w-full sm:max-w-[44%]"
@@ -652,7 +781,7 @@ switch (props.coldata) {
             onValueChange={onSearchChange}
           />
         </div>
-        <div className="flex justify-between gap-3 items-end">
+        <div style={{display:props.checkout?"none":"flex"}} className="flex justify-between gap-3 items-end">
           <div className="flex gap-3">
             <Dropdown>
               <DropdownTrigger className="">
@@ -701,7 +830,7 @@ switch (props.coldata) {
             </Button> */}
           </div>
         </div>
-        <div className="flex justify-between items-center">
+        <div style={{display:props.checkout?"none":"block"}} className="flex justify-between items-center">
           <span className="text-default-400 text-small"> عدد  :  {props.data.length} </span>
           <label className="flex items-center text-default-400 text-small">
             عدد الصفوف  :
@@ -729,7 +858,7 @@ switch (props.coldata) {
 
   const bottomContent = React.useMemo(() => {
     return (
-      <div className="py-2 px-2  flex justify-between items-center">
+      <div style={{display:props.checkout?"none":"flex"}} className="py-2 px-2  flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"

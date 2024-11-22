@@ -15,7 +15,7 @@ function InputEl(props) {
         <select value={props.value} onChange={(e)=>{props.outputfunc(e.target.value)}} className="block appearance-none w-full bg-gray-200
          border border-gray-200 text-gray-400 text-sm py-3 px-4 pr-8 rounded leading-tight
           focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-        <option value={null}   selected> أختر {props.label} </option>
+        <option disabled value={null}   selected> أختر {props.label} </option>
         {props.data&&props.data.map((datum,index)=>(
 
 <option  value={datum.id} key={index}>

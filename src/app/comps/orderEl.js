@@ -138,7 +138,7 @@ export default function OrderEl(props) {
               }}
             >
 
-              {props.size.icon}
+              {props.size}
           
             </div>
 

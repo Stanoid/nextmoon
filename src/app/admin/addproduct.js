@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { TiThMenu } from "react-icons/ti";
 import LoadingBtn from "../comps/loadingbtn";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlusCircle, FaPlusSquare } from "react-icons/fa";
 import { AuthCon } from "../contexts/AuthCon";
 import { BsX } from "react-icons/bs";
 
@@ -27,6 +27,7 @@ function AddProduct(props) {
   const [namear, setNamear] = useState("");
   const [sizeSelect, setSizeselect] = useState([]);
   const [colorSelect, setColorselect] = useState([]);
+  const [varients,setVarients] = useState([]);
   const [nameen, setNameen] = useState("");
   const [descar, setDescar] = useState("");
   const [code, setCode] = useState("");
@@ -66,10 +67,10 @@ function AddProduct(props) {
 
   const handleSizeRemove = (index) => {
     console.log(index);
-    let oldar = sizeSelect;
+    let oldar = varients;
     oldar.splice(index, 1);
     console.log(oldar);
-    setSizeselect(oldar);
+    setVarients(oldar);
     setEff(false);
     setRefr(!refr);
   };
@@ -84,16 +85,16 @@ function AddProduct(props) {
     setRefr(!refr);
   };
 
-  const handleSizesSelect = (size, ind) => {
+  const handleSizesSelect = (vari, ind) => {
     for (let index = 0; index < sizes.length; index++) {
-      if (sizes[index].id == size) {
+      if (sizes[index].id == vari.size) {
         return (
-          <div className="flex mx-1 flex-col justify-center items-center space-y-1 text-sm border-2 border-gray-400 p-1 rounded-md">
-            {/* <div>
-        {sizes[index].attributes.icon}
-        </div> */}
+          <div className="flex mx-1 my-4 flex-col justify-center min-w-32 items-center space-y-1 text-sm border-2 border-gray-400 p-1 rounded-md">
+           
 
-            <div>{sizes[index].attributes.name_ar}</div>
+            <div>{sizes[index].attributes.name_ar} ({sizes[index].attributes.icon}) </div>
+            <div style={{fontWeight:"bold",color:Theme.primary}}>{vari.price} {CURRENCY} </div>
+            <div>الكمية:{vari.stock}</div>
             <div
               onClick={() => {
                 handleSizeRemove(ind);
@@ -337,7 +338,7 @@ function AddProduct(props) {
       descen == "" ||
       subc == null ||
       colorSelect.length == 0 ||
-      sizeSelect.length == 0 ||
+      // sizeSelect.length == 0 ||
       code == "" ||
       stock == null ||
       price == null ||
@@ -364,9 +365,7 @@ function AddProduct(props) {
           subc: subc,
           code: code,
           color: colorSelect,
-          size: sizeSelect,
-          stock: stock,
-          price: price,
+        varients:varients,
           imgs: JSON.stringify(resource),
         }),
       };
@@ -382,6 +381,23 @@ function AddProduct(props) {
         });
     }
   };
+
+
+  const addvarient = ()=>{
+    if( stock == null ||
+      price == null ||size==null){
+        props.notifi("error","السعر و المقاس و الكمية حقول مطلوبة")
+       return
+      }
+
+      let oldarr = varients;
+     oldarr.push({size:size,stock:stock,price:price});
+      setVarients(oldarr);
+      setEff(false);
+      setRefr(!refr);
+      console.log(varients);
+
+  }
 
   return (
     <div
@@ -401,12 +417,12 @@ function AddProduct(props) {
           gap: 10,
           gridTemplateAreas: `
 ' namear  namear  nameen nameen  ' 
-'descriptionAr descriptionAr descriptionAr descriptionAr'
+'code descriptionAr descriptionAr descriptionAr'
 'descriptionEn descriptionEn descriptionEn descriptionEn'
 'cat images images images'
-'size sizeSelect sizeSelect sizeSelect'
 'color colorSelect colorSelect colorSelect'
-'price stock code code'
+'sizeSelect sizeSelect sizeSelect sizeSelect'
+'price stock size size'
 `,
         }}
       >
@@ -583,12 +599,9 @@ function AddProduct(props) {
           <InputEl
             value={size}
             outputfunc={(val) => {
-              if (sizeSelect.includes(val)) {
-                return;
-              }
-              let oldSizes = sizeSelect;
-              oldSizes.push(val);
-              setSizeselect(oldSizes);
+             
+              setSize(val)
+              console.log(val)
               setEff(false);
               setRefr(!refr);
             }}
@@ -635,16 +648,16 @@ function AddProduct(props) {
 
 
         <div
-          className="bg-gray-100  rounded-md  flex justify-center items-center "
+          className="bg-gray-100  rounded-md max-w-full overflow-x-scroll flex justify-start items-center "
           style={{ gridArea: "sizeSelect" }}
         >
-          {sizeSelect.length == 0 ? (
-            <div className="flex w-full text-gray-400 h-full justify-center items-center">
-              إختر مقاسات
+          {varients.length == 0 ? (
+            <div className="flex w-full  min-h-32 overflow-x-scroll text-gray-400 h-full justify-center items-center">
+              خيارات المنتج
             </div>
           ) : (
-            sizeSelect &&
-            sizeSelect.map((size, index) => handleSizesSelect(size, index))
+            varients &&
+            varients.map((vari, index) => handleSizesSelect(vari, index))
           )}
         </div>
 
@@ -676,7 +689,28 @@ function AddProduct(props) {
       >
         <div>
           <LoadingBtn
-          color={imgLod||resource==undefined?"grey":Theme.primary}
+          color={Theme.primary}
+            act={()=>{ addvarient()}}
+            icon={<FaPlusSquare />}
+            lod={lod}
+            disabled={true}
+            text={"إضافة الخيار"}
+          />
+        </div>
+      </div>
+
+      <div
+        className=""
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div>
+          <LoadingBtn
+          color={imgLod||resource==undefined||varients.length==0?"grey":Theme.primary}
             act={()=>{ submitProduct()}}
             icon={<FaPlusCircle />}
             lod={lod}

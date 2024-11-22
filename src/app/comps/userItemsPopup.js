@@ -20,13 +20,13 @@ const  ls = require('local-storage');
  const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
   useEffect(()=>{
 
-    
+
 setOrderitems(null)
    getOrderItems();
 //   
 
    var date = new Date(props.data&&props.data.date * 1000);
-
+console.log("dataaaaaaa",props.data);
 // Hours part from the timestamp
 var hours = date.getHours();
 var m = date.getMonth();
@@ -190,7 +190,7 @@ const notify = (type,msg)=>{
           </Transition.Child>
          
             
-          <div className="fixed bottom-0 right-0 lg:bottom-0 max-h-1/2 text-right   max-w-md flex ">
+          <div className="fixed bottom-0 right-0 lg:bottom-0 max-h-lvh text-right   max-w-md flex ">
             <Transition.Child
               as={Fragment}
               enter="transform transition ease-in-out duration-200 sm:duration-300"
@@ -200,7 +200,7 @@ const notify = (type,msg)=>{
               leaveFrom="translate-y-0 lg:translate-y-0 "
               leaveTo="translate-y-full lg:translate-y-full"
             >
-              <div className="relative w-screen tracking-tight text-sm">
+              <div style={{overflowY:'scroll', overflowX:'hidden'}} className="relative  w-screen tracking-tight text-sm">
               <ToastContainer  limit={3}/>
                 
                 <div style={{backgroundSize:20}} className="h-screen-1/2 flex flex-col pt-6 pb-2 rounded-t-lg
@@ -353,9 +353,49 @@ const notify = (type,msg)=>{
                     margin:"0px 8px",
                      
                   }} className="mt-6 relative flex-1 border-t-2 border-moon-200/80  ">
+
+
+                  {props.data.delivery_type=="delivery"?  <div className='w-full my-2 p-5 shadow-md rounded-md bg-moonsec-200/10 border-2 border-moonsec-200' >
+                    
+                    <div className="font-bold text-lg ">
+                          : عنوان التوصيل
+                         </div>
+                         <div className='mt-3'>
+                           ولاية <b> {props.data.pickup.name_ar} </b>
+                         </div>
+
+                          <div className='flex flex-row-reverse  '>
+                           :عنوان التوصيل <b> {props.data.address} </b>
+                         </div>
+                 
+
+                    </div>:props.data.delivery_type=="pickup"?  <div className='w-full my-2 p-5 shadow-md rounded-md bg-moonsec-100/10 border-2 border-moonsec-100' >
+                         <div className="font-bold text-lg ">
+                          :مركز الإستلام
+                         </div>
+                         <div className='mt-3'>
+                          مركز ولاية <b> {props.data.pickup.name_ar} </b>
+                         </div>
+                         <div className='flex flex-row-reverse  ' >
+                        <span className='ml-1' > :العنوان </span>  <b  > {props.data.pickup.address_ar}</b>
+                         </div>
+                         <div className='flex flex-row-reverse  ' >
+                        <span className='ml-1'> :رقم الهاتف التجاري </span><b> {props.data.pickup.commercial_num}</b>
+                         </div>
+                         <div className='flex flex-row-reverse  ' >
+                         <span className='ml-1' >:رقم هاتف مكتب إستقبال الطرود</span>  <b> {props.data.pickup.desk_num}</b>
+                         </div>
+                         <div className='flex flex-row-reverse  '>
+                        <span className='ml-1' > :رقم هاتف   الشكاوي </span><b> {props.data.pickup.complains_num}</b>
+                         </div>
+
+                    </div>:<></>
+
+                  }
+                  
               
 
-              <div id="scrol"   style={{height:"50vh",overflowY:'scroll', overflowX:'hidden',padding:0}}>
+              <div id="scrol"   style={{padding:0}}>
                  
            
 
@@ -476,10 +516,10 @@ const notify = (type,msg)=>{
     
 
                            <div className=' lg:block  flex align-middle justify-start  '  >
-                     <Button startContent={<FaChevronDown/>} className='bg-gray-300 font-bold text-white' 
+                     <Button startContent={<FaChevronDown/>} className='bg-gray-300 font-bold text-black' 
                      onClick={()=>{props.openHandler(false)}} 
                       variant='shadow' > إخفاء </Button> 
-{props.data.payment_status=="unpaid"?<Button startContent={<FaCreditCard/>} className='bg-moon-200 mx-2 font-bold text-white px-8' 
+{props.data.payment_status=="unpaid"&&props.data.payment_type!="delivery"?<Button startContent={<FaCreditCard/>} className='bg-moon-200 mx-2 font-bold text-white px-8' 
                      onClick={()=>{router.push(props.data.url)}} 
                       variant='shadow' > دفع </Button>:<></> }
 

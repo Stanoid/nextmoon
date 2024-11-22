@@ -75,11 +75,11 @@ var nnccr = JSON.parse(JSON.stringify(carr));
 // console.log("nccr",nnccr);
 // console.log("pld",pld)
 
-const i = carr.findIndex(e => e.data.id === pld.data.id && e.color==pld.color && e.size==pld.size);
+const i = carr.findIndex(e => e.data.id === pld.data.id && e.color==pld.color && e.selvar==pld.selvar);
 if (i > -1  ) {
 
 
-  if(nnccr[i].color==pld.color && nnccr[i].size==pld.size){
+  if(nnccr[i].color==pld.color && nnccr[i].selvar==pld.selvar){
     console.log("match sizes and clors")
     nnccr[i].qty = nnccr[i].qty + pld.qty;
     dispatch({ type: types.ADDTOCART, payload: nnccr })

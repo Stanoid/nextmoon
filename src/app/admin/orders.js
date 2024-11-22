@@ -312,14 +312,17 @@ setlod(true);
    data={orderData}
    columns={
     [
+      {name: "التاريخ", uid: "date", sortable: true},  
+
       {name: "ID", uid: "id", sortable: true},
       {name: "اسم العميل", uid: "name", sortable: true},
       {name: "رقم الهاتف", uid: "phone", sortable: true},
       {name: "المجموع", uid: "total", sortable: true},
       {name: "حالة الدفع", uid: "payment_status",sortable: true },
+      {name: "طريقة الدفع", uid: "payment_type",sortable: true },
+      {name: "التوصيل", uid: "delivery_type",sortable: true },
       {name: "المدينة", uid: "city", sortable: true},
       {name: "البريد الإلكتروني", uid: "email",sortable: true },
-      {name: "التاريخ", uid: "date", sortable: true},  
       {name: "حالة الطلب", uid: "status", sortable: true},
       {name: "التفاصيل", uid: "refid"},
     ]

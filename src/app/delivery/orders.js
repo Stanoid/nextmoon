@@ -311,14 +311,18 @@ Orders:
    data={orderData}
    columns={
     [
+
+      {name: "الخيارات", uid: "refid"},
+      {name: "الحالة", uid: "status", sortable: true},
+      {name: "التاريخ", uid: "date", sortable: true},  
+      {name: "الأيميل", uid: "email",sortable: true },
+      {name: "المدينة", uid: "city", sortable: true},
+      {name: "المجموع", uid: "total", sortable: true},
+      {name: "التوصيل", uid: "delivery_type",sortable: true },
+      {name: "طريقة الدفع", uid: "payment_type",sortable: true },
+      {name: "رقم الهاتف", uid: "phone", sortable: true},
+      {name: "إسم العميل", uid: "name", sortable: true},
       {name: "ID", uid: "id", sortable: true},
-      {name: "NAME", uid: "name", sortable: true},
-      {name: "PHONE", uid: "phone", sortable: true},
-      {name: "CITY", uid: "city", sortable: true},
-      {name: "EMAIL", uid: "email",sortable: true },
-      {name: "DATE", uid: "date", sortable: true},  
-      {name: "STATUS", uid: "status", sortable: true},
-      {name: "ACTIONS", uid: "refid"},
     ]
    }
    

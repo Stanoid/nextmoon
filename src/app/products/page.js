@@ -18,6 +18,7 @@ import Head from "next/head";
 import { Accordion,AccordionItem, Avatar } from '@nextui-org/react';
 import { FaAudioDescription, FaParagraph, FaRecycle, FaStar } from 'react-icons/fa6';
 import { FaBars, FaShippingFast, FaTextHeight } from 'react-icons/fa';
+import { da } from '@faker-js/faker';
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -32,6 +33,7 @@ export default function Product({}) {
   const [lod, setLod] = useState(true);
   const [selectedV, setSelectedV] = useState();
   const [pref, setPref] = useState();
+  const [varients,setVarients] = useState([])
   const [modelno,setModelno] = useState(null);
   const [selectedC, setSelectedC] = useState();
   const [size, setSize] = useState();
@@ -97,7 +99,7 @@ export default function Product({}) {
 setQty(1)
 setSelectedV(vid);
 setPref(prodRef)
-
+console.log("aasa",prodRef)
 const vrs = db.attributes.varients.data;
 
 for (let i = 0; i < vrs.length; i++) {
@@ -133,17 +135,17 @@ for (let i = 0; i < vrs.length; i++) {
         .then((data) => {
           //
 
-
+       console.log("ddddddddddddddd",data)
 
           setImgs(JSON.parse(data.data.attributes.img));
           setPrice(data.data.attributes.varients.data[0].attributes.price);
           setStock(data.data.attributes.varients.data[0].attributes.stock);
           setSelectedV(data.data.attributes.varients.data[0].id);
           setPref(data.data.attributes.varients.data[0].attributes.product_ref);
-          setPcode(data.data.attributes.varients.data[0].attributes.code);
+          setPcode(data.data.attributes.code);
           setSizesel(data.data.attributes.varients.data[0].attributes.sizes.data[0].id);
           setColorsel(data.data.attributes.varients.data[0].attributes.colors.data[0].id);
-
+         setVarients(data.data.attributes.varients.data);
           setSelectedC(data.data.attributes.varients.data[0].attributes.colors.data[0].id);
           setSize(data.data.attributes.varients.data[0].attributes.sizes.data[0].id);
           setColor(data.data.attributes.varients.data[0].attributes.colors.data[0].attributes.colorCode);
@@ -168,7 +170,7 @@ for (let i = 0; i < vrs.length; i++) {
     data: db, 
     selvar: selectedV, 
     name:db.attributes.name_ar,
-    code:db.attributes.varients.data[0].attributes.code,
+    code:db.attributes.code,
     img: JSON.parse(db.attributes.img)[0].url,
     color: colorsel,
     size: sizesel,
@@ -496,6 +498,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
          <OptionEL varselect={(vid,prodRef)=>{varselectHandler(vid,prodRef)}} 
          size={sizesel}
          color={colorsel}
+         vari={selectedV}
          sizeSelect={(sid)=>{setSizesel(sid)}}
          colorSelect={(cid)=>{setColorsel(cid)}}
          selid={selectedV} vars={db&&db.attributes.varients.data} />
@@ -656,7 +659,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
       >
        
       </AccordionItem>
-
+{/* 
       <AccordionItem
         key="4" 
         className='text-center bg-gray-100  p-3 py-0 '
@@ -669,7 +672,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
         title=" التقييمات "
       >
         {defaultContent}
-      </AccordionItem>
+      </AccordionItem> */}
   
     
     </Accordion>

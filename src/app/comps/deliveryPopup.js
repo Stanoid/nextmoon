@@ -431,7 +431,8 @@ const notify = (type,msg)=>{
                            </div>
     
 
-  <Button style={{display:props.isadmin?"none":"block"}} radius={"sm"} className="bg-moon-200 text-white mt-3" startContent={<FaTruck/>} onClick={props.data&&props.data.status=="initiated"?()=>{
+  <Button style={{display:props.isadmin?"none":"block"}} radius={"sm"} className="bg-moon-200 text-white mt-3" 
+  startContent={<FaTruck/>} onClick={props.data&&props.data.status=="initiated"||props.data&&props.data.status=="processed"?()=>{
                        handleOrderDelivery() ; 
                        }:()=>{}} isLoading={lod}>
      {props.data&&props.data.status=="initiated"?"Deliver":"Delivered"}

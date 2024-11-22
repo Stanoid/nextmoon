@@ -41,14 +41,14 @@ className=' '
 
 
 
-{props.vars[0].attributes.sizes.data&&props.vars[0].attributes.sizes.data.map(size=>(
+{props.vars&&props.vars.map(vari=>(
 
-<div onClick={()=>{props.sizeSelect(size.id)}} key={size.id} className='border-4 cursor-pointer px-2 transition-all py-2 rounded-md '
- style={{borderColor: props.size==size.id?Theme.primary : "grey" , 
-    backgroundColor: props.size==size.id?Theme.primary : "white" , 
+<div onClick={()=>{props.varselect(vari.id,vari.attributes.product_ref)}} key={vari.id} className='border-4 cursor-pointer px-2 transition-all py-2 rounded-md '
+ style={{borderColor: props.vari==vari.id?Theme.primary : "grey" , 
+    backgroundColor: props.vari==vari.id?Theme.primary : "white" , 
  display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
 <div style={{fontWeight:"bold",padding:"3px 4px"}}>
-{size.attributes.icon} <span> </span>
+{vari.attributes.sizes.data[0].attributes.icon} <span> </span>
 </div>
 {/* <div style={{color:props.selid==varient.id?"white":"black"
 ,fontStyle:'oblique'}}>

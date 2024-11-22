@@ -58,7 +58,7 @@ const  ls = require('local-storage');
 
   
 
-},[props.open])
+},[props.open,firstRenderRef])
 
 
 
@@ -82,11 +82,13 @@ try {
   .then((response) => response.json())
   .then((data) => {
   console.log("likes",data) 
-  if(data.data==null){
+
+  setLikesData(data);
+  // if(data.data==null){
     
-  }else{
-    setLikesData(data);
-  }
+  // }else{
+  //   setLikesData(data);
+  // }
 
   }).then(()=>{
     
@@ -241,7 +243,7 @@ const notify = (type,msg)=>{
               <LikeEl lid={like.id} removeFav={(id)=>{removeFav(id)}} closeModal={()=>{props.openHandler(false)}} id={like.products[0]?.id} 
               price={like.products[0]?.varients[0]?.price}
                name={like.products[0]?.name_en} 
-               code={like.products[0]?.varients[0]?.code}
+               code={like.products[0]?.code}
               index={index} img={JSON.parse(like.products[0].img)[0].url }  />:<></>
            
                )):
@@ -249,7 +251,7 @@ const notify = (type,msg)=>{
                   <div>
       <Image src={'/like.svg'} width={200} height={200} />
       </div>
-                 <div style={{fontWeight:'bold',marginTop:20}}> فارغة   </div>
+                 <div onClick={()=>{console.log(likesData)}} style={{fontWeight:'bold',marginTop:20}}> فارغة   </div>
                  <div>تصفح المنتجات و أضفها للمفضلة</div>
                  </div>}
            

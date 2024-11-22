@@ -7,11 +7,12 @@ import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux';
 import { User } from '@nextui-org/react';
-import { FaBox, FaCreditCard, FaHeart, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser, FaWarehouse } from 'react-icons/fa6';
+import { FaBox, FaCreditCard, FaHeart,FaTruck, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser, FaWarehouse } from 'react-icons/fa6';
 import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
                                                        
  const AddColor = dynamic(() => import('./AddColor'));
  const EditProduct = dynamic(() => import('./editProduct'));
+ const AddPickUp = dynamic(() => import('./addpickup'));
  const EditColor = dynamic(() => import('./editColor'));
  const PromoCodes = dynamic(() => import('./promoCodes'));
  const AddSubCat = dynamic(() => import('./addsubcat'));
@@ -180,6 +181,9 @@ hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start w
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><BiCategory/></div><div className='mx-1.5'> الفئات</div></div>
 
+<div onClick={()=>{setPage(21)}} style={{backgroundColor:page==21?Theme.primary:"white", color:page==21?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><FaTruck/></div><div className='mx-1.5'> نقاط التوصيل</div></div>
 
 
 <div onClick={()=>{setPage(6)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
@@ -244,6 +248,8 @@ hover:text-white text-white justify-start items-center '   >
   
   {page==20 ? <WereHouse  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} 
   scatid={scatid} /> :<></>}
+
+{page==21 ? <AddPickUp  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
 
 </div>
 
