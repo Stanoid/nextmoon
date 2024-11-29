@@ -42,7 +42,11 @@ export default function Product(props) {
 // }
 
    
-
+function oldPrice(newPrice, discountPercentage) {
+  const discountFactor = 1 - (discountPercentage / 100);
+  const oldPrice = newPrice / discountFactor;
+  return parseInt(oldPrice);
+}
 
     return (
 
@@ -149,7 +153,7 @@ export default function Product(props) {
         <div className="text-xl font-bold text-moon-300/75 flex flex-row  justify-end  " > <div>{CURRENCY} </div> <div> {props.data.varients[0].price} 
           </div>  </div>
 
-          <div className="text-sm text-moon-200 line-through flex flex-row   justify-end" > <div>{CURRENCY} </div> <div> {props.data.varients[0].price+20} 
+          <div className="text-sm text-moon-200 line-through flex flex-row   justify-end" > <div>{CURRENCY} </div> <div> {oldPrice(props.data.varients[0].price,props.data.varients[0].old_price)} 
           </div>  </div>
       
       </div>

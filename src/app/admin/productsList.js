@@ -89,6 +89,10 @@ function ProductsList(props) {
     props.setpage(15, ob.id);
   }
 
+  const handleDuplicate = (ob)=>{
+    props.setpage(1, ob.id);
+  }
+
   const getProducts = () => {
     setlod(true);
     props.setLod(true);
@@ -137,12 +141,15 @@ function ProductsList(props) {
       {name: "ID", uid: "id", sortable: true},
       {name: ".", uid: "img", sortable: true},
       {name: "الإسم", uid: "name_ar", sortable: true}, 
+      {name: "رمز المنتج", uid: "code", sortable: true},
+
       {name: "السعر", uid: "varients", sortable: true},
       {name: "حالة المنتج", uid: "status", sortable: true},
       {name: "تعديل", uid: "createdAt"},
     ]
    }
    delorder={handleEdit}
+   duplicateProduct={handleDuplicate}
    deleteProduct={deleteEntry}
    statusChange={handleStatus}
    data={products}

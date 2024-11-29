@@ -29,7 +29,8 @@ function classNames(...classes) {
 
 export default function Product({}) {
   const [db, setDb] = useState(null);
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState(0);
+  const [discount,setDiscount] = useState(0);
   const [lod, setLod] = useState(true);
   const [selectedV, setSelectedV] = useState();
   const [pref, setPref] = useState();
@@ -106,6 +107,8 @@ for (let i = 0; i < vrs.length; i++) {
  if(vrs[i].id==vid){
   setPrice(vrs[i].attributes.price);
   setStock(vrs[i].attributes.stock);
+  setDiscount(vrs[i].attributes.old_price)
+ // console.log(vrs[i].attributes.old_price,vrs[i].attributes.price)
  }
   
 }
@@ -139,6 +142,7 @@ for (let i = 0; i < vrs.length; i++) {
 
           setImgs(JSON.parse(data.data.attributes.img));
           setPrice(data.data.attributes.varients.data[0].attributes.price);
+          setDiscount(data.data.attributes.varients.data[0].attributes.old_price);
           setStock(data.data.attributes.varients.data[0].attributes.stock);
           setSelectedV(data.data.attributes.varients.data[0].id);
           setPref(data.data.attributes.varients.data[0].attributes.product_ref);
@@ -275,6 +279,13 @@ for (let i = 0; i < vrs.length; i++) {
     //   //   }
     // }
   };
+
+  function oldPrice(newPrice, discountPercentage) {
+    console.log("aaaa",newPrice,discountPercentage)
+    const discountFactor = 1 - (discountPercentage / 100);
+    const oldPrice = newPrice / discountFactor;
+    return parseInt(oldPrice);
+  }
 
   function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
@@ -470,7 +481,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
             }}
             className="ml-3 text-base font-medium  text-red-600 line-through dark:text-gray-400"
           >
-            {price + 21} {CURRENCY}
+            {oldPrice(price,discount)} {CURRENCY}
           </span>
         </p>
 

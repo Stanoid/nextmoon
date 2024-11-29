@@ -1,7 +1,7 @@
 "use client";
 import { CldUploadWidget } from 'next-cloudinary';
 import React from "react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,useRef } from "react";
 import { Theme, API_URL, CURRENCY } from "../local";
 import InputEl from "../comps/inputel";
 import axios from "axios";
@@ -22,6 +22,7 @@ function AddProduct(props) {
   const [userData, setUserdata] = useState(null);
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const firstRenderRef = useRef(true);
   const [cats, setCats] = useState([]);
   const [resource, setResource] = useState();
   const [namear, setNamear] = useState("");
@@ -38,6 +39,7 @@ function AddProduct(props) {
   const [color, setcolor] = useState(null);
   const [size, setSize] = useState(null);
   const [price, setPrice] = useState(null);
+  const [discount, setDiscount] = useState(0);
   const [stock, setStock] = useState(null);
   const [lod, setlod] = useState(false);
   const[imgLod,setImglod] = useState(false);
@@ -56,9 +58,22 @@ function AddProduct(props) {
   const [files, setFiles] = useState([]);
   useEffect(() => {
     // loginval();
-    if (eff) {
-      getColors();
+
+
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+      if (eff) {
+        getColors();
+      }
+    } else {
+      //orderhandler(getQueryVariable("orderid"));
+      setRefr(false);        
     }
+
+// console.log(props.pid,"sssssssssssssssssssssssssssssss")
+
+
+
   }, [eff, refr]);
 
   const handleSubmit = (event) => {
@@ -85,6 +100,67 @@ function AddProduct(props) {
     setRefr(!refr);
   };
 
+
+  function oldPrice(newPrice, discountPercentage) {
+    const discountFactor = 1 - (discountPercentage / 100);
+    const oldPrice = newPrice / discountFactor;
+    return parseInt(oldPrice);
+  }
+
+const handleProductFilling = ()=>{
+
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      //Authorization: "Bearer " + udata.data.jwt,
+    },
+  };
+
+  fetch(`${API_URL}products/${props.pid}?func=getFullProduct`, requestOptions)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("proddddddddd",data)
+   
+    setNamear(data.data.attributes.name_ar)
+    setNameen(data.data.attributes.name_en);
+    setDescar(data.data.attributes.description_ar)
+    setDescen(data.data.attributes.description_en)
+    let colorarr = [];
+    data.data.attributes.varients.data[0].attributes.colors.data.forEach(element => {
+      console.log("colors",element.id);
+      colorarr.push(element.id);
+      setColorselect(colorarr);
+    });
+    
+     setSubc(data.data.attributes.subcatagory.data&&data.data.attributes.subcatagory.data.id);
+    // setVarients(data.data.attributes.varients&&data.data.attributes.varients.data[0].id);
+    // setPrice(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.price);
+   // setStock(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.stock);
+     //setCode(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.code);
+     let oldarr = varients;
+     data.data.attributes.varients.data.forEach(element => {
+      oldarr.push({size:element.attributes.sizes.data[0].id,stock:element.attributes.stock,price:element.attributes.price,discount:element.attributes.old_price});
+   
+     });
+
+     setVarients(oldarr);
+     setEff(false);
+     setRefr(!refr);
+  
+  })
+  .then(() => {
+     
+    props.setLod(false);
+    setlod(false)
+  });
+
+
+
+
+}
+
+
   const handleSizesSelect = (vari, ind) => {
     for (let index = 0; index < sizes.length; index++) {
       if (sizes[index].id == vari.size) {
@@ -93,7 +169,9 @@ function AddProduct(props) {
            
 
             <div>{sizes[index].attributes.name_ar} ({sizes[index].attributes.icon}) </div>
-            <div style={{fontWeight:"bold",color:Theme.primary}}>{vari.price} {CURRENCY} </div>
+            <div className='flex justify-around w-full ' ><div className='line-through font-bold' >{ oldPrice(vari.price,vari.discount) } {CURRENCY} </div> 
+            <div className='text-moon-200 font-bold' >{vari.price} {CURRENCY} </div> </div>
+            <div>الخصم:{vari.discount} % </div>
             <div>الكمية:{vari.stock}</div>
             <div
               onClick={() => {
@@ -316,7 +394,15 @@ function AddProduct(props) {
         setCats(data);
       })
       .then(() => {
-        props.setLod(false);
+
+        
+    if(props.pid){
+      handleProductFilling();
+          }else{
+            props.setLod(false)
+          }
+
+       
       });
   };
 
@@ -340,12 +426,12 @@ function AddProduct(props) {
       colorSelect.length == 0 ||
       // sizeSelect.length == 0 ||
       code == "" ||
-      stock == null ||
-      price == null ||
+      //stock == null ||
+     // price == null ||
       resource== undefined
       
     ) {
-      alert("empty sub feilds");
+      props.notifi("error"," جميع الحقوق مطلوبة")
       return;
     } else {
       setlod(true)
@@ -391,7 +477,7 @@ function AddProduct(props) {
       }
 
       let oldarr = varients;
-     oldarr.push({size:size,stock:stock,price:price});
+     oldarr.push({size:size,stock:stock,price:price,discount:discount});
       setVarients(oldarr);
       setEff(false);
       setRefr(!refr);
@@ -422,7 +508,7 @@ function AddProduct(props) {
 'cat images images images'
 'color colorSelect colorSelect colorSelect'
 'sizeSelect sizeSelect sizeSelect sizeSelect'
-'price stock size size'
+'price discount stock size'
 `,
         }}
       >
@@ -580,9 +666,22 @@ function AddProduct(props) {
               setPrice(val);
             }}
             num={true}
-            label={"السعر"}
+            label={"سعر البيع"}
           />
         </div>
+
+        <div style={{ gridArea: "discount" }}>
+          <InputEl
+            value={discount}
+            outputfunc={(val) => {
+              setDiscount(val);
+            }}
+            num={true}
+            label={"نسبة الخصم %"}
+          />
+        </div>
+
+
 
         <div style={{ gridArea: "stock" }}>
           <InputEl
@@ -692,7 +791,7 @@ function AddProduct(props) {
           color={Theme.primary}
             act={()=>{ addvarient()}}
             icon={<FaPlusSquare />}
-            lod={lod}
+            lod={null}
             disabled={true}
             text={"إضافة الخيار"}
           />

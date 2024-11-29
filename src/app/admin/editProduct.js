@@ -227,6 +227,7 @@ return;
   const getProducts = () => {
 
   setlod(true)
+  
     const requestOptions = {
       method: "GET",
       headers: {
@@ -560,7 +561,7 @@ return;
 
 
 
-<div style={{ gridArea: "size" }}>
+{/* <div style={{ gridArea: "size" }}>
           <InputEl
             value={size}
             outputfunc={(val) => {
@@ -578,7 +579,7 @@ return;
             select={true}
             label={"المقاس"}
           />
-        </div>
+        </div> */}
 
         <div style={{ gridArea: "color" }}>
           <InputEl
@@ -601,7 +602,7 @@ return;
           />
         </div>
 
-        <div
+        {/* <div
           className="bg-gray-100  rounded-md  flex justify-center items-center "
           style={{ gridArea: "sizeSelect" }}
         >
@@ -613,7 +614,7 @@ return;
             sizeSelect &&
             sizeSelect.map((size, index) => handleSizesSelect(size, index))
           )}
-        </div>
+        </div> */}
 
         <div
           className="bg-gray-100 rounded-md  flex justify-center items-center "
@@ -629,7 +630,7 @@ return;
           )}
         </div>
 
-
+{/* 
         <div style={{ gridArea: "price" }}>
           <InputEl
             value={price}
@@ -661,7 +662,7 @@ return;
             num={true}
             label={"الكمية"}
           />
-        </div>
+        </div> */}
 
 
 

@@ -27,7 +27,7 @@ import { useEffect } from "react";
 import {SearchIcon} from "./SearchIcon";
 import { useRouter } from "next/navigation";
 import {ChevronDownIcon} from "./ChevronDownIcon";
-import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash } from "react-icons/fa6";
+import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCopy } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { color } from "framer-motion";
@@ -432,77 +432,52 @@ switch (props.coldata) {
 
       case "varients":
         return(
-       <div dir="ltr">
+       <div className="flex-wrap">
          
          {cellValue&&cellValue.map((varient,index)=>(
+
+          <div className="inline-block mx-0.5 m-0.5 text-xs ">
+           <div className="inline-block px-3 py-2  rounded-sm bg-moon-200/10 text-moon-200 " >
+            {varient.sizes[0].name_ar} ({varient.sizes[0].icon})- {varient.price} {CURRENCY}  
+           </div>
+          </div>
     
-    <div
-    className="flex-col "
-    style={{
-      padding: 10,
-      borderRadius: 10,
-      cursor: "pointer",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-    key={varient.id}
-  >
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {/* <div
-        style={{
-          width: 30,
-          height: 30,
-          borderRadius: 7,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          border: "3px solid",
-          borderColor: "white",
-          marginRight: -10,
-          zIndex: 10,
-          marginBottom: -5,
-          backgroundColor: Theme.primary,
-          color: "white",
-          fontSize: 20,
-        }}
-      >
-        {varient.size && varient.size.icon}
-      </div> */}
-      {/* <div
-        style={{
-          width: 35,
-          height: 35,
-          marginLeft: -10,
-          marginTop: -5,
-          borderRadius: 100,
-          backgroundColor:
-            varient.color && varient.color.colorCode,
-        }}
-      ></div> */}
-    </div>
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
+  //   <div
+  //   className="flex-col "
+  //   style={{
+  //     padding: 10,
+  //     borderRadius: 10,
+  //     cursor: "pointer",
+  //     display: "flex",
+  //     justifyContent: "center",
+  //     alignItems: "center",
+  //   }}
+  //   key={varient.id}
+  // >
+  //   <div
+  //     style={{
+  //       display: "flex",
+  //       alignItems: "center",
+  //       justifyContent: "center",
+  //     }}
+  //   >
+  //   </div>
+  //   <div
+  //     style={{
+  //       display: "flex",
+  //       alignItems: "center",
+  //       justifyContent: "center",
+  //       flexDirection: "column",
      
-      }}
-    >
-      <div
-      className="flex space-x-0.5 text-xs text-moon-300 font-bold mt-1 italic justify-center"
-      >
-         <div> {CURRENCY} </div > <div> {varient.price} </div>  
-      </div>
-    </div>
-  </div>
+  //     }}
+  //   >
+  //     <div
+  //     className="flex space-x-0.5 text-xs text-moon-300 font-bold mt-1 italic justify-center"
+  //     >
+  //        <div> {CURRENCY} </div > <div> {varient.price} </div>  
+  //     </div>
+  //   </div>
+  // </div>
    
     ))}
        </div>
@@ -589,6 +564,9 @@ switch (props.coldata) {
                 <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
                   <DropdownItem textValue="a"   onClick={()=>{ props.delorder(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
                   <div className="py-1 font-bold text-gray-600 "> تعديل المنتج </div>  </DropdownItem>
+
+                  <DropdownItem textValue="a"   onClick={()=>{ props.duplicateProduct(user)}} startContent={<FaCopy style={{marginRight:4}} />} key={"view"} >
+                  <div className="py-1 font-bold text-gray-600 ">نسخ المنتج</div>  </DropdownItem>
 
                  
       

@@ -90,7 +90,6 @@ useNotifi(type,message);
   const handleSizeEdit = (pageid,id)=>{
 
     setSid(id)
-
    setPage(pageid)
 
 
@@ -98,7 +97,6 @@ useNotifi(type,message);
 
   
   const handleColorEdit = (pageid,id)=>{
-
     setCid(id)
 
    setPage(pageid)
@@ -157,50 +155,51 @@ bg-[url('../../public/amblemblack.svg')] ">
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
 <div><MdOutlineAutoGraph/></div><div className='mx-1.5'> لوحة التحكم</div></div> */}
 
-<div onClick={()=>{setPage(1)}} style={{backgroundColor:page==1?Theme.primary:"white", color:page==1?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+<div onClick={()=>{ setPid(null); setPage(1)  }} style={{backgroundColor:page==1?Theme.primary:"white", color:page==1?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
 <div><FaPlusCircle/></div><div className='mx-1.5'> إضافة منتج</div></div>
 
-<div onClick={()=>{setPage(2)}} style={{backgroundColor:page==2?Theme.primary:"white", color:page==2?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+<div onClick={()=>{  setPid(null); setPage(2)}} style={{backgroundColor:page==2?Theme.primary:"white", color:page==2?"white":Theme.primary}} 
+className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap'   >
 <div><FaBoxes/></div><div className='mx-1.5'> المنتجات</div></div>
 
 
-<div onClick={()=>{setPage(3)}} style={{backgroundColor:page==3?Theme.primary:"white", color:page==3?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+<div onClick={()=>{  setPid(null); setPage(3)}} style={{backgroundColor:page==3?Theme.primary:"white", color:page==3?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
 <div><FaRuler/></div><div className='mx-1.5'>  المقاسات</div></div>
 
 
 
-<div onClick={()=>{setPage(4)}} style={{backgroundColor:page==4?Theme.primary:"white", color:page==4?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+<div onClick={()=>{ setPid(null);setPage(4)}} style={{backgroundColor:page==4?Theme.primary:"white", color:page==4?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start whitespace-nowrap items-center '   >
 <div><FaSwatchbook/></div><div className='mx-1.5'> الألوان</div></div>
 
 
-<div onClick={()=>{setPage(5)}} style={{backgroundColor:page==5?Theme.primary:"white", color:page==5?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+<div onClick={()=>{ setPid(null);setPage(5)}} style={{backgroundColor:page==5?Theme.primary:"white", color:page==5?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><BiCategory/></div><div className='mx-1.5'> الفئات</div></div>
 
-<div onClick={()=>{setPage(21)}} style={{backgroundColor:page==21?Theme.primary:"white", color:page==21?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+<div onClick={()=>{ setPid(null);setPage(21)}} style={{backgroundColor:page==21?Theme.primary:"white", color:page==21?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><FaTruck/></div><div className='mx-1.5'> نقاط التوصيل</div></div>
 
 
-<div onClick={()=>{setPage(6)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+<div onClick={()=>{ setPid(null);setPage(6)}} style={{backgroundColor:page==6?Theme.primary:"white", color:page==6?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><BiCategoryAlt/></div><div className='mx-1.5'> الفئات الفرعية</div></div>
 
 
-<div onClick={()=>{setPage(14)}} style={{backgroundColor:page==14?Theme.primary:"white", color:page==14?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+<div onClick={()=>{ setPid(null);setPage(14)}} style={{backgroundColor:page==14?Theme.primary:"white", color:page==14?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><FaListCheck/></div><div className='mx-1.5'> الطلبات</div></div>
 
 
-<div onClick={()=>{setPage(20)}} style={{backgroundColor:page==20?Theme.primary:"white", color:page==20?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+<div onClick={()=>{ setPid(null);setPage(20)}} style={{backgroundColor:page==20?Theme.primary:"white", color:page==20?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><FaWarehouse/></div><div className='mx-1.5'> المخزون</div></div>
 
-<div onClick={()=>{setPage(10)}} style={{backgroundColor:page==10?Theme.primary:"white", color:page==10?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+<div onClick={()=>{ setPid(null);setPage(10)}} style={{backgroundColor:page==10?Theme.primary:"white", color:page==10?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><MdSpeakerPhone/></div><div className='mx-1.5'> لعروض الترويجية</div></div>
 
@@ -231,7 +230,7 @@ hover:text-white text-white justify-start items-center '   >
 
 <div style={{display:lod?"none":"block"}} >
 {page==0 ?  <Dashboard notifi={(type,message)=>{notifi(type,message)}} lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
-{page==1 ?  <AddProduct  notifi={(type,message)=>{notifi(type,message)}}  lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
+{page==1 ?  <AddProduct pid={pid&&pid} notifi={(type,message)=>{notifi(type,message)}}  lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
   {page==2 ?  <ProductsList  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} />  :<></>}
   {page==3 ? <AddSize  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
   {page==4 ? <AddColor  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}

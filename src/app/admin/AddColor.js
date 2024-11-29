@@ -257,7 +257,7 @@ display:"grid",
 gap:10,
 gridTemplateAreas:`
 ' namear  namear  nameen nameen  ' 
-'sicon sicon sicon sicon'
+'sicon . . .'
 
 `
    }} >
@@ -269,12 +269,17 @@ gridTemplateAreas:`
     </div>
     <div style={{gridArea:"sicon"}}>
     <div class="w-full">
-    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-     Color code  
-    </label>
-    <input style={{width:150,height:80}} value={colorCode} onChange={(e)=>{setColorCode(e.target.value)}} class="appearance-none block  bg-gray-200 text-gray-700 border
-     border-gray-200 rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white
-      focus:border-gray-500" id="grid-last-name" type='color' placeholder={"اللون"}/>
+  
+    <div style={{direction:"ltr"}} className='flex  items-end flex-row space-x-2' >
+    <input style={{backgroundColor:colorCode?colorCode:"lightgray"}} value={colorCode} onChange={(e)=>{setColorCode(e.target.value)}} class="appearance-none  block
+       rounded-full py-6 px-6  border-2 shadow-md border-moon-200 text-gray-700 
+       w-11 h-11  leading-tight focus:outline-none "  id="grid-last-name" type='color' placeholder={"اللون"}/>
+      <InputEl value={colorCode} outputfunc={(val)=>{setColorCode(val)}} label={"رمز اللون"}/>
+
+
+
+    </div>
+    
   </div>
     </div>
    </div>
