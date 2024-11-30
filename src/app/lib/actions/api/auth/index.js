@@ -1,8 +1,7 @@
 "use client"
 
 import axios from "axios";
-import {API_URL,IMG_URL} from "../../../../local"
-import { unstable_serialize } from 'swr'
+import {API_URL} from "../../../../local"
  const loginFetcher = async (pld)=>{
 
  const res = axios.post(`${API_URL}auth/local`, pld)

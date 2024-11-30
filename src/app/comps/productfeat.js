@@ -158,8 +158,8 @@ gridTemplateAreas:`
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-start  w-full justify-between">
       <p className='text-right w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -174,8 +174,8 @@ gridTemplateAreas:`
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-start  w-full justify-between">
       <p className='text-right w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -190,8 +190,8 @@ gridTemplateAreas:`
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-start  w-full justify-between">
       <p className='text-right w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -206,8 +206,8 @@ gridTemplateAreas:`
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-start  w-full justify-between">
       <p className='text-right w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -222,8 +222,8 @@ gridTemplateAreas:`
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-start  w-full justify-between">
       <p className='text-right w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -263,14 +263,14 @@ display:props.variant=="never"?"flex":"none",
 <div className='mx-2 min-w-10 lg:hidden'></div>
 
     <div className=' flex flex-col mx-2 justify-center min-w-36 items-center py-2 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg ' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
+    <img className='rounded-full  shadow-lg' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-center  w-full justify-between">
       <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -286,8 +286,8 @@ display:props.variant=="never"?"flex":"none",
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-center  w-full justify-between">
       <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -302,8 +302,8 @@ display:props.variant=="never"?"flex":"none",
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-center  w-full justify-between">
       <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -319,8 +319,8 @@ display:props.variant=="never"?"flex":"none",
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-center  w-full justify-between">
       <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>
@@ -337,8 +337,8 @@ display:props.variant=="never"?"flex":"none",
     <div className='text-moon-200/80' >
     <div className="mt-1 mb-3 flex items-center  w-full justify-between">
       <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> ر.س {121}</span>
-        <span className="text-xs text-moon-200 line-through">  ر.س {121+20}</span>
+        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
+        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
       </p>
     </div>
     </div>

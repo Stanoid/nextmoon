@@ -93,7 +93,7 @@ export default function Product(props) {
 
    
       <h5  className="text-base  
-        tracking-normal  text-white bg-moon-200 inline font-bold px-4 py-1  rounded-full ">{props.data&&props.data.varients[0].code} </h5>
+        tracking-normal  text-white bg-moon-200 inline font-bold px-4 py-1  rounded-full ">{props.data&&props.data.code} </h5>
 
 
       <div className='flex align-middle items-center   justify-center py-2  ' > 

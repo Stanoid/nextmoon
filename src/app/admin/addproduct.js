@@ -423,7 +423,6 @@ const handleProductFilling = ()=>{
       descar == "" ||
       descen == "" ||
       subc == null ||
-      colorSelect.length == 0 ||
       // sizeSelect.length == 0 ||
       code == "" ||
       //stock == null ||
@@ -431,6 +430,7 @@ const handleProductFilling = ()=>{
       resource== undefined
       
     ) {
+
       props.notifi("error"," جميع الحقوق مطلوبة")
       return;
     } else {
@@ -450,7 +450,6 @@ const handleProductFilling = ()=>{
           descar: descar,
           subc: subc,
           code: code,
-          color: colorSelect,
         varients:varients,
           imgs: JSON.stringify(resource),
         }),
@@ -471,13 +470,13 @@ const handleProductFilling = ()=>{
 
   const addvarient = ()=>{
     if( stock == null ||
-      price == null ||size==null){
-        props.notifi("error","السعر و المقاس و الكمية حقول مطلوبة")
+      price == null ||size==null||color==null){
+        props.notifi("error","السعر و المقاس و الكمية واللون  حقول مطلوبة")
        return
       }
 
       let oldarr = varients;
-     oldarr.push({size:size,stock:stock,price:price,discount:discount});
+     oldarr.push({size:size,stock:stock,price:price,discount:discount,color:color});
       setVarients(oldarr);
       setEff(false);
       setRefr(!refr);
@@ -506,9 +505,10 @@ const handleProductFilling = ()=>{
 'code descriptionAr descriptionAr descriptionAr'
 'descriptionEn descriptionEn descriptionEn descriptionEn'
 'cat images images images'
-'color colorSelect colorSelect colorSelect'
+
 'sizeSelect sizeSelect sizeSelect sizeSelect'
 'price discount stock size'
+'color . . .'
 `,
         }}
       >
@@ -715,14 +715,8 @@ const handleProductFilling = ()=>{
           <InputEl
             value={color}
             outputfunc={(val) => {
-              if (colorSelect.includes(val)) {
-                return;
-              }
-              let oldColors = colorSelect;
-              oldColors.push(val);
-              setColorselect(oldColors);
-              setEff(false);
-              setRefr(!refr);
+              console.log(val);
+            setcolor(val);
             }}
             iden={"color"}
             data={colors}
@@ -760,7 +754,7 @@ const handleProductFilling = ()=>{
           )}
         </div>
 
-        <div
+        {/* <div
           className="bg-gray-100 rounded-md  flex justify-center items-center "
           style={{ gridArea: "colorSelect" }}
         >
@@ -772,7 +766,7 @@ const handleProductFilling = ()=>{
             colorSelect &&
             colorSelect.map((color, index) => handleColorSelect(color, index))
           )}
-        </div>
+        </div> */}
 
 
       </div>

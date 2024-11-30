@@ -1,7 +1,7 @@
 import { store } from '../store';
 import * as types from '../types'
 import {loginUser} from "./api/auth/index";
-import { revalidateTag } from 'next/cache';
+
 // INITIALIZES CLOCK ON SERVER
 const state = store.getState();
 
