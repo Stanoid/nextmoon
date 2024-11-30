@@ -449,6 +449,7 @@ const handleProductFilling = ()=>{
         .then(() => {
           //  console.log(data)
           props.notifi("success","تمت إضافة  المنتج")
+          location.reload();
           setlod(false);
           //  getProducts();
         });
