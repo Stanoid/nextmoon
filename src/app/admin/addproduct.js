@@ -168,11 +168,14 @@ const handleProductFilling = ()=>{
           <div className="flex mx-1 my-4 flex-col justify-center min-w-32 items-center space-y-1 text-sm border-2 border-gray-400 p-1 rounded-md">
            
 
-            <div>{sizes[index].attributes.name_ar} ({sizes[index].attributes.icon}) </div>
+            <div className='mt-2 font-bold'>{sizes[index].attributes.name_ar} ({sizes[index].attributes.icon}) </div>
             <div className='flex justify-around w-full ' ><div className='line-through font-bold' >{ oldPrice(vari.price,vari.discount) } {CURRENCY} </div> 
             <div className='text-moon-200 font-bold' >{vari.price} {CURRENCY} </div> </div>
             <div>الخصم:{vari.discount} % </div>
             <div>الكمية:{vari.stock}</div>
+            <div>
+              {handleColorSelect(vari.color)}
+            </div>
             <div
               onClick={() => {
                 handleSizeRemove(ind);
@@ -194,33 +197,18 @@ const handleProductFilling = ()=>{
     }
   };
 
-  const handleColorSelect = (color, ind) => {
+  const handleColorSelect = (color) => {
     for (let index = 0; index < colors.length; index++) {
       if (colors[index].id == color) {
         return (
           <div
-            style={{ backgroundColor: colors[index].colorCode }}
-            className="flex p-3 rounded-md mx-1 text-sm flex-col space-y-1 justify-center items-center "
+            style={{}}
+            className="flex p-3 rounded-md mx-1 text-sm flex-row space-x-1 justify-between items-center "
           >
-            <div className=" bg-black/50 text-white px-3 py-0.5 rounded-md  ">
+            <div className="  font-bold ml-1 px-3 py-0.5 rounded-md  ">
               {colors[index].name_ar}
             </div>
-
-            <div
-              onClick={() => {
-                handleColorRemove(ind);
-              }}
-              className=" flex group px-0.5 rounded-sm cursor-pointer hover:bg-red-300   transition-colors justify-center
-         items-center text-base  text-white "
-            >
-              <div className=" text-red-500 group-hover:text-white  text-sm ">
-                حذف
-              </div>
-
-              <div className="w-4 h-4 mr-0.5 flex items-center justify-center  rounded-full bg-red-300">
-                <BsX />
-              </div>
-            </div>
+            <div style={{backgroundColor:colors[index].colorCode}} className='w-6 h-6 rounded-full' ></div>
           </div>
         );
       }
