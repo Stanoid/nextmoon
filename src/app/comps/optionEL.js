@@ -73,7 +73,7 @@ const varDisplay = ()=>{
 
     for (let i = 0; i < props.vars.length; i++) {
         if(props.vars[i].id == props.vari){
-            return <div  className=' space-y-2 flex font-bold flex-col p-4 border-3 border-moon-200 rounded-md items-center justify-center ' >
+            return <div  className=' space-y-2 flex font-bold whitespace-nowrap flex-col p-4 border-3 border-moon-200 rounded-md items-center justify-center ' >
              <div className='flex items-center space-x-3 '>
               <div>{props.vars[i].attributes.sizes.data[0].attributes.name_ar}</div>  
                <div> ({props.vars[i].attributes.sizes.data[0].attributes.icon}) </div> 
@@ -82,6 +82,11 @@ const varDisplay = ()=>{
               <div className='flex items-center space-x-3'>
               <div>{props.vars[i].attributes.colors.data[0].attributes.name_ar}</div>
                <div style={{backgroundColor:props.vars[i].attributes.colors.data[0].attributes.colorCode}} className='w-8 h-8 rounded-full' ></div>
+              </div>
+
+              <div dir='rtl' className='flex items-center  space-x-3 '>
+              <div>{props.vars[i].attributes.price} {CURRENCY} </div>  
+            
               </div>
             </div>
           }
@@ -100,10 +105,10 @@ const varDisplay = ()=>{
 
   return (
 
-<div className='flex flex-col lg:flex-row md:flex-row xl:flex-row justify-between items-center ' >
+<div className='flex flex-col lg:flex-row md:flex-row xl:flex-row justify-between items-start space-y-3' >
 
 
-<div>
+<div className='p-2'>
 
     {varDisplay()}
     
@@ -133,10 +138,10 @@ className=' '
 
 
 
-<div className='flex space-x-3'>
+<div className='flex flex-wrap space-x-3'>
 {sizes&&sizes.map(vari=>(
 
-<div onClick={()=>{handlesizeselect(vari.id)}} key={vari.id} className='border-4 cursor-pointer px-2 transition-all py-2 rounded-md '
+<div onClick={()=>{handlesizeselect(vari.id)}} key={vari.id} className='border-4 cursor-pointer mt-2 px-2 transition-all py-2 rounded-md '
  style={{borderColor: sizeId==vari.id?Theme.primary : "grey" , 
     backgroundColor: sizeId==vari.id?Theme.primary : "white" , 
  display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
@@ -180,7 +185,7 @@ className=''
 
 
 
-<div className='flex space-x-3'>
+<div className='flex flex-wrap space-x-3  '>
 
 
 
@@ -197,7 +202,7 @@ color.sizeid==sizeId?<div className='flex flex-col justify-center items-center s
 style={{   
   color: props.vari==color.varid? Theme.primary: Theme.primaryDark ,
 }}
-className='font-semibold' >
+className='font-semibold whitespace-nowrap' >
     {color.color.attributes.name_ar}
 </div>
 </div>:<></>

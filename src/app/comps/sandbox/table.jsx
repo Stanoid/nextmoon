@@ -27,7 +27,7 @@ import { useEffect } from "react";
 import {SearchIcon} from "./SearchIcon";
 import { useRouter } from "next/navigation";
 import {ChevronDownIcon} from "./ChevronDownIcon";
-import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCopy } from "react-icons/fa6";
+import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCopy, FaPenToSquare } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { color } from "framer-motion";
@@ -561,25 +561,39 @@ switch (props.coldata) {
                     <VerticalDotsIcon className="text-default-300" />
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
-                  <DropdownItem textValue="a"   onClick={()=>{ props.delorder(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
-                  <div className="py-1 font-bold text-gray-600 "> تعديل المنتج </div>  </DropdownItem>
 
-                  <DropdownItem textValue="a"   onClick={()=>{ props.duplicateProduct(user)}} startContent={<FaCopy style={{marginRight:4}} />} key={"view"} >
-                  <div className="py-1 font-bold text-gray-600 ">نسخ المنتج</div>  </DropdownItem>
-
-                 
+              {props.whouse?  <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
+              
       
-                  <DropdownItem textValue="a" onClick={()=>{props.statusChange(!user.status,user.id)}} startContent={<FaEyeSlash style={{marginRight:4}} />} key={"hid"} >
-                  <div className="py-1 font-bold text-gray-600 ">
-                  إخفاء/إظهار
-                  </div>
-                  </DropdownItem>
+              
 
-                  <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
-                  <div className="py-2 font-medium text-red-500">   حذف المنتج </div> </DropdownItem>
+              <DropdownItem textValue="a"   onClick={()=>{ props.duplicateProduct(user)}} startContent={<FaPenToSquare style={{marginRight:4}} />} key={"view"} >
+<div className="py-1 font-bold text-gray-600 "> تعديل الكمية</div>  </DropdownItem>
+
 
                 </DropdownMenu>
+:  <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
+<DropdownItem textValue="a"   onClick={()=>{ props.delorder(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
+<div className="py-1 font-bold text-gray-600 "> تعديل المنتج </div>  </DropdownItem>
+
+<DropdownItem textValue="a"   onClick={()=>{ props.duplicateProduct(user)}} startContent={<FaCopy style={{marginRight:4}} />} key={"view"} >
+<div className="py-1 font-bold text-gray-600 ">نسخ المنتج</div>  </DropdownItem>
+
+
+
+<DropdownItem textValue="a" onClick={()=>{props.statusChange(!user.status,user.id)}} startContent={<FaEyeSlash style={{marginRight:4}} />} key={"hid"} >
+<div className="py-1 font-bold text-gray-600 ">
+إخفاء/إظهار
+</div>
+</DropdownItem>
+
+<DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
+<div className="py-2 font-medium text-red-500">   حذف المنتج </div> </DropdownItem>
+
+</DropdownMenu>
+}
+
+
               </Dropdown>
             </div>
           );
@@ -748,7 +762,7 @@ switch (props.coldata) {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div style={{display:props.checkout?"none":"block"}}>
+        <div style={{}}>
         <Input
             isClearable
             className="w-full sm:max-w-[44%]"

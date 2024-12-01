@@ -12,6 +12,7 @@ import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
                                                        
  const AddColor = dynamic(() => import('./AddColor'));
  const EditProduct = dynamic(() => import('./editProduct'));
+ const EditStock = dynamic(() => import('./editStock'));
  const AddPickUp = dynamic(() => import('./addpickup'));
  const EditColor = dynamic(() => import('./editColor'));
  const PromoCodes = dynamic(() => import('./promoCodes'));
@@ -124,6 +125,10 @@ useNotifi(type,message);
 
   }
  
+  const handleqty = (page,pid)=>{
+    setPid(pid)
+    setPage(page)
+  }
 
   return (
       
@@ -245,10 +250,12 @@ hover:text-white text-white justify-start items-center '   >
   {page==19 ? scatid?<EditSubCat  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>}
   
   
-  {page==20 ? <WereHouse  notifi={(type,message)=>{notifi(type,message)}} setLod={(sta)=>{setLod(sta)}}  setpage={(page)=>{setPage(page)}} 
+  {page==20 ? <WereHouse  notifi={(type,message)=>{notifi(type,message)}} setLod={(sta)=>{setLod(sta)}}  setpage={(page,pid)=>{handleqty(page,pid)}} 
   scatid={scatid} /> :<></>}
 
 {page==21 ? <AddPickUp  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
+
+{page==22 ? pid?<EditStock  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} pid={pid} />:<EditStock setpage={(page)=>{setPage(page)}} etLod={(sta)=>{setLod(sta)}} pid={pid} /> :<></>}
 
 </div>
 

@@ -90,7 +90,7 @@ function ProductsList(props) {
   }
 
   const handleDuplicate = (ob)=>{
-    props.setpage(1, ob.id);
+    props.setpage(22, ob.id);
   }
 
   const getProducts = () => {
@@ -148,6 +148,8 @@ function ProductsList(props) {
     ]
    }
    search={"code"}
+   checkout={true}
+   whouse={true}
    delorder={handleEdit}
    duplicateProduct={handleDuplicate}
    deleteProduct={deleteEntry}
