@@ -140,7 +140,7 @@ const handleProductFilling = ()=>{
      //setCode(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.code);
      let oldarr = varients;
      data.data.attributes.varients.data.forEach(element => {
-      oldarr.push({size:element.attributes.sizes.data[0].id,stock:element.attributes.stock,price:element.attributes.price,discount:element.attributes.old_price});
+      oldarr.push({size:element.attributes.sizes.data[0].id,stock:element.attributes.stock,price:element.attributes.price,discount:element.attributes.old_price,color:element.attributes.colors.data[0].id});
    
      });
 

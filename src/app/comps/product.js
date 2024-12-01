@@ -41,6 +41,41 @@ export default function Product(props) {
 //   }
 // }
 
+
+const colorDisplay = ()=>{
+  var colo = []
+  var colob = []
+  props.data.varients&&props.data.varients.forEach(vari => {
+
+    if(colo.includes(vari.colors[0].id)){
+
+    }else{
+      colo.push(vari.colors[0].id);
+      colob.push(vari.colors[0]);
+      
+    }
+  });
+
+  
+let str = ""
+  colob.forEach(color => {
+
+    str.concat(`<div className='align-middle w-full justify-center mr-1 '   key=${color.id}>
+    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content=${color.name_ar} >
+     <div style={{backgroundColor:${color.colorCode}}} className=' h-3 w-3 rounded-full  ' >
+     
+    </div>
+     </Tooltip>
+    </div>`)
+
+   
+});
+
+console.log(str)
+return str
+
+}
+
    
 function oldPrice(newPrice, discountPercentage) {
   const discountFactor = 1 - (discountPercentage / 100);
@@ -111,25 +146,7 @@ function oldPrice(newPrice, discountPercentage) {
 
   <div className="mt-1 mb-0 flex items-start  w-full flex-col justify-between">
   <div className='flex align-middle w-full justify-end py-2  ' > 
-    {props.data.varients[0].colors&&props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
-    
-<div className='align-middle w-full justify-center mr-1 '   key={color.id}>
-<Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
-<div style={{backgroundColor:color.colorCode}} className=' h-3 w-3 rounded-full  ' >
-
-</div>
-</Tooltip>
-
-
-
-
-
-
-</div>
-
-
-
-)) :<div></div> }
+    {/* {colorDisplay()} */}
 
 <div className='flex py-1   w-full  justify-end items-center space-x-1'>
 

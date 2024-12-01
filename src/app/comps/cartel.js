@@ -167,17 +167,23 @@ export default function Cartel(props) {
                 })} */}
             </div>
 
-            {varient &&
+            {/* {varient &&
               varient.attributes.colors.data.map((color) => {
                 if (color.id == props.color) {
                   return (
                     <div
-                      style={{ backgroundColor: color.attributes.colorCode }}
+                      style={{ backgroundColor: varient&&varient.attributes.colors.data[0].attributes.colorCode }}
                       className="w-7 h-7 rounded-full"
                     ></div>
                   );
                 }
-              })}
+              })} */}
+
+<div
+                      style={{ backgroundColor: varient&&varient.attributes.colors.data[0].attributes.colorCode }}
+                      className="w-7 h-7 rounded-full"
+                    ></div>
+
           </div>
         </div>
 

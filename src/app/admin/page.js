@@ -245,7 +245,7 @@ hover:text-white text-white justify-start items-center '   >
   {page==19 ? scatid?<EditSubCat  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} scatid={scatid} />:<EditSubCat setpage={(page)=>{setPage(page)}} scatid={scatid} /> :<></>}
   
   
-  {page==20 ? <WereHouse  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} 
+  {page==20 ? <WereHouse  notifi={(type,message)=>{notifi(type,message)}} setLod={(sta)=>{setLod(sta)}}  setpage={(page)=>{setPage(page)}} 
   scatid={scatid} /> :<></>}
 
 {page==21 ? <AddPickUp  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}

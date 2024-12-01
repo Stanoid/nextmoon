@@ -128,7 +128,7 @@ const handleAccount=(type)=>{
       
 
 
-            <DropdownItem textValue="home" className=" text-lg border-b-1.5 py-2  border-moon-300/30 rounded-none " 
+            <DropdownItem onClick={()=>{router.push("/")}}  textValue="home" className=" text-lg border-b-1.5 py-2  border-moon-300/30 rounded-none " 
             startContent={<FaHome/>} key="team_settings "> <span className="text-lg font-bold "  >  الرئيسية  </span> </DropdownItem>
 
 

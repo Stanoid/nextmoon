@@ -1,335 +1,172 @@
-'use client'
+"use client";
 
-import React from 'react';
-import { useContext,useEffect,useState } from 'react';
-import { Theme ,API_URL} from '../local';
-import InputEl from '../comps/inputel';
-import axios from 'axios';
-import { useRouter } from 'next/navigation'
+import React from "react";
+import { useContext, useEffect, useState } from "react";
+import { Theme, API_URL, CURRENCY } from "../local";
+import InputEl from "../comps/inputel";
+import axios from "axios";
+import TableComp from '../comps/sandbox/table';
+import { useRouter } from "next/navigation";
 import { TiThMenu } from "react-icons/ti";
-import { FaTimes,FaEdit } from 'react-icons/fa';
-import LoadingBtn from '../comps/loadingbtn';
-
-import { AuthCon } from '../contexts/AuthCon';
-
-
-
-function EditSize(props) {
-    const ls = require("local-storage")
-    const {logindata,logoutUser}  = useContext(AuthCon);
-
-    const [namear,setNamear] = useState("");
-    const [nameen,setNameen] = useState("");
-    const [sicon,setSicon] = useState("");
-    //const [sizes,setSizes] = useState([]);
+import LoadingBtn from "../comps/loadingbtn";
+import { useSelector } from "react-redux";
+import { FaTimes, FaEdit } from "react-icons/fa";
+import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
+import { AuthCon } from "../contexts/AuthCon";
 
 
-    const router = useRouter(); 
-    const [lod,setlod] = useState(false)
+function ProductsList(props) {
+  const ls = require("local-storage");
+    const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
+
+  const [lod, setlod] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [formData, setFormData] = useState({
+    imgs: "",
+  });
+
+  const [files, setFiles] = useState([]);
+  useEffect(() => {
+    // loginval();
+    getProducts();
+
+  }, []);
 
 
-    useEffect(() => {
-    //getSize();
-   
-    }, [])
-    
-   
- 
-   
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
-  
 
-    
+
+  const deleteEntry = (id) => {
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + udata.data.jwt,
+      },
     };
 
-
-    
-    
-        
-        const getSize=()=>{
-         
-    
-             
-        const requestOptions = {
-          method: 'GET',
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": 'Bearer ' + ls.get("atkn")
-          },
-        
-      };
-    
-        fetch(`${API_URL}sizes/${props.sid}`, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            
-           //setSizes(data.data);
-           setNamear(data.data.attributes.name_ar)
-           setNameen(data.data.attributes.name_en)
-           setSicon(data.data.attributes.icon)
-          }).then(()=>{
-         
-          
-          })
-    
-    
-        }
-
-
-        const deleteEntry=(id)=>{
-         
-    
-             
-          const requestOptions = {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
-            },
-          
-        };
-      
-          fetch(`${API_URL}sizes/${id}`, requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-              
-           getSizes();
-            }).then(()=>{
-           
-            
-            })
-      
-      
-          }
-
-    
-
-
-    
-   const loginval = ()=>{
-
-
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + ls.get("atkn")
-      },
-    
+    fetch(`${API_URL}products/${id}`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        props.notifi("success","تم حذف المنتج")
+        getProducts();
+      })
+      .then(() => {});
   };
 
-    fetch(`${API_URL}users/me`, requestOptions)
+  const handleStatus = (status, id) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + udata.data.jwt,
+      },
+      body: JSON.stringify({
+        status: status,
+      }),
+    };
+
+    fetch(`${API_URL}products/${id} ?func=EditStatus`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
 
-      
+        if(status){
+          props.notifi("success","تم إظهار المنتج")
 
+        }else{
+          props.notifi("success","تم إخفاء المنتج")
+
+        }
         
-  if(data.id){
-
-  if(data.type==1){
-       
- 
-  }else{
-
-
-
-    }
-  
-   }else{
-  setLogged(0);
-  router.push("/login")
-
-   }
-    
-     
+      })
+      .then(() => {
+        getProducts();
       });
+  };
 
+
+  const handleEdit = (ob)=>{
+    props.setpage(15, ob.id);
   }
 
-
-
- const submitload = ()=>{
-
-
-
-  if(sicon==""||namear==""||nameen==""){
-    alert("Empty Feilds")
-    return;
+  const handleDuplicate = (ob)=>{
+    props.setpage(1, ob.id);
   }
 
-
-        setlod(true);
-
-      
+  const getProducts = () => {
+    setlod(true);
+    props.setLod(true);
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + udata.data.jwt,
+      },
+    };
+    fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
         
-
-        const requestOptions = {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
-            },
-            body: JSON.stringify(
-                {      
-                    "name_ar": namear,
-                    "name_en":nameen,
-                    "icon":sicon,
-                  }
-              )
-          
-        };
-      
-          fetch(`${API_URL}sizes/${props.sid}?func=EditSize`, requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-              props.notifi("success"," تم تعديل المقاس")
-              
-              setlod(false);
-            }).then(()=>{
-              props.setpage(3);
-              //return to sizes
-                
-            
-            })
-      
+        setProducts(data);
+        console.log("ssssssssssssssssssssssssss",data)
+      })
+      .then(() => {
+        props.setLod(false);
+      });
+  };
 
 
 
-    }
-   
-
-
- 
-
-
- 
 
   return (
-  
-
-
-
-    
-<div 
-    style={{
-      
-      display:"flex",
-      alignItems:"center",
-      flexDirection:"column",
-      justifyContent:"center",
-      padding:5
-      
- }}>
-
+    <div
+    dir="rtl"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: 5,
+      }}
+    >
    
 
+   {
+  products?<TableComp
 
 
-   <div style={{
-    width:"70%",
-display:"grid",
-gap:10,
-gridTemplateAreas:`
-' namear  namear  nameen nameen  ' 
-'sicon sicon sicon sicon'
 
-`
+  columns={
+    [
+      {name: "ID", uid: "id", sortable: true},
+      {name: "الإسم", uid: "name_ar", sortable: true}, 
+      {name: "رمز المنتج", uid: "code", sortable: true},
 
-
-   }} >
-
-
-    <div style={{gridArea:"namear"}}>
-      <InputEl value={namear} outputfunc={(val)=>{setNamear(val)}} label={"Size name (Arabic)"}/>
-    </div>
-
-    <div  style={{gridArea:"nameen"}}>
-      <InputEl value={nameen} outputfunc={(val)=>{setNameen(val)}} label={"Size name (English)"}/>
-    </div>
-
-
-    <div style={{gridArea:"sicon"}}>
-      <InputEl value={sicon} outputfunc={(val)=>{setSicon(val)}} label={"Size Icon (X,XXL,...)"}/>
-    </div>
-
-  
-  
-
-   </div>
-
-  
-
-   <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-
-
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"Update Size"} />
-</div>
-
-      
-    </div>
+      // {name: "السعر", uid: "varients", sortable: true},
+      {name: "حالة المنتج", uid: "status", sortable: true},
+      {name: "تعديل", uid: "createdAt"},
+    ]
+   }
+   delorder={handleEdit}
+   duplicateProduct={handleDuplicate}
+   deleteProduct={deleteEntry}
+   statusChange={handleStatus}
+   data={products}
+    />:
+  <div style={{
+    display:lod?'flex':'none' ,
+    alignItems:"center",
+    justifyContent:"center"
+  }}>
+  <div style={{zIndex:10}}>
+        <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+        </div>
+  </div>
+}
     
 
-
-
-
-  )
+    </div>
+  );
 }
 
-export default EditSize
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default ProductsList;

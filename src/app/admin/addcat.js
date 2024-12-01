@@ -97,7 +97,7 @@ function AddCat(props) {
         
       };
     
-        fetch(`${API_URL}catagories?populate=section`, requestOptions)
+        fetch(`${API_URL}catagories?populate= `, requestOptions)
           .then((response) => response.json())
           .then((data) => {
          

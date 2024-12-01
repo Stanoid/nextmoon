@@ -6,10 +6,10 @@ function HorDiv(props) {
   return (
     <div className=' scrollable-content space-x-4 w-lvw flex align-middle p-2 overflow-x-scroll '>
 
-{props.data&&props.data.map(product=>(
+{props.data&&props.data.map((product,index)=>(
 product.status?  
 
-<div className=" flex justify-center items-center min-w-56 rounded-md shadow-md shadow-gray-300 "  key={product.id}>
+<div className=" flex justify-center items-center min-w-56 rounded-md shadow-md shadow-gray-300 "  key={index}>
     
 <ProductCopm atcbtn={props.btn} data={product} /> 
 </div>

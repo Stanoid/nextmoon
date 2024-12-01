@@ -96,11 +96,11 @@ export default function Product({}) {
   }, []);
 
 
-  const varselectHandler = (vid,prodRef)=>{
+  const varselectHandler = (vid)=>{
 setQty(1)
 setSelectedV(vid);
-setPref(prodRef)
-console.log("aasa",prodRef)
+//setPref(prodRef)
+//console.log("aasa",prodRef)
 const vrs = db.attributes.varients.data;
 
 for (let i = 0; i < vrs.length; i++) {
@@ -147,8 +147,6 @@ for (let i = 0; i < vrs.length; i++) {
           setSelectedV(data.data.attributes.varients.data[0].id);
           setPref(data.data.attributes.varients.data[0].attributes.product_ref);
           setPcode(data.data.attributes.code);
-          setSizesel(data.data.attributes.varients.data[0].attributes.sizes.data[0].id);
-          setColorsel(data.data.attributes.varients.data[0].attributes.colors.data[0].id);
          setVarients(data.data.attributes.varients.data);
           setSelectedC(data.data.attributes.varients.data[0].attributes.colors.data[0].id);
           setSize(data.data.attributes.varients.data[0].attributes.sizes.data[0].id);
@@ -176,8 +174,6 @@ for (let i = 0; i < vrs.length; i++) {
     name:db.attributes.name_ar,
     code:db.attributes.code,
     img: JSON.parse(db.attributes.img)[0].url,
-    color: colorsel,
-    size: sizesel,
     product_ref:pref,
     qty: qty, 
   }))
@@ -281,7 +277,7 @@ for (let i = 0; i < vrs.length; i++) {
   };
 
   function oldPrice(newPrice, discountPercentage) {
-    console.log("aaaa",newPrice,discountPercentage)
+  //  console.log("aaaa",newPrice,discountPercentage)
     const discountFactor = 1 - (discountPercentage / 100);
     const oldPrice = newPrice / discountFactor;
     return parseInt(oldPrice);
@@ -506,13 +502,9 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
         }}
       >
         <div style={{width:"100%",padding:"10px",borderRadius: "10px 10px 0px 0px",}}>
-         <OptionEL varselect={(vid,prodRef)=>{varselectHandler(vid,prodRef)}} 
-         size={sizesel}
-         color={colorsel}
+         <OptionEL varselect={(vid)=>{varselectHandler(vid)}} 
          vari={selectedV}
-         sizeSelect={(sid)=>{setSizesel(sid)}}
-         colorSelect={(cid)=>{setColorsel(cid)}}
-         selid={selectedV} vars={db&&db.attributes.varients.data} />
+         selid={selectedV} vars={varients} />
 
     
                </div>

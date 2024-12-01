@@ -64,25 +64,30 @@ useEffect(() => {
 
 
     <div className='flex align-middle justify-end py-2 ' > 
-    {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
-    
+
+    {/* {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
     <div className='align-middle  justify-center mx-1 '   key={color.id}>
     <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
     <div style={{backgroundColor:color.colorCode}} className=' h-4 w-4 rounded-full  ' >
+    </div>
+    </Tooltip>
+    </div>
+    )) :<div></div> } */}
+
+{props.data.varients&&props.data.varients.length!=0?props.data.varients.map((vari,index)=>(
+    
+    <div className='align-middle w-full justify-center mr-1 '   key={index}>
+    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={vari.colors[0].name_ar} >
+    <div style={{backgroundColor:vari.colors[0].colorCode}} className=' h-3 w-3 rounded-full  ' >
     
     </div>
     </Tooltip>
-    
-    
-    
-    
-    
-    
     </div>
-    
-    
-    
     )) :<div></div> }
+
+
+
+
     </div>
  <div className=' w-full flex flex-col  '>
         <div className="text-xl font-bold text-moon-300/75 flex flex-row-reverse  justify-end  " > <div>{CURRENCY} </div> <div> {props.data.varients[0].price} 
