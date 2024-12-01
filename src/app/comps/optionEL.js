@@ -20,10 +20,11 @@ const [sizeId,setSizeId] = useState(null)
       
 
     
-      return () => {
+   
        var size = []
        var sizeob=[]
        var colors = [];
+
        props.vars.forEach(element => {
       
 
@@ -46,7 +47,7 @@ const [sizeId,setSizeId] = useState(null)
      setColors(colors)
 //handlesizeselect();
 
-      }
+      
     }, [refr])
     
 const handlesizeselect = (size)=>{

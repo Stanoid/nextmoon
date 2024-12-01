@@ -147,6 +147,7 @@ function ProductsList(props) {
       {name: "تعديل", uid: "createdAt"},
     ]
    }
+   search={"code"}
    delorder={handleEdit}
    duplicateProduct={handleDuplicate}
    deleteProduct={deleteEntry}

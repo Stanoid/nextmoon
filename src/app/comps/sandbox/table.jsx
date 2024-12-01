@@ -91,7 +91,7 @@ switch (props.coldata) {
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
       //  console.log(user)
-        user.name_ar.toLowerCase().includes(filterValue.toLowerCase()),
+       props.search=="code"? user.code.toLowerCase().includes(filterValue.toLowerCase()): user.name_ar.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
@@ -397,7 +397,7 @@ switch (props.coldata) {
 
       case 'code':
       return(
-        <div className="px-6 py-2 text-white bg-moon-200 rounded-full" >{cellValue}</div>
+        <div className="px-6 py-2 text-center text-white bg-moon-200 rounded-full" >{cellValue}</div>
       );
       break;
 
