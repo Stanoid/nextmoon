@@ -58,13 +58,15 @@ let size= "";
     if(cartg[i].data.attributes.varients.data[j].id==cartg[i].selvar){ 
   total = total +  cartg[i].data.attributes.varients.data[j].attributes.price * cartg[i].qty;
      
-  for (let x = 0; x < cartg[i].data.attributes.varients.data[j].attributes.colors.data.length; x++) {
-    if(cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].id==cartg[i].color){
-     colorName= cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].attributes.name_ar;
-     colorValue= cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].attributes.colorCode;
-    }
+  // for (let x = 0; x < cartg[i].data.attributes.varients.data[j].attributes.colors.data.length; x++) {
+  //   if(cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].id==cartg[i].color){
+  //    colorName= cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].attributes.name_ar;
+  //    colorValue= cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].attributes.colorCode;
+  //   }
      
-    }
+  //   }
+    colorName= cartg[i].data.attributes.varients.data[j].attributes.colors.data[0].attributes.name_ar
+    colorValue= cartg[i].data.attributes.varients.data[j].attributes.colors.data[0].attributes.colorCode
 
     price = cartg[i].data.attributes.varients.data[j].attributes.price;
     size = cartg[i].data.attributes.varients.data[j].attributes.sizes.data[0].attributes.name_ar +" - " + cartg[i].data.attributes.varients.data[j].attributes.sizes.data[0].attributes.icon;
@@ -211,8 +213,6 @@ setRefr(!refr);
           name:cartg[i].name,
           img:cartg[i].img,
           code:cartg[i].code,
-          color: cartg[i].color ,
-          size: cartg[i].size ,
           qty: cartg[i].qty,
           desc: cartg[i].data.attributes.description_en 
         
