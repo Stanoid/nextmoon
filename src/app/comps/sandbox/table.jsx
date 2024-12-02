@@ -27,7 +27,7 @@ import { useEffect } from "react";
 import {SearchIcon} from "./SearchIcon";
 import { useRouter } from "next/navigation";
 import {ChevronDownIcon} from "./ChevronDownIcon";
-import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCopy, FaPenToSquare } from "react-icons/fa6";
+import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCopy, FaPenToSquare, FaToggleOn } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { color } from "framer-motion";
@@ -41,7 +41,7 @@ const statusColorMap = {
 };
 
 const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","varients","cat","name_en","section","icon","img","color","scate","colore","cate","colorCode","size", "city",
-   "status","pstatus", "email","refid","date","delivery_type","total","payment_type","payment_status","total","name_ar","description_ar","code","price","qty","colorname","sizeo","imgsingle"];
+   "status","pstatus", "email","refid","date","feat","delivery_type","total","payment_type","payment_status","total","name_ar","description_ar","code","price","qty","colorname","sizeo","imgsingle"];
 
 export default function App(props) {
   const [filterValue, setFilterValue] = React.useState("");
@@ -394,6 +394,24 @@ switch (props.coldata) {
 
 
       break;
+    
+
+      case "feat":
+       
+      return(
+       
+
+      <div className="py-2 px-4 text-center text-white font-bold rounded-md " style={{backgroundColor:cellValue?"#2eff89":"#ff424c"}} >
+        {cellValue?"نعم":"لا"}
+      </div>
+
+      );
+
+
+
+    break;
+
+
 
       case 'code':
       return(
@@ -710,6 +728,9 @@ switch (props.coldata) {
                         <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
                           <DropdownItem textValue="a"   onClick={()=>{ props.editScat(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
                           <div className="py-1 font-bold text-gray-600 "> تعديل الفئة الفرعية </div>  </DropdownItem>
+
+                          <DropdownItem textValue="a"   onClick={()=>{ props.togfeat(user)}} startContent={<FaToggleOn style={{marginRight:4}} />} key={"view"} >
+                          <div className="py-1 font-bold text-gray-600 ">  إظهار\إخفاء المميزة </div>  </DropdownItem>
         
                           <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
                           <div className="py-2 font-medium text-red-500">   حذف الفئة الفرعية </div> </DropdownItem>

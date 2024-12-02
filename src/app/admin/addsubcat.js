@@ -105,6 +105,7 @@ function AddSubCat(props) {
                    ob.name_en = data[i].name_en;  
                    ob.cat = data[i].catagory.name_ar;
                    ob.scate = data[i].createdAt;
+                   ob.feat = data[i].feat;
         
                    arr.push(ob) 
                 }
@@ -157,6 +158,40 @@ function AddSubCat(props) {
             }
 
    
+
+
+            const toggleFeat = (subcat)=>{
+
+              const requestOptions = {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": 'Bearer ' + udata.data.jwt
+                },
+                body: JSON.stringify(
+                    {
+                        "status":!subcat.feat,
+                      }
+                  )
+              
+            };
+              fetch(`${API_URL}subcatagories/${subcat.id}?func=togFeat`, requestOptions)
+                .then((response) => response.json())
+                .then((data) => {
+                  
+              
+                  props.notifi("success"," تم تعديل الفئة الفرعية")
+    
+    
+                  setlod(false);
+                getSubcats();
+                 
+                }).then(()=>{
+             
+                
+                })
+          
+            }
 
 
  const submitload = ()=>{
@@ -288,12 +323,14 @@ gridTemplateAreas:`
 
   deleteProduct={deleteEntry}
 editScat={(scat)=>{props.setpage(19,scat.id)}}
+togfeat={(stat)=>{toggleFeat(stat)}}
   columns={
     [
       {name: "ID", uid: "id", sortable: true},
       {name: "الإسم (العربية)", uid: "name_ar", sortable: true},
       {name: "الإسم (الإنجليزية)", uid: "name_en", sortable: true}, 
       {name: "الفئة", uid: "cat", sortable: true},
+      {name: "فئة مميزة", uid: "feat", sortable: true},
     
       {name: "الخيارات", uid: "scate"},
     ]

@@ -4,8 +4,10 @@ import Image from "next/image";
 import ProductCopm from "./comps/product";
 import dynamic from "next/dynamic";
 import ProductFeat from "./comps/productfeat"
-
-
+import { motion } from "framer-motion";
+import { Button, user } from "@nextui-org/react";
+import { useRouter } from 'next/navigation'
+import { FaListAlt } from 'react-icons/fa';
 const Hero = dynamic(() => import('./comps/hero'))
 
 
@@ -29,6 +31,8 @@ export default function Home() {
   const firstRenderRef = useRef(true)
   const {loginval}  = useContext(AuthCon);
   const [products,setProducts] = useState()
+  const router = useRouter();
+  const [subcats,setSubCats]= useState(null);
   const [lod,setLod] = useState(true);
   //const calculation = useMemo(() =>  getAllProducts(), []);
   
@@ -65,9 +69,10 @@ if (firstRenderRef.current) {
             .then((data) => {
       
            
-              
+          
            setProducts(data)
            setLod(false)
+           getSubcat();
              
            
             }).then(()=>{
@@ -78,6 +83,28 @@ if (firstRenderRef.current) {
     },[])
 
 
+  const getSubcat = ()=>{
+
+    const requestOptionssub = {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/json",
+          // "Authorization": 'Bearer ' + ls.get("atkn")
+      },
+    
+    };
+    fetch(`${API_URL}subcatagories?func=getSubCatProducts`, requestOptionssub)
+      .then((response) => response.json())
+      .then((data) => {
+  console.log("dddddddddddddddddd",data)
+  setSubCats(data) 
+
+      }).then(()=>{
+         
+      });
+
+
+  }
 
   const handleOpenCart =(open)=>{
     setOpenCart(open)
@@ -114,7 +141,7 @@ if (firstRenderRef.current) {
 
 
 
-  <div  className="   from-moon-100/30 to-moon-100/50  flex w-full  justify-center "   >
+  <div  className=" bg-gradient-to-b  from-moon-100/30 to-moon-100/50  flex w-full  justify-center "   >
 
 <div className=" w-full   " >
 <FeaturedComp/>
@@ -136,20 +163,20 @@ if (firstRenderRef.current) {
 
 
 
-<div className="w-full flex items-center justify-center  py-5   from-moon-100/30 to-moonsec-200/20 ">
+<div className="w-full flex items-center justify-center  py-5 bg-gradient-to-b  from-moon-100/30 to-moonsec-200/20 ">
   <ProductFeat variant={"trend"}  title="المنتجات الرائجة" text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذاق.
 " />
 </div>
 
 
-<div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5  bg-[url('../../public/amblemblack.svg')]   to-moonsec-100/40 from-moonsec-200/20 ">
+<div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5   bg-[url('../../public/amblemblack.svg')]   to-moonsec-100/40 from-moonsec-200/20 ">
   <ProductFeat variant={"offer"} title="عروض هذا الاسبوع" text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذاق.
 " />
 </div>
 
 
 
-<div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5    to-moonsec-100/40 from-moonsec-200/20 ">
+<div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5  bg-gradient-to-b   to-moonsec-100/40 from-moonsec-200/20 ">
   <ProductFeat variant={"never"} title="فرصتك الآن للحصول عليه" text="" />
 </div>
 
@@ -205,7 +232,9 @@ product.status?
 }
 
 
-<div style={{backgroundSize:50}} className="bg-[url('../../public/amblemblack.svg')]  ">
+
+<div style={{backgroundSize:50}}  className="w-full   
+bg-[url('../../public/amblemblack.svg')] "  >
 <div className="w-full flex flex-col align-middle h-fit justify-center bg-gradient-to-b from-moonsec-100/60 to-moonsec-100/30 py-4">
 <div className="p-6 my-6">
 <h5 className="text-2xl font-black text-center tracking-normal text-white ">عروض سريعة</h5>
@@ -221,7 +250,31 @@ product.status?
 </div>
 
 
+{subcats&&subcats.map(subcat=>(
+
 <div className=" to-moonsec-200/20 from-moonsec-100/30 py-6">
+<div className="p-4 flex justify-between  ">
+<motion.div className=' p-0 sm:px-0 lg:px-3 flex align-middle justify-end ml-2' whileTap={{ scale: 1.03 }}>
+      {/* <LoadingBtn act={()=>{router.push("/login")} } color={Theme.primary} textColor={"white"} icon={<FaLock  />} text={"تسجيل دخول"}  /> */}
+     <Button onClick={()=>{router.push(`/categories?cid=${subcat.catagory.id}`)} } variant="shadow" className="text-white text-xs rounded-lg
+      bg-moonsec-200 font-bold shadow-md" endContent={<FaListAlt />}> {subcat.catagory.name_ar} </Button>
+     </motion.div>
+     <div>
+     <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">: {subcat.name_ar}</h5>
+
+     </div>
+
+
+
+</div>
+
+ <HorDiv home={false} btn={true} cid={subcat.id} data={subcat.products&&subcat.products} />
+</div> 
+
+))}
+
+
+{/* <div className=" to-moonsec-200/20 from-moonsec-100/30 py-6">
   <div className="p-4 ">
   <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">: بلوزات طويلة</h5>
   <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
@@ -230,10 +283,10 @@ product.status?
   </div>
 
    <HorDiv home={true} btn={true} data={product&&products} />
-</div>
+</div> */}
 
 
-<div className=" from-moonsec-200/20 to-moon-200/20 py-6">
+{/* <div className=" from-moonsec-200/20 to-moon-200/20 py-6">
   <div className="p-6">
   <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">:  تيشيرتات</h5>
   <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
@@ -242,7 +295,7 @@ product.status?
   </div>
 
    <HorDiv home={true} btn={true}  data={product&&products} />
-</div>
+</div> */}
 
 {/* <div className="p-2 px-2 sm:px-3 lg:px-80 bg-gradient-to-b to-moonsec-200/30 from-moon-200/20 py-6 ">
 <div style={{width:"100%",position:"relative"}} className='lg:col-span-4   h-56  xl:col-span-4 md:col-span-6 col-span-6'>
@@ -255,7 +308,7 @@ style={{width:"100%"}}
 </div> */}
   
 
-<div className=" from-moon-200/20 to-moonsec-100/30 py-6">
+{/* <div className=" from-moon-200/20 to-moonsec-100/30 py-6">
   <div className="p-6">
   <h5 className="text-2xl font-black text-right tracking-normal text-moon-300/80 mt-2 ">:  فساتين سهرة</h5>
   <p className="text-right py-1 font-semibold tracking-tight leading-tight text-moon-300/60 ">
@@ -264,7 +317,7 @@ style={{width:"100%"}}
   </div>
 
    <HorDiv home={true} data={product&&products} />
-</div>
+</div> */}
     
   </div>
  
