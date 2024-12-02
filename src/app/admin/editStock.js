@@ -60,175 +60,68 @@ function EditProduct(props) {
   useEffect(() => {
     // loginval();
     if(eff){
-      getColors();
+      getProducts();
     }
     
   }, [eff,refr]);
 
 
-  const addVarient= ()=>{
-
-    if(!stock||!price||!color||!size){
-alert("all f r r");
-return;
-    }
 
 
-    let sizeob = null;
-    let colorob= null;
 
 
-    for (let i = 0; i < colors.length; i++) {
+  const handleStockChange = (val,id)=>{
+ //console.log(val,id)
+
+ setVarients(
+  varients.map((vari) =>
+    vari.id === id ? { ...vari, attributes: { ...vari.attributes, stock: val } } : vari
+  )
+);
 
 
-      if(colors[i].id==color){
-        
-        colorob = colors[i]
-      }
-      
-    }
-
-    for (let j = 0; j < sizes.length; j++) {  
-            if(sizes[j].id==size){
-              
-              sizeob = sizes[j];
-            }
-            
-          }
-
-    
-
-
-    let tempo = varients;
-    tempo.push(
-  {attributes:{
-    price:price,
-    stock:stock,
-    size: {
-      "id": sizeob.id,
-     "data":{
-      "attributes": {
-        "status": true,
-        "name_ar": sizeob.attributes.name_ar,
-        "name_en": sizeob.attributes.name_en,
-        "icon": sizeob.attributes.icon
-    }
-     }
-  },
-  color: {
-    "id": colorob.id,
-    "data":{
-      "attributes": {
-        "status": true,
-        "name_en": colorob.attributes.name_ar,
-        "name_ar": colorob.attributes.name_en,
-        "colorCode": colorob.attributes.colorCode,
-       
-    }
-    }
-}
-
-  }}
-
-
-    )
-
-    setVarients(tempo)
-
-    
-   setEff(false)
-   setRefr(!refr);
+//console.log("ovar",oldvar);
+//console.log("vvar",varients);
 
   }
 
 
-  const handleSizeRemove = (index) => {
-    console.log(index);
-    let oldar = sizeSelect;
-    oldar.splice(index, 1);
-    console.log(oldar);
-    setSizeselect(oldar);
-    setEff(false);
-    setRefr(!refr);
-  };
+  const handlePriceChange = (val,id)=>{
+    //console.log(val,id)
+   
+    setVarients(
+     varients.map((vari) =>
+       vari.id === id ? { ...vari, attributes: { ...vari.attributes, price: val } } : vari
+     )
+   );
+   
+   
+   //console.log("ovar",oldvar);
+   //console.log("vvar",varients);
+   
+     }
 
-  const handleColorRemove = (index) => {
-    console.log(index);
-    let oldar = colorSelect;
-    oldar.splice(index, 1);
-    console.log(oldar);
-    setColorselect(oldar);
-    setEff(false);
-    setRefr(!refr);
-  };
 
-  const handleSizesSelect = (size, ind) => {
-    for (let index = 0; index < sizes.length; index++) {
-      if (sizes[index].id == size) {
-        return (
-          <div className="flex mx-1 flex-col justify-center items-center space-y-1 text-sm border-2 border-gray-400 p-1 rounded-md">
-            {/* <div>
-        {sizes[index].attributes.icon}
-        </div> */}
-
-            <div>{sizes[index].attributes.name_ar}</div>
-            <div
-              onClick={() => {
-                handleSizeRemove(ind);
-              }}
-              className=" flex group px-0.5 rounded-sm cursor-pointer hover:bg-red-300   transition-colors justify-center
-         items-center text-base  text-white "
-            >
-              <div className=" text-red-500 group-hover:text-white  text-sm ">
-                حذف
-              </div>
-
-              <div className="w-4 h-4 mr-0.5 flex items-center justify-center  rounded-full bg-red-300">
-                <BsX />
-              </div>
-            </div>
-          </div>
-        );
-      }
-    }
-  };
-
-  const handleColorSelect = (color, ind) => {
-    for (let index = 0; index < colors.length; index++) {
-      if (colors[index].id == color) {
-        return (
-          <div
-            style={{ backgroundColor: colors[index].colorCode }}
-            className="flex p-3 rounded-md mx-1 text-sm flex-col space-y-1 justify-center items-center "
-          >
-            <div className=" bg-black/50 text-white px-3 py-0.5 rounded-md  ">
-              {colors[index].name_ar}
-            </div>
-
-            <div
-              onClick={() => {
-                handleColorRemove(ind);
-              }}
-              className=" flex group px-0.5 rounded-sm cursor-pointer hover:bg-red-300   transition-colors justify-center
-         items-center text-base  text-white "
-            >
-              <div className=" text-red-500 group-hover:text-white  text-sm ">
-                حذف
-              </div>
-
-              <div className="w-4 h-4 mr-0.5 flex items-center justify-center  rounded-full bg-red-300">
-                <BsX />
-              </div>
-            </div>
-          </div>
-        );
-      }
-    }
-  };
+     
+  const handlediscountChange = (val,id)=>{
+    //console.log(val,id)
+   
+    setVarients(
+     varients.map((vari) =>
+       vari.id === id ? { ...vari, attributes: { ...vari.attributes, old_price: val } } : vari
+     )
+   );
+   
+   
+   //console.log("ovar",oldvar);
+   //console.log("vvar",varients);
+   
+     }
 
   const getProducts = () => {
 
   setlod(true)
+  props.setLod(true);
   
     const requestOptions = {
       method: "GET",
@@ -249,7 +142,7 @@ return;
       
          setSubc(data.data.attributes.subcatagory.data&&data.data.attributes.subcatagory.data.id);
          setImg(data.data.attributes.img)
-         setVarients(data.data.attributes.varients&&data.data.attributes.varients.data[0].id);
+         setVarients(data.data.attributes.varients&&data.data.attributes.varients.data);
          setPrice(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.price);
          setStock(data.data.attributes.varients&&data.data.attributes.varients.data[0].attributes.stock);
          setCode(data.data.attributes.code);
@@ -263,113 +156,19 @@ return;
       });
   };
 
-  const getColors = () => {
-    props.setLod(true);
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged.data.jwt,
-      },
-    };
-    fetch(`${API_URL}products?func=getColorsAdmin`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setColors(data);
-      })
-      .then(() => {
-        getSizes();
-      });
-  };
-
-
-  const getSizes = () => {
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged.data.jwt,
-      },
-    };
-
-    fetch(`${API_URL}sizes`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        //  console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",data.data)
-        setSizes(data.data);
-      })
-      .then(() => {
-        getCats();
-      });
-  };
-
-
-  const getCats = () => {
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: "Bearer " + udata.data.jwt,
-      },
-    };
-
-    fetch(`${API_URL}subcatagories?func=getAllSubcat`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        
-        setCats(data);
-      })
-      .then(() => {
-        getProducts();
-      });
-  };
-
-
-  const removeVHandler = (index)=>{
-
-    
-   
-    let temparv = varients
-  
-     temparv.splice(index,1);
-       
-    setVarients(temparv);
-    setEff(false)
-    setRefr(!refr);
-    
-
-
-
-
-    
-
-
-
-
-
-  }
-
 
   const submitProduct = (imgsob) => {
     
    setlod(true)
+   //props.setLod(true);
 
     //
     if (
-      namear == "" ||
-      nameen == "" ||
-      descar == "" ||
-      colorSelect.length == 0 ||
-      sizeSelect.length == 0 ||
-      descen == "" ||
-      subc == null ,
-      price==null,
-      code==null,
-      stock==null
+    varients==null
     ) {
       alert("empty feilds");
-      setlod(false);
+     setlod(false)
+      // props.setLod(false);
       return;
     } else {
       const requestOptions = {
@@ -379,35 +178,23 @@ return;
           Authorization: "Bearer " + udata.data.jwt,
         },
         body: JSON.stringify({
-          nameen: nameen,
-          namear: namear,
-          color:colorSelect,
-          size:sizeSelect,
-          price:price,
-          code:code,
-          stock:stock,
-          varient:varients,
-          descen: descen,
-          descar: descar,
-          subc: subc,
-        //   vartoDelete: varientDelete,
-        //  varients:varients
-        
+          varient:varients,  
         }),
       };
 
 
      
 
-      fetch(`${API_URL}products/${props.pid}?func=EditProduct`, requestOptions)
+      fetch(`${API_URL}products/${props.pid}?func=editStock`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
           
         })
         .then(() => {
-          props.notifi("success","تم تعديل المنتج")
-          props.setpage(2);
-          setlod(false);
+          props.notifi("success","تم تعديل الكميات")
+          //props.setLod(false);
+          props.setpage(20);
+         
          
         });
     }
@@ -442,13 +229,11 @@ return;
           display: "grid",
           gap: 10,
           gridTemplateAreas: `
-' namear  namear  nameen nameen  ' 
+' namear  namear  . .  ' 
 'descriptionAr descriptionAr descriptionAr descriptionAr'
-'descriptionEn descriptionEn descriptionEn descriptionEn'
-'cat . . .'
-'size sizeSelect sizeSelect sizeSelect'
-'color colorSelect colorSelect colorSelect'
-'price stock code code'
+
+
+
 
 `,
         }}
@@ -473,121 +258,103 @@ return;
         </div>
         </div>
 
-        <div style={{ gridArea: "nameen" }}>
-          <InputEl
-            value={nameen}
-            outputfunc={(val) => {
-              setNameen(val);
-            }}
-            label={"إسم المنتج (الإنجليزية)"}
-          />
-        </div>
+      
+
 
         <div style={{ gridArea: "descriptionAr" }}>
+
+
+
+       
+        {varients&&varients.map((vari, index)=>(
+
+
+<div
+className="py-2"
+style={{
+  //backgroundColor: index%2==1?"#e0e0e0":"white" ,
+  borderBottom:"2px solid "+Theme.primary,
+  width: "100%",
+  display: "grid",
+  gap: 10,
+  gridTemplateAreas: `
+'varient discount price  stock ' 
+
+`,
+}}
+>
+
+
+<div style={{ gridArea: "stock" }}>
           <InputEl
-            value={descar}
+            value={vari.attributes.stock}
             outputfunc={(val) => {
-              setDescar(val);
+             handleStockChange(val,vari.id);
             }}
-            label={"وصف المنتج (العربية)"}
+            num={true}
+            label={"الكمية"}
           />
         </div>
 
-        <div style={{ gridArea: "descriptionEn" }}>
+
+        <div style={{ gridArea: "price" }}>
           <InputEl
-            value={descen}
+            value={vari.attributes.price}
             outputfunc={(val) => {
-              setDescen(val);
+             handlePriceChange(val,vari.id);
             }}
-            label={"وصف المنتج (الإنجليزية)"}
+            num={true}
+            label={" السعر "+ CURRENCY }
           />
         </div>
 
-        <div style={{ gridArea: "cat" }}>
+
+        <div style={{ gridArea: "discount" }}>
           <InputEl
-            value={subc}
+            value={vari.attributes.old_price}
             outputfunc={(val) => {
-              setSubc(val);
+             handlediscountChange(val,vari.id);
             }}
-            select={true}
-            iscats={true}
-            data={cats}
-            label={"الفئة"}
+            num={true}
+            label={" الخصم % " }
           />
         </div>
-{/* 
-        <div style={{ gridArea: "images" }}>
-          <div class="w-full">
-            <form onSubmit={handleSubmit} id="imgForm">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-last-name"
-              >
-                Images
-              </label>
 
-              <input
-                onChange={(e) => {
-                  setFiles(e.target.files);
-                }}
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border
-     border-gray-200 rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white
-      focus:border-gray-500"
-                id="grid-last-name"
-                accept="image/*"
-                name="imgs"
-                type="file"
-                multiple
-                placeholder={"Images"}
-              />
+<div className="p-5 flex  flex-col   " style={{ gridArea: "varient" }}>
+        <div>
+          {vari.attributes.sizes.data[0].attributes.name_ar} (  {vari.attributes.sizes.data[0].attributes.icon})
+        </div>
 
-              <button type="submit">Submit</button>
-            </form>
-          </div>
+        <div className="flex   items-center  ">
+       <div>{vari.attributes.colors.data[0].attributes.name_ar}</div><div  className="w-6 h-6 mr-1 rounded-full " style={{backgroundColor:vari.attributes.colors.data[0].attributes.colorCode}} >  </div>
+        </div>
+        
+        {/* <div className="flex   items-center  ">
+       <div>{vari.attributes.price} {CURRENCY} </div>
+    
         </div> */}
 
 
-
-{/* <div style={{ gridArea: "size" }}>
-          <InputEl
-            value={size}
-            outputfunc={(val) => {
-              if (sizeSelect.includes(parseInt(val))) {
-                return;
-              }
-              let oldSizes = sizeSelect;
-              oldSizes.push(parseInt(val));
-              setSizeselect(oldSizes);
-              setEff(false);
-              setRefr(!refr);
-            }}
-            iden={"size"}
-            data={sizes}
-            select={true}
-            label={"المقاس"}
-          />
-        </div> */}
-
-        <div style={{ gridArea: "color" }}>
-        
-
-        </div>
-
-
-        <div
-          className="bg-gray-100 rounded-md  flex justify-center items-center "
-          style={{ gridArea: "colorSelect" }}
-        >
-        
-
         </div>
 
 
 
+</div>
 
 
 
+))}
 
+
+        </div>
+
+      
+
+      
+
+
+
+      
 
 
         
@@ -597,7 +364,7 @@ return;
   
 
 <div style={{
-   borderTop:"2px solid "+Theme.secondary,
+   //borderTop:"2px solid "+Theme.primary,
    width:"100%",
    margin:"20px 0px"
 }}>
@@ -616,7 +383,7 @@ return;
             submitProduct();
           }}
           lod={lod}
-          text={"تعديل المنتج"}
+          text={"تعديل الكميات"}
         />
       </div>
     </div>
