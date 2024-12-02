@@ -23,7 +23,7 @@ export default function Product(props) {
   const router = useRouter();
   const [loading,setLoading]= useState(false);
  const [cimg,setCimg] = useState("");
-
+const [colors,setColors]=useState(null);
 
   useEffect(() => {
 //getprice();
@@ -31,7 +31,7 @@ export default function Product(props) {
 // }
 //
 
-
+colorDisplay()
    }, [])
 
 // const getprice = ()=>{
@@ -45,35 +45,21 @@ export default function Product(props) {
 const colorDisplay = ()=>{
   var colo = []
   var colob = []
-  props.data.varients&&props.data.varients.forEach(vari => {
 
-    if(colo.includes(vari.colors[0].id)){
+for (let i = 0; i < props.data.varients.length; i++) {
+ 
+  if(colo.includes(props.data.varients[i].colors[0].id)){
 
-    }else{
-      colo.push(vari.colors[0].id);
-      colob.push(vari.colors[0]);
-      
-    }
-  });
-
+  }else{
+    colo.push(props.data.varients[i].colors[0].id);
+    colob.push(props.data.varients[i].colors[0]);
+    
+  }
   
-let str = ""
-  colob.forEach(color => {
+}
 
-    str.concat(`<div className='align-middle w-full justify-center mr-1 '   key=${color.id}>
-    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content=${color.name_ar} >
-     <div style={{backgroundColor:${color.colorCode}}} className=' h-3 w-3 rounded-full  ' >
-     
-    </div>
-     </Tooltip>
-    </div>`)
 
-   
-});
-
-console.log(str)
-return str
-
+setColors(colob);
 }
 
    
@@ -147,7 +133,20 @@ function oldPrice(newPrice, discountPercentage) {
 
   <div className="mt-1 mb-0 flex items-start  w-full flex-col justify-between">
   <div className='flex align-middle w-full justify-end py-2  ' > 
-    {/* {colorDisplay()} */}
+  
+
+  {colors&&colors.map((color,index)=>(
+                
+                <div className='align-middle w-full justify-center mr-1 '   key={color.id}>
+                    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
+                     <div style={{backgroundColor:color.colorCode}} className=' h-3 w-3 rounded-full  ' >
+                     
+                     </div>
+                     </Tooltip>
+                    </div>
+           
+               ))}
+
 
 <div className='flex py-1   w-full  justify-end items-center space-x-1'>
 

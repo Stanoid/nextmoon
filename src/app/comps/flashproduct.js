@@ -21,16 +21,37 @@ export default function Product(props) {
   const router = useRouter();
   const [loading,setLoading]= useState(false);
  const [cimg,setCimg] = useState("");
-
+const [colors,setColors]= useState(null)
 
   useEffect(() => {
 //getprice();
 
 // }
 //
+colorDisplay();
 
 
    }, [])
+
+   const colorDisplay = ()=>{
+    var colo = []
+    var colob = []
+  
+  for (let i = 0; i < props.data.varients.length; i++) {
+   
+    if(colo.includes(props.data.varients[i].colors[0].id)){
+  
+    }else{
+      colo.push(props.data.varients[i].colors[0].id);
+      colob.push(props.data.varients[i].colors[0]);
+      
+    }
+    
+  }
+  
+  
+  setColors(colob);
+  }
 
 // const getprice = ()=>{
 //   for (let i = 0; i < props.data.length; i++) {
@@ -98,19 +119,17 @@ export default function Product(props) {
 
       <div className='flex align-middle items-center   justify-center py-2  ' > 
    
-      {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
-    
-    <div className='align-middle w-full justify-center mx-1 '   key={color.id}>
-    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
-    <div style={{backgroundColor:color.colorCode}} className=' h-4 w-4 rounded-full  ' >
-    
-    </div>
-    </Tooltip>
-    </div>
-    
-    
-    
-    )) :<div></div> }
+      {colors&&colors.map((color,index)=>(
+                
+                <div className='align-middle w-full justify-center mr-1 '   key={color.id}>
+                    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
+                     <div style={{backgroundColor:color.colorCode}} className=' h-3 w-3 rounded-full  ' >
+                     
+                     </div>
+                     </Tooltip>
+                    </div>
+           
+               ))}
 
     </div>
 <div className=' w-full' >

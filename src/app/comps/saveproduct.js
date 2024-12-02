@@ -9,14 +9,36 @@ import { CURRENCY } from '../local';
 import Image from 'next/image';
 function ProductCopm(props) {
  const router = useRouter();
+ const [colors,setColors]=useState(null);
 
 
 useEffect(() => {
 
 //
-
+colorDisplay()
 }, [])
 
+
+
+const colorDisplay = ()=>{
+  var colo = []
+  var colob = []
+
+for (let i = 0; i < props.data.varients.length; i++) {
+ 
+  if(colo.includes(props.data.varients[i].colors[0].id)){
+
+  }else{
+    colo.push(props.data.varients[i].colors[0].id);
+    colob.push(props.data.varients[i].colors[0]);
+    
+  }
+  
+}
+
+
+setColors(colob);
+}
 
   return (
     <motion.div
@@ -63,27 +85,21 @@ useEffect(() => {
   </div>
 
 
-    <div className='flex align-middle justify-end py-2 ' > 
+    <div className='flex w-1/2  justify-center items-center py-3 ' > 
 
-    {/* {props.data.varients[0].colors.length!=0?props.data.varients[0].colors.map(color=>(
-    <div className='align-middle  justify-center mx-1 '   key={color.id}>
-    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
-    <div style={{backgroundColor:color.colorCode}} className=' h-4 w-4 rounded-full  ' >
-    </div>
-    </Tooltip>
-    </div>
-    )) :<div></div> } */}
 
-{props.data.varients&&props.data.varients.length!=0?props.data.varients.map((vari,index)=>(
-    
-    <div className='align-middle w-full justify-center mr-1 '   key={index}>
-    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={vari.colors[0].name_ar} >
-    <div style={{backgroundColor:vari.colors[0].colorCode}} className=' h-3 w-3 rounded-full  ' >
-    
-    </div>
-    </Tooltip>
-    </div>
-    )) :<div></div> }
+
+{colors&&colors.map((color,index)=>(
+                
+                <div className='align-middle w-full justify-center mr-1 '   key={color.id}>
+                    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
+                     <div style={{backgroundColor:color.colorCode}} className=' h-3 w-3 rounded-full  ' >
+                     
+                     </div>
+                     </Tooltip>
+                    </div>
+           
+               ))}
 
 
 
