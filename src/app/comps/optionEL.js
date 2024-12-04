@@ -1,7 +1,7 @@
-import {React,useEffect,useState} from 'react'
+import {React,useEffect,useState,useContext} from 'react'
 import { CURRENCY, Theme } from '../local'
 import { color, motion } from 'framer-motion'
-
+import { CartCon } from '../contexts/cartContext';
 
 
 
@@ -13,7 +13,8 @@ const [refr,setRefr] = useState(true);
 const [sizes,setSizes] = useState(null);
 const [colors,setColors]=useState(null);
 const [sizeId,setSizeId] = useState(null)
-
+const { useNotifi } =
+    useContext(CartCon);
 
 
     useEffect(() => {
@@ -28,7 +29,7 @@ const [sizeId,setSizeId] = useState(null)
        props.vars.forEach(element => {
       
 
-       colors.push({sizeid:element.attributes.sizes.data[0].id,varid:element.id,color:element.attributes.colors.data[0]});
+       colors.push({sizeid:element.attributes.sizes.data[0].id,varid:element.id,color:element.attributes.colors.data[0],qty:element.attributes.stock});
         if(size.includes(element.attributes.sizes.data[0].id)){
        
         }else{
@@ -191,8 +192,8 @@ className=''
 
 {colors&&colors.map(color=>(
 
-color.sizeid==sizeId?<div className='flex flex-col justify-center items-center space-y-1' >
-<div key={color.varid} onClick={()=>{props.varselect(color.varid)}} className='rounded-full transition-all cursor-pointer border-4 ' 
+color.sizeid==sizeId?<div style={{opacity:color.qty<=0?0.3:1}}  className='flex  flex-col justify-center items-center space-y-1' >
+<div key={color.varid} onClick={()=>{color.qty<=0?  useNotifi("error","نفذت الكمية من هذا الخيار") :props.varselect(color.varid) }} className='rounded-full transition-all cursor-pointer border-4 ' 
  style={{ borderColor: props.vari==color.varid? Theme.primary: "white" , display:"flex"
  ,alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
 <div style={{backgroundColor:color.color.attributes.colorCode}} className='w-9 h-9  rounded-full'>

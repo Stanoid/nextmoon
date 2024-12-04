@@ -540,29 +540,31 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
        
 
         <div className='flex flex-col space-y-2 justify-center items-center' >
+       {stock<=0?<div className='text-center font-bold text-red-500 py-3 bg-red-100 px-4 rounded-md ' > نفذت الكمية </div>:
+       <div
+       className="shadow-lg shadow-moon-100/70 rounded-md px-6 py-2.5 mt-3 bg-moon-200 "
+        onClick={() => {
+          HandleAddToCart();
+        }}
+        style={{
+          display: "flex" ,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+       
+        <span> أضف إلى السلة  </span>
         <div
-             className="shadow-lg shadow-moon-100/70 rounded-md px-6 py-2.5 mt-3 bg-moon-200 "
-              onClick={() => {
-                HandleAddToCart();
-              }}
-              style={{
-                display: stock<=0? "none" :"flex" ,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-             
-              <span> أضف إلى السلة  </span>
-              <div
-                style={{
-                  color: "white",
-                  fontSize: 23,
-                  marginLeft: 8,
-                }}
-              >
-                <BsCartPlusFill />
-              </div>
-            </div>
+          style={{
+            color: "white",
+            fontSize: 23,
+            marginLeft: 8,
+          }}
+        >
+          <BsCartPlusFill />
+        </div>
+      </div>
+       }
 
 
             <div
