@@ -262,7 +262,7 @@ className="flex cursor-pointer items-center" >
 <div key={index} onClick={()=>{location.href=("/products?pid="+sug.id);setDraw(false)}} className="hover:bg-slate-100" style={{color:"grey",padding:10,borderRadius:5,cursor:"pointer"}}>
     {sug.name_ar} / {sug.name_ar} 
     <h5  className="text-sm  
-        tracking-normal  text-white bg-moon-200 inline mx-2 font-bold px-4 py-1  rounded-full "> {sug.varients[0].code}</h5>
+        tracking-normal  text-white bg-moon-200 inline mx-2 font-bold px-4 py-1  rounded-full "> {sug.code}</h5>
     </div>
 
 ))}

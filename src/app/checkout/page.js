@@ -155,17 +155,17 @@ setRefr(!refr);
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + isLogged.data.jwt
+                
             },
           
         };
       
-          fetch(`${API_URL}pickups`, requestOptions)
+          fetch(`${API_URL}products?func=getPick`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data)
-              setpickups(data.data);
-             console.log("ddd",data.data)
+             // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",data)
+              setpickups(data);
+             //console.log("ddd",data.data)
   
           //  return data
             }).then((arr)=>{
@@ -459,7 +459,7 @@ setRefr(!refr);
             }}
             iden={"color"}
             data={pickups}
-            iscats={false}
+            iscats={true}
             select={true}
             label={"الولاية"}
           />
