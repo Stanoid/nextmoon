@@ -119,18 +119,18 @@ let price =0;
     if(stat){
       if(stat==1){
         console.log("add")
-      price = pickups[i].attributes.home_price;
+      price = pickups[i].home_price;
       }else if(stat==2){
         console.log("pik")
-        price = pickups[i].attributes.pickup_price;
+        price = pickups[i].pickup_price;
       }
     }else{
       if(deliveryMeth==1){
         console.log("add")
-      price = pickups[i].attributes.home_price;
+      price = pickups[i].home_price;
       }else if(deliveryMeth==2){
         console.log("pik")
-        price = pickups[i].attributes.pickup_price;
+        price = pickups[i].pickup_price;
       }
     }
 
@@ -159,7 +159,7 @@ setRefr(!refr);
             },
           
         };
-      
+    
           fetch(`${API_URL}products?func=getPick`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
