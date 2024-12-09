@@ -89,10 +89,18 @@ switch (props.coldata) {
     let filteredUsers = [...props.data];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-      //  console.log(user)
-       props.search=="code"? user.code.toLowerCase().includes(filterValue.toLowerCase()): user.name_ar.toLowerCase().includes(filterValue.toLowerCase()),
-      );
+
+      try {
+        filteredUsers = filteredUsers.filter((user) =>
+          //  console.log(user)
+           props.search=="code"?
+            user.code.toLowerCase().includes(filterValue.toLowerCase()): user.name_ar.toLowerCase().includes(filterValue.toLowerCase()),
+          );
+      } catch (error) {
+        console.log("thrown",error);
+      }
+
+    
     }
     if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -767,6 +775,7 @@ switch (props.coldata) {
   }, []);
 
   const onSearchChange = React.useCallback((value) => {
+    
     if (value) {
       setFilterValue(value);
       setPage(1);
