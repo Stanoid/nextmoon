@@ -36,9 +36,11 @@ function InputEl(props) {
     <label className="block uppercase tracking-wide text-moon-200/80 text-xs font-bold mb-2" for="grid-last-name">
      : {props.label} 
     </label>
-    <input value={props.value}  onChange={(e)=>{props.outputfunc(e.target.value)}} className="appearance-none block w-full bg-gray-200  border
+    <input value={props.value}  onChange={(e)=>{props.outputfunc(e.target.value)}} className="appearance-none  block w-full bg-gray-200  border
      border-gray-200 rounded disabled:bg-gray-400 disabled:hover:cursor-not-allowed disabled:text-white py-3 px-3 leading-tight transition-colors text-sm text-right focus:outline-none focus:bg-white
-      focus:border-moonsec-100/80" id="grid-last-name" disabled={props.disabled&&props.disabled} min={props.min&&props.min} max={props.min&&props.max}  type={props.num?"number":props.date?"date":props.ispass?"password":"text"} placeholder={props.label}/>
+      focus:border-moonsec-100/80" id="grid-last-name" disabled={props.disabled&&props.disabled}
+       min={props.min&&props.min} max={props.min&&props.max} 
+        type={props.num?"number":props.date?"date":props.ispass?"password":"text"} placeholder={props.ispass?"********": props.label}/>
   </motion.div>}
     
     

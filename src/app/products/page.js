@@ -502,7 +502,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
           padding: 20,
         }}
       >
-        <div style={{width:"100%",padding:"10px",}} className='shadow-lg mb-4 rounded-md' >
+        <div style={{width:"100%"}} className='shadow-md px-4  py-4 mb-4 rounded-md' >
          <OptionEL varselect={(vid)=>{varselectHandler(vid)}} 
          vari={selectedV}
          selid={selectedV} vars={varients} />

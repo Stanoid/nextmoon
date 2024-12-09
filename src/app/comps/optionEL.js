@@ -2,7 +2,7 @@ import {React,useEffect,useState,useContext} from 'react'
 import { CURRENCY, Theme } from '../local'
 import { color, motion } from 'framer-motion'
 import { CartCon } from '../contexts/cartContext';
-
+import { Divider } from '@nextui-org/react';
 
 
 
@@ -77,8 +77,8 @@ const varDisplay = ()=>{
 
     for (let i = 0; i < props.vars.length; i++) {
         if(props.vars[i].id == props.vari){
-            return <div  className=' space-y-2 flex font-bold whitespace-nowrap justify-between 
-             p-4 border-0 shadow-md border-moon-200 rounded-md items-center  ' >
+            return <div  className=' space-y-2 flex font-bold whitespace-nowrap justify-around 
+             p-4 border-0  border-moon-200 rounded-md items-center  ' >
             
 
               <div className='flex items-center space-x-3'>
@@ -117,7 +117,7 @@ const varDisplay = ()=>{
 
   return (
 
-<div className='flex flex-col lg:flex-row md:flex-row xl:flex-row justify-between items-start space-y-3' >
+<div className='flex flex-col justify-between items-start space-y-3' >
 
 
 <div className='w-full'>
@@ -127,9 +127,10 @@ const varDisplay = ()=>{
 </div>
 
 
+<Divider  />
 
 
-<div className='space-y-3' >
+<div className='space-y-3 w-full' >
 
     
     <div 
@@ -183,6 +184,11 @@ display:"flex",justifyContent:"center",alignItems:"center"
 </div>
  </div> 
 
+
+
+
+ <Divider className='w-full' />
+
  <div 
 className=''
     style={{
@@ -198,7 +204,9 @@ className=''
 
 
 
-<div className='flex flex-wrap justify-start w-full  space-x-3  '>
+
+
+<div className='flex flex-wrap justify-end w-full  space-x-3  '>
 
 
 
@@ -216,7 +224,7 @@ color.sizeid==sizeId?<div style={{opacity:color.qty<=0?0.3:1}}  className='flex 
 style={{   
   color: props.vari==color.varid? Theme.primary: Theme.primaryDark ,
 }}
-className='font-semibold whitespace-nowrap' >
+className='font-semibold  text-xs whitespace-nowrap' >
     {color.color.attributes.name_ar}
 </div>
 </div>:<></>

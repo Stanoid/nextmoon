@@ -228,7 +228,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
 
     {/* Old signup stepper */}
 <div  className="  w-full md:w-3/4 lg:w-3/4  px-3 py-3  transition-all" style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
-<h1 className="text-center text-2xl font-semibold text-moon-300">تسجيل دخول</h1>
+<h1 className="text-center text-2xl  text-moon-300">تسجيل دخول</h1>
 
 </div>
 
@@ -238,10 +238,11 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
 <div>
 
 <div className='w-full  flex align-middle justify-between'>
-<div onClick={()=>{router.push("/register")} } className='inline-flex text-moon-300/60 flex-grow align-middle justify-start' 
+<div onClick={()=>{router.push("/register")} } className='inline-flex text-moon-300/60 flex-grow items-center justify-end' 
 style={{fontSize:15,textDecoration:"underline",cursor:"pointer",textAlign:"left"}}>
-<div style={{marginRight:5}}> <FaUserPlus/> </div>
+
 <div className='flex align-middle justify-center '> ليس لديك حساب؟ أنشئ حساب</div>
+<div style={{marginLeft:5}}> <FaUserPlus/> </div>
 </div>
 
 </div>
