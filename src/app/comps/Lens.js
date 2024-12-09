@@ -63,7 +63,7 @@ function Lens(props) {
             maxWidth:"100%",
             overflow:"scroll",
             maxHeight:"100%"
-        }} className=" scrollable-content flex flex-row sm:flex-row lg:flex-col space-x-2 lg:space-x-0 sm:space-x-2  lg:space-y-2  ">
+        }} className=" scrollable-content-em flex flex-row sm:flex-row lg:flex-col space-x-2 lg:space-x-0 sm:space-x-2  lg:space-y-2  ">
        
 
        {props.data&&props.data.map((img,index)=>(

@@ -54,9 +54,12 @@ const { useNotifi } =
 const handlesizeselect = (size)=>{
 
 
+    console.log(colors)
+
         setSizeId(size)
         colors.forEach(element => {
-            if(size==element.sizeId){
+            if(size==element.sizeid){
+                console.log(element)
                 props.varselect(element.varid);
             }
             
@@ -74,21 +77,29 @@ const varDisplay = ()=>{
 
     for (let i = 0; i < props.vars.length; i++) {
         if(props.vars[i].id == props.vari){
-            return <div  className=' space-y-2 flex font-bold whitespace-nowrap flex-col p-4 border-3 border-moon-200 rounded-md items-center justify-center ' >
-             <div className='flex items-center space-x-3 '>
-              <div>{props.vars[i].attributes.sizes.data[0].attributes.name_ar}</div>  
-               <div> ({props.vars[i].attributes.sizes.data[0].attributes.icon}) </div> 
-              </div>
+            return <div  className=' space-y-2 flex font-bold whitespace-nowrap justify-between 
+             p-4 border-0 shadow-md border-moon-200 rounded-md items-center  ' >
+            
 
               <div className='flex items-center space-x-3'>
               <div>{props.vars[i].attributes.colors.data[0].attributes.name_ar}</div>
                <div style={{backgroundColor:props.vars[i].attributes.colors.data[0].attributes.colorCode}} className='w-8 h-8 rounded-full' ></div>
               </div>
+             <div className='flex flex-col' >
+            
+             <div className='flex items-center space-x-3 '>
+              <div>{props.vars[i].attributes.sizes.data[0].attributes.name_ar}</div>  
+               <div> ({props.vars[i].attributes.sizes.data[0].attributes.icon}) </div> 
+              </div>
+
+
 
               <div dir='rtl' className='flex items-center  space-x-3 '>
               <div>{props.vars[i].attributes.price} {CURRENCY} </div>  
             
               </div>
+             </div>
+           
             </div>
           }
         
@@ -109,7 +120,7 @@ const varDisplay = ()=>{
 <div className='flex flex-col lg:flex-row md:flex-row xl:flex-row justify-between items-start space-y-3' >
 
 
-<div className='p-2'>
+<div className='w-full'>
 
     {varDisplay()}
     
@@ -139,10 +150,11 @@ className=' '
 
 
 
-<div className='flex flex-wrap space-x-3'>
+<div className='flex flex-wrap justify-start'>
 {sizes&&sizes.map(vari=>(
 
-<div onClick={()=>{handlesizeselect(vari.id)}} key={vari.id} className='border-4 cursor-pointer mt-2 px-2 transition-all py-2 rounded-md '
+<div onClick={()=>{handlesizeselect(vari.id)}} key={vari.id} 
+className={`${sizeId==vari.id?'shadow-md':'shadow-none'} border-4  cursor-pointer mt-2 mr-2 px-2 transition-all py-2 rounded-md`}
  style={{borderColor: sizeId==vari.id?Theme.primary : "grey" , 
     backgroundColor: sizeId==vari.id?Theme.primary : "white" , 
  display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
@@ -186,17 +198,18 @@ className=''
 
 
 
-<div className='flex flex-wrap space-x-3  '>
+<div className='flex flex-wrap justify-start w-full  space-x-3  '>
 
 
 
 {colors&&colors.map(color=>(
 
 color.sizeid==sizeId?<div style={{opacity:color.qty<=0?0.3:1}}  className='flex  flex-col justify-center items-center space-y-1' >
-<div key={color.varid} onClick={()=>{color.qty<=0?  useNotifi("error","نفذت الكمية من هذا الخيار") :props.varselect(color.varid) }} className='rounded-full transition-all cursor-pointer border-4 ' 
+<div key={color.varid} onClick={()=>{color.qty<=0?  useNotifi("error","نفذت الكمية من هذا الخيار") :props.varselect(color.varid) }}
+ className={`${props.vari==color.varid?'shadow-lg':'shadow-none'} rounded-full transition-all cursor-pointer border-4 `} 
  style={{ borderColor: props.vari==color.varid? Theme.primary: "white" , display:"flex"
  ,alignItems:"center",justifyContent:"center",flexDirection:"row"}}>
-<div style={{backgroundColor:color.color.attributes.colorCode}} className='w-9 h-9  rounded-full'>
+<div style={{backgroundColor:color.color.attributes.colorCode}} className='w-9 h-9   rounded-full'>
 </div>
 </div>
 <div 

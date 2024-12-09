@@ -482,6 +482,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
         </p>
 
         <p
+        dir='rtl'
           style={{ fontWeight: 400, fontSize: 15, lineHeight: 1.2 }}
           className="max-w-xl mt-6 mb-6 text-right  font-semibold leading-loose tracking-wide text-gray-900  dark:text-gray-800"
         >
@@ -501,7 +502,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
           padding: 20,
         }}
       >
-        <div style={{width:"100%",padding:"10px",borderRadius: "10px 10px 0px 0px",}}>
+        <div style={{width:"100%",padding:"10px",}} className='shadow-lg mb-4 rounded-md' >
          <OptionEL varselect={(vid)=>{varselectHandler(vid)}} 
          vari={selectedV}
          selid={selectedV} vars={varients} />
@@ -514,7 +515,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
 
                <div
             
-             className=' py-4 pb-5'
+             className=' py-4 pb-5 shadow-md '
             style={{
              
              
@@ -615,13 +616,49 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
        
         title="وصف المنتج"
       >
-        مجموعة متنوعة من الخيارات: متوفرة بألوان وأشكال متعددة لتناسب ذوقك الشخصي.✅
+<p dir='rtl' className=''>
+  <div className='flex flex-row-reverse justify-end items-center' >
+  <div>
+مجموعة متنوعة من الخيارات: متوفرة بألوان وأشكال متعددة لتناسب ذوقك الشخصي.
+</div>
+<div className='ml-2' >
+✅
+</div>
+  </div>
 
-جودة متينة: تحافظ على الحالة المثالية حتى بعد عدة غسلات.✅
+  <div className='flex flex-row-reverse justify-end items-center' >
+  <div>
+  جودة متينة: تحافظ على الحالة المثالية حتى بعد عدة غسلات.
+  </div>
+<div className='ml-2'>
+✅
+</div>
+  </div>
 
-راحة فائقة: خفيفة الوزن ومريحة، مثالية للارتداء طوال اليوم.✅
+  <div className='flex flex-row-reverse justify-end items-center' >
+  <div>
+  راحة فائقة: خفيفة الوزن ومريحة، مثالية للارتداء طوال اليوم.
+  </div>
+<div className='ml-2'>
+✅
+</div>
+  </div>
 
-مثالية للهدايا: هدية ممتازة لأحبائك أو هدية فاخرة لنفسك.✅
+
+  <div className='flex flex-row-reverse justify-end items-center' >
+  <div>
+  مثالية للهدايا: هدية ممتازة لأحبائك أو هدية فاخرة لنفسك.
+  </div>
+<div className='ml-2'>
+✅
+</div>
+  </div>
+
+
+
+
+
+</p>
         
        </AccordionItem>
 
@@ -636,24 +673,33 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
       >
         <p className='text-right'>
 
-        سياسة الاستبدال والاسترجاع
-سياسة الاستبدال: 
+<h2 className='text-xl font-bold'>
+سياسة الاستبدال والاسترجاع
 
+</h2>
+        <br/>
+
+<b>سياسة الاستبدال: 
+</b>
+<br/>
 
 - الإستبدال حق مضمون كل عملائنا وهو يشمل جميع المنتجات التي نعرضها على متجرنا.
+ <br/>
 - جميع المنتجات المعروضة على متجرنا قابلة لسياسة الإستبدال وفق الشروط والأحكام المنصوص عليها في هذه الصفحة.
+<br/>
 - يمكن الإستبدال إذا كان المنتج بنفس حالته الأصلية عند الشراء ومغلفا بالغلاف الأصلي.
+<br/>
 - الاستبدال خلال خمسة (5) أيام من تاريخ الشراء.
 - يرجى التواصل معنا عبر صفحة اتصل بنا أو عبر أرقامنا الهاتفية من أجل طلب الإستبدال.
+<br/>
 - يرجى تصوير المنتج وإرساله مع تحديد المدينة والعنوان ورقم الطلب ليتم إستبداله بمنتج اخر في حالة كان المنتج فاسدا أو به عيب معين .
-
-
+<br/>
 عند ارسال الطلبية , في حالة حدوث خطا في المقاس من طرف الشركة تتكفل الشركة المسؤولية و جميع التكاليف (سعر التوصيل )
  في حالة قام العميل بطلب مقاس ما و عند استلام الطلبية وجد ان المقاس لا يناسبه يتحمل العميل المسؤولية الكاملة و جميع التكاليف في حالة ما اراد تغيير المنتج بمقاس اخر ( التكاليف تتمثل في سعر الشحن )
 
         </p>
       </AccordionItem>
-      <AccordionItem
+      {/* <AccordionItem
         key="3"
         aria-label="Chung Miller"
         startContent={
@@ -663,7 +709,7 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
         title=" شحن مجاني "
       >
        
-      </AccordionItem>
+      </AccordionItem> */}
 {/* 
       <AccordionItem
         key="4" 

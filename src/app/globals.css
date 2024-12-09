@@ -96,6 +96,17 @@ html{
  }
 
 
+ 
+.scrollable-content-em {
+  height: 150px; 
+  display:"none"
+}
+
+.scrollable-content-em::-webkit-scrollbar {
+  display: none;
+}
+
+
 .number-slide4 {
   background: rgb(64, 255, 242);
   background: linear-gradient(

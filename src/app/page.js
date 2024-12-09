@@ -96,7 +96,8 @@ if (firstRenderRef.current) {
     fetch(`${API_URL}subcatagories?func=getSubCatProducts`, requestOptionssub)
       .then((response) => response.json())
       .then((data) => {
-  console.log("dddddddddddddddddd",data)
+  console.log("subbbbbbbbbbbbbbbb",data);
+
   setSubCats(data) 
 
       }).then(()=>{
