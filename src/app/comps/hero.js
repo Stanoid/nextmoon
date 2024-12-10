@@ -85,8 +85,7 @@ col-span-6 flex sm:flex lg:hidden'>
 
 <div style={{width:'100%',position:"relative"}} 
            className='lg:col-span-4 h-min xl:col-span-4 md:col-span-3 col-span-6 flex sm:flex lg:hidden md:hidden xl:hidden'>
-           <Slider  slides={[
-           
+           <Slider  slides={[    
             '/offers/offermob7.png',
             '/offers/offermob6.png',
             '/offers/offermob5.png',
@@ -107,9 +106,7 @@ col-span-6 flex sm:flex lg:hidden'>
            className='lg:col-span-4  h-min xl:col-span-4 md:col-span-3 col-span-6 hidden sm:hidden lg:flex md:flex xl:flex'>
 
            <Slider  slides={[
-            
              '/offers/offer6.png',
-        
             '/offers/offer1.png',
             '/offers/offer2.png',
             '/offers/offer3.png',

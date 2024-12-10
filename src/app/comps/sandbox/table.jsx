@@ -1,6 +1,4 @@
 import React from "react";
-import { Theme } from "../../local";
-import moment from "moment";
 import {
   Table,
   TableHeader,
@@ -887,8 +885,7 @@ switch (props.coldata) {
             : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span>
         <Pagination
-          isCompact
-          showControls
+                    
           showShadow
           color="primary"
           page={page}
