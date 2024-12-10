@@ -918,6 +918,7 @@ switch (props.coldata) {
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
+      
       onSelectionChange={setSelectedKeys}
       onSortChange={setSortDescriptor}
     >
