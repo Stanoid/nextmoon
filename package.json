@@ -37,7 +37,7 @@
         "react-loading-skeleton": "^3.4.0",
         "react-redux": "^9.1.2",
         "react-simple-image-slider": "^2.4.1",
-        "react-toastify": "^10.0.4",
+        "react-toastify": "^10.0.6",
         "redux": "^5.0.1",
         "redux-persist": "^6.0.0",
         "sharp": "^0.33.4",
