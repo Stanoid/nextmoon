@@ -55,13 +55,13 @@ export default (props) => {
   )
 
   return (
-    <div className="h-64" style={{width:"100%"}}>
+    <div className="h-64 lg:h-[650px] " style={{width:"100%"}}>
       <div  style={{width:"100%",height:"100%"}}  className="  navigation-wrapper">
         <div style={{width:"100%",height:"100%"}} ref={sliderRef} className="keen-slider">
           
 
 {props.slides&&props.slides.map((img) => (
-    <div key={img}  className="keen-slider__slide">
+    <div key={img}  className="keen-slider__slide ">
 {/* <Image priority={true} className="rounded-sm" src={img}layout="fill"  objectFit="cover" /> */}
 <Image 
              priority={true}
@@ -82,8 +82,9 @@ export default (props) => {
               }
               disabled={currentSlide === 0}
             />
-
-            <Arrow
+            buttpn
+            <Arrow 
+             className={`absolute top-1/2 right-2 -translate-y-1/2 bg-blue-500 text-white p-3 rounded-full shadow-md hover:bg-green-500 disabled:bg-gray-300 disabled:cursor-not-allowed`}
               onClick={(e) =>
                 e.stopPropagation() || instanceRef.current?.next()
               }
