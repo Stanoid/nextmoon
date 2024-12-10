@@ -82,7 +82,7 @@ export default (props) => {
               }
               disabled={currentSlide === 0}
             />
-            buttpn
+            
             <Arrow 
              className={`absolute top-1/2 right-2 -translate-y-1/2 bg-blue-500 text-white p-3 rounded-full shadow-md hover:bg-green-500 disabled:bg-gray-300 disabled:cursor-not-allowed`}
               onClick={(e) =>
