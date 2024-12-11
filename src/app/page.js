@@ -136,7 +136,7 @@ if (firstRenderRef.current) {
     <div className="" style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column', width:'100%'}}>
  {lod?<LoadingOverlay/>:<></>} 
  <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
-<div className=" mt-12  to-moon-100/30 from-moon-100/30  p-2 sm:p-2 lg:p-3 " style={{width:"100%"}}>
+<div className="   to-moon-100/30 from-moon-100/30   " style={{width:"100%"}}>
 <Hero  />
   </div> 
 

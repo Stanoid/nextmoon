@@ -55,21 +55,21 @@ export default (props) => {
   )
 
   return (
-    <div className="h-64 lg:h-[650px] " style={{width:"100%"}}>
+    <div className="h-80  lg:h-[500px]" style={{width:"100%"}}>
       <div  style={{width:"100%",height:"100%"}}  className="  navigation-wrapper">
         <div style={{width:"100%",height:"100%"}} ref={sliderRef} className="keen-slider">
           
 
 {props.slides&&props.slides.map((img) => (
-    <div key={img}  className="keen-slider__slide ">
+    <div key={img}  className="keen-slider__slide h-full w-full ">
 {/* <Image priority={true} className="rounded-sm" src={img}layout="fill"  objectFit="cover" /> */}
 <Image 
              priority={true}
-           fill objectFit='cover'
+           fill objectFit='contain'
        
        
            
-  src={img} className="rounded-md" />
+  src={img} className="rounded-md h-80   lg:h-[100vh]" />
     </div>
      ))}
         </div>

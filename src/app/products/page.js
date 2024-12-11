@@ -277,7 +277,7 @@ for (let i = 0; i < vrs.length; i++) {
   };
 
   function oldPrice(newPrice, discountPercentage) {
-  //  console.log("aaaa",newPrice,discountPercentage)
+   console.log("aaaa",newPrice,discountPercentage)
     const discountFactor = 1 - (discountPercentage / 100);
     const oldPrice = newPrice / discountFactor;
     return parseInt(oldPrice);
@@ -467,7 +467,8 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
           className="inline-block text-2xl font-semibold  "
         >
           <span> {CURRENCY} {price} </span> 
-          <span
+          {discount ==0
+          ?<></>: (<span
             style={{
               marginLeft: "0.5 rem",
               fontSize: "1 rem",
@@ -476,9 +477,9 @@ transition={{ type: "spring", stiffness: 400, damping: 17 }}
               textDecorationLine: "line-through",
             }}
             className="ml-3 text-base font-medium  text-red-600 line-through dark:text-gray-400"
-          >
+          > 
             {oldPrice(price,discount)} {CURRENCY}
-          </span>
+          </span>)} 
         </p>
 
         <p
