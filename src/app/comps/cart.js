@@ -288,7 +288,7 @@ const notify = (type,msg)=>{
                         </div>
                       )}
                     </div>
-
+{/* 
                     {isLogged ? (
                       <LoadingBtn
                         icon={<FaArrowAltCircleRight className="ml-1.5" />}
@@ -316,9 +316,9 @@ const notify = (type,msg)=>{
                           متابعة كزائر
                         </button>
                       </div>
-                    )}
+                    )} */}
 
-                    {/* <div
+                    <div
                       style={{
                         padding: 20,
                         display: cartg && cartg.length == 0 ? "none" : "flex",
@@ -347,7 +347,7 @@ const notify = (type,msg)=>{
                           lod={lod}
                         />
                       )}
-                    </div> */}
+                    </div>
 
                     {/* /End replace */}
                   </div>
