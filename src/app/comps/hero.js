@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 export default function Hero(props) {
  
     return (
-       <div className=''>
+       <div className='bg-red-300'>
          
          {/* <div className='grid grid-cols-6 gap-x-1.5 gap-y-1.5 sm:gap-y-1.5 lg:gap-y-1.5' >
 
@@ -84,14 +84,15 @@ col-span-6 flex sm:flex lg:hidden'>
 
 
 <div style={{width:'100%',position:"relative"}} 
-           className='lg:col-span-4 h-full xl:col-span-4 md:col-span-3 col-span-6  
-           flex sm:flex lg:hidden md:hidden xl:hidden'>
+           className='lg:col-span-4  xl:col-span-4 md:col-span-3 col-span-6  
+           flex sm:flex w-full h-72 lg:hidden md:hidden xl:hidden'>
            <Slider  slides={[    
-            '/offers/algeriaban1.png',
-            '/offers/algeriaban2.png',
-            '/offers/algeriaban3.png',
-            '/offers/algeriaban4.png',
-            '/offers/algeriaban5.png',
+            '/offers/mobileban.png',
+            '/offers/mobileban2.png',
+            '/offers/mobileban3.png',
+            '/offers/mobileban4.png',
+            '/offers/mobileban5.png',
+            '/offers/mobileban6.png',
            ]} />
             {/* <Slider  slides={[
             '/offers/ban1.png',
@@ -105,11 +106,11 @@ col-span-6 flex sm:flex lg:hidden'>
            className='lg:col-span-4  h-min xl:col-span-4 md:col-span-3 col-span-6 hidden sm:hidden lg:flex md:flex xl:flex'>
 
            <Slider  slides={[
-             '/offers/algeriaban1.png',
-            '/offers/algeriaban2.png',
-            '/offers/algeriaban3.png',
-            '/offers/algeriaban4.png',
-            '/offers/algeriaban5.png',
+             '/offers/lgrobeban30.png',
+            '/offers/lgban.png',
+            '/offers/lgban2.png',
+            '/offers/lgban3.png',
+            '/offers/lgban4.png',
   
            
             
