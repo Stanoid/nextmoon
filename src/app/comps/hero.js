@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 export default function Hero(props) {
  
     return (
-       <div className='bg-red-300'>
+       <div className=''>
          
          {/* <div className='grid grid-cols-6 gap-x-1.5 gap-y-1.5 sm:gap-y-1.5 lg:gap-y-1.5' >
 

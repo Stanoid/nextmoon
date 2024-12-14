@@ -39,6 +39,11 @@ for (let i = 0; i < props.data.varients.length; i++) {
 
 setColors(colob);
 }
+function oldPrice(newPrice, discountPercentage) {
+  const discountFactor = 1 - (discountPercentage / 100);
+  const oldPrice = newPrice / discountFactor;
+  return parseInt(oldPrice);
+}
 
   return (
     <motion.div
@@ -69,7 +74,7 @@ setColors(colob);
 
   </div>
     <span className="absolute top-0 left-0 m-2
-     rounded-full bg-black  text-center text-xs italic tracking-tighter p-1 px-3 font-medium text-white">39% خصم</span>
+     rounded-full bg-black  text-center text-xs italic tracking-tighter p-1 px-3 font-medium text-white">{Math.round(props.data.varients[0].old_price)} خصم</span>
   </div>
   
   
@@ -101,16 +106,25 @@ setColors(colob);
            
                ))}
 
-
-
-
     </div>
- <div className=' w-full flex flex-col  '>
-        <div className="text-xl font-bold text-moon-300/75 flex flex-row-reverse  justify-end  " > <div>{CURRENCY} </div> <div> {props.data.varients[0].price} 
+    
+   <div className=' w-full flex flex-col justify-end right-0'>
+        <div className="text-xl font-bold text-moon-300/75 flex flex-row  justify-end  " > <div>{CURRENCY} </div> <div> {props.data.varients[0].price} 
           </div>  </div>
 
-          <div className="text-sm text-moon-200 line-through flex flex-row-reverse   justify-end" > <div>{CURRENCY} </div> <div> {props.data.varients[0].price+20} 
-          </div>  </div>
+          <div className="text-sm text-moon-200 line-through flex flex-row   justify-end" >
+       
+          {props.data.varients[0].old_price > 0 && (
+  <div className="text-sm text-moon-200 line-through flex flex-row justify-end">
+    <div>{CURRENCY}</div>
+    <div>
+      {oldPrice(props.data.varients[0].price, props.data.varients[0].old_price)}
+    </div>
+  </div>
+)}
+
+
+            </div>
       
       </div>
    

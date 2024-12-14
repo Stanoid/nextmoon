@@ -263,7 +263,7 @@ display:props.variant=="never"?"flex":"none",
 <div className='mx-2 min-w-10 lg:hidden'></div>
 
     <div className=' flex flex-col mx-2 justify-center min-w-36 items-center py-2 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full  shadow-lg' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' />
+    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover' src='https://res.cloudinary.com/strapimedia/image/upload/v1734198308/minimoon/kt0zqbgc3cofzsmw0bdf.jpg' />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -280,7 +280,7 @@ display:props.variant=="never"?"flex":"none",
 
     
     <div className=' flex flex-col mx-2 justify-center items-center min-w-36 py-2 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
+    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover' src='https://res.cloudinary.com/strapimedia/image/upload/v1734200034/minimoon/mxfx23lgad3taz6em88m.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -296,7 +296,7 @@ display:props.variant=="never"?"flex":"none",
 
     
     <div className=' flex flex-col mx-2 justify-center items-center py-2 min-w-36 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg ' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
+    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover' src='https://res.cloudinary.com/strapimedia/image/upload/v1734201791/minimoon/esvgshrzxrplitwmsosl.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -313,7 +313,7 @@ display:props.variant=="never"?"flex":"none",
 
     
     <div className=' flex flex-col mx-2 justify-center items-center py-2  min-w-36'  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg ' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
+    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover ' src='https://res.cloudinary.com/strapimedia/image/upload/v1734202241/minimoon/uuux2xvvdahd5foefntu.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >
@@ -331,7 +331,7 @@ display:props.variant=="never"?"flex":"none",
 
     
     <div className=' flex flex-col mx-2 justify-center items-center py-2  min-w-36'  style={{gridArea:"namear"}}>
-    <img className='rounded-full shadow-lg' src='https://res.cloudinary.com/strapimedia/image/upload/v1728386450/minimoon_assets/lhk4iab2siopdhvpfopv.jpg' width={"100%"} />
+    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover' src='https://res.cloudinary.com/strapimedia/image/upload/v1734202533/minimoon/hhbi2qmbyw7hoqtbicli.jpg' width={"100%"} />
    <div className='text-center text-sm font-medium mt-2' >
    جلابية مطرزة بالاحمر
     <div className='text-moon-200/80' >

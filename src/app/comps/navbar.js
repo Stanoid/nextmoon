@@ -85,7 +85,7 @@ const handleAccount=(type)=>{
   return (
 
 <>
-<div style={{float:"right",maxWidth:"100vw",width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+<div className="pt-4" style={{float:"right",maxWidth:"100vw",width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
 {/* <Dropdown placement="left">
           <DropdownTrigger>
           <Button
