@@ -36,7 +36,7 @@ function AccounteEl() {
     const [selpick,setselpick] = useState(null);
     const [deliveryPrice,setDeleveryPrice] = useState(0);
     const [checkOutArray,setCheckoutArray]=useState([])
-    const [paymentMeth,setPaymentMeth] = useState(1);
+    const [paymentMeth,setPaymentMeth] = useState(2);
     const [deliveryMeth,setsetDeliveryMeth] = useState(1);
     const [total,setTotal] = useState(0)
     const [gtotal,setgTotal] = useState(0)
@@ -354,9 +354,11 @@ setRefr(!refr);
  <div className='flex flex-col sm:flex-row lg:flex-row items-center space-y-4 lg:space-x-2 md:space-x-2 lg:space-y-0 md:space-y-0   justify-between'>
 
 
- <div onClick={()=>{setPaymentMeth(1)}}
+ <div onClick={()=>{
+//  setPaymentMeth(1)
+}}
   className={`${paymentMeth==1?"shadow-lg border-moon-200 ":" shadow-gray-800 "}  flex hover:shadow-md 
-   transition-shadow cursor-pointer  w-full  flex-1 border-2 p-4 rounded-md items-center justify-between`}
+   transition-shadow cursor-pointer opacity-20  w-full  flex-1 border-2 p-4 rounded-md items-center justify-between`}
  >
     <div className='bg-moon-200 text-white text-2xl p-3 rounded-full ' >
     <FaCreditCard/>
