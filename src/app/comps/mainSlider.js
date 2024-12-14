@@ -61,7 +61,7 @@ export default (props) => {
           
 
 {props.slides&&props.slides.map((img) => (
-    <div key={img}  className="keen-slider__slide h-full w-full ">
+    <div key={img}  className="keen-slider__slide lg:h-[500px] w-full ">
 {/* <Image priority={true} className="rounded-sm" src={img}layout="fill"  objectFit="cover" /> */}
 <Image 
              priority={true}
