@@ -1,10 +1,34 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import CURRENCY from "../local"
 import { Button ,divider} from '@nextui-org/react'
-
 import { FaListAlt, FaShoppingBasket } from 'react-icons/fa'
+import { API_URL } from '../local'
 import { FaList } from 'react-icons/fa6'
 function ProductFeat(props) {
+
+    const [cat, setCat] = useState([]);
+  
+    useEffect(() => {
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+  
+      fetch(`${API_URL}sections?func=getAllSubcat`, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("sections", data);
+          setCat(data[0]?.catagories || []); 
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }, []);
+  
+    
+
   return (
     
     <div dir='rtl' className=" py-4 w-full sm:w-full lg:w-2/3 ">
@@ -247,6 +271,7 @@ gridTemplateAreas:`
 
 
 {/* never */}
+
 <div className='flex-col'  style={{
     width:"100%",
 display:props.variant=="never"?"flex":"none",
@@ -254,100 +279,31 @@ display:props.variant=="never"?"flex":"none",
    }} >
     
     <div className=" mt-4  flex sm:flex lg:flex  
-    py-5 scrollable-content  " style={{alignItems:"center",justifyContent:"center",maxWidth:"100%",overflowX:"scroll",overflowY:"hidden"}} >  
+    py-5 scrollable-content  " style={{alignItems:"center",justifyContent:"center"
+    ,padding: "0 1rem",maxWidth:"100%",overflowX:"scroll",overflowY:"hidden"}} >  
 
-<div className='mx-2 min-w-20 lg:hidden'></div>
-<div className='mx-2 min-w-20 lg:hidden'></div>
-<div className='mx-2 min-w-20 lg:hidden'></div>
-<div className='mx-2 min-w-20 lg:hidden'></div>
-<div className='mx-2 min-w-10 lg:hidden'></div>
-
-    <div className=' flex flex-col mx-2 justify-center min-w-36 items-center py-2 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover' src='https://res.cloudinary.com/strapimedia/image/upload/v1734198308/minimoon/kt0zqbgc3cofzsmw0bdf.jpg' />
-   <div className='text-center text-sm font-medium mt-2' >
-   جلابية مطرزة بالاحمر
-    <div className='text-moon-200/80' >
-    <div className="mt-1 mb-3 flex items-center  w-full justify-between">
-      <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
-        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
-      </p>
+<div className="mx-2 min-w-20 lg:hidden"></div>
+  <div className="mx-2 min-w-20 lg:hidden"></div>
+  <div className="mx-2 min-w-20 lg:hidden"></div>
+  <div className="mx-2 min-w-20 lg:hidden"></div>
+  <div className="mx-2 min-w-10 lg:hidden"></div>
+{cat.map((cat) => (
+  <div key={cat.id} className="flex space-x-4 flex-col justify-center items-center min-w-36 py-3 mx-2">
+    <img
+      className="rounded-full w-3/4 sm:w-3/4 lg:w-32 aspect-square object-cover"
+      src={cat.img}
+      alt={cat.name_en}
+      width="100%"
+    />
+    <div className="text-center mt-3">
+      {/* <div className="text-xl font-semibold text-gray-900">{cat.name_ar}</div> */}
+      {/* <div className="text-sm text-gray-500 mt-1">{cat.name_en}</div> */}
     </div>
-    </div>
-   </div>
-    </div>
-
-
-    
-    <div className=' flex flex-col mx-2 justify-center items-center min-w-36 py-2 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover' src='https://res.cloudinary.com/strapimedia/image/upload/v1734200034/minimoon/mxfx23lgad3taz6em88m.jpg' width={"100%"} />
-   <div className='text-center text-sm font-medium mt-2' >
-   جلابية مطرزة بالاحمر
-    <div className='text-moon-200/80' >
-    <div className="mt-1 mb-3 flex items-center  w-full justify-between">
-      <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
-        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
-      </p>
-    </div>
-    </div>
-   </div>
-    </div>
-
-    
-    <div className=' flex flex-col mx-2 justify-center items-center py-2 min-w-36 '  style={{gridArea:"namear"}}>
-    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover' src='https://res.cloudinary.com/strapimedia/image/upload/v1734201791/minimoon/esvgshrzxrplitwmsosl.jpg' width={"100%"} />
-   <div className='text-center text-sm font-medium mt-2' >
-   جلابية مطرزة بالاحمر
-    <div className='text-moon-200/80' >
-    <div className="mt-1 mb-3 flex items-center  w-full justify-between">
-      <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
-        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
-      </p>
-    </div>
-    </div>
-   </div>
-    </div>
-
-
-    
-    <div className=' flex flex-col mx-2 justify-center items-center py-2  min-w-36'  style={{gridArea:"namear"}}>
-    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover ' src='https://res.cloudinary.com/strapimedia/image/upload/v1734202241/minimoon/uuux2xvvdahd5foefntu.jpg' width={"100%"} />
-   <div className='text-center text-sm font-medium mt-2' >
-   جلابية مطرزة بالاحمر
-    <div className='text-moon-200/80' >
-    <div className="mt-1 mb-3 flex items-center  w-full justify-between">
-      <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
-        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
-      </p>
-    </div>
-    </div>
-   </div>
-    </div>
-
-
-
-    
-    <div className=' flex flex-col mx-2 justify-center items-center py-2  min-w-36'  style={{gridArea:"namear"}}>
-    <img className='rounded-full w-3/4 sm:w-3/4 lg:w-full aspect-square object-cover' src='https://res.cloudinary.com/strapimedia/image/upload/v1734202533/minimoon/hhbi2qmbyw7hoqtbicli.jpg' width={"100%"} />
-   <div className='text-center text-sm font-medium mt-2' >
-   جلابية مطرزة بالاحمر
-    <div className='text-moon-200/80' >
-    <div className="mt-1 mb-3 flex items-center  w-full justify-between">
-      <p className='text-center w-full '>
-        <span className="text-md font-bold ml-1 text-moon-300/75"> د.ج {121}</span>
-        <span className="text-xs text-moon-200 line-through">  د.ج {121+20}</span>
-      </p>
-    </div>
-    </div>
-   </div>
-    </div>
-
-
-    
-
+    <div><a href={`/categories?cid=${cat.id}`} className='font-semibold text-center text-xl mt-3 cursor-pointer  hover:text-moon-200 transition-colors text-moon-200' > 
+    {cat.name_ar} 
+    </a></div>
+  </div>
+))}
 
 
     </div>
@@ -356,11 +312,11 @@ display:props.variant=="never"?"flex":"none",
 
 
 
-    <div className=' flex flex-col justify-center items-center  '>
+    {/* <div className=' flex flex-col justify-center items-center  '>
     <Button variant='shadow' startContent={<FaShoppingBasket/>} className='bg-moon-200 text-white font-medium' size='md'  >
   تسوق الآن 
     </Button>
-    </div>
+    </div> */}
 
 
 
