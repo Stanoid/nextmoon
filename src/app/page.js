@@ -152,19 +152,19 @@ if (firstRenderRef.current) {
 
 
 
-<div style={{backgroundSize:50}} className="w-full flex items-center justify-center bg-[url('../../public/amblemblack.svg')] py-5  to-moon-100/30 from-moon-100/50 ">
+{/* <div style={{backgroundSize:50}} className="w-full flex items-center justify-center bg-[url('../../public/amblemblack.svg')] py-5  to-moon-100/30 from-moon-100/50 ">
 
   
   <ProductFeat variant={"week"} 
   title="الأكثر رواجا لهذا الأسبوع" text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذاق.
 " />
 
-</div>
+</div> */}
 
 
 
 
-<div className="w-full flex items-center justify-center  py-5 bg-gradient-to-b  from-moon-100/30 to-moonsec-200/20 ">
+{/* <div className="w-full flex items-center justify-center  py-5 bg-gradient-to-b  from-moon-100/30 to-moonsec-200/20 ">
   <ProductFeat variant={"trend"}  title="المنتجات الرائجة" text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذاق.
 " />
 </div>
@@ -173,18 +173,18 @@ if (firstRenderRef.current) {
 <div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5   bg-[url('../../public/amblemblack.svg')]   to-moonsec-100/40 from-moonsec-200/20 ">
   <ProductFeat variant={"offer"} title="عروض هذا الاسبوع" text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذاق.
 " />
-</div>
+</div> */}
 
 
 
 <div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5  bg-gradient-to-b   to-moonsec-100/40 from-moonsec-200/20 ">
   <ProductFeat variant={"never"} title="فرصتك الآن للحصول عليه" text="" />
 </div>
-
+{/* 
 
 <div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5  bg-[url('../../public/amblemblack.svg')]   to-moonsec-100/40 from-moonsec-200/20 ">
   <ProductFeat variant={"new"} title="منتجات جديدة" text=" هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، " />
-</div>
+</div> */}
 
 
 

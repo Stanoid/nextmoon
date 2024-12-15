@@ -55,7 +55,7 @@ export default (props) => {
   )
 
   return (
-    <div className="h-80  lg:h-[500px]" style={{width:"100%"}}>
+    <div className="h-80  lg:h-[500px] lg:mt-8 mt-2" style={{width:"100%"}}>
       <div  style={{width:"100%",height:"100%"}}  className="  navigation-wrapper">
         <div style={{width:"100%",height:"100%"}} ref={sliderRef} className="keen-slider">
           
