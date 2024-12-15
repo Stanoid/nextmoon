@@ -64,6 +64,38 @@ function Orders(props) {
       }
 
 
+      const ConOrder = (orid)=>{
+      //setRefr(false);
+      
+      
+       // console.log(orid);
+      setlod(true);
+        const requestOptions = {
+          method: 'POST',
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": 'Bearer ' + udata.data.jwt
+             
+          },
+          body: JSON.stringify({
+             oid: orid,
+            })
+        };
+        fetch(`${API_URL}orders?func=orderProccessor`, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data)
+         setlod(false);
+         getOrders();
+        // dispatch(clearCart([]))
+       // window.location= data.url;
+          }).then(()=>{
+            
+          });
+      
+      
+      }
+
 
       const DeliverOrder=(order)=>{
 
@@ -318,17 +350,17 @@ setlod(true);
       {name: "اسم العميل", uid: "name", sortable: true},
       {name: "رقم الهاتف", uid: "phone", sortable: true},
       {name: "المجموع", uid: "total", sortable: true},
+      {name: "حالة الطلب", uid: "status", sortable: true},
       {name: "حالة الدفع", uid: "payment_status",sortable: true },
       {name: "طريقة الدفع", uid: "payment_type",sortable: true },
       {name: "التوصيل", uid: "delivery_type",sortable: true },
       {name: "المدينة", uid: "city", sortable: true},
-      {name: "البريد الإلكتروني", uid: "email",sortable: true },
-      {name: "حالة الطلب", uid: "status", sortable: true},
-      {name: "التفاصيل", uid: "refid"},
+      {name: "التفاصيل", uid: "refida"},
     ]
    }
    
    delorder={DeliverOrder}
+   conorder={ConOrder}
     />:
   <div style={{
     display:lod?'flex':'none' ,

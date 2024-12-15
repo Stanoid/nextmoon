@@ -107,6 +107,16 @@ html{
 }
 
 
+.scrollable-content-only {
+
+  display:"none"
+}
+
+.scrollable-content-only::-webkit-scrollbar {
+  display: none;
+}
+
+
 .number-slide4 {
   background: rgb(64, 255, 242);
   background: linear-gradient(

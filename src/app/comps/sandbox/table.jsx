@@ -25,7 +25,7 @@ import { useEffect } from "react";
 import {SearchIcon} from "./SearchIcon";
 import { useRouter } from "next/navigation";
 import {ChevronDownIcon} from "./ChevronDownIcon";
-import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCopy, FaPenToSquare, FaToggleOn } from "react-icons/fa6";
+import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCheckDouble, FaCopy, FaPenToSquare, FaToggleOn } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { color } from "framer-motion";
@@ -39,7 +39,7 @@ const statusColorMap = {
 };
 
 const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","varients","cat","name_en","section","icon","img","color","scate","colore","cate","colorCode","size", "city",
-   "status","pstatus", "email","refid","date","feat","delivery_type","total","payment_type","payment_status","total","name_ar","description_ar","code","price","qty","colorname","sizeo","imgsingle"];
+   "status","pstatus", "email","refid","refida","date",'phone',"feat","delivery_type","total","payment_type","payment_status","total","name_ar","description_ar","code","price","qty","colorname","sizeo","imgsingle"];
 
 export default function App(props) {
   const [filterValue, setFilterValue] = React.useState("");
@@ -171,9 +171,9 @@ switch (props.coldata) {
      let stob = {};
       switch (cellValue) {
         case "initiated":
-       stob.lable = "غير موصل ";
-       stob.color = "text-amber-700 bg-amber-200 min-w ";
-      stob.dot = "bg-amber-700";
+       stob.lable = "غير مؤكد ";
+       stob.color = "text-gray-700 bg-gray-200 min-w ";
+      stob.dot = "bg-gray-700";
       stob.istog=false; 
         break;
 
@@ -532,6 +532,45 @@ switch (props.coldata) {
       break;
 
     
+      
+      case "refida":
+        return (
+          <div className="relative flex justify-end items-center gap-2">
+            <Dropdown
+            
+            classNames={{
+              // base: "before:bg-default-200", // change arrow background
+              // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
+            }}
+
+            backdrop="blur">
+              <DropdownTrigger>
+                <Button isIconOnly size="sm" variant="light">
+                  <VerticalDotsIcon className="text-default-300" />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu textValue="a" dir="rtl" disabledKeys={["delete"]}>
+                <DropdownItem textValue="a"  onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >
+                  عرض</DropdownItem>
+              
+                  {user.status=="initiated"? <DropdownItem textValue="a" onClick={()=>{
+                 props.conorder(user.id)
+                }} startContent={<FaCheckDouble style={{marginRight:4}} />} key={"edit"} > تأكيد </DropdownItem> :<DropdownItem textValue="a" ></DropdownItem> 
+ }
+                
+                {user.payment_status=="paid"||user.payment_type=="delivery"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{
+                  router.push(user.url)
+                }} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
+ }
+                              
+                
+                
+                <DropdownItem textValue="a" startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >إلغاء</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        );
+        break;
 
 
       case "refid":

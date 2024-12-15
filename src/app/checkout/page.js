@@ -31,6 +31,7 @@ function AccounteEl() {
     const [page,setPage] = useState(1) 
     const [address,setAddress] = useState(""); 
     const [phone,setPhone] = useState(""); 
+    const [phoneC,setPhoneC] = useState(""); 
     const [email,setEmail] = useState(null); 
     const [pickups,setpickups] = useState(null);
     const [selpick,setselpick] = useState(null);
@@ -44,8 +45,13 @@ function AccounteEl() {
     const {useNotifi} = useContext(CartCon);
 
     useEffect(() => {
-
+if(isLogged){
+  console.log(isLogged.data.user.username)
+  setEmail(isLogged.data.user.username);
+}
       getPicks();
+
+   //  console.log(isLogged)
 
  let checkArray = [];
 let total = 0;
@@ -187,12 +193,12 @@ setRefr(!refr);
       }
 
       if(email==null){
-        useNotifi("error","الر جاء إدخال الإيميل")
+        useNotifi("error","الر جاء إدخال الإسم")
         return;
       }
 
-      if(phone==null){
-        useNotifi("error","الر جاء إدخال رقم الهاتف")
+      if(phone==null|| phone!=phoneC ){
+        useNotifi("error","رقم الهاتف غير متطابق")
         return;
       }
 
@@ -220,25 +226,27 @@ setRefr(!refr);
       }
     
     
-      console.log(isLogged.jwt);
+     // console.log();
       
-        const requestOptions = {
-      method: 'POST',
-      headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer ' +  isLogged.data.jwt
-      },
-      body: JSON.stringify({
-         items: payarray,
-         payment_metod: paymentMeth,
-         delivery_method:deliveryMeth,
-         state_id:selpick,
-         phone:phone,
-         address:address,
-         email:email,
-        })
-    };
-    fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
+     if(isLogged){
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Bearer ' +  isLogged.data.jwt
+        },
+        body: JSON.stringify({
+           items: payarray,
+           payment_metod: paymentMeth,
+           delivery_method:deliveryMeth,
+           state_id:selpick,
+           phone:phone,
+           address:address,
+           email:email,
+          })
+      };
+
+      fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
@@ -247,6 +255,39 @@ setRefr(!refr);
       }).then(()=>{
         
       });
+     }else{
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            
+
+        },
+        body: JSON.stringify({
+           items: payarray,
+           payment_metod: paymentMeth,
+           delivery_method:deliveryMeth,
+           state_id:selpick,
+           phone:phone,
+           address:address,
+           email:email,
+          })
+      };
+
+      fetch(`${API_URL}orders?func=initPaymentSessionGuest`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        setLod(false)
+   window.location= data.url;
+      }).then(()=>{
+        
+      });
+     }
+      
+
+    
+   
                             
     
     }
@@ -466,13 +507,14 @@ setRefr(!refr);
             label={"الولاية"}
           />
 
-  <div style={{
+  <div className='mt-4' style={{
     width:"100%",
 display:"grid",
 gap:10,
 gridTemplateAreas:`
+'email email email email'
 ' adress  adress  adress adress  ' 
-' phone phone email email   ' 
+' phone phone phone_c phone_c   ' 
 
 
 `
@@ -490,17 +532,26 @@ gridTemplateAreas:`
             label={"الولاية"}
           />
     </div> */}
+
+
+<div style={{gridArea:"email"}}>
+      <InputEl value={isLogged?isLogged.data.user.username:email} disabled={isLogged} 
+      outputfunc={(val)=>{setEmail(val)}} label={"الإسم"}/>
+    </div>  
+
     <div style={{gridArea:"phone"}}>
       <InputEl outputfunc={(val)=>{setPhone(val)}} label={"رقم الهاتف"}/>
+    </div> 
+
+       <div style={{gridArea:"phone_c"}}>
+      <InputEl outputfunc={(val)=>{setPhoneC(val)}} label={"تأكيد رقم الهاتف"}/>
     </div>  
 
     <div style={{gridArea:"adress",display: deliveryMeth==1?"block":"none",}}>
       <InputEl outputfunc={(val)=>{setAddress(val)}} label={"العنوان"}/>
     </div>  
 
-    <div style={{gridArea:"email"}}>
-      <InputEl outputfunc={(val)=>{setEmail(val)}} label={"البريد الإلكتروني"}/>
-    </div>  
+ 
 
    
    </div>

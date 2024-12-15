@@ -276,9 +276,9 @@ className="flex cursor-pointer items-center" >
   </div>
        
        
-        <div style={{maxWidth:"100%",overflowX:"scroll"}} className=" text-moon-300 text-md whitespace-nowrap  font-medium  transition-colors  py-0.5 w-full
-          space-x-2 flex mt-1 pb-2
-        flex-row-reverse scrollable-content  justify-center items-center  ">
+        <div style={{maxWidth:"100%",overflowX:"scroll"}} className="  text-moon-300  text-md whitespace-nowrap  font-medium  transition-colors  py-0.5 w-full
+          space-x-2 flex mt-1 pb-1
+        flex-row-reverse scrollable-content-only  justify-center items-center  ">
 
 
 

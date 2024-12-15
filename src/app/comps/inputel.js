@@ -8,7 +8,7 @@ function InputEl(props) {
 
     {props.select
     ? <div className="w-full">
-      <label className="block uppercase tracking-wide text-moon-200/80 text-xs font-bold mb-2" for="grid-state">
+      <label className="block uppercase tracking-wide text-moon-200/80 text-xs text-right font-bold mb-2" for="grid-state">
     : {props.label} 
       </label>
       <div className="relative">
@@ -33,7 +33,7 @@ function InputEl(props) {
     </div>
     :
     <motion.div whileTap={{ scale: 1.03 }} className="w-full">
-    <label className="block uppercase tracking-wide text-moon-200/80 text-xs font-bold mb-2" for="grid-last-name">
+    <label className="block uppercase text-right tracking-wide text-moon-200/80 text-xs font-bold mb-2" for="grid-last-name">
      : {props.label} 
     </label>
     <input value={props.value}  onChange={(e)=>{props.outputfunc(e.target.value)}} className="appearance-none  block w-full bg-gray-200  border
