@@ -24,7 +24,8 @@ const uorders = [
 
 
 const statusOptions = [
-  {name: "غير موصل", uid: "initiated"},
+  {name: "غير مؤكد", uid: "initiated"},
+  {name: "غير موصل", uid: "processed"},
   {name: "تم التوصيل", uid: "delivered"},
 
 ];
