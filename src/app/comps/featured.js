@@ -3,7 +3,7 @@ import React from 'react'
 import Feat from './feat'
 function FeaturedComp() {
   return (
-    <section dir='rtl' className=" w-full mb-6 mt-0 flex justify-center flex-col items-center ">
+    <section dir='rtl' className=" w-full mb-6 flex justify-center flex-col items-center ">
   
         <div className=" text-center pt-6">
             <h2 className="text-3xl  font-bold text-moon-200 "> الفئات المميزة </h2>
