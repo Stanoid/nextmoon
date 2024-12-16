@@ -145,8 +145,8 @@ bg-[url('../../public/amblemblack.svg')] ">
 
 <div >
 <User   
-  name={udata.data.user.username}
-  description={udata.data.user.email}
+  name={udata&&udata.data.user.username}
+  description={udata&&udata.data.user.email}
   avatarProps={{
     className:"bg-moon-200 font-bold text-white"
   }}

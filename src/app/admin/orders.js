@@ -64,6 +64,35 @@ function Orders(props) {
       }
 
 
+      const DeleteOrder = (orid)=>{
+        setlod(true);
+          const requestOptions = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + udata.data.jwt
+               
+            },
+            body: JSON.stringify({
+               oid: orid,
+              })
+          };
+          fetch(`${API_URL}orders?func=deleteOrder`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+           setlod(false);
+           props.notifi("success"," تم إلغاء الطلب")
+          getOrders()
+          // dispatch(clearCart([]))
+         // window.location= data.url;
+            }).then(()=>{
+              
+            });
+        
+        
+        }
+
       const ConOrder = (orid)=>{
       //setRefr(false);
       
@@ -87,6 +116,8 @@ function Orders(props) {
             console.log(data)
          setlod(false);
          getOrders();
+         props.notifi("success"," تم تأكيد الطلب")
+
         // dispatch(clearCart([]))
        // window.location= data.url;
           }).then(()=>{
@@ -360,6 +391,7 @@ setlod(true);
    }
    
    delorder={DeliverOrder}
+   deleteorder={DeleteOrder}
    conorder={ConOrder}
     />:
   <div style={{
