@@ -149,6 +149,7 @@ function ProductsList(props) {
     ]
    }
    delorder={handleEdit}
+   search={"code"}
    duplicateProduct={handleDuplicate}
    deleteProduct={deleteEntry}
    statusChange={handleStatus}

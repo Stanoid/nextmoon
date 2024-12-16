@@ -25,7 +25,7 @@ import { useEffect } from "react";
 import {SearchIcon} from "./SearchIcon";
 import { useRouter } from "next/navigation";
 import {ChevronDownIcon} from "./ChevronDownIcon";
-import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCheckDouble, FaCopy, FaPenToSquare, FaToggleOn } from "react-icons/fa6";
+import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCheckDouble, FaCopy, FaPenToSquare, FaToggleOn, FaBan } from "react-icons/fa6";
 import {columns, users, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { color } from "framer-motion";
@@ -38,7 +38,7 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","varients","cat","name_en","section","icon","img","color","scate","colore","cate","colorCode","size", "city",
+const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","cat","name_en","section","icon","img","color","scate","colore","cate","colorCode","size", "city",
    "status","pstatus", "email","refid","refida","date",'phone',"feat","delivery_type","total","payment_type","payment_status","total","name_ar","description_ar","code","price","qty","colorname","sizeo","imgsingle"];
 
 export default function App(props) {
@@ -555,7 +555,13 @@ switch (props.coldata) {
               
                   {user.status=="initiated"? <DropdownItem textValue="a" onClick={()=>{
                  props.conorder(user.id)
-                }} startContent={<FaCheckDouble style={{marginRight:4}} />} key={"edit"} > تأكيد </DropdownItem> :<DropdownItem textValue="a" ></DropdownItem> 
+                }} startContent={<FaCheckDouble style={{marginRight:4}} />} key={"confirm"} > تأكيد </DropdownItem> :<DropdownItem textValue="a" ></DropdownItem> 
+ }
+
+
+{user.status=="initiated"? <DropdownItem className="text-red-500" textValue="a" onClick={()=>{
+                 props.deleteorder(user.id)
+                }} startContent={<FaTrash style={{marginRight:4}} />} key={"edit"} > إلغاء الطلب </DropdownItem> :<DropdownItem textValue="a" ></DropdownItem> 
  }
                 
                 {user.payment_status=="paid"||user.payment_type=="delivery"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{

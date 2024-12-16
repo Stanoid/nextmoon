@@ -581,7 +581,7 @@ return;
           />
         </div> */}
 
-        <div style={{ gridArea: "color" }}>
+        {/* <div style={{ gridArea: "color" }}>
           <InputEl
             value={color}
             outputfunc={(val) => {
@@ -600,23 +600,8 @@ return;
             iscats={true}
             label={"اللون"}
           />
-        </div>
-
-        {/* <div
-          className="bg-gray-100  rounded-md  flex justify-center items-center "
-          style={{ gridArea: "sizeSelect" }}
-        >
-          {sizeSelect.length == 0 ? (
-            <div className="flex w-full text-gray-400 h-full justify-center items-center">
-              إختر مقاسات
-            </div>
-          ) : (
-            sizeSelect &&
-            sizeSelect.map((size, index) => handleSizesSelect(size, index))
-          )}
         </div> */}
-
-        <div
+        {/* <div
           className="bg-gray-100 rounded-md  flex justify-center items-center "
           style={{ gridArea: "colorSelect" }}
         >
@@ -628,7 +613,7 @@ return;
             colorSelect &&
             colorSelect.map((color, index) => handleColorSelect(color, index))
           )}
-        </div>
+        </div> */}
 
 {/* 
         <div style={{ gridArea: "price" }}>
