@@ -276,7 +276,7 @@ const handleProductFilling = ()=>{
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged&&isLogged.data.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
 
@@ -293,7 +293,7 @@ const handleProductFilling = ()=>{
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged&&isLogged.data.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
       body: JSON.stringify({
         status: !status,
@@ -314,7 +314,7 @@ const handleProductFilling = ()=>{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged&&isLogged.data.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
     fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)
@@ -333,7 +333,7 @@ const handleProductFilling = ()=>{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged&&isLogged.data.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
     fetch(`${API_URL}products?func=getColorsAdmin`, requestOptions)
@@ -352,7 +352,7 @@ const handleProductFilling = ()=>{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + isLogged&&isLogged.data.jwt,
+        Authorization: "Bearer " + isLogged.data.jwt,
       },
     };
 
@@ -429,7 +429,7 @@ const handleProductFilling = ()=>{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + isLogged&&isLogged.data.jwt,
+          Authorization: "Bearer " + isLogged.data.jwt,
         },
         body: JSON.stringify({
           nameen: nameen,
