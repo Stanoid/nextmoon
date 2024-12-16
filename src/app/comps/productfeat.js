@@ -283,12 +283,15 @@ display:props.variant=="never"?"flex":"none",
     ,padding: "0 1rem",maxWidth:"100%",overflowX:"scroll",overflowY:"hidden"}} >  
 
 <div className="mx-2 min-w-20 lg:hidden"></div>
+<div className="mx-2 min-w-20 lg:hidden"></div>
   <div className="mx-2 min-w-20 lg:hidden"></div>
   <div className="mx-2 min-w-20 lg:hidden"></div>
   <div className="mx-2 min-w-20 lg:hidden"></div>
   <div className="mx-2 min-w-10 lg:hidden"></div>
 {cat.map((cat) => (
+ 
   <div key={cat.id} className="flex space-x-4 flex-col justify-center items-center min-w-36 py-3 mx-2">
+     <a  href={`/categories?cid=${cat.id}`} >
     <img
       className="rounded-full w-3/4 sm:w-3/4 lg:w-32 aspect-square object-cover"
       src={cat.img}
@@ -302,6 +305,7 @@ display:props.variant=="never"?"flex":"none",
     <div><a href={`/categories?cid=${cat.id}`} className='font-semibold text-center text-xl mt-3 cursor-pointer  hover:text-moon-200 transition-colors text-moon-200' > 
     {cat.name_ar} 
     </a></div>
+    </a>
   </div>
 ))}
 

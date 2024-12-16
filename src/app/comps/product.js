@@ -7,7 +7,7 @@ import { Theme,CURRENCY, API_URL, IMG_URL, DEF_IMG } from '../local'
 import { Tooltip } from '@nextui-org/react'
 import Image from 'next/image'
 import { CldImage } from 'next-cloudinary';
-import { Spinner } from '@nextui-org/react'
+
 import { motion } from 'framer-motion'
 import { useState,useEffect } from 'react'
 import { Button } from '@nextui-org/react'
@@ -73,9 +73,7 @@ function oldPrice(newPrice, discountPercentage) {
 
       
         <motion.div
-        onClick={()=>{setLoading(true); 
-          router.push(`/products?pid=${props.data.id}`)
-        }} 
+        onClick={()=>{router.push(`/products?pid=${props.data.id}`)}} 
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.9 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -87,23 +85,22 @@ function oldPrice(newPrice, discountPercentage) {
 
 <div className=' h-full w-full'  style={{
   
-  display:'flex',
+  display:loading?'none':'flex',
   alignItems:"center",justifyContent:"space-between",flexDirection:"column" 
 }} >
     
   <div sty className='w-full h-48 min-w-full ' style={{position:"relative"}} >
+  {/* <Image fill objectFit='cover'
+  quality={25}
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}
+    className=' rounded-md  ' 
+    src={IMG_URL.concat(JSON.parse(props.data.img)[0]?JSON.parse(props.data.img)[0]:JSON.parse(props.data.img)[1])} 
+
+    
+  /> */}
 
 
-{loading?<div className='flex h-full justify-center items-center'>
-
-  <div style={{zIndex:10}}>
-        <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
-        </div>
-
-</div>:<div>
-  
-  <>
-<div >
+  <div onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}>
 <CldImage
   
   fill objectFit='cover'
@@ -117,19 +114,15 @@ function oldPrice(newPrice, discountPercentage) {
     text-center text-xs p-1 px-3 font-medium text-white">
       {props.data.subcatagory.name_ar  }
       </span>
+  {/* <span className="absolute top-0 right-0 p-2 ">
+  <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={"إضافة إلى المفضلة"} >
+    <Button size='sm'  className='text-white bg-moon-200 rounded-full' variant='shadow' isIconOnly startContent={<FaHeart/>} />
+    </Tooltip>
+    </span> */}
+{/* </object> */}
+    
 
-</>
-  
-  </div>}
-
-
-
-
-
-
-
-
-  
+   
       </div>
 
       
@@ -165,8 +158,8 @@ function oldPrice(newPrice, discountPercentage) {
 </div>
 
 
-<FaStar className='text-gray-300' />
-  <FaStar className='text-gray-300' />
+<FaStar className='text-yellow-400' />
+  <FaStar className='text-yellow-400' />
   <FaStar className='text-yellow-400' />
   <FaStar className='text-yellow-400' />
   <FaStar className='text-yellow-400' />
