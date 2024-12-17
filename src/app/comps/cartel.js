@@ -35,7 +35,7 @@ export default function Cartel(props) {
     
     console.log(props.data.attributes.varients.data)
 
-  }, []);
+  });
 
   const removeid = () => {
     props.removeItem(props.index);

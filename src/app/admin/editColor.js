@@ -30,7 +30,7 @@ function EditColor(props) {
     useEffect(() => {
     // loginval();
    getcolor();
-    }, [])
+    })
     
    
  

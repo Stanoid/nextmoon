@@ -27,7 +27,7 @@ function Orders(props) {
     useEffect(() => {
     // loginval();
    getOrders();
-    }, [])
+    })
     
    
   const handleOpenDel = (open)=>{
@@ -53,7 +53,7 @@ function Orders(props) {
         .then((data) => {
           
           setlod(false)
-          console.log("admin orders",data)
+         // console.log("admin orders",data)
         setOrderdata(data.reverse())
         }).then(()=>{
        
@@ -80,7 +80,7 @@ function Orders(props) {
           fetch(`${API_URL}orders?func=deleteOrder`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data)
+            //  console.log(data)
            setlod(false);
            props.notifi("success"," تم إلغاء الطلب")
           getOrders()
@@ -113,7 +113,7 @@ function Orders(props) {
         fetch(`${API_URL}orders?func=orderProccessor`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log(data)
+          //  console.log(data)
          setlod(false);
          getOrders();
          props.notifi("success"," تم تأكيد الطلب")

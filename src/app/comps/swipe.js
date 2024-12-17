@@ -129,7 +129,7 @@ export default function SwipeEl(props) {
 
 
      
-    }, [])
+    })
     
 
     const getAllProducts = useCallback(()=>{

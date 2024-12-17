@@ -30,14 +30,6 @@ const [logindata,setLogindata]= useState(null)
     const router = useRouter(); 
     const [lod,setlod] = useState(false)
 
-
-    useEffect(() => {
-
-
-      //loginval();
-    
-   
-    }, [])
     
    
  

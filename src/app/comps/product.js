@@ -32,7 +32,7 @@ const [colors,setColors]=useState(null);
 //
 
 colorDisplay()
-   }, [])
+   },[])
 
 // const getprice = ()=>{
 //   for (let i = 0; i < props.data.length; i++) {

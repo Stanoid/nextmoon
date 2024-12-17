@@ -337,7 +337,7 @@ export const AuthProvider = (props)=>{
             useEffect(()=>{
                
                 //checkLogged();
-            }, [])
+            })
 
 
 return(
