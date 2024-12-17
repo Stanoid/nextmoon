@@ -108,7 +108,7 @@ function oldPrice(newPrice, discountPercentage) {
 
     </div>
     
-   <div className=' w-full flex flex-col justify-end right-0'>
+   <div className=' w-full flex flex-col justify-end '>
         <div className="text-xl font-bold text-moon-300/75 flex flex-row  justify-end  " > <div>{CURRENCY} </div> <div> {props.data.varients[0].price} 
           </div>  </div>
 
