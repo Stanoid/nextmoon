@@ -24,7 +24,7 @@ const router = useRouter();
    getCatProducts()
   
     
-       }, [])
+       })
 
 //TODO: move to a context
        function getQueryVariable(variable) {

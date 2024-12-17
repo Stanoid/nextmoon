@@ -18,7 +18,7 @@ function AccounteEl() {
     const [userData,setUserdata] = useState(null)
     useEffect(() => {
        loginvalHandler();
-    }, [])
+    })
     
 
     async function loginvalHandler(){

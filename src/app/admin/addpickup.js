@@ -41,7 +41,7 @@ function AddPickUp(props) {
     useEffect(() => {
     //getPickups();
    
-    }, [])
+    })
     
    
  

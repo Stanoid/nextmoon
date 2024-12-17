@@ -31,7 +31,7 @@ function AccounteEl() {
         setRefr(false);        
       }
       
-    }, [])
+    })
 
 const orderhandler = (orid)=>{
 

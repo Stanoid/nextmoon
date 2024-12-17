@@ -83,7 +83,7 @@ export default function RootLayout({ children }) {
     fetch(`${API_URL}sections?func=getAllSubcat`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("sections",data);
+        console.log("secti",data);
 
        setCat(data);
       }).then(()=>{

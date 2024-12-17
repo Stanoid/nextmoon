@@ -26,7 +26,7 @@ function Orders(props) {
     useEffect(() => {
     // loginval();
    getOrders();
-    }, [])
+    })
     
    
   const handleOpenDel = (open)=>{

@@ -3,12 +3,28 @@ import CURRENCY from "../local"
 import { Button ,divider} from '@nextui-org/react'
 import { FaListAlt, FaShoppingBasket } from 'react-icons/fa'
 import { API_URL } from '../local'
+import { useRef } from 'react'
 import { FaList } from 'react-icons/fa6'
 function ProductFeat(props) {
 
     const [cat, setCat] = useState([]);
-  
+    const firstRenderRef = useRef(true)
+      
     useEffect(() => {
+     
+
+      if (firstRenderRef.current) {
+        firstRenderRef.current = false;
+        getCats();   
+      } else {
+            
+      }
+  
+
+    },[]);
+
+
+    const getCats =()=>{
       const requestOptions = {
         method: 'GET',
         headers: {
@@ -19,13 +35,13 @@ function ProductFeat(props) {
       fetch(`${API_URL}sections?func=getAllSubcat`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log("sections", data);
+          console.log("sectinskkk", data);
           setCat(data[0]?.catagories || []); 
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
-    }, []);
+    }
   
     
 
