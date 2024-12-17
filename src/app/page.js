@@ -48,7 +48,7 @@ if (firstRenderRef.current) {
  
   //  calculation;
     
-       })
+       },[])
 
 
 
