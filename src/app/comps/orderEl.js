@@ -23,7 +23,7 @@ export default function OrderEl(props) {
 
   useEffect(() => {
    
-  });
+  },[]);
 
   
 

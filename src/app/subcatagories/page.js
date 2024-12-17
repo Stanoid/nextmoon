@@ -22,7 +22,7 @@ export default function Home() {
 
   
     
-       })
+       },[])
 
 //TODO: move to a context
        function getQueryVariable(variable) {

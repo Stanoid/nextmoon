@@ -28,7 +28,7 @@ function AccounteEl() {
     useEffect(() => {
    loginval();  
   
-    })
+    },[])
 
 
 

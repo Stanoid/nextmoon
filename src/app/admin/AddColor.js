@@ -30,7 +30,7 @@ function AddColor(props) {
     useEffect(() => {
     // loginval();
    getcolors();
-    })
+    },[])
     
    
  

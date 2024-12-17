@@ -30,7 +30,7 @@ function EditCat(props) {
     useEffect(() => {
     getCat();
    
-    })
+    },[])
     
    
  

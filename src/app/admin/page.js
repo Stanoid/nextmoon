@@ -57,7 +57,7 @@ function AccounteEl() {
     const {useNotifi} = useContext(CartCon);
     useEffect(() => {
      loginval();
-    })
+    },[])
 
 
 
