@@ -79,6 +79,8 @@ function oldPrice(newPrice, discountPercentage) {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.9 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        initial={{ opacity: 0, y: -50 }} 
+        animate={{ opacity: 1, y: 0 }} 
         className="   overflow-hidden
      rounded-none lg:rounded-md sm:rounded-none border border-gray-100 bg-white shadow-none lg:shadow-md md:shadow-md sm:shadow-none"  
         style={{display:'block',
