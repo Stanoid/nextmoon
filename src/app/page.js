@@ -242,7 +242,7 @@ product.status?
 
 <div className="max-w-96  " >
 {
-  upcomingProducts<2?
+  upcomingProducts<24?
   <div></div>
   : <LoadingBtn act={()=>{handleShowMore(products) } } 
   icon={<FaArrowCircleDown  />} text={"المزيد"} lod={Lod} />
