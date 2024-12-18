@@ -30,7 +30,7 @@ function ProductsList(props) {
     // loginval();
     getProducts();
 
-  }, []);
+  },[]);
 
 
 

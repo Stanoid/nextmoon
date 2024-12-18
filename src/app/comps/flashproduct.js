@@ -31,7 +31,7 @@ const [colors,setColors]= useState(null)
 colorDisplay();
 
 
-   }, [])
+   },[])
 
    const colorDisplay = ()=>{
     var colo = []

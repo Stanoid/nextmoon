@@ -1,24 +1,21 @@
 "use client";
 import Skeleton,{ SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import React, { useState, useEffect, useContext, useRef, useSear } from "react";
-import { useRouter } from "next/navigation";
-import { API_URL, ROOT_URL, CURRENCY, Theme,IMG_URL,DEF_IMG } from "../local";
+import React, { useState, useEffect, useContext } from "react";
+import { API_URL, CURRENCY, Theme } from "../local";
 import QuantEl from "../comps/quantel";
 import { BsHeartFill,BsCartPlusFill } from 'react-icons/bs';
 import { useDispatch,useSelector } from 'react-redux';
 import Lens from "../comps/Lens"
 import { motion } from 'framer-motion';
 import { addToCart,removeFromCart } from '../lib/actions/counterAction';
-import { Flip, Slide, toast, ToastContainer } from "react-toastify";
-import { CartCon, CartContext } from "../contexts/cartContext";
+import { CartCon } from "../contexts/cartContext";
 import OptionEL from "../comps/optionEL";
-import LoadingOverlay from '../comps/loadingOverlay';
 import Head from "next/head";
-import { Accordion,AccordionItem, Avatar } from '@nextui-org/react';
-import { FaAudioDescription, FaParagraph, FaRecycle, FaStar } from 'react-icons/fa6';
-import { FaBars, FaShippingFast, FaTextHeight } from 'react-icons/fa';
-import { da } from '@faker-js/faker';
+import { Accordion,AccordionItem } from '@nextui-org/react';
+import {  FaRecycle } from 'react-icons/fa6';
+import { FaBars } from 'react-icons/fa';
+
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -93,7 +90,7 @@ export default function Product({}) {
 
 
 
-  }, []);
+  },[]);
 
 
   const varselectHandler = (vid)=>{

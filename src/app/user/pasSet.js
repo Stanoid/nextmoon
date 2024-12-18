@@ -30,13 +30,6 @@ const [logindata,setLogindata]= useState(null)
     const [lod,setlod] = useState(false)
 
 
-    useEffect(() => {
-
-
-    //  loginval();
-    
-   
-    }, [])
     
    
  

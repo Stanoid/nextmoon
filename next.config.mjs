@@ -1,8 +1,14 @@
 /** @type {import('next').NextConfig} */
 
-import withPlaiceholder from "@plaiceholder/next";
+//import withPlaiceholder from "@plaiceholder/next";
 import withBundleAnalyzer from"@next/bundle-analyzer"
 const nextConfig = {
+  experimental: {
+    optimizePackageImports: ['nextui-org/react'],
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   output: 'standalone',
     images: {
 
@@ -76,5 +82,8 @@ const nextConfig = {
 
 
 
-export default withPlaiceholder(nextConfig);
+
+export default nextConfig;
+//module.exports = withBundleAnalyzer(nextConfig)
+
 

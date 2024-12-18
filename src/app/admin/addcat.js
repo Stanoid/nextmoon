@@ -37,7 +37,7 @@ function AddCat(props) {
       getSections();
     
    
-    }, [])
+    },[])
     
    
  

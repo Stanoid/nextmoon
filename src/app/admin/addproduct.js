@@ -7,7 +7,6 @@ import InputEl from "../comps/inputel";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { TiThMenu } from "react-icons/ti";
 import LoadingBtn from "../comps/loadingbtn";
 import { FaPlusCircle, FaPlusSquare } from "react-icons/fa";
 import { AuthCon } from "../contexts/AuthCon";

@@ -32,7 +32,7 @@ function AddSubCat(props) {
     useEffect(() => {
     getCats();
    
-    }, [])
+    },[])
     
    
  

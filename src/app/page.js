@@ -20,6 +20,8 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import FeaturedComp from "./comps/featured";
 import SwipeEl from "./comps/swipe"
 import AnimateOnViewEnter from "./comps/AnimateOnViewEnter"
+import LoadingBtn from "./comps/loadingbtn";
+import { FaArrowCircleDown } from "react-icons/fa";
 import HorDiv from "./comps/hordiv"
 import LoadingOverlay from "./comps/loadingOverlay";
 import Cart from "./comps/cart";
@@ -30,10 +32,15 @@ export default function Home() {
   const childCompRef = useRef()
   const firstRenderRef = useRef(true)
   const {loginval}  = useContext(AuthCon);
-  const [products,setProducts] = useState()
+  const [products,setProducts] = useState([]);
+  const [pagi,setPagi]=useState(products?.length)  
+  const [upcomingProducts,setupcomingProducts]=useState(0)
   const router = useRouter();
+  const [page,setPage]=useState(0);
   const [subcats,setSubCats]= useState(null);
   const [lod,setLod] = useState(true);
+  const [Lod,setlod] = useState(true);
+
   //const calculation = useMemo(() =>  getAllProducts(), []);
   
   useEffect(() => {
@@ -41,6 +48,7 @@ export default function Home() {
 setLod(false)
 if (firstRenderRef.current) {
   firstRenderRef.current = false;
+  setLod(true)
   getAllProducts();
 } else {
           
@@ -48,12 +56,24 @@ if (firstRenderRef.current) {
  
   //  calculation;
     
-       }, [])
+       },[])
 
 
 
-       const getAllProducts = useCallback(()=>{
-        setLod(true);
+       const handleShowMore = (prds)=>{
+        setlod(true);
+        let old = page;
+        old ++;
+        setPage(old);
+        console.log(page);
+        getAllProducts(old,prds);
+
+       }
+
+
+       const getAllProducts = useCallback((pagination,prds)=>{
+       // pagination?setlod(true):setLod(true);
+       // setLod(true);
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -64,14 +84,22 @@ if (firstRenderRef.current) {
         };
       
         
-          fetch(`${API_URL}products?func=getAllProducts`, requestOptions)
+          fetch(`${API_URL}products?func=getAllProducts&page=${pagination}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
       
-           
-          
-           setProducts(data)
-           setLod(false)
+              if(prds){
+                let newjoined= [...prds,...data]
+                setProducts(newjoined);
+              }else{
+                setProducts(data);
+              }
+
+           setupcomingProducts(data.length);
+          console.log("aaaaaa",upcomingProducts)
+
+           setLod(false);
+           setlod(false)
            getSubcat();
              
            
@@ -211,6 +239,22 @@ product.status?
 
 </div>
 
+<div className="flex justify-center py-4 items-center" >
+
+<div className="max-w-96  " >
+{
+  upcomingProducts<24?
+  <div></div>
+  : <LoadingBtn act={()=>{handleShowMore(products) } } 
+  icon={<FaArrowCircleDown  />} text={"المزيد"} lod={Lod} />
+  
+}
+
+
+</div>
+</div>
+
+
 
  {/* <div className="flex w-full  align-middle justify-center">
  <PromoComp/>
@@ -240,7 +284,7 @@ bg-[url('../../public/amblemblack.svg')] "  >
 <div className="p-6 my-6">
 <h5 className="text-2xl font-black text-center tracking-normal text-white ">عروض سريعة</h5>
 <p className="text-center py-1 font-semibold tracking-tight leading-tight text-moon-300/65 ">
-تخفيضات تصل إلى 50% على مختلف الفئات و لفترة محدودة
+تخفيضات تصل إلى 30% على مختلف الفئات و لفترة محدودة
 </p>
 </div>
 <div  className="flex w-full align-middle mt-1 justify-center" > 

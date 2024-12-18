@@ -32,7 +32,7 @@ function EditSize(props) {
     useEffect(() => {
     getSize();
    
-    }, [])
+    },[])
     
    
  

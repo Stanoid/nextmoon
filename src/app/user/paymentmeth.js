@@ -36,7 +36,7 @@ function AddCat(props) {
       
      props.setLod(false);
    
-    }, [])
+    },[])
     
    
  

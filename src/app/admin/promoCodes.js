@@ -43,7 +43,7 @@ function PromoCodes(props) {
     // loginval();
   getPromoList();
  //sessionTest()
-    }, [])
+    },[])
     
    
  

@@ -30,7 +30,7 @@ function AccounteEl() {
       //   //orderhandler(getQueryVariable("orderid"));
       //   setRefr(false);        
       // }
-    }, [])
+    },[])
 
 const orderhandler = (orid)=>{
 //setRefr(false);

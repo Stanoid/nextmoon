@@ -33,7 +33,7 @@ function AddSize(props) {
     useEffect(() => {
     getSizes();
    
-    }, [])
+    },[])
     
    
  
