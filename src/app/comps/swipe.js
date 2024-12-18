@@ -144,7 +144,7 @@ export default function SwipeEl(props) {
           
         };
       
-          fetch(`${API_URL}products?func=getFlashOffers`, requestOptions)
+          fetch(`${API_URL}products?func=getAllProducts`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
       
