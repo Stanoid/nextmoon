@@ -7,8 +7,6 @@ import {
     useTransform,
     AnimatePresence
 } from "framer-motion";
-import ProductCopm from "./saveproduct";
-import { set } from "local-storage";
 
 function Card(props) {
     const [exitX, setExitX] = useState(0);
@@ -45,16 +43,19 @@ function Card(props) {
         if (info.offset.x < -100) {
             setExitX(-250);
           //  alert("left");
+          console.log("ssss",props.data);
             props.setIndex(props.index + 1);
         }
         if (info.offset.x > 100) {
             setExitX(250);
            // alert("right");
+           console.log("ssss",props.data);
+
             props.setIndex(props.index + 1);
         }
 
 
-        if(props.index==3){
+        if(props.index==10){
             
             props.setIndex(0);
             
@@ -143,7 +144,7 @@ export default function SwipeEl(props) {
           
         };
       
-          fetch(`${API_URL}products?func=getAllProducts`, requestOptions)
+          fetch(`${API_URL}products?func=getFlashOffers`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
       

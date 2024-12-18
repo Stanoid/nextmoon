@@ -160,7 +160,15 @@ bg-[url('../../public/amblemblack.svg')] ">
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
 <div><MdOutlineAutoGraph/></div><div className='mx-1.5'> لوحة التحكم</div></div> */}
 
-<div onClick={()=>{ setPid(null); setPage(1)  }} style={{backgroundColor:page==1?Theme.primary:"white", color:page==1?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+
+
+<div onClick={()=>{ setPid(null);setPage(1)}} style={{backgroundColor:page==1?Theme.primary:"white", color:page==1?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
+<div><FaListCheck/></div><div className='mx-1.5'> الطلبات</div></div>
+
+
+
+<div onClick={()=>{ setPid(null); setPage(14)  }} style={{backgroundColor:page==14?Theme.primary:"white", color:page==14?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
 <div><FaPlusCircle/></div><div className='mx-1.5'> إضافة منتج</div></div>
 
@@ -195,7 +203,7 @@ hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start i
 <div><BiCategoryAlt/></div><div className='mx-1.5'> الفئات الفرعية</div></div>
 
 
-<div onClick={()=>{ setPid(null);setPage(14)}} style={{backgroundColor:page==14?Theme.primary:"white", color:page==14?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
+<div onClick={()=>{ setPid(null);setPage(1)}} style={{backgroundColor:page==14?Theme.primary:"white", color:page==14?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
 <div><FaListCheck/></div><div className='mx-1.5'> الطلبات</div></div>
 
@@ -235,14 +243,14 @@ hover:text-white text-white justify-start items-center '   >
 
 <div style={{display:lod?"none":"block"}} >
 {page==0 ?  <Dashboard notifi={(type,message)=>{notifi(type,message)}} lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
-{page==1 ?  <AddProduct pid={pid&&pid} notifi={(type,message)=>{notifi(type,message)}}  lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
+{page==14 ?  <AddProduct pid={pid&&pid} notifi={(type,message)=>{notifi(type,message)}}  lod={lod} setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} /> :<></>}
   {page==2 ?  <ProductsList  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(pid,id)=>{handleEdit(pid,id)}} />  :<></>}
   {page==3 ? <AddSize  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
   {page==4 ? <AddColor  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
   {page==5 ? <AddCat  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(catid,id)=>{handleCatEdit(catid,id)}} /> :<></>}
   {page==6 ? <AddSubCat  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(scatid,id)=>{handleScatEdit(scatid,id)}} /> :<></>}
   {page==15 ? pid?<EditProduct  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} pid={pid} />:<EditProduct setpage={(page)=>{setPage(page)}} pid={pid} /> :<></>}
-  {page==14 ? <Orders  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
+  {page==1 ? <Orders  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}}  setpage={(cid,id)=>{handleColorEdit(cid,id)}} />  :<></>}
   {page==10 ? <PromoCodes  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
   {page==16 ? sid?<EditSize  notifi={(type,message)=>{notifi(type,message)}}  setpage={(page)=>{setPage(page)}} sid={sid} />:<EditSize setpage={(page)=>{setPage(page)}} sid={sid} /> :<></>}
   {page==17 ? cid?<EditColor  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} cid={cid} />:<EditColor setpage={(page)=>{setPage(page)}} cid={cid} /> :<></>}
