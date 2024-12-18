@@ -90,9 +90,10 @@ colorDisplay();
   /> */}
 
 <CldImage
+
   onClick={()=>{router.push(`/products?pid=${props.data.id}`)}}
   fill objectFit='cover'
-   className=' rounded-md  ' 
+   className='no-select no-drag rounded-md  ' 
   src={JSON.parse(props.data.img)[0].id}
    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
   alt="Description of my image"
