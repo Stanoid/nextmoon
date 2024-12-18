@@ -48,6 +48,7 @@ export default function Home() {
 setLod(false)
 if (firstRenderRef.current) {
   firstRenderRef.current = false;
+  setLod(true)
   getAllProducts();
 } else {
           
@@ -60,7 +61,7 @@ if (firstRenderRef.current) {
 
 
        const handleShowMore = (prds)=>{
-
+        setlod(true);
         let old = page;
         old ++;
         setPage(old);
@@ -71,7 +72,7 @@ if (firstRenderRef.current) {
 
 
        const getAllProducts = useCallback((pagination,prds)=>{
-        pagination?setlod(true):setLod(true);
+       // pagination?setlod(true):setLod(true);
        // setLod(true);
         const requestOptions = {
             method: 'GET',
