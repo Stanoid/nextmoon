@@ -103,7 +103,6 @@ export default function RootLayout({ children }) {
 
 
   const handleOpenCart = (open) => {
-    console.log("ssssss",process.env.NEXT_PUBLIC_FB_PIXEL_ID)
     setOpenCart(open);
   };
   const handleOpenCartl = (open) => {
