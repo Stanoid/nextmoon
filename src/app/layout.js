@@ -103,6 +103,7 @@ export default function RootLayout({ children }) {
 
 
   const handleOpenCart = (open) => {
+    console.log("ssssss",process.env.FB_PIXEL_ID)
     setOpenCart(open);
   };
   const handleOpenCartl = (open) => {
@@ -175,7 +176,7 @@ if(el.target.value.length<3){
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '459328530406208'); // Replace with your Pixel ID
+              fbq('init', '${process.env.FB_PIXEL_ID}'); // Replace with your Pixel ID
               fbq('track', 'PageView');
             `,
           }}
@@ -311,7 +312,8 @@ className="flex cursor-pointer items-center" >
 
 
         
-        <div onClick={()=>{router.push("/")}} className=" mx-3   cursor-pointer border-b-4 border-moon-200/60 text-moon-200 pb-0.5 " > الرئيسية </div>
+        <div onClick={()=>{router.push("/")}} className=" mx-3 
+          cursor-pointer border-b-4 border-moon-200/60 text-moon-200 pb-0.5 " > الرئيسية </div>
     
    <div className="blok sm:block lg:hidden "  >
     <div className="w-32"></div>
