@@ -4,6 +4,7 @@ import { useEffect,useState,useMemo } from 'react';
 import { IMG_URL } from '../local';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { FaStar } from 'react-icons/fa6';
 import { CldImage } from 'next-cloudinary';
 import { CURRENCY } from '../local';
 import Image from 'next/image';
@@ -96,7 +97,7 @@ function oldPrice(newPrice, discountPercentage) {
 
 {colors&&colors.map((color,index)=>(
                 
-                <div className='align-middle w-full justify-center mr-1 '   key={color.id}>
+                <div className='items-center w-full justify-center mr-1 '   key={color.id}>
                     <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar} >
                      <div style={{backgroundColor:color.colorCode}} className=' h-3 w-3 rounded-full  ' >
                      
@@ -106,7 +107,27 @@ function oldPrice(newPrice, discountPercentage) {
            
                ))}
 
+
+            
+
     </div>
+
+    <div className='flex py-1   w-full  justify-end items-center space-x-1'>
+               
+               
+               <div className='text-xs'>
+                 (121) <span className='text-moon-200 font-bold' >3.0</span>
+               </div>
+               
+               
+               <FaStar className='text-yellow-300' />
+                 <FaStar className='text-yellow-300' />
+                 <FaStar className='text-yellow-400' />
+                 <FaStar className='text-yellow-400' />
+                 <FaStar className='text-yellow-400' />
+               
+               
+               </div>
     
    <div className=' w-full flex flex-col justify-end '>
         <div className="text-xl font-bold text-moon-300/75 flex flex-row  justify-end  " > <div>{CURRENCY} </div> <div> {props.data.varients[0].price} 

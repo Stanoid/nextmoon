@@ -174,7 +174,17 @@ for (let i = 0; i < vrs.length; i++) {
     product_ref:pref,
     qty: qty, 
   }))
-     
+
+  if (typeof window.fbq !== "undefined") {
+    window.fbq("track", "AddToCart", {
+      content_name: db.attributes.name_ar, 
+      content_ids: [db.attributes.code], 
+      content_type: "product", 
+      value: db.attributes.price, 
+      currency: "USD", 
+      quantity: qty, 
+    });
+  }
    //   
       useNotifi("success", "تمت إضافة المنتج إلى السلة");
   

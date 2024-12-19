@@ -92,7 +92,7 @@ switch (props.coldata) {
         filteredUsers = filteredUsers.filter((user) =>
           //  console.log(user)
            props.search=="code"?
-            user.code.toLowerCase().includes(filterValue.toLowerCase()): user.name_ar.toLowerCase().includes(filterValue.toLowerCase()),
+            user.code.toLowerCase().includes(filterValue.toLowerCase()): props.search=="phone"?user.phone.toLowerCase().includes(filterValue.toLowerCase()) :user.name_ar.toLowerCase().includes(filterValue.toLowerCase()),
           );
       } catch (error) {
         console.log("thrown",error);

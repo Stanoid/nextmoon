@@ -373,6 +373,7 @@ setlod(true);
 {
   orderData?<TableComp
    data={orderData}
+   search={"phone"}
    columns={
     [
       {name: "التاريخ", uid: "date", sortable: true},  
