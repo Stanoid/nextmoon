@@ -103,7 +103,7 @@ export default function RootLayout({ children }) {
 
 
   const handleOpenCart = (open) => {
-    console.log("ssssss",process.env.FB_PIXEL_ID)
+    console.log("ssssss",process.env.NEXT_PUBLIC_FB_PIXEL_ID)
     setOpenCart(open);
   };
   const handleOpenCartl = (open) => {
@@ -176,7 +176,7 @@ if(el.target.value.length<3){
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '${process.env.FB_PIXEL_ID}'); // Replace with your Pixel ID
+              fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}'); // Replace with your Pixel ID
               fbq('track', 'PageView');
             `,
           }}
