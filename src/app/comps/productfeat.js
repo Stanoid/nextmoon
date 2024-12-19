@@ -318,9 +318,9 @@ display:props.variant=="never"?"flex":"none",
       {/* <div className="text-xl font-semibold text-gray-900">{cat.name_ar}</div> */}
       {/* <div className="text-sm text-gray-500 mt-1">{cat.name_en}</div> */}
     </div>
-    <div><a href={`/categories?cid=${cat.id}`} className='font-semibold text-center text-xl mt-3 cursor-pointer  hover:text-moon-200 transition-colors text-moon-200' > 
+    <div><h2 className='font-semibold text-center text-xl mt-3 cursor-pointer  hover:text-moon-200 transition-colors text-moon-200' > 
     {cat.name_ar} 
-    </a></div>
+    </h2></div>
     </a>
   </div>
 ))}
