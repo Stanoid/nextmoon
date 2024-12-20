@@ -6,6 +6,9 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['nextui-org/react'],
   },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
