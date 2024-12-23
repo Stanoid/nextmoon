@@ -90,7 +90,7 @@ function ProductsList(props) {
   }
 
   const handleDuplicate = (ob)=>{
-    props.setpage(1, ob.id);
+    props.setpage(14, ob.id);
   }
 
   const getProducts = () => {

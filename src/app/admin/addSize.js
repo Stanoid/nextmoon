@@ -63,18 +63,18 @@ function AddSize(props) {
         
       };
     
-        fetch(`${API_URL}sizes`, requestOptions)
+        fetch(`${API_URL}products?func=getSizesAdmin`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
             console.log(data)
        let arr = [];
-         for (let i = 0; i < data.data.length; i++) {
+         for (let i = 0; i < data.length; i++) {
            let ob = {};
-          ob.id = data.data[i].id
-           ob.name_ar = data.data[i].attributes.name_ar;
-           ob.name_en = data.data[i].attributes.name_en;  
-           ob.icon = data.data[i].attributes.icon;
-           ob.size = data.data[i].attributes.createdAt;
+          ob.id = data[i].id
+           ob.name_ar = data[i].name_ar;
+           ob.name_en = data[i].name_en;  
+           ob.icon = data[i].icon;
+           ob.size = data[i].createdAt;
 
            arr.push(ob) 
           // console.log("rrrr",ob)
@@ -206,7 +206,7 @@ function AddSize(props) {
           fetch(`${API_URL}sizes?func=AddSize`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              
+              console.log(data)
              setNamear("");
              setNameen("");
              setSicon("");

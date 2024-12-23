@@ -144,90 +144,90 @@ props.setLod(false)
 
     
   return (
-    <div className='' >
+//     <div className='' >
 
 
 
-<div
-className="flex flex-col lg:grid sm:flex sm:flex-row"
-style={{
-    overflowX:"hidden",
-    maxWidth:"100vw",
-gap:20,
-gridTemplateAreas:`
-'namear  namear  nameen nameen' 
-'section section section section' 
-'pi1 pi1 pi2 pi2' 
+// <div
+// className="flex flex-col lg:grid sm:flex sm:flex-row"
+// style={{
+//     overflowX:"hidden",
+//     maxWidth:"100vw",
+// gap:20,
+// gridTemplateAreas:`
+// 'namear  namear  nameen nameen' 
+// 'section section section section' 
+// 'pi1 pi1 pi2 pi2' 
 
 
-`
+// `
 
-   }} >
+//    }} >
 
 
-    <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 ' style={{gridArea:"namear"}}>
-    <div className='px-3 font-bold text-moon-200 text-md ' > المبيعات و المسترجعات : </div>
-    <Chart
-      chartType="AreaChart"
-      width="100%"
-      height="400px"
-      data={data}
-      options={options}
-    />
+//     <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 ' style={{gridArea:"namear"}}>
+//     <div className='px-3 font-bold text-moon-200 text-md ' > المبيعات و المسترجعات : </div>
+//     <Chart
+//       chartType="AreaChart"
+//       width="100%"
+//       height="400px"
+//       data={data}
+//       options={options}
+//     />
 
-    </div>
+//     </div>
 
-    <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 '  style={{gridArea:"nameen"}}>
-    <div className='px-3 font-bold text-moon-200 text-md ' > المبيعات  الأسبوعية : </div>
-    <Chart
-      chartType="BarChart"
-      width="100%"
-      height="400px"
-      data={data1}
-      options={options1}
-    />
+//     <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 '  style={{gridArea:"nameen"}}>
+//     <div className='px-3 font-bold text-moon-200 text-md ' > المبيعات  الأسبوعية : </div>
+//     <Chart
+//       chartType="BarChart"
+//       width="100%"
+//       height="400px"
+//       data={data1}
+//       options={options1}
+//     />
 
-    </div>
+//     </div>
     
     
-    <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 ' style={{gridArea:"section"}}>
-    <div className='px-3 font-bold text-moon-200 text-md ' >  الدخل الإسبوعي  : </div>
-    <Chart
-      chartType="LineChart"
-      width="100%"
-      height="400px"
-      data={data2}
-      options={options2}
-    />
+//     <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 ' style={{gridArea:"section"}}>
+//     <div className='px-3 font-bold text-moon-200 text-md ' >  الدخل الإسبوعي  : </div>
+//     <Chart
+//       chartType="LineChart"
+//       width="100%"
+//       height="400px"
+//       data={data2}
+//       options={options2}
+//     />
   
-    </div>
+//     </div>
 
 
-    <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 ' style={{gridArea:"pi1"}}>
-    <div className='px-3 font-bold text-moon-200 text-md ' >   الفئات الأعلى مبيعآ : </div>
-    <Chart
-      chartType="PieChart"
-      data={data3}
-      options={options3}
-      width={"100%"}
-      height={"400px"}
-    />
-
-  
-    </div>
-
-    <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 ' style={{gridArea:"pi2"}}>
-    <div className='px-3 font-bold text-moon-200 text-md ' >  الفئات الفرعية الأعلى مبيعآ  : </div>
-    <Chart
-      chartType="PieChart"
-      data={data4}
-      options={options4}
-      width={"100%"}
-      height={"400px"}
-    />
+//     <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 ' style={{gridArea:"pi1"}}>
+//     <div className='px-3 font-bold text-moon-200 text-md ' >   الفئات الأعلى مبيعآ : </div>
+//     <Chart
+//       chartType="PieChart"
+//       data={data3}
+//       options={options3}
+//       width={"100%"}
+//       height={"400px"}
+//     />
 
   
-    </div>
+//     </div>
+
+//     <div className='w-full shadow-sm hover:shadow-xl transition-shadow p-3 ' style={{gridArea:"pi2"}}>
+//     <div className='px-3 font-bold text-moon-200 text-md ' >  الفئات الفرعية الأعلى مبيعآ  : </div>
+//     <Chart
+//       chartType="PieChart"
+//       data={data4}
+//       options={options4}
+//       width={"100%"}
+//       height={"400px"}
+//     />
+
+  
+//     </div>
 
 
 
@@ -238,10 +238,14 @@ gridTemplateAreas:`
   
   
 
-   </div>
+//    </div>
       
      
-    </div>
+//     </div>
+
+<div>
+  
+</div>
   )
 }
 
