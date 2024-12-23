@@ -42,7 +42,7 @@ function AccounteEl() {
     const ls = require("local-storage")
     const {logindata,logoutUser}  = useContext(AuthCon);
     const router = useRouter(); 
-    const [page,setPage] = useState(1) 
+    const [page,setPage] = useState(0) 
     const [logged,setLogged] = useState(0)
     const [colors,setColors] = useState([])
     const [sizes,setSizes] = useState([])
