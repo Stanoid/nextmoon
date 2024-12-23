@@ -156,9 +156,9 @@ bg-[url('../../public/amblemblack.svg')] ">
 
 
 
-{/* <div onClick={()=>{setPage(0)}} style={{backgroundColor:page==0?Theme.primary:"white", color:page==0?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
+<div onClick={()=>{setPage(0)}} style={{backgroundColor:page==0?Theme.primary:"white", color:page==0?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer transition-colors
 hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center whitespace-nowrap '   >
-<div><MdOutlineAutoGraph/></div><div className='mx-1.5'> لوحة التحكم</div></div> */}
+<div><MdOutlineAutoGraph/></div><div className='mx-1.5'> لوحة التحكم</div></div>
 
 
 
@@ -203,9 +203,6 @@ hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start i
 <div><BiCategoryAlt/></div><div className='mx-1.5'> الفئات الفرعية</div></div>
 
 
-<div onClick={()=>{ setPid(null);setPage(1)}} style={{backgroundColor:page==14?Theme.primary:"white", color:page==14?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors
-hover:text-white lg:border-b-2  lg:border-gray-200 text-moon-200 justify-start items-center '   >
-<div><FaListCheck/></div><div className='mx-1.5'> الطلبات</div></div>
 
 
 <div onClick={()=>{ setPid(null);setPage(20)}} style={{backgroundColor:page==20?Theme.primary:"white", color:page==20?"white":Theme.primary}} className='flex px-2 py-3  bg-white hover:bg-moon-200 cursor-pointer whitespace-nowrap transition-colors

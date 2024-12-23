@@ -167,7 +167,7 @@ const handleProductFilling = ()=>{
           <div className="flex mx-1 my-4 flex-col justify-center min-w-32 items-center space-y-1 text-sm border-2 border-gray-400 p-1 rounded-md">
            
 
-            <div className='mt-2 font-bold'>{sizes[index].attributes.name_ar} ({sizes[index].attributes.icon}) </div>
+            <div className='mt-2 font-bold'>{sizes[index].name_ar} ({sizes[index].icon}) </div>
             <div className='flex justify-around w-full ' ><div className='line-through font-bold' >{ oldPrice(vari.price,vari.discount) } {CURRENCY} </div> 
             <div className='text-moon-200 font-bold' >{vari.price} {CURRENCY} </div> </div>
             <div>الخصم:{vari.discount} % </div>
@@ -355,11 +355,11 @@ const handleProductFilling = ()=>{
       },
     };
 
-    fetch(`${API_URL}sizes`, requestOptions)
+    fetch(`${API_URL}products?func=getSizesAdmin`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         //  console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",data.data)
-        setSizes(data.data);
+        setSizes(data);
       })
       .then(() => {
         getCats();
@@ -694,6 +694,7 @@ const handleProductFilling = ()=>{
             }}
             iden={"size"}
             data={sizes}
+            iscats={true}
             select={true}
             label={"المقاس"}
           />
