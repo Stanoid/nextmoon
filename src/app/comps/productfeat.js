@@ -1,9 +1,9 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import CURRENCY from "../local"
 import { Button ,divider} from '@nextui-org/react'
 import { FaListAlt, FaShoppingBasket } from 'react-icons/fa'
 import { API_URL } from '../local'
-import { useRef } from 'react'
+
 import { FaList } from 'react-icons/fa6'
 function ProductFeat(props) {
 
@@ -11,7 +11,7 @@ function ProductFeat(props) {
     const firstRenderRef = useRef(true)
       
     useEffect(() => {
-     
+    
 
       if (firstRenderRef.current) {
         firstRenderRef.current = false;
@@ -20,7 +20,6 @@ function ProductFeat(props) {
             
       }
   
-
     },[]);
 
 
