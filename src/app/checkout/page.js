@@ -183,6 +183,24 @@ setRefr(!refr);
 
 
 
+
+          //validate phone 
+          const isPhoneValid = (phoneNumber) => {
+            const phoneRegex = /^[0-9]{10}$/;
+            return phoneRegex.test(phoneNumber);
+        }
+        //validate adtress 
+        const isAdressValid = (adress) => {
+          const adressRegex = /^[a-zA-Z0-9\s,.'-]{3,}$/;
+          return addressRegex.test(adress);}
+
+
+      //validate email 
+    //   const isEmailValid = (email) => {
+    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //     return emailRegex.test(email);
+    // }
+
     const handleOrder= ()=>{
 
       //email and selpic validation
@@ -192,15 +210,24 @@ setRefr(!refr);
         return;
       }
 
-      if(email==null){
-        useNotifi("error","الر جاء إدخال الإسم")
-        return;
+      // if (!email || !isEmailValid(email)) {
+      //       useNotifi("error", "الرجاء إدخال بريد إلكتروني صالح");
+      //       return;
+      //   }
+      
+        if (!phone || !isPhoneValid(phone)) {
+          useNotifi("error", "  يجب أن يتكون رقم الهاتف من 10 أرقام   ");
+          return;
       }
 
-      if(phone==null|| phone!=phoneC ){
-        useNotifi("error","رقم الهاتف غير متطابق")
+      if (phone !== phoneC) {
+        useNotifi("error", "رقم الهاتف غير متطابق");
         return;
-      }
+    }
+    if (address.length < 3) {
+      useNotifi("error", "الرجاء إدخال عنوان صالح");
+      return;
+    }
 
       
      
