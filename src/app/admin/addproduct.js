@@ -457,7 +457,7 @@ const handleProductFilling = ()=>{
         subc,
         code,
         varients: JSON.stringify(formattedVarients), 
-        imgs: imageRelationData,
+        images: imageRelationData,
       }),
     };
 

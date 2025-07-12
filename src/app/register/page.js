@@ -504,4 +504,3 @@ gridTemplateAreas:`
         </div>
     )
 }
-

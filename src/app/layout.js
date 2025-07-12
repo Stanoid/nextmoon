@@ -10,7 +10,7 @@ import Footer from "./comps/footer";
 import NavbarC from "./comps/navbar";
 import dynamic from "next/dynamic";
 import {Provider} from "react-redux"
-
+import './globals.css';
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor,store } from "./lib/store";
 import Mob from "../../public/mob.svg";
@@ -402,7 +402,7 @@ className="flex cursor-pointer items-center" >
  
             
             <section className={`${bgColorClass} el-messiri-text`}>
-            <div className="max-w-[1280px] w-full px-4 lg:px-8 overflow-hidden mt-8 lg:mt-16 mx-auto min-h-screen">
+            <div className="max-w-[1280px] w-full  lg:px-8 overflow-hidden mt-8 lg:mt-16 mx-auto min-h-screen">
               
                   {children}
                 </div>

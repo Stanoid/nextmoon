@@ -16,6 +16,7 @@ import { MAIN_STYLE } from '../styles/style'
 import Head from 'next/head'
 import { BsStarFill,BsCheck2Circle,BsCheckCircleFill,BsCartPlusFill } from 'react-icons/bs'
 import { useRouter } from 'next/navigation'
+import { RiCreativeCommonsZeroLine } from 'react-icons/ri'
 
 
 
@@ -51,16 +52,21 @@ export default function Product(props) {
     return parseInt(oldPrice);
   }
 
+console.log("images url",IMG_URL)
+  console.log("Image URL:", props.data);
+
+
+  
   return (
     <motion.div
       onClick={()=>{setLoading(true); 
         router.push(`/products?pid=${props.data.id}`)
       }} 
       className="
-      lg:w-[308px] lg:h-[501px]  w-[167px] h-[330px] rounded-lg border border-gray-200 bg-white shadow-md cursor-pointer flex flex-col overflow-hidden relative" 
+      w-[308px] h-[501px]   rounded-lg border border-gray-200 bg-white shadow-md cursor-pointer flex flex-col overflow-hidden relative" 
     >
 
-      <div className='relative mx-h-[169px] h-full lg:max-w-[308px] lg:max-h-[308px] w-full' style={{  }}> 
+      <div className='relative  h-full lg:max-w-[308px] lg:max-h-[308px] w-full' style={{  }}> 
         {loading ? (
           <div className='absolute inset-0 flex items-center justify-center bg-gray-100 z-20'>
             <div style={{ zIndex: 10 }}>
@@ -73,8 +79,8 @@ export default function Product(props) {
               fill
               objectFit='cover'
               className='rounded-t-lg' 
-              src={JSON.parse(props.data.img)[0].thumb}
-              alt="Product Image"
+              src={IMG_URL + props.data?.images?.[0]?.formats?.thumbnail?.url}
+              alt={props.data?.name_ar}
             />
             <div className="absolute top-2 left-2 p-2 bg-[#f7a0983d] rounded-md shadow-sm z-10">
               <FaHeart className="text-gray-400 text-lg" />
@@ -83,7 +89,7 @@ export default function Product(props) {
         )}
       </div>
 
-      <div dir="ltr" className="flex flex-col p-2 lg:max-h-[193px] h-full max-w-[167px]  lg:max-w-[308px] w-full bg-white  items-end"> 
+      <div dir="ltr" className="flex flex-col p-2 lg:max-h-[193px] h-full   lg:max-w-[308px] w-full bg-white  items-end"> 
 
         <div className="lg:text-lg text-base hidden  lg:flex sm:hidden lg:flex:row font-medium mb-2 text-gray-800 text-right "> 
 {props.data.name_ar} - {props.data.code}

@@ -139,7 +139,7 @@ function ProductsList(props) {
   columns={
     [
       {name: "ID", uid: "id", sortable: true},
-      {name: ".", uid: "img", sortable: true},
+      {name: ".", uid: "images", sortable: true},
       {name: "الإسم", uid: "name_ar", sortable: true}, 
       {name: "رمز المنتج", uid: "code", sortable: true},
 

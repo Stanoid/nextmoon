@@ -196,11 +196,11 @@ export default function NavbarC(props) {
 )}
 
 {/* 2. Cart */}
-<motion.div className="flex items-center text-gray-700 hover:text-gray-900 cursor-pointer">
+<motion.div  onClick={() => props.openCart(true)} className="flex items-center text-gray-700 hover:text-gray-900 cursor-pointer">
   <span className="ml-2 text-sm hidden sm:block">
     {cartData?.totalPrice || 0} $ {cartData?.totalItems || 0} منتجات
   </span>
-  <Button onClick={() => props.openCart(true)} isIconOnly size="md" aria-label="Cart">
+  <Button isIconOnly size="md" aria-label="Cart">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
     </svg>
@@ -268,21 +268,20 @@ onClick={() => {
 
 
 
-          <motion.div
+          <motion.div onClick={() => { props.openCart(true); }} 
   className="flex items-center text-gray-700 hover:text-gray-900 cursor-pointer"
 >
-  
-  {/* <Badge size="md" content={cartData} placement="top-left" showOutline={false} variant="flat" color="primary" className="flex bg-moon-200 text-white align-middle justify-center"> */}
-    <Button onClick={() => { props.openCart(true); }} isIconOnly className="" size="md" aria-label="Cart">
+  <Button isIconOnly className="mr-20" size="md" aria-label="Cart">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
       </svg>
     </Button>
     <span className="ml-2 text-sm flex items-center sm:block">
-    106.25 $ 4 منتجات
+    106.25 $ 4 منتجات <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 32 32" strokeWidth={1.5} stroke="currentColor" className="size-4">
+  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+</svg>
   </span>
-  {/* </Badge> */}
-</motion.div>  
+</motion.div>
 
 
           <Button

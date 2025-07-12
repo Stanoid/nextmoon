@@ -343,4 +343,3 @@ gridTemplateAreas:`
         </div>
     )
 }
-

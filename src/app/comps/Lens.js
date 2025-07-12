@@ -63,10 +63,7 @@ function Lens({ data = [] }) {
   };
 
   const handleMainImageClick = (e) => {
-      // This handler will fire *after* mouseUp for a simple click
-      // We should only open modal if zoom wasn't active based on isZoomingRef
       if (!zoomv && !isZoomingRef.current) {
-          // Find the index of the currently displayed galleryImage to open modal at that image
           const currentMainImageSrc = galleryImage;
           const initialModalIndex = data.findIndex(
               (img) => IMG_URL + img.attributes?.url === currentMainImageSrc
@@ -94,7 +91,6 @@ function Lens({ data = [] }) {
       <GlobalStyles />
       <div className="w-full flex flex-col-reverse lg:flex-row">
         
-        {/* Mobile thumbnails (existing) */}
         <div className="flex lg:hidden flex-row space-x-2 overflow-x-auto pb-2">
           {data.map((img, index) => {
             const thumbUrl = IMG_URL + img.attributes?.url;
@@ -114,7 +110,6 @@ function Lens({ data = [] }) {
           })}
         </div>
 
-        {/* Main Image with Zoom (existing functionality with new dimensions) */}
         <div
           id="bb"
           onMouseDown={handleMainImageMouseDown}
@@ -132,10 +127,9 @@ function Lens({ data = [] }) {
             WebkitUserSelect: "none",
             zIndex: zoomv ? 30 : 0,
           }}
-          // Updated dimensions based on your specifications
-          className={`relative transition-all duration-75 rounded-md p-6
-            w-[343px] h-[326px] // Mobile dimensions
-            lg:w-[528px] lg:h-[606px] // Desktop dimensions
+          className={`relative transition-all duration-75 rounded-md mb-4 p-2
+            w-[343px] h-[326px] 
+            lg:w-[528px] lg:h-[606px] 
             mx-auto`}
         >
           {galleryImage && (
@@ -147,7 +141,6 @@ function Lens({ data = [] }) {
             />
           )}
 
-          {/* Bottom Zoom Hint */}
           <div className="absolute bottom-2 w-full left-0 px-2 flex justify-center items-center text-xs text-white">
             <motion.div>
               <FaArrowUp className="mr-1 animate-bounce" />
@@ -156,7 +149,6 @@ function Lens({ data = [] }) {
           </div>
         </div>
 
-        {/* Desktop thumbnails (existing) */}
         <div className="hidden lg:flex flex-col space-y-2 pr-2">
           {data.map((img, index) => {
             const thumbUrl = IMG_URL + img.attributes?.url;
@@ -177,21 +169,18 @@ function Lens({ data = [] }) {
         </div>
       </div>
 
-      {/* Zoom overlay (existing) */}
       {zoomv && (
         <div className="fixed top-0 left-0 w-screen h-screen bg-black/60 z-20" />
       )}
 
-      {/* Responsive Image Modal with thumbs and navigation */}
       {isModalOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
-          onClick={() => setIsModalOpen(false)} // Close modal when clicking outside content
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-2"
+          onClick={() => setIsModalOpen(false)} 
         >
-          {/* Modal Content Container */}
           <div 
             className="relative bg-white h-screen w-screen p-4 rounded-lg shadow-lg max-w-[calc(100vw-48px)] max-h-[calc(100vh-48px)] flex flex-col items-center" 
-            onClick={(e) => e.stopPropagation()} // Prevent modal from closing when clicking inside content
+            onClick={(e) => e.stopPropagation()} 
           >
             <button
   onClick={() => setIsModalOpen(false)}
@@ -216,51 +205,48 @@ function Lens({ data = [] }) {
 </button>
 
 
-            {/* Main Modal Image Area with Navigation Arrows */}
-            <div className="relative flex items-center justify-center w-full overflow-hidden">
-                {data.length > 1 && ( // Only show arrows if more than one image
-                    <>
-                        {/* Previous Arrow */}
-                        <button
-                          onClick={goToPrevModalImage}
-                          className="absolute left-2 p-3 rounded-full shadow-md text-white hover:opacity-80 transition-opacity z-10 text-xl md:text-2xl"
-                          aria-label="Previous image"
-                          style={{
-                              background: 'linear-gradient(270deg, rgba(224, 36, 36, 0.48) 0%, rgba(224, 36, 36, 0) 100%)'
-                          }}
-                        >
-                        <FaAngleLeft />
-                        </button>
-                    </>
-                )}
+            <div className="relative flex items-center justify-center w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] bg-gray-900 rounded-lg shadow-xl overflow-hidden mx-auto max-w-full md:max-w-3xl lg:max-w-4xl">
+    {data.length > 1 && (
+        <>
+            <button
+                onClick={goToPrevModalImage}
+                className="absolute left-0 top-1/2 -translate-y-1/2 p-4 text-white text-3xl md:text-4xl opacity-70 hover:opacity-100 transition-opacity duration-300 z-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                aria-label="Previous image"
+                style={{
+                    background: 'linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%)'
+                }}
+            >
+                <FaAngleLeft />
+            </button>
+        </>
+    )}
 
-                {/* Current Modal Image with Zoom */}
-                {data.length > 0 && data[currentModalImageIndex] ? (
-                    <ImageZoom
-                        className="w-full lg:w-[768px] lg:h-[724px] p-[24px]   h-full object-cover  rounded-md" 
-                        src={IMG_URL + data[currentModalImageIndex].attributes?.url}
-                        alt={`Modal image ${currentModalImageIndex + 1}`}
-                        zoom="600" 
-                    />
-                ) : (
-                    <p>Loading image...</p>
-                )}
+    {data.length > 0 && data[currentModalImageIndex] ? (
+        <ImageZoom
+            className="w-full h-full object-contain p-4 bg-gray-800 rounded-lg z-0"
+            src={IMG_URL + data[currentModalImageIndex].attributes?.url}
+            alt={`Modal image ${currentModalImageIndex + 1}`}
+            zoom="600"
+        />
+    ) : (
+        <p className="text-white text-lg text-center p-4">Loading image...</p>
+    )}
 
-                {data.length > 1 && ( 
-                    <>
-                        <button
-                          onClick={goToNextModalImage}
-                          className="absolute right-2 p-3 rounded-full shadow-md text-white hover:opacity-80 transition-opacity z-10 text-xl md:text-2xl"
-                          aria-label="Next image"
-                          style={{
-                              background: 'linear-gradient(90deg, rgba(224, 36, 36, 0.48) 0%, rgba(224, 36, 36, 0) 100%)'
-                          }}  
-                        >
-                        <FaAngleRight />
-                        </button>
-                    </>
-                )}
-            </div>
+    {data.length > 1 && (
+        <>
+            <button
+                onClick={goToNextModalImage}
+                className="absolute right-0 top-1/2 -translate-y-1/2 p-4 text-white text-3xl md:text-4xl opacity-70 hover:opacity-100 transition-opacity duration-300 z-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                aria-label="Next image"
+                style={{
+                    background: 'linear-gradient(to left, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%)'
+                }}
+            >
+                <FaAngleRight />
+            </button>
+        </>
+    )}
+</div>
 
             {/* Modal Thumbnails */}
             {data.length > 1 && ( // Only show thumbnails if more than one image
