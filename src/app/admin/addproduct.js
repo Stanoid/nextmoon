@@ -915,3 +915,4 @@ console.log("images being sent",images);
 }
 
 export default AddProduct;
+
