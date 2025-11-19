@@ -54,7 +54,7 @@ function Orders(props) {
           
           setlod(false)
          // console.log("admin orders",data)
-        setOrderdata(data.reverse())
+        setOrderdata(Array.isArray(data) ? data.reverse() : [])
         }).then(()=>{
        
         

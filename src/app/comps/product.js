@@ -24,6 +24,7 @@ export default function Product(props) {
   const [loading,setLoading]= useState(false);
   const [cimg,setCimg] = useState("");
   const [colors,setColors]=useState(null);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     colorDisplay()
@@ -66,10 +67,10 @@ export default function Product(props) {
           router.push(`/products?pid=${props.data.id}`)
         }} 
         className="
-        lg:w-[308px] lg:h-[501px]  w-full  h-[330px] rounded-lg border border-gray-200 bg-white shadow-md cursor-pointer flex flex-col overflow-hidden relative" 
+        lg:w-[308px] lg:h-[501px] w-full h-[380px] sm:h-[400px] rounded-lg border border-gray-200 bg-white shadow-md cursor-pointer flex flex-col overflow-hidden relative" 
       >
   
-        <div className='relative mx-h-[169px] h-full lg:max-w-[308px] lg:max-h-[308px] w-full' style={{  }}> 
+        <div className='relative h-[220px] sm:h-[240px] lg:h-[308px] w-full flex items-center justify-center bg-gray-50'> 
           {loading ? (
             <div className='absolute inset-0 flex items-center justify-center bg-gray-100 '>
               <div style={{ zIndex: 10 }}>
@@ -80,28 +81,36 @@ export default function Product(props) {
             <>
               <Image
                 fill
-                objectFit='cover'
-                className='rounded-t-lg' 
-               src={`${IMG_URL}${props.data?.images[0]?.formats?.medium?.url}`} 
+                className='rounded-t-lg object-contain p-2' 
+                src={`${IMG_URL}${props.data?.images[0]?.formats?.medium?.url}`} 
                 alt="Product Image"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 308px"
               />
-              <div className="absolute top-2 left-2 p-2 bg-[#f7a0983d] rounded-md shadow-sm z-10">
-                <FaHeart className="text-gray-400 text-lg" />
-              </div>
+              <motion.div 
+                className="absolute top-2 left-2 p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-md z-10 cursor-pointer hover:scale-110 transition-transform"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsLiked(!isLiked);
+                  // TODO: Add API call to add/remove from favorites
+                }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <FaHeart className={`text-lg transition-colors ${isLiked ? 'text-red-500' : 'text-gray-400'}`} />
+              </motion.div>
             </>
           )}
         </div>
   
-        <div dir="ltr" className="flex flex-col p-2 lg:max-h-[193px] h-full  lg:max-w-[308px] w-full bg-white  items-end"> 
+        <div dir="ltr" className="flex flex-col p-3 lg:p-2 lg:max-h-[193px] h-full lg:max-w-[308px] w-full bg-white items-end"> 
   
-          <div className="lg:text-lg text-base hidden  lg:flex sm:hidden lg:flex:row font-medium mb-2 text-gray-800 text-right "> 
-  {props.data.name_ar} - {props.data.code}
+          <div className="lg:text-lg text-sm hidden lg:flex sm:hidden lg:flex:row font-medium mb-2 text-gray-800 text-right line-clamp-1"> 
+            {props.data.name_ar} - {props.data.code}
           </div>
   
   
-          <div className="lg:text-lg  lg:hidden flex flex-col font-medium mb-2 text-gray-800 text-right "> 
-  <h>{props.data.code}</h>
-  <h>{props.data.name_ar}</h> 
+          <div className="text-sm lg:text-lg lg:hidden flex flex-col font-medium mb-2 text-gray-800 text-right"> 
+            <h className="text-xs text-gray-600">{props.data.code}</h>
+            <h className="line-clamp-2">{props.data.name_ar}</h> 
           </div>
   
           <div className="flex flex-col items-end mb-4"> 

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { User } from '@nextui-org/react';
 import { FaBox, FaCreditCard, FaHeart,FaTruck, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser, FaWarehouse } from 'react-icons/fa6';
 import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
+import { useI18n } from '../lib/i18n';
                                                        
  const AddColor = dynamic(() => import('./AddColor'));
  const EditProduct = dynamic(() => import('./editProduct'));
@@ -39,6 +40,7 @@ import { BiCategory, BiCategoryAlt } from 'react-icons/bi';
 
 
 function AccounteEl() {
+    const { t } = useI18n();
     const ls = require("local-storage")
     const {logindata,logoutUser}  = useContext(AuthCon);
     const router = useRouter(); 
@@ -132,14 +134,13 @@ useNotifi(type,message);
 
   return (
       
-<div dir='rtl' style={{minHeight:"100vh",userSelect:"none",minWidth:"100vw",backgroundSize:50}}  className="w-full    ">
+<div dir='rtl' style={{minHeight:"100vh",userSelect:"none"}}  className="w-full min-h-screen bg-gray-50">
 
+<div className='w-full flex flex-col lg:flex-row min-h-screen'>
 
-<div className='w-full flex pt-10  flex-col  sm:flex-col lg:flex-row     justify-center'>
+<div className='lg:w-64 w-full lg:sticky lg:top-0 lg:h-screen bg-white shadow-lg' >
 
-<div className='min-w-60    p-2 ' >
-
-<div  className='w-full  p-3 flex  flex-col   lg:min-h-96 lg:h-full shadow-lg bg-white'>
+<div  className='w-full p-4 flex flex-col h-full'>
 {/* menu */}
 
 <div >
@@ -156,25 +157,25 @@ useNotifi(type,message);
     and `router` from `useRouter()` if you're using Next.js 13/14 App Router.
     Also, ensure `Theme` is imported or defined if used elsewhere for colors. */}
 
-<div style={{ width: "100%", overflowX: "scroll" }} className='flex sm:flex-row mt-3 lg:flex-col scrollable-content'>
+<div className='flex flex-row lg:flex-col mt-4 overflow-x-auto lg:overflow-x-visible gap-1'>
 
   {/* لوحة التحكم (Dashboard) */}
   <div onClick={() => { setPage(0) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 0 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 0 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div><MdOutlineAutoGraph /></div>
-    <div className='mx-1.5'> لوحة التحكم</div>
+    <div className='mx-1.5'>{t('dashboard')}</div>
   </div>
 
   {/* الطلبات (Orders) */}
   <div onClick={() => { setPid(null); setPage(1) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 1 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 1 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -182,15 +183,15 @@ useNotifi(type,message);
   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
 </svg>
     </div>
-    <div className='mx-1.5'> الطلبات</div>
+    <div className='mx-1.5'>{t('orders')}</div>
   </div>
 
   {/* إضافة منتج (Add Product) */}
   <div onClick={() => { setPid(null); setPage(14) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 14 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 14 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -204,9 +205,9 @@ useNotifi(type,message);
   {/* المنتجات (Products) */}
   <div onClick={() => { setPid(null); setPage(2) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 2 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 2 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -215,15 +216,15 @@ useNotifi(type,message);
 </svg>
 
         </div>
-    <div className='mx-1.5'> المنتجات</div>
+    <div className='mx-1.5'>{t('products')}</div>
   </div>
 
   {/* المقاسات (Sizes) */}
   <div onClick={() => { setPid(null); setPage(3) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 3 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 3 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaRuler /></div>
     <div className='mx-1.5'> المقاسات</div>
@@ -232,9 +233,9 @@ useNotifi(type,message);
   {/* الألوان (Colors) */}
   <div onClick={() => { setPid(null); setPage(4) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 4 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 4 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -249,9 +250,9 @@ useNotifi(type,message);
   {/* الفئات (Categories) */}
   <div onClick={() => { setPid(null); setPage(5) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 5 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 5 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div><BiCategory /></div>
     <div className='mx-1.5'> الفئات</div>
@@ -260,9 +261,9 @@ useNotifi(type,message);
   {/* نقاط التوصيل (Delivery Points) */}
   <div onClick={() => { setPid(null); setPage(21) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 21 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 21 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaTruck /></div>
     <div className='mx-1.5'> نقاط التوصيل</div>
@@ -271,9 +272,9 @@ useNotifi(type,message);
   {/* الفئات الفرعية (Subcategories) */}
   <div onClick={() => { setPid(null); setPage(6) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 6 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 6 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div><BiCategoryAlt /></div>
     <div className='mx-1.5'> الفئات الفرعية</div>
@@ -282,9 +283,9 @@ useNotifi(type,message);
   {/* المخزون (Inventory) */}
   <div onClick={() => { setPid(null); setPage(20) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 20 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 20 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaWarehouse /></div>
     <div className='mx-1.5'> المخزون</div>
@@ -293,9 +294,9 @@ useNotifi(type,message);
   {/* العروض الترويجية (Promotions) */}
   <div onClick={() => { setPid(null); setPage(10) }}
     className={`
-      flex px-2 py-3 cursor-pointer whitespace-nowrap transition-colors duration-200
-      lg:border-b-2 lg:border-gray-200 justify-start items-center text-sm
-      ${page === 10 ? 'bg-gray-100 text-gray-900 font-bold' : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 font-normal'}
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 10 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
     `}>
     <div><MdSpeakerPhone /></div>
     <div className='mx-1.5'> لعروض الترويجية</div>
@@ -303,7 +304,7 @@ useNotifi(type,message);
 
   {/* تسجيل خروج (Logout) */}
   <div onClick={() => { router.push("/logout") }}
-    className='flex px-2 py-3   rounded-sm cursor-pointer whitespace-nowrap transition-colors hover:text-red-700 text-red-500 justify-start items-center text-sm'>
+    className='flex px-3 py-2.5 mt-2 rounded-lg cursor-pointer whitespace-nowrap transition-all hover:bg-red-50 text-red-500 hover:text-red-700 justify-start items-center text-sm gap-2'>
     <div dir='rtl'>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
@@ -318,9 +319,9 @@ useNotifi(type,message);
 </div>
 
 </div>
-<div className='w-full sm:w-full lg:w-2/3  p-2' >
+<div className='flex-1 w-full p-4 lg:p-6 overflow-auto'>
 
-<div className='min-h-96 px-2 py-5 w-full h-4-full shadow-lg bg-white'>
+<div className='w-full'>
 
 <div style={{display:lod?"flex":"none"}}  className='w-full min-h-96 flex items-center justify-center' >
       <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>

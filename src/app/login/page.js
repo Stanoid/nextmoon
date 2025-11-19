@@ -5,14 +5,10 @@ import { toast, ToastContainer } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
 import { login } from "../lib/actions/counterAction"
 import { useRouter } from 'next/navigation'
-// Keeping Fa icons for brand recognition, but styling them to look more "outlined" or neutral.
-import { FaLock, FaUserPlus, FaFacebook, FaGoogle, FaInstagram, FaXTwitter } from 'react-icons/fa6'
+import { FaFacebook, FaGoogle, FaInstagram, FaXTwitter, FaEye, FaEyeSlash } from 'react-icons/fa6'
 import LoadingBtn from '../comps/loadingbtn'
 import InputEl from '../comps/inputel'
-import { AuthCon } from '../contexts/AuthCon'
-import { CartCon } from '../contexts/cartContext'
 import Logowhite from "../../../public/logoblack.svg"
-import { Eye, EyeOff } from "lucide-react" // Changed EyeClosed to EyeOff for Lucide
 import { useI18n } from '../lib/i18n'
 export default function Login() {
   const { t, direction } = useI18n();
@@ -104,7 +100,7 @@ export default function Login() {
     animate={{ rotate: showpass ? 20 : 0, opacity: 1 }}
     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
   >
-    {showpass ? <Eye size={18} /> : <EyeOff size={18} />}
+    {showpass ? <FaEye size={18} /> : <FaEyeSlash size={18} />}
   </motion.div>
 </div>
 

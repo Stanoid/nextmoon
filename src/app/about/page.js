@@ -13,9 +13,7 @@ import Ino from "../../../public/ino.svg";
 import Fun from "../../../public/fun.svg";
 import Cur from "../../../public/cur.svg";
 import Wrld from "../../../public/wrld.svg"
-import { MapPin } from 'lucide-react';
-
-
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import { IMG_URL } from '../local';
 import { useI18n } from '../lib/i18n';
@@ -365,7 +363,7 @@ function AccounteEl() {
               <div className="flex items-center w-full justify-between">
 
                 {/* Location Icon/Arrow (Left in RTL layout) */}
-                <MapPin className="w-5 h-5 text-gray-400 rotate-90" />
+                <FaMapMarkerAlt className="w-5 h-5 text-gray-400 rotate-90" />
 
                 {/* Text Content (Right Aligned in RTL) */}
                 <div dir='rtl' className=" flex-grow pr-4">

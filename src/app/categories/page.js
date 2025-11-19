@@ -9,10 +9,12 @@ import { API_URL, IMG_URL } from '../local';
 import ProductCopm from '../comps/product';
 import HorDiv from '../comps/hordiv';
 import SidebarFilter from '../comps/prodfilter';
+import { useI18n } from '../lib/i18n';
 
 const Slider = dynamic(() => import('../comps/mainSlider'));
 
 export default function Home() {
+  const { t, locale } = useI18n();
   const [lod, setLod] = useState(true);
   const [products, setProducts] = useState([]);
   const [filteredResults, setFilteredResults] = useState(null);
@@ -67,116 +69,152 @@ export default function Home() {
       )}
 
       {!lod && (
-        <div className="flex w-full max-w-screen-xl mx-auto px-2">
-          {/* Main Content */}
-          <div className="flex-1 space-y-2" dir="ltr">
-            {/* Subcategory Banners */}
-            <div className="w-full py-2 mt-12  grid grid-cols-3 gap-4  items-center justify-center">
-              {products?.products?.map((prd) => (
-                <div
-                  key={prd.id}
-                  onClick={() => router.push(`/subcatagories?sid=${prd.id}`)}
-                  className="shadow-md min-w-28 w-28 lg:w-40 lg:min-w-40 mx-1.5 rounded-sm hover:scale-105 hover:shadow-md cursor-pointer transition-all"
-                >
-                  <div className="w-28 h-28 lg:w-40 lg:h-40 relative">
-                    <Image
-                      quality={20}
-                      fill
-                      objectFit="cover"
-                      className="rounded-md rounded-b-none"
-                      src={`${IMG_URL}${products.data?.images?.[0]?.formats?.medium?.url}`}
-                      alt="Product"
-                    />
-                  </div>
-                  <div className="py-2 w-full text-sm text-center">{/* {prd.name_ar} */}</div>
-                </div>
-              ))}
+        <div className="w-full">
+          {/* Mobile Filter Button - Top */}
+          <div className="lg:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+            <div className="max-w-screen-xl mx-auto px-4 py-3">
+              <button
+                onClick={() => setShowMobileFilter(true)}
+                className="w-full px-5 py-3.5 bg-white hover:bg-gray-50 border-2 border-gray-200 hover:border-moon-200 text-gray-700 rounded-xl flex items-center justify-center gap-2.5 font-semibold transition-all shadow-sm hover:shadow-md"
+              >
+                <svg className="w-5 h-5 text-moon-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                <span>{t('filterProducts')}</span>
+                {(filters.sizes || filters.colors || filters.priceRange) && (
+                  <span className="bg-moon-200 text-white text-xs px-2.5 py-1 rounded-full font-bold ml-1">
+                    {t('active')}
+                  </span>
+                )}
+              </button>
             </div>
-
-            {filteredResults && (
-              <div className="w-full">
-                <div className="my-2 px-2 text-right text-moon-300 font-bold text-xl">
-                  {filteredResults.name_ar}
-                </div>
-
-                <div className="px-2 grid gap-y-4 my-6 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-4 grid-cols-2">
-                  {filteredResults.products.map(
-                    (prd) =>
-                      prd.status && (
-                        <div key={prd.id}>
-                          <ProductCopm atcbtn={false} data={prd} />
-                        </div>
-                      )
-                  )}
-                </div>
-
-                <div className="w-full text-right px-2 mb-4">
-                  <button
-                    onClick={() => setFilteredResults(null)}
-                    className="text-sm text-blue-600 underline"
-                  >
-                    عرض كل المنتجات
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {Array.isArray(products) &&
-              products.map((sub, index) => (
-                <div className="w-full" key={sub.id}>
-                  <div className="my-2 px-2 text-right text-moon-300 font-bold text-xl">
-                    {sub.name_ar}
-                  </div>
-
-                  {index % 2 === 0 ? (
-                    <div className="px-0 grid w-full gap-y-4 gap-2 my-6 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-4 grid-cols-2">
-                      {sub.products?.map(
-                        (prd) =>
-                          prd.status && (
-                            <div key={prd.id}>
-                              <ProductCopm atcbtn={false} data={prd} />
-                            </div>
-                          )
-                      )}
-                    </div>
-                  ) : (
-                    <div className="w-full">
-                      <HorDiv cid={sub.id} data={sub.products} />
-                    </div>
-                  )}
-                </div>
-              ))}
           </div>
 
-          <div className="hidden lg:block lg:w-[250px] shrink-0 p-4">
-            <SidebarFilter onFilterChange={handleFilterChange} />
+          <div className="flex flex-col lg:flex-row w-full max-w-screen-2xl mx-auto px-2 lg:px-4 gap-6 mt-4 lg:mt-0">
+            {/* Sidebar Filter - Desktop */}
+            <div className="hidden lg:block lg:w-[280px] shrink-0">
+              <SidebarFilter onFilterChange={handleFilterChange} />
+            </div>
+
+            {/* Main Content */}
+            <div className="flex-1 space-y-4" dir="ltr">
+              {/* Subcategory Banners */}
+              <div className="w-full py-2 lg:mt-12 grid grid-cols-3 gap-4 items-center justify-center">
+                {products?.products?.map((prd) => (
+                  <div
+                    key={prd.id}
+                    onClick={() => router.push(`/subcatagories?sid=${prd.id}`)}
+                    className="shadow-md min-w-28 w-28 lg:w-40 lg:min-w-40 mx-1.5 rounded-sm hover:scale-105 hover:shadow-md cursor-pointer transition-all"
+                  >
+                    <div className="w-28 h-28 lg:w-40 lg:h-40 relative">
+                      <Image
+                        quality={20}
+                        fill
+                        objectFit="cover"
+                        className="rounded-md rounded-b-none"
+                        src={`${IMG_URL}${products.data?.images?.[0]?.formats?.medium?.url}`}
+                        alt="Product"
+                      />
+                    </div>
+                    <div className="py-2 w-full text-sm text-center">{/* {prd.name_ar} */}</div>
+                  </div>
+                ))}
+              </div>
+
+                {filteredResults && (
+                <div className="w-full">
+                  <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                      <div className="text-right">
+                        <h2 className="text-lg lg:text-xl font-bold text-gray-800">
+                          {locale === 'ar' ? filteredResults.name_ar : locale === 'fr' ? filteredResults.name_fr || filteredResults.name_ar : filteredResults.name_en || filteredResults.name_ar}
+                        </h2>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {filteredResults.products.length} {t('product')}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setFilteredResults(null)}
+                        className="text-sm text-moon-200 hover:text-moon-300 flex items-center gap-1 font-medium transition-colors"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        {t('clearFilter')}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-3 sm:gap-4 lg:gap-6 xl:gap-7 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                    {filteredResults.products.map(
+                      (prd) =>
+                        prd.status && (
+                          <div key={prd.id}>
+                            <ProductCopm atcbtn={false} data={prd} />
+                          </div>
+                        )
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {Array.isArray(products) &&
+                products.map((sub, index) => (
+                  <div className="w-full" key={sub.id}>
+                    <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
+                      <h2 className="text-lg lg:text-xl font-bold text-gray-800 text-right">{sub.name_ar}</h2>
+                      <p className="text-sm text-gray-500 mt-1 text-right">
+                        {sub.products?.length || 0} منتج
+                      </p>
+                    </div>
+
+                    {index % 2 === 0 ? (
+                      <div className="grid gap-3 sm:gap-4 lg:gap-6 xl:gap-7 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                        {sub.products?.map(
+                          (prd) =>
+                            prd.status && (
+                              <div key={prd.id}>
+                                <ProductCopm atcbtn={false} data={prd} />
+                              </div>
+                            )
+                        )}
+                      </div>
+                    ) : (
+                      <div className="w-full">
+                        <HorDiv cid={sub.id} data={sub.products} />
+                      </div>
+                    )}
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       )}
 
-
-      <div className="fixed bottom-4 right-4 lg:hidden z-50">
-        <button
-          onClick={() => setShowMobileFilter(true)}
-          className="px-4 py-2 bg-moon-200 text-white rounded-md shadow-md"
-        >
-          فلترة المنتجات
-        </button>
-      </div>
-
+      {/* Mobile Filter Modal */}
       {showMobileFilter && (
-        <div className="fixed inset-0 bg-white z-50 overflow-y-auto p-4">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold">فلترة المنتجات</h2>
-            <button
-              className="text-sm text-red-500"
-              onClick={() => setShowMobileFilter(false)}
-            >
-              إغلاق
-            </button>
-          </div>
+        <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-sm" onClick={() => setShowMobileFilter(false)}>
+          <div 
+            className="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-2xl overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-4 flex justify-between items-center z-10">
+              <h2 className="text-xl font-bold text-gray-800">{t('filters')}</h2>
+              <button
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                onClick={() => setShowMobileFilter(false)}
+                aria-label={t('close')}
+              >
+                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-          <SidebarFilter onFilterChange={handleFilterChange} />
+            <div className="p-4">
+              <SidebarFilter onFilterChange={handleFilterChange} />
+            </div>
+          </div>
         </div>
       )}
     </>

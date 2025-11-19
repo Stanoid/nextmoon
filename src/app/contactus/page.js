@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import InputEl from '../comps/inputel';
 
 // Mocking 't' function based on the Arabic text in the image
@@ -57,7 +57,7 @@ function AccounteEl({ direction = 'ltr', locale = 'en' }) {
                     {/* Phone Block */}
                     <div className="flex flex-col  items-center justify-start w-full  lg:mx-12 sm:w-auto">
                         <div className="w-14 h-14 rounded-full flex items-center justify-center bg-gray-100 mb-3">
-                            <Phone className="w-7 h-7 text-moon-200" />
+                            <FaPhone className="w-7 h-7 text-moon-200" />
                         </div>
                         <h3 className="text-lg font-semibold text-gray-800 mb-1">{t('phone')}</h3>
                         <p className="text-gray-600 text-base">{t('phoneValue')}</p>
@@ -66,7 +66,7 @@ function AccounteEl({ direction = 'ltr', locale = 'en' }) {
                     {/* Location Block (Center Item in Grid) */}
                     <div className="flex flex-col items-center justify-start w-full max-w-[250px] sm:w-auto border-y sm:border-x sm:border-y-0 py-4 sm:py-0 border-gray-200">
                         <div className="w-14 h-14 rounded-full flex items-center justify-center bg-gray-100 mb-3">
-                            <MapPin className="w-7 h-7 text-moon-200" />
+                            <FaMapMarkerAlt className="w-7 h-7 text-moon-200" />
                         </div>
                         <h3 className="text-lg font-semibold text-gray-800 mb-1 text-center">{t('mainBranch')}</h3>
                         <p className="text-gray-600 text-base text-center max-w-[250px]">{t('locationValue')}</p>
@@ -75,7 +75,7 @@ function AccounteEl({ direction = 'ltr', locale = 'en' }) {
                     {/* Email Block */}
                     <div className="flex flex-col items-center justify-start w-full max-w-[250px] sm:w-auto">
                         <div className="w-14 h-14 rounded-full flex items-center justify-center bg-gray-100 mb-3">
-                            <Mail className="w-7 h-7 text-moon-200" />
+                            <FaEnvelope className="w-7 h-7 text-moon-200" />
                         </div>
                         <h3 className="text-lg font-semibold text-gray-800 mb-1">{t('email')}</h3>
                         <p className="text-gray-600 text-base">{t('emailValue')}</p>

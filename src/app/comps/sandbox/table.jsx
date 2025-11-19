@@ -248,15 +248,15 @@
             let stobp = {};
             switch (cellValue) {
               case "unpaid":
-              stobp.lable = "غير مدفوع";
-              stobp.color = "text-amber-700 bg-amber-200 ";
-            stobp.dot = "bg-amber-700";
+              stobp.lable = t('unpaid');
+              stobp.color = "text-amber-700 bg-amber-100 ";
+            stobp.dot = "bg-amber-600";
               
               break;
       
               case "paid":
-                stobp.lable = "تم الدفع";
-                stobp.color = "text-green-600 bg-green-300";
+                stobp.lable = t('paid');
+                stobp.color = "text-green-700 bg-green-100";
                 stobp.dot = "bg-green-600";
               
                 
@@ -270,17 +270,16 @@
             }
       
       
-            return (<div className={stobp.color} style={{
+            return (<div className={`${stobp.color} rounded-lg shadow-sm font-medium`} style={{
               display:"flex",
               whiteSpace:"nowrap",
               alignItems:"center",
               justifyContent:"center",
         
-              padding:"4px 10px",
-              borderRadius:10
+              padding:"6px 12px",
             
             }} > 
-            <div   className={stobp.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,marginRight:7,fontSize:10}}></div>
+            <div   className={stobp.dot} style={{width:8,height:8,borderRadius:100,marginLeft:7,marginRight:7}}></div>
             {stobp.lable} 
             </div>);
             break;
@@ -290,14 +289,14 @@
               let delob = {};
               switch (cellValue) {
                 case "delivery":
-                  delob.lable = "توصيل لعنوان";
+                  delob.lable = t('deliveryToAddress');
                   delob.color = "text-moonsec-200 bg-moonsec-200/10 ";
                   delob.dot = "bg-moonsec-200";
                 
                 break;
         
                 case "pickup":
-                  delob.lable = "إستلام من مركز";
+                  delob.lable = t('pickupFromCenter');
                   delob.color = "text-moonsec-100 bg-moonsec-100/10 ";
                   delob.dot = "bg-moonsec-100";
                 
@@ -308,17 +307,16 @@
               }
         
         
-              return (<div className={delob.color} style={{
+              return (<div className={`${delob.color} rounded-lg shadow-sm font-medium`} style={{
                 display:"flex",
                 whiteSpace:"nowrap",
                 alignItems:"center",
                 justifyContent:"center",
           
-                padding:"4px 10px",
-                borderRadius:10
+                padding:"6px 12px",
               
               }} > 
-              <div   className={delob.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,marginRight:7,fontSize:10}}></div>
+              <div   className={delob.dot} style={{width:8,height:8,borderRadius:100,marginLeft:7,marginRight:7}}></div>
               {delob.lable} 
               </div>);
               break;
@@ -330,14 +328,14 @@
               let payob = {};
               switch (cellValue) {
                 case "online":
-                  payob.lable = "إلكتروني";
+                  payob.lable = t('online');
                   payob.color = "text-moon-200 bg-moon-200/10  ";
                   payob.dot = "bg-moon-200";
                 
                 break;
         
                 case "delivery":
-                  payob.lable = "عند الإستلام";
+                  payob.lable = t('onDelivery');
                   payob.color = "text-moonsec-100 bg-moonsec-100/10 ";
                   payob.dot = "bg-moonsec-100";
                 
@@ -348,17 +346,16 @@
               }
         
         
-              return (<div className={payob.color} style={{
+              return (<div className={`${payob.color} rounded-lg shadow-sm font-medium`} style={{
                 display:"flex",
                 whiteSpace:"nowrap",
                 alignItems:"center",
                 justifyContent:"center",
           
-                padding:"4px 10px",
-                borderRadius:10
+                padding:"6px 12px",
               
               }} > 
-              <div   className={payob.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,marginRight:7,fontSize:10}}></div>
+              <div   className={payob.dot} style={{width:8,height:8,borderRadius:100,marginLeft:7,marginRight:7}}></div>
               {payob.lable} 
               </div>);
               break;
@@ -439,8 +436,8 @@
           case "feat":
           
           return(
-          <div className="py-2 px-4 text-center text-white font-bold rounded-md " style={{backgroundColor:cellValue?"#2eff89":"#ff424c"}} >
-            {cellValue?"نعم":"لا"}
+          <div className="py-2 px-4 text-center text-white font-semibold rounded-lg shadow-sm" style={{backgroundColor:cellValue?"#2eff89":"#ff424c"}} >
+            {cellValue ? t('yes') : t('no')}
           </div>
 
           );
@@ -452,8 +449,8 @@
         case "topsec":
           
         return(
-        <div className="py-2 px-4 text-center text-white font-bold rounded-md " style={{backgroundColor:cellValue?"#2eff89":"#ff424c"}} >
-          {cellValue?"نعم":"لا"}
+        <div className="py-2 px-4 text-center text-white font-semibold rounded-lg shadow-sm" style={{backgroundColor:cellValue?"#2eff89":"#ff424c"}} >
+          {cellValue ? t('yes') : t('no')}
         </div>
 
         );

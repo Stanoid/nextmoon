@@ -231,23 +231,27 @@ const notify = (type,msg)=>{
 
                      <div id="scrol"   style={{height:"100vh",overflowY:'scroll', overflowX:'hidden',padding:10}}>
                  
-                     {likesData&&likesData.length!=0?likesData.map((like,index)=>(
-                like.products.length!=0?
-              <LikeEl lid={like.id} removeFav={(id)=>{removeFav(id)}} closeModal={()=>{props.openHandler(false)}} id={like.products[0]?.id} 
-              price={like.products[0]?.varients[0]?.price}
-               name={like.products[0]?.name_en} 
-               code={like.products[0]?.code}
-               index={index}
-               img={
-                 like.products[0]?.images &&
-                 like.products[0].images?.[0].url
-                   ?  IMG_URL + like.products[0].images[0].url
-                   : "/default-image.png" 
-               }
-             />
-    :<></>
+                     {likesData && Array.isArray(likesData) && likesData.length !== 0 ? likesData.map((like, index) => (
+                like?.products && Array.isArray(like.products) && like.products.length !== 0 ?
+              <LikeEl 
+                key={like.id || index}
+                lid={like.id} 
+                removeFav={(id) => {removeFav(id)}} 
+                closeModal={() => {props.openHandler(false)}} 
+                id={like.products[0]?.id} 
+                price={like.products[0]?.varients?.[0]?.price}
+                name={like.products[0]?.name_en} 
+                code={like.products[0]?.code}
+                index={index}
+                img={
+                  like.products[0]?.images && Array.isArray(like.products[0].images) && like.products[0].images[0]?.url
+                    ? IMG_URL + like.products[0].images[0].url
+                    : "/default-image.png" 
+                }
+              />
+              : null
            
-               )):
+               )) :
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
                   <div>
       <Image src={'/like.svg'} width={200} height={200} />
