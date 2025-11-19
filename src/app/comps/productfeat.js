@@ -20,15 +20,7 @@ function ProductFeat() {
     fetchTopSubcats();
   }, []);
 
-  useEffect(() => {
-    if (subcats.length === 0) return;
-
-    const interval = setInterval(() => {
-      setStartIndex((prev) => (prev + 1) % subcats.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [subcats]);
+  // Removed auto-rotation for better UX
 
   const fetchTopSubcats = async () => {
     try {
@@ -73,61 +65,35 @@ function ProductFeat() {
   const cardVariants = {
     hidden: {
       opacity: 0,
-      scale: 0.8,
-      y: 50,
-      rotateX: -15,
+      y: 20,
     },
     visible: {
       opacity: 1,
-      scale: 1,
       y: 0,
-      rotateX: 0,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 0.6,
-      },
-    },
-    hover: {
-      scale: 1.05,
-      y: -10,
-      rotateY: 5,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-        duration: 0.3,
+        duration: 0.4,
+        ease: "easeOut",
       },
     },
   };
 
   const imageVariants = {
     initial: {
-      scale: 1.2,
-      opacity: 0.8,
-    },
-    animate: {
       scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
     },
     hover: {
-      scale: 1.15,
+      scale: 1.08,
       transition: {
-        duration: 0.6,
+        duration: 0.4,
         ease: "easeOut",
       },
     },
   };
 
   const overlayVariants = {
-    initial: { opacity: 0.4 },
+    initial: { opacity: 0.5 },
     hover: {
-      opacity: 0.75,
+      opacity: 0.7,
       transition: {
         duration: 0.3,
       },
@@ -136,20 +102,10 @@ function ProductFeat() {
 
   const textVariants = {
     initial: {
-      y: 20,
-      opacity: 0,
-    },
-    animate: {
-      y: 0,
       opacity: 1,
-      transition: {
-        delay: 0.4,
-        duration: 0.5,
-        ease: "easeOut",
-      },
     },
     hover: {
-      y: -5,
+      y: -3,
       transition: {
         duration: 0.2,
       },
@@ -165,7 +121,6 @@ function ProductFeat() {
         variants={cardVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        whileHover="hover"
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         onClick={() => {
@@ -177,39 +132,28 @@ function ProductFeat() {
             console.error('Error navigating:', err);
           }
         }}
-        className={`relative rounded-2xl overflow-hidden shadow-xl cursor-pointer group
+        className={`relative rounded-xl overflow-hidden shadow-lg cursor-pointer group
           ${isLarge ? 'col-span-2 row-span-2 min-h-[300px] lg:min-h-[400px]' : 'min-h-[180px] lg:min-h-[220px]'}
           flex items-end
-          bg-gradient-to-br from-gray-50 to-gray-100
-          border border-gray-200/50
-          backdrop-blur-sm
+          bg-gray-100
           transition-all duration-300
-          ${isHovered ? 'shadow-2xl ring-2 ring-moon-200/50' : ''}`}
-        style={{
-          perspective: '1000px',
-        }}
+          ${isHovered ? 'shadow-xl' : ''}`}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={img}
-            className="absolute inset-0 w-full h-full"
-            variants={imageVariants}
-            initial="initial"
-            animate={isHovered ? "hover" : "animate"}
-            exit={{ opacity: 0, scale: 1.1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <img
-              src={img}
-              alt={name}
-              className="w-full h-full object-cover"
-              style={{
-                filter: isHovered ? 'brightness(1.1) saturate(1.2)' : 'brightness(0.95) saturate(1)',
-                transition: 'filter 0.4s ease-out',
-              }}
-            />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          variants={imageVariants}
+          initial="initial"
+          animate={isHovered ? "hover" : "initial"}
+        >
+          <img
+            src={img}
+            alt={name}
+            className="w-full h-full object-cover transition-all duration-300"
+            style={{
+              filter: isHovered ? 'brightness(1.05)' : 'brightness(1)',
+            }}
+          />
+        </motion.div>
 
         {/* Gradient Overlay with better colors */}
         <motion.div
@@ -219,84 +163,42 @@ function ProductFeat() {
           className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"
         />
 
-        {/* Shine effect on hover */}
-        {isHovered && (
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-            initial={{ x: '-100%' }}
-            animate={{ x: '100%' }}
-            transition={{
-              duration: 0.8,
-              ease: "easeInOut",
-              repeat: Infinity,
-              repeatDelay: 1,
-            }}
-            style={{
-              transform: 'skewX(-20deg)',
-            }}
-          />
-        )}
+
 
         {/* Content */}
         <motion.div
           variants={textVariants}
           initial="initial"
-          animate={isInView ? "animate" : "initial"}
           whileHover="hover"
-          className={`absolute bottom-0 left-0 right-0 p-5 lg:p-6 flex items-center justify-center z-10
+          className={`absolute bottom-0 left-0 right-0 p-4 lg:p-5 flex items-center justify-center z-10
             ${direction === 'rtl' ? 'text-right' : 'text-left'}`}
           style={{
-            background: 'linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.85) 100%)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
+            background: 'linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%)',
           }}
         >
           <h3
-            className={`text-white font-bold text-center w-full z-10
-              ${isLarge ? 'text-xl lg:text-3xl' : 'text-base lg:text-xl'}
-              drop-shadow-lg
-              transition-all duration-300
-              ${isHovered ? 'scale-105' : ''}`}
+            className={`text-white font-bold text-center w-full
+              ${isLarge ? 'text-lg lg:text-2xl' : 'text-sm lg:text-lg'}
+              transition-all duration-200`}
             style={{
-              textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.6)',
             }}
           >
             {name}
           </h3>
         </motion.div>
-
-        {/* Decorative corner accent */}
-        <motion.div
-          className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20"
-          initial={{ scale: 0, rotate: -180 }}
-          animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-          transition={{
-            delay: 0.5 + index * 0.1,
-            type: "spring",
-            stiffness: 200,
-            damping: 15,
-          }}
-        />
       </motion.div>
     );
   };
 
-  const visibleSubcats = [];
-  for (let i = 0; i < 5; i++) {
-    const subcat = subcats[(startIndex + i) % subcats.length];
-    if (subcat) {
-      visibleSubcats.push(subcat);
-    }
-  }
+  // Show first 5 subcategories without rotation
+  const visibleSubcats = subcats.slice(0, 5);
 
   return (
     <div
       ref={containerRef}
       dir={direction}
       className="py-8 lg:py-12 w-full max-w-7xl mx-auto sm:px-6"
-      style={{
-        background: 'linear-gradient(to bottom, transparent, rgba(249, 250, 251, 0.5), transparent)',
-      }}
     >
       {/* Header with animation */}
       <motion.div
@@ -320,23 +222,16 @@ function ProductFeat() {
           {t('bestSections')}
         </motion.h2>
         <motion.a
-          initial={{ opacity: 0, x: direction === 'rtl' ? -30 : 30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: direction === 'rtl' ? -30 : 30 }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
           href="/products"
-          className={`text-sm lg:text-base text-gray-600 hover:text-moon-200 transition-all duration-300 font-medium
+          className={`text-sm lg:text-base text-gray-600 hover:text-moon-200 transition-colors duration-200 font-medium
             ${direction === 'rtl' ? 'text-left' : 'text-right'}
-            flex items-center gap-2
-            group`}
+            flex items-center gap-2`}
         >
           <span>{t('viewAllProducts')}</span>
-          <motion.span
-            animate={{ x: direction === 'rtl' ? [-5, 0, -5] : [5, 0, 5] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="inline-block"
-          >
-            →
-          </motion.span>
+          <span className="inline-block">→</span>
         </motion.a>
       </motion.div>
 
@@ -352,18 +247,16 @@ function ProductFeat() {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-fr"
         >
-          {visibleSubcats.map((subcat, idx) =>
-            subcat ? (
-              <CategoryCard
-                key={subcat.id + '-' + idx + '-' + startIndex}
-                img={getImageUrl(subcat.img)}
-                name={subcat.name_ar || subcat.name || 'Category'}
-                link={`/categories?cid=${subcat.id}`}
-                isLarge={idx === 0}
-                index={idx}
-              />
-            ) : null
-          )}
+          {visibleSubcats.map((subcat, idx) => (
+            <CategoryCard
+              key={subcat.id}
+              img={getImageUrl(subcat.img)}
+              name={subcat.name_ar || subcat.name || 'Category'}
+              link={`/categories?cid=${subcat.id}`}
+              isLarge={idx === 0}
+              index={idx}
+            />
+          ))}
         </motion.div>
       )}
     </div>

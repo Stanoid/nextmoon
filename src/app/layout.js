@@ -230,63 +230,75 @@ if(el.target.value.length<3){
 
         <NavbarC rel={false} searchTog={searchTog} setSearchTog={(sta)=>{setSearchTog(sta)}} cat={cat} openCart={(t)=>{handleOpenCart(t)}}  openFav={handleOpenCartl}  />
 
+</div>
+
+        {/* Spacer for fixed navbar */}
+        <div className="h-[218px]"></div>
 
         {searchTog && (
   <div
-  onClick={() => {
-    setSearchTog(false);
-    setDraw(false);
-  }}
-
-    className="fixed inset-0 z-50 flex justify-center items-start pt-32 bg-black/40 overflow-y-auto"
+    onClick={() => {
+      setSearchTog(false);
+      setDraw(false);
+    }}
+    className="fixed inset-0 z-[60] flex justify-center items-start pt-20 lg:pt-32 bg-black/40 overflow-y-auto px-4"
+    style={{ cursor: 'pointer' }}
   >
-    <div className="w-full max-w-2xl px-4">
+    <div className="w-full max-w-3xl" style={{ cursor: 'default' }}>
       <div
-        className="relative bg-white border border-moon-200 rounded-xl shadow-2xl overflow-hidden"
+        className="relative bg-white rounded-2xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Close button */}
+        <button
+          onClick={() => {
+            setSearchTog(false);
+            setDraw(false);
+          }}
+          className="absolute top-4 left-4 z-10 p-2 rounded-full hover:bg-gray-100 transition-colors"
+          aria-label="Close search"
+        >
+          <BsX className="text-2xl text-gray-600" />
+        </button>
+
         {/* Search Input */}
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              className="h-5 w-5 text-moon-200"
-              fill={Theme.secondary}
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              />
-            </svg>
+        <div className="relative p-4 lg:p-6">
+          <div className="relative">
+            <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+              <svg
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+            <input
+              ref={inputRef}
+              id="search_field"
+              placeholder="ابحث عن منتج أو كود المنتج..."
+              autoComplete="off"
+              onFocus={drawSugg}
+              onChange={handleSearch}
+              className="w-full border-2 border-gray-200 rounded-xl pr-12 pl-4 py-3 lg:py-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-moon-200 focus:ring-2 focus:ring-moon-100 transition-all text-sm lg:text-base"
+            />
           </div>
-          <input
-            ref={inputRef}
-            id="search_field"
-            placeholder="إبحث إسم منتج أو كود المنتج"
-            autoComplete="off"
-            onFocus={drawSugg}
-            onChange={handleSearch}
-            className="w-full border-none pl-10 pr-4 py-4 text-moon-300/80 placeholder-moon-300/60 rounded-t-xl focus:outline-none sm:text-base"
-          />
         </div>
 
+        {/* Results */}
         {draw && (
-          <div className="max-h-96 overflow-y-auto bg-white border-t border-moon-100 z-30 p-3">
-            <div className="flex justify-end mb-3 text-red-500 font-semibold text-sm">
-              <button
-                onClick={() => setDraw(false)}
-                className="flex items-center gap-1 text-moon-300/70 hover:text-moon-300 transition"
-              >
-                إخفاء <BsX className="text-lg" />
-              </button>
-            </div>
-
+          <div className="max-h-[60vh] overflow-y-auto bg-gray-50 border-t border-gray-200">
             {sugges?.length === 0 ? (
-              <div className="h-32 flex flex-col justify-center items-center text-moon-200">
+              <div className="h-48 flex flex-col justify-center items-center text-gray-400 p-6">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mb-2"
+                  className="w-12 h-12 mb-3 opacity-50"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -298,38 +310,59 @@ if(el.target.value.length<3){
                     d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
                   />
                 </svg>
-                لاتوجد نتائج
+                <p className="text-base font-medium">لا توجد نتائج</p>
+                <p className="text-sm mt-1">جرب البحث بكلمات مختلفة</p>
               </div>
             ) : (
-              sugges.map((sug, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    location.href = "/products?pid=" + sug.id;
-                    setDraw(false);
-                  }}
-                  dir="rtl"
-                  className="flex items-center gap-3 hover:bg-moon-50 px-3 py-2 rounded-lg transition cursor-pointer"
-                >
-                  <img
-                    src={
-                      sug.images?.[0]?.url
-                        ? `${IMG_URL || ''}${sug.images[0].url}`
-                        : "/no-image.jpg"
-                    }
-                    alt={sug.name_ar}
-                    className="w-14 h-14 lg:w-20 lg:h-20 object-cover rounded-lg border border-gray-200"
-                  />
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium text-gray-800">
-                      {sug.name_ar}
-                    </span>
-                    <span className="text-xs border border-moon-200 text-moon-300 font-bold px-2 py-0.5 rounded-full mt-1 w-fit">
-                      {sug.code}
-                    </span>
+              <div className="p-3 lg:p-4 space-y-2">
+                {sugges.map((sug, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      location.href = "/products?pid=" + sug.id;
+                      setDraw(false);
+                      setSearchTog(false);
+                    }}
+                    dir="rtl"
+                    className="flex items-center gap-3 lg:gap-4 hover:bg-white bg-white/50 p-3 lg:p-4 rounded-xl transition-all cursor-pointer group border border-transparent hover:border-moon-100 hover:shadow-md"
+                  >
+                    <div className="relative flex-shrink-0">
+                      <img
+                        src={
+                          sug.images?.[0]?.url
+                            ? `${IMG_URL || ''}${sug.images[0].url}`
+                            : "/no-image.jpg"
+                        }
+                        alt={sug.name_ar}
+                        className="w-16 h-16 lg:w-20 lg:h-20 object-cover rounded-lg border-2 border-gray-100 group-hover:border-moon-200 transition-colors"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1 min-w-0">
+                      <span className="text-sm lg:text-base font-semibold text-gray-800 truncate group-hover:text-moon-300 transition-colors">
+                        {sug.name_ar}
+                      </span>
+                      <span className="text-xs lg:text-sm text-gray-500 mt-1 inline-flex items-center gap-1">
+                        <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded-md font-medium">
+                          {sug.code}
+                        </span>
+                      </span>
+                    </div>
+                    <svg
+                      className="w-5 h-5 text-gray-400 group-hover:text-moon-200 transition-colors flex-shrink-0"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
                   </div>
-                </div>
-              ))
+                ))}
+              </div>
             )}
           </div>
         )}
@@ -374,36 +407,9 @@ if(el.target.value.length<3){
 
 
         </div>
-
-
-
-
-
-
-
-
-          </div>
-      <div className="h-14 sm:h-14 lg:h-24" ></div>
-       <div className="w-full  p-3" >
-    <div className=" flex flex-col  w-full  lg:flex-row-reverse sm:flex-col justify-between   " >
-
-
-
-
-
-
-
-
-    </div>
-</div>
-
        </div>
             </section>
             )}
-
-
-
-
 
             <section>
             <div className="  hidden ">
@@ -444,8 +450,6 @@ if(el.target.value.length<3){
                     w-full
                     lg:px-8
                     overflow-auto
-                    mt-8
-                    lg:mt-16
                     lg:mx-auto
                     min-h-screen
                   "

@@ -27,6 +27,8 @@ export default function NavbarC(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [subCat, setSubCat] = useState([]);
   const [error, setError] = useState(null);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   // Null-safe total price calculation
   const totalPrice = React.useMemo(() => {
@@ -86,7 +88,25 @@ export default function NavbarC(props) {
   console.log("cart data in navbar", totalItems, totalPrice);
   console.log(cartData, "cart data in navbar");
 
+  // Smart scroll behavior for navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down - hide navbar
+        setShowNavbar(false);
+      } else {
+        // Scrolling up - show navbar
+        setShowNavbar(true);
+      }
 
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const getsubcatogries = () => {
     try {
@@ -210,7 +230,9 @@ export default function NavbarC(props) {
 
   return (
     <>
-    <nav className="bg-white  lg:max-[218px]  w-full">
+    <nav className={`bg-white lg:max-[218px] w-full fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-in-out ${
+      showNavbar ? 'translate-y-0' : '-translate-y-full'
+    }`}>
     {/* <div
   className="bg-gradient-to-r from-yellow-200 via-yellow-50 to-yellow-200 border-b border-yellow-200 flex justify-center items-center select-none duration-300 w-full px-4 py-2"
   style={{

@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdKeyboardArrowRight } from "react-icons/md";
 import { useI18n } from "../lib/i18n";
 
 export default function Subcatmenu({ subCat = [] }) {
@@ -10,38 +10,31 @@ export default function Subcatmenu({ subCat = [] }) {
   const { t, direction } = useI18n();
   const [showAllMobile, setShowAllMobile] = useState(false);
   const [showAllDesktop, setShowAllDesktop] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [showNavbar, setShowNavbar] = useState(true);
 
-  // Null-safe subCat handling
   const safeSubCat = Array.isArray(subCat) ? subCat : [];
   const totalItems = safeSubCat.length;
-
   const desktopInitialLimit = 8;
   const mobileItemLimit = 9;
 
-  // Null-safe calculations
   const half = Math.ceil(safeSubCat.length / 2);
   const firstHalf = safeSubCat.slice(0, half);
   const secondHalf = safeSubCat.slice(half);
 
-  const mobileItemsToShow = showAllMobile
-    ? safeSubCat
-    : safeSubCat.slice(0, mobileItemLimit);
+  // No scroll behavior - subcatmenu stays in place
 
   const handleCategoryClick = (item) => {
     try {
-      if (!item) {
-        console.warn('Category item is null or undefined');
-        return;
-      }
-
+      if (!item) return;
       const catId = item?.catagory?.id;
       if (catId) {
         router.push(`/categories?cid=${catId}`);
-      } else {
-        console.warn("Category ID not found", item);
+        setShowAllDesktop(false);
       }
     } catch (err) {
-      console.error('Error navigating to category:', err, item);
+      console.error('Error navigating to category:', err);
     }
   };
 
@@ -50,223 +43,173 @@ export default function Subcatmenu({ subCat = [] }) {
       if (!item) return '';
       return item.name_ar || item.name || '';
     } catch (err) {
-      console.error('Error getting category name:', err, item);
       return '';
     }
   };
 
   return (
-    <div dir={direction} className="w-full relative py-4">
-      <div className="md:hidden z-50">
-  <div className="flex justify-between h-full items-center mb-2 px-3">
-
-  </div>
-
-  {totalItems > 0 ? (
-    <ul className="flex flex-col gap-4 max-h-[70vh] text-gray-700 text-sm font-medium p-3">
-      {safeSubCat.map((item, index) => {
-        try {
-          if (!item) {
-            console.warn(`Item at index ${index} is null or undefined`);
-            return null;
-          }
-
-          const categoryName = getCategoryName(item);
-          if (!categoryName) {
-            console.warn(`Category name not found for item at index ${index}`, item);
-            return null;
-          }
-
-          return (
-            <li
-              key={item.id || index}
-              className="w-full flex justify-between items-center px-4 py-3 transition-all duration-300"
-            >
-              <button
-                onClick={() => handleCategoryClick(item)}
-                className={`flex-1 text-gray-900 font-semibold ${direction === 'rtl' ? 'text-right' : 'text-left'}`}
-              >
-                {categoryName}
-              </button>
-            </li>
-          );
-        } catch (err) {
-          console.error(`Error rendering category item at index ${index}:`, err, item);
-          return null;
-        }
-      })}
-    </ul>
-  ) : (
-    <p className="text-gray-500 text-sm px-3 py-2">{t('noCategories')}</p>
-  )}
-</div>
-
-<div className="hidden md:block">
-  {totalItems > 0 ? (
-    showAllDesktop ? (
-      <div className="relative p-6 bg-white max-h-[60vh]   shadow-md">
-        <button
-          onClick={() => {
-            try {
-              setShowAllDesktop(false);
-            } catch (err) {
-              console.error('Error closing desktop menu:', err);
-            }
-          }}
-          className={`absolute top-2 text-gray-600 hover:text-gray-900 ${direction === 'rtl' ? 'left-2' : 'right-2'}`}
-          aria-label={t('closeMenu')}
-        >
-          <MdClose size={24} />
-        </button>
-        <div className="grid grid-cols-3 p-8  gap-4 pt-6">
-
-          <ul className="space-y-1">
-            {firstHalf.map((item, index) => {
-              try {
-                if (!item) {
-                  console.warn(`First half item at index ${index} is null`);
-                  return null;
-                }
-                const categoryName = getCategoryName(item);
-                return (
-                  <li key={item.id || index}>
-                    <a
-                      onClick={() => handleCategoryClick(item)}
-                      className={`block p-1 text-gray-700 text-sm hover:text-moon-200 transition-colors duration-200 cursor-pointer ${direction === 'rtl' ? 'text-right' : 'text-left'}`}
-                    >
-                      {categoryName}
-                    </a>
-                  </li>
-                );
-              } catch (err) {
-                console.error(`Error rendering first half item at index ${index}:`, err, item);
-                return null;
-              }
-            })}
-          </ul>
-
-          <ul className="space-y-1">
-            {secondHalf.map((item, index) => {
-              try {
-                if (!item) {
-                  console.warn(`Second half item at index ${index} is null`);
-                  return null;
-                }
-                const categoryName = getCategoryName(item);
-                return (
-                  <li key={item.id || index}>
-                    <a
-                      onClick={() => handleCategoryClick(item)}
-                      className={`block p-1 text-gray-700 text-sm hover:text-moon-200 transition-colors duration-200 cursor-pointer ${direction === 'rtl' ? 'text-right' : 'text-left'}`}
-                    >
-                      {categoryName}
-                    </a>
-                  </li>
-                );
-              } catch (err) {
-                console.error(`Error rendering second half item at index ${index}:`, err, item);
-                return null;
-              }
-            })}
-          </ul>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 max-h-[350px]  p-2">
-
-  <div className="relative md:col-span-2 rounded-lg overflow-hidden shadow-lg h-48 md:h-full">
-    <Image
-      src="/featured/IMG-20250802-WA0007.jpg"
-      alt="Main offer"
-      layout="fill"
-      objectFit="cover"
-      className="transition-transform duration-300 hover:scale-105"
-      onError={(e) => {
-        console.error('Error loading main offer image:', e);
-      }}
-    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center p-2">
-      <p className="text-white text-sm md:text-lg font-bold text-center drop-shadow-lg">
-        {t('discoverProducts')}
-      </p>
-    </div>
-  </div>
-
-  <div className="flex flex-col gap-2 h-full">
-    <div className="relative w-full h-24 md:h-1/2 rounded-lg overflow-hidden shadow-md">
-      <Image
-        src="/featured/IMG-20250802-WA0003.jpg"
-        alt="Offer 1"
-        layout="fill"
-        objectFit="cover"
-        className="transition-transform duration-300 hover:scale-105"
-        onError={(e) => {
-          console.error('Error loading offer 1 image:', e);
-        }}
-      />
-    </div>
-    <div className="relative w-full h-24 md:h-1/2 rounded-lg overflow-hidden shadow-md">
-      <Image
-        src="/featured/IMG-20250802-WA0010.jpg"
-        alt="Offer 2"
-        layout="fill"
-        objectFit="cover"
-        className="transition-transform duration-300 hover:scale-105"
-        onError={(e) => {
-          console.error('Error loading offer 2 image:', e);
-        }}
-      />
-    </div>
-  </div>
-</div>
-
-        </div>
-      </div>
-    ) : (
-      <ul className="flex items-center justify-start gap-2 px-4 bg-white overflow-x-auto">
-        {safeSubCat.slice(0, desktopInitialLimit).map((item, index) => {
-          try {
-            if (!item) {
-              console.warn(`Desktop item at index ${index} is null`);
-              return null;
-            }
-            const categoryName = getCategoryName(item);
-            return (
-              <li key={item.id || index} className="flex items-center px-2 py-1">
-                <a
-                  onClick={() => handleCategoryClick(item)}
-                  className={`flex-1 text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200 cursor-pointer ${direction === 'rtl' ? 'text-right' : 'text-left'}`}
+    <>
+      {/* Desktop Mega Menu */}
+      <div 
+        dir={direction} 
+        className="hidden md:block w-full bg-white border-b border-gray-100 z-40 relative"
+      >
+        {totalItems > 0 ? (
+          showAllDesktop ? (
+            // Expanded Mega Menu
+            <div className="relative bg-white shadow-lg">
+              <div className="max-w-7xl mx-auto px-6 py-8">
+                <button
+                  onClick={() => setShowAllDesktop(false)}
+                  className={`absolute top-4 text-gray-400 hover:text-gray-600 transition-colors ${
+                    direction === 'rtl' ? 'left-4' : 'right-4'
+                  }`}
                 >
-                  {categoryName}
-                </a>
-              </li>
-            );
-          } catch (err) {
-            console.error(`Error rendering desktop item at index ${index}:`, err, item);
-            return null;
-          }
-        })}
-        {totalItems > desktopInitialLimit && (
-          <li className="flex items-center">
-            <button
-              onClick={() => {
-                try {
-                  setShowAllDesktop(true);
-                } catch (err) {
-                  console.error('Error opening desktop menu:', err);
-                }
-              }}
-              className="text-gray-600 hover:text-moon-200 text-sm hover:underline z-10"
-              aria-label={`${t('seeMore')} (${totalItems})`}
-            >
-              {t('seeMore')}
-            </button>
-          </li>
-        )}
-      </ul>
-    )
-  ) : (
-    <p className="text-gray-500 text-sm px-6 py-2">{t('noCategories')}</p>
-  )}
-</div>
+                  <MdClose size={28} />
+                </button>
 
-    </div>
+                <div className="grid grid-cols-12 gap-8">
+                  {/* Categories - 2 columns */}
+                  <div className="col-span-5 grid grid-cols-2 gap-x-8 gap-y-2">
+                    <div className="space-y-1">
+                      {firstHalf.map((item, index) => {
+                        const categoryName = getCategoryName(item);
+                        return (
+                          <div
+                            key={item.id || index}
+                            onClick={() => handleCategoryClick(item)}
+                            className="group flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-gradient-to-r hover:from-moon-50 hover:to-pink-50 cursor-pointer transition-all duration-200"
+                          >
+                            <MdKeyboardArrowRight className="text-moon-200 opacity-0 group-hover:opacity-100 transition-opacity" size={18} />
+                            <span className="text-gray-700 group-hover:text-moon-200 font-medium text-sm transition-colors">
+                              {categoryName}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="space-y-1">
+                      {secondHalf.map((item, index) => {
+                        const categoryName = getCategoryName(item);
+                        return (
+                          <div
+                            key={item.id || index}
+                            onClick={() => handleCategoryClick(item)}
+                            className="group flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-gradient-to-r hover:from-moon-50 hover:to-pink-50 cursor-pointer transition-all duration-200"
+                          >
+                            <MdKeyboardArrowRight className="text-moon-200 opacity-0 group-hover:opacity-100 transition-opacity" size={18} />
+                            <span className="text-gray-700 group-hover:text-moon-200 font-medium text-sm transition-colors">
+                              {categoryName}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Featured Images */}
+                  <div className="col-span-7 grid grid-cols-3 gap-4">
+                    <div className="col-span-2 relative rounded-xl overflow-hidden shadow-lg group h-64">
+                      <Image
+                        src="/featured/IMG-20250802-WA0007.jpg"
+                        alt="Featured"
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-end p-6">
+                        <div>
+                          <h3 className="text-white text-xl font-bold mb-1">{t('discoverProducts')}</h3>
+                          <p className="text-white/90 text-sm">{t('newCollection')}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                      <div className="relative rounded-xl overflow-hidden shadow-md group h-30">
+                        <Image
+                          src="/featured/IMG-20250802-WA0003.jpg"
+                          alt="Offer 1"
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors"></div>
+                      </div>
+                      <div className="relative rounded-xl overflow-hidden shadow-md group h-30">
+                        <Image
+                          src="/featured/IMG-20250802-WA0010.jpg"
+                          alt="Offer 2"
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            // Collapsed Menu Bar
+            <div className="max-w-7xl mx-auto px-6 py-3">
+              <ul className="flex items-center justify-start gap-1">
+                {safeSubCat.slice(0, desktopInitialLimit).map((item, index) => {
+                  const categoryName = getCategoryName(item);
+                  return (
+                    <li key={item.id || index}>
+                      <button
+                        onClick={() => handleCategoryClick(item)}
+                        className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-moon-200 hover:bg-moon-50 rounded-lg transition-all duration-200"
+                      >
+                        {categoryName}
+                      </button>
+                    </li>
+                  );
+                })}
+                {totalItems > desktopInitialLimit && (
+                  <li>
+                    <button
+                      onClick={() => setShowAllDesktop(true)}
+                      className="px-4 py-2 text-sm font-medium text-moon-200 hover:bg-moon-50 rounded-lg transition-all duration-200 flex items-center gap-1"
+                    >
+                      {t('seeMore')}
+                      <span className="text-xs text-gray-500">({totalItems})</span>
+                    </button>
+                  </li>
+                )}
+              </ul>
+            </div>
+          )
+        ) : (
+          <div className="max-w-7xl mx-auto px-6 py-3">
+            <p className="text-gray-400 text-sm">{t('noCategories')}</p>
+          </div>
+        )}
+      </div>
+
+      {/* Mobile Menu */}
+      <div dir={direction} className="md:hidden w-full bg-white border-b border-gray-100 py-2">
+        {totalItems > 0 ? (
+          <ul className="flex flex-col gap-1 px-3">
+            {safeSubCat.map((item, index) => {
+              const categoryName = getCategoryName(item);
+              return (
+                <li key={item.id || index}>
+                  <button
+                    onClick={() => handleCategoryClick(item)}
+                    className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-moon-50 hover:text-moon-200 rounded-lg transition-all duration-200"
+                  >
+                    {categoryName}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p className="text-gray-400 text-sm px-3">{t('noCategories')}</p>
+        )}
+      </div>
+
+    </>
   );
 }

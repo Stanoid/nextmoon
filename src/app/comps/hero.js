@@ -84,8 +84,8 @@ col-span-6 flex sm:flex lg:hidden'>
 
 
 <div style={{width:'100%',position:"relative"}} 
-           className='lg:col-span-4   xl:col-span-4 md:col-span-3 col-span-6  
-           flex sm:flex w-full h-72 rounded-md lg:hidden md:hidden xl:hidden'>
+           className='lg:col-span-4 xl:col-span-4 md:col-span-3 col-span-6  
+           flex sm:flex w-full h-72 lg:hidden md:hidden xl:hidden overflow-hidden rounded-2xl shadow-md'>
            <Slider  slides={[    
             '/offers/mobileban.png',
             '/offers/mobileban2.png',
@@ -94,30 +94,18 @@ col-span-6 flex sm:flex lg:hidden'>
             '/offers/mobileban5.png',
             '/offers/mobileban6.png',
            ]} />
-            {/* <Slider  slides={[
-            '/offers/ban1.png',
-            '/offers/ban2.png',
-            '/offers/ban3.png',
-        
-           ]} /> */}
            </div>
 
-           <div style={{height:"500px", width:'100%',position:"relative"}} 
-           className='lg:col-span-4 max-w-7xl h-min trounded-md  hidden sm:hidden lg:flex md:flex xl:flex'>
-
+           <div style={{height:"480px", width:'100%',position:"relative"}} 
+           className='lg:col-span-4 max-w-7xl hidden sm:hidden lg:flex md:flex xl:flex overflow-hidden rounded-2xl shadow-lg'>
            <Slider  slides={[
              '/offers/lgrobeban30.png',
             '/offers/lgban.png',
             '/offers/lgban2.png',
             '/offers/lgban3.png',
             '/offers/lgban4.png',
-  
-           
-            
-           
              ]}
               />
-          
            </div>
 
        </div>

@@ -69,17 +69,17 @@ export default (props) => {
   };
 
   return (
-    <div className=" rounded-md  lg:h-[500px] h-72 lg:mt-8 mt-2 relative" style={{ width: "100%" }}>
+    <div className="rounded-2xl lg:h-[480px] h-72 lg:mt-0 mt-0 relative overflow-hidden" style={{ width: "100%" }}>
       <div style={{ width: "100%", height: "100%" }} className="navigation-wrapper">
-        <div style={{ width: "100%", height: "100%" }} ref={sliderRef} className="keen-slider">
+        <div style={{ width: "100%", height: "100%" }} ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden">
           {props.slides && props.slides.map((img) => (
-            <div key={img} className="keen-slider__slide lg:h-[500px] rounded-md w-full ">
+            <div key={img} className="keen-slider__slide lg:h-[480px] h-72 w-full">
               <Image
                 priority={true}
                 fill
-                objectFit='contain'
+                objectFit='cover'
                 src={img}
-                className="rounded-md h-80 lg:h-[100vh]"
+                className="rounded-2xl"
                 alt="Slider Image"
               />
             </div>
