@@ -31,9 +31,6 @@ import { useI18n } from '../lib/i18n';
  
 import { TiThMenu } from "react-icons/ti";
 import AddProduct from './addproduct';
-
-
-import { AuthCon } from '../contexts/AuthCon';
 import { CartCon } from '../contexts/cartContext';
 import { MdFormatSize, MdOutlineAllOut, MdOutlineAutoAwesome, MdOutlineAutoGraph, MdSpeakerPhone } from 'react-icons/md';
 import { BiCategory, BiCategoryAlt } from 'react-icons/bi';
@@ -42,7 +39,6 @@ import { BiCategory, BiCategoryAlt } from 'react-icons/bi';
 function AccounteEl() {
     const { t } = useI18n();
     const ls = require("local-storage")
-    const {logindata,logoutUser}  = useContext(AuthCon);
     const router = useRouter(); 
     const [page,setPage] = useState(0) 
     const [logged,setLogged] = useState(0)
