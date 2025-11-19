@@ -6,10 +6,12 @@ import { useContext,useEffect,useState } from 'react';
 import { Theme ,API_URL} from '../local';
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux';
-import { User } from '@nextui-org/react';
+import { User, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from '@nextui-org/react';
 import { FaBox, FaCreditCard, FaHeart,FaTruck, FaListCheck, FaLock, FaPowerOff, FaRuler, FaSwatchbook, FaUser, FaWarehouse } from 'react-icons/fa6';
 import { FaBoxes, FaHome, FaPlusCircle } from 'react-icons/fa';
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import { useI18n } from '../lib/i18n';
+import Logowhite from "../../../public/logoblack.svg";
                                                        
  const AddColor = dynamic(() => import('./AddColor'));
  const EditProduct = dynamic(() => import('./editProduct'));
@@ -37,7 +39,7 @@ import { BiCategory, BiCategoryAlt } from 'react-icons/bi';
 
 
 function AccounteEl() {
-    const { t } = useI18n();
+    const { t, locale, setLocale } = useI18n();
     const ls = require("local-storage")
     const router = useRouter(); 
     const [page,setPage] = useState(0) 
@@ -128,23 +130,148 @@ useNotifi(type,message);
     setPage(page)
   }
 
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showBackModal, setShowBackModal] = useState(false);
+
+  const languages = [
+    { code: 'ar', name: 'العربية', flag: '🇩🇿' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'en', name: 'English', flag: '🇬🇧' }
+  ];
+
+  const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
+
   return (
       
 <div dir='rtl' style={{minHeight:"100vh",userSelect:"none"}}  className="w-full min-h-screen bg-gray-50">
 
+{/* Top Admin Navbar */}
+<div className='w-full bg-white border-b border-gray-200 shadow-sm fixed top-0 left-0 right-0 z-50'>
+  <div className='flex items-center justify-between px-4 py-3'>
+    {/* Logo */}
+    <div className='flex items-center gap-3'>
+      {Logowhite && (
+        <Logowhite
+          style={{ cursor: "pointer", width: "48px", height: "auto" }}
+          onClick={() => setShowBackModal(true)}
+          className="cursor-pointer"
+        />
+      )}
+      <div className='hidden sm:block text-sm font-semibold text-gray-600'>
+        {t('dashboard')}
+      </div>
+    </div>
+
+    {/* Right Side - Language, Profile, Logout */}
+    <div className='flex items-center gap-2'>
+      {/* Language Selector */}
+      <Dropdown>
+        <DropdownTrigger>
+          <Button
+            variant="light"
+            size="sm"
+            className="text-gray-600 hover:text-gray-900 min-w-fit h-9"
+          >
+            <span className="text-base">{currentLanguage.flag}</span>
+            <span className="text-sm hidden sm:inline ml-1">{currentLanguage.name}</span>
+            <MdOutlineKeyboardArrowDown className="h-4 w-4" />
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu
+          aria-label="Language selection"
+          selectedKeys={[locale]}
+          selectionMode="single"
+          onSelectionChange={(keys) => {
+            const selectedKey = Array.from(keys)[0];
+            if (selectedKey && typeof selectedKey === 'string') {
+              setLocale(selectedKey);
+            }
+          }}
+        >
+          {languages.map((lang) => (
+            <DropdownItem key={lang.code} textValue={lang.name}>
+              <div className="flex items-center gap-2">
+                <span className="text-lg">{lang.flag}</span>
+                <span>{lang.name}</span>
+              </div>
+            </DropdownItem>
+          ))}
+        </DropdownMenu>
+      </Dropdown>
+
+      {/* Profile Dropdown */}
+      <Dropdown>
+        <DropdownTrigger>
+          <Button
+            variant="light"
+            size="sm"
+            className="text-gray-600 hover:text-gray-900 min-w-fit h-9 px-2"
+          >
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-moon-200 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
+              {udata?.data?.user?.username?.charAt(0).toUpperCase() || 'A'}
+            </div>
+            <span className="text-sm hidden md:inline ml-2">{udata?.data?.user?.username}</span>
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu aria-label="Profile actions">
+          <DropdownItem key="profile" textValue="Profile">
+            <div className="flex flex-col">
+              <span className="font-semibold">{udata?.data?.user?.username}</span>
+              <span className="text-xs text-gray-500">{udata?.data?.user?.email}</span>
+            </div>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+
+      {/* Back to Site Icon */}
+      <Button
+        isIconOnly
+        variant="light"
+        size="sm"
+        onClick={() => setShowBackModal(true)}
+        className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 h-9 w-9"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      </Button>
+
+      {/* Logout Icon */}
+      <Button
+        isIconOnly
+        variant="light"
+        size="sm"
+        onClick={() => setShowLogoutModal(true)}
+        className="text-red-600 hover:text-red-700 hover:bg-red-50 h-9 w-9"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+        </svg>
+      </Button>
+    </div>
+  </div>
+</div>
+
+{/* Add padding top to account for fixed navbar */}
+<div className='pt-16'></div>
+
 <div className='w-full flex flex-col lg:flex-row min-h-screen'>
 
-<div className='lg:w-64 w-full lg:sticky lg:top-0 lg:h-screen bg-white shadow-lg' >
+<div className='lg:w-64 w-full lg:sticky lg:top-0 lg:h-screen bg-white shadow-xl border-r border-gray-200' >
 
 <div  className='w-full p-4 flex flex-col h-full'>
 {/* menu */}
 
-<div >
+<div className='mb-6 pb-4 border-b border-gray-200'>
 <User   
   name={udata&&udata.data.user.username}
   description={udata&&udata.data.user.email}
   avatarProps={{
-    className:"bg-moon-200 font-bold text-white"
+    className:"bg-gradient-to-br from-moon-200 to-pink-500 font-bold text-white"
+  }}
+  classNames={{
+    name: "text-gray-800 font-semibold",
+    description: "text-gray-500"
   }}
 />
 </div>
@@ -153,14 +280,14 @@ useNotifi(type,message);
     and `router` from `useRouter()` if you're using Next.js 13/14 App Router.
     Also, ensure `Theme` is imported or defined if used elsewhere for colors. */}
 
-<div className='flex flex-row lg:flex-col mt-4 overflow-x-auto lg:overflow-x-visible gap-1'>
+<div className='flex flex-row lg:flex-col overflow-x-auto lg:overflow-x-visible gap-1.5'>
 
   {/* لوحة التحكم (Dashboard) */}
   <div onClick={() => { setPage(0) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 0 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 0 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><MdOutlineAutoGraph /></div>
     <div className='mx-1.5'>{t('dashboard')}</div>
@@ -169,9 +296,9 @@ useNotifi(type,message);
   {/* الطلبات (Orders) */}
   <div onClick={() => { setPid(null); setPage(1) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 1 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 1 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -185,9 +312,9 @@ useNotifi(type,message);
   {/* إضافة منتج (Add Product) */}
   <div onClick={() => { setPid(null); setPage(14) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 14 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 14 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -201,9 +328,9 @@ useNotifi(type,message);
   {/* المنتجات (Products) */}
   <div onClick={() => { setPid(null); setPage(2) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 2 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 2 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -218,9 +345,9 @@ useNotifi(type,message);
   {/* المقاسات (Sizes) */}
   <div onClick={() => { setPid(null); setPage(3) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 3 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 3 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaRuler /></div>
     <div className='mx-1.5'> المقاسات</div>
@@ -229,9 +356,9 @@ useNotifi(type,message);
   {/* الألوان (Colors) */}
   <div onClick={() => { setPid(null); setPage(4) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 4 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 4 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -246,9 +373,9 @@ useNotifi(type,message);
   {/* الفئات (Categories) */}
   <div onClick={() => { setPid(null); setPage(5) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 5 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 5 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><BiCategory /></div>
     <div className='mx-1.5'> الفئات</div>
@@ -257,9 +384,9 @@ useNotifi(type,message);
   {/* نقاط التوصيل (Delivery Points) */}
   <div onClick={() => { setPid(null); setPage(21) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 21 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 21 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaTruck /></div>
     <div className='mx-1.5'> نقاط التوصيل</div>
@@ -268,9 +395,9 @@ useNotifi(type,message);
   {/* الفئات الفرعية (Subcategories) */}
   <div onClick={() => { setPid(null); setPage(6) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 6 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 6 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><BiCategoryAlt /></div>
     <div className='mx-1.5'> الفئات الفرعية</div>
@@ -279,9 +406,9 @@ useNotifi(type,message);
   {/* المخزون (Inventory) */}
   <div onClick={() => { setPid(null); setPage(20) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 20 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 20 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaWarehouse /></div>
     <div className='mx-1.5'> المخزون</div>
@@ -290,32 +417,21 @@ useNotifi(type,message);
   {/* العروض الترويجية (Promotions) */}
   <div onClick={() => { setPid(null); setPage(10) }}
     className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-200
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 10 ? 'bg-moon-200 text-white font-semibold shadow-md' : 'text-gray-600 hover:bg-gray-100 font-normal'}
+      ${page === 10 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><MdSpeakerPhone /></div>
     <div className='mx-1.5'> لعروض الترويجية</div>
   </div>
 
-  {/* تسجيل خروج (Logout) */}
-  <div onClick={() => { router.push("/logout") }}
-    className='flex px-3 py-2.5 mt-2 rounded-lg cursor-pointer whitespace-nowrap transition-all hover:bg-red-50 text-red-500 hover:text-red-700 justify-start items-center text-sm gap-2'>
-    <div dir='rtl'>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
-</svg>
-    
-    </div>
-    <div className='mx-1.5'> تسجيل خروج</div>
-  </div>
 
 </div>
 
 </div>
 
 </div>
-<div className='flex-1 w-full p-4 lg:p-6 overflow-auto'>
+<div className='flex-1 w-full p-4 lg:p-6 overflow-auto bg-gray-50'>
 
 <div className='w-full'>
 
@@ -358,7 +474,65 @@ useNotifi(type,message);
 
 </div>
 
+{/* Logout Confirmation Modal */}
+{showLogoutModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowLogoutModal(false)}>
+    <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
+      <div className="flex flex-col items-center text-center">
+        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8 text-red-600">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+          </svg>
+        </div>
+        <h3 className="text-xl font-bold text-gray-800 mb-2">{t('confirmLogout')}</h3>
+        <div className="flex gap-3 mt-6 w-full">
+          <button
+            onClick={() => setShowLogoutModal(false)}
+            className="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-all"
+          >
+            {t('no')}
+          </button>
+          <button
+            onClick={() => router.push("/logout")}
+            className="flex-1 px-4 py-2.5 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-lg font-medium transition-all shadow-md"
+          >
+            {t('yes')}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
+{/* Back to Site Confirmation Modal */}
+{showBackModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowBackModal(false)}>
+    <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
+      <div className="flex flex-col items-center text-center">
+        <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8 text-blue-600">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+        </div>
+        <h3 className="text-xl font-bold text-gray-800 mb-2">{t('confirmBackToSite')}</h3>
+        <div className="flex gap-3 mt-6 w-full">
+          <button
+            onClick={() => setShowBackModal(false)}
+            className="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-all"
+          >
+            {t('no')}
+          </button>
+          <button
+            onClick={() => router.push("/")}
+            className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg font-medium transition-all shadow-md"
+          >
+            {t('yes')}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
 </div>
 

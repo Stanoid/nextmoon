@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { toast, ToastContainer } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,18 +10,16 @@ import LoadingBtn from '../comps/loadingbtn'
 import InputEl from '../comps/inputel'
 import Logowhite from "../../../public/logoblack.svg"
 import { useI18n } from '../lib/i18n'
+
 export default function Login() {
   const { t, direction } = useI18n();
   const [email, setemail] = useState("")
   const [pass, setpass] = useState("")
   const [lod, setLod] = useState(false)
-  // Renamed for clarity with Lucide icons (EyeOff is common)
   const [showpass, setShowpass] = useState(false)
-  const { loginUser } = useContext(AuthCon)
   const udata = useSelector((state) => state.root.auth.data && state.root.auth.data)
   const router = useRouter()
   const dispatch = useDispatch()
-  const { useNotifi } = useContext(CartCon)
 
   const handleEmail = (email) => setemail(email.replace(/ /g, ''))
 

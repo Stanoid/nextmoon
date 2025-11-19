@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname()
   const isProductPage = pathname.includes('/products');
+  const isAdminPage = pathname.startsWith('/admin');
   const inputRef = useRef(null);
 
   const bgColorClass = isProductPage ? 'bg-white' : 'bg-gray-50';
@@ -220,6 +221,7 @@ if(el.target.value.length<3){
           <I18nProvider defaultLocale="ar">
         <CartContext>
           <AuthenContext>
+            {!isAdminPage && (
             <section className="w-full" >
             <div className="  w-full  text-white "
              style={{backgroundSize:20}}>
@@ -397,6 +399,7 @@ if(el.target.value.length<3){
 
        </div>
             </section>
+            )}
 
 
 
@@ -429,23 +432,30 @@ if(el.target.value.length<3){
             </section>
 
 
-            <section className={`${bgColorClass} el-messiri-text`} dir="auto">
-  <div
-    className="
-      lg:max-w-[1280px]
-      w-full
-      lg:px-8
-      overflow-auto
-      mt-8
-      lg:mt-16
-      lg:mx-auto
-      min-h-screen
-    "
-  >
-    {children}
-  </div>
-</section>
+            {isAdminPage ? (
+              <section className="w-full min-h-screen" dir="auto">
+                {children}
+              </section>
+            ) : (
+              <section className={`${bgColorClass} el-messiri-text`} dir="auto">
+                <div
+                  className="
+                    lg:max-w-[1280px]
+                    w-full
+                    lg:px-8
+                    overflow-auto
+                    mt-8
+                    lg:mt-16
+                    lg:mx-auto
+                    min-h-screen
+                  "
+                >
+                  {children}
+                </div>
+              </section>
+            )}
 
+            {!isAdminPage && (
             <section>
 
 
@@ -453,6 +463,7 @@ if(el.target.value.length<3){
 
 
             </section>
+            )}
 
 
 

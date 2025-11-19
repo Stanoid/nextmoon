@@ -995,13 +995,18 @@
       }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
 
       return (
+        <div className="w-full bg-white rounded-xl shadow-lg overflow-hidden">
         <Table
-          aria-label="Example table with custom cells, pagination and sorting"
+          aria-label="Modern data table"
           isHeaderSticky
           bottomContent={bottomContent}
           bottomContentPlacement="outside"
           classNames={{
-            wrapper: "max-h-[382px]",
+            wrapper: "max-h-[600px] shadow-none rounded-none",
+            th: "bg-gray-50 text-gray-700 font-semibold text-sm border-b-2 border-gray-200",
+            td: "text-gray-700 border-b border-gray-100",
+            tr: "hover:bg-gray-50 transition-colors",
+            table: "min-w-full",
           }}
           selectedKeys={selectedKeys}
           selectionMode="none"
@@ -1018,6 +1023,7 @@
                 key={column.uid}
                 align={column.uid === "actions" ? "center" : "start"}
                 allowsSorting={column.sortable}
+                className={column.uid === "refida" || column.uid === "refid" || column.uid === "createdAt" || column.uid === "size" || column.uid === "colore" || column.uid === "cate" || column.uid === "scate" ? "sticky left-0 bg-gray-50 shadow-lg z-10" : ""}
               >
                 {column.name}
               </TableColumn>
@@ -1025,11 +1031,18 @@
           </TableHeader>
           <TableBody emptyContent={t('noData')} items={sortedItems}>
             {(item) => (
-              <TableRow key={item.id}>
-                {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+              <TableRow key={item.id} className="hover:bg-gray-50">
+                {(columnKey) => (
+                  <TableCell 
+                    className={(columnKey === "refida" || columnKey === "refid" || columnKey === "createdAt" || columnKey === "size" || columnKey === "colore" || columnKey === "cate" || columnKey === "scate") ? "sticky left-0 bg-white shadow-lg z-10" : ""}
+                  >
+                    {renderCell(item, columnKey)}
+                  </TableCell>
+                )}
               </TableRow>
             )}
           </TableBody>
         </Table>
+        </div>
       );
     }

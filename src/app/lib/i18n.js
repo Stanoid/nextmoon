@@ -236,7 +236,11 @@ const translations = {
     pickupFromCenter: "إستلام من مركز",
     online: "إلكتروني",
     onDelivery: "عند الإستلام",
-    editQuantity: "تعديل الكمية"
+    editQuantity: "تعديل الكمية",
+    logout: "تسجيل خروج",
+    backToSite: "العودة للموقع",
+    confirmBackToSite: "هل تريد العودة إلى الموقع؟",
+    confirmLogout: "هل تريد تسجيل الخروج؟"
   },
   fr: {
     contactUs: "Contactez-nous",
@@ -403,6 +407,10 @@ const translations = {
     online: "En ligne",
     onDelivery: "À la livraison",
     editQuantity: "Modifier la quantité",
+    logout: "Se déconnecter",
+    backToSite: "Retour au site",
+    confirmBackToSite: "Voulez-vous retourner au site?",
+    confirmLogout: "Voulez-vous vous déconnecter?",
     // Register translations
     welcome: "Bienvenue",
     pleaseLoginToContinue: "Veuillez vous inscrire pour continuer",
@@ -621,7 +629,11 @@ const translations = {
     pickupFromCenter: "Pickup from Center",
     online: "Online",
     onDelivery: "On Delivery",
-    editQuantity: "Edit Quantity"
+    editQuantity: "Edit Quantity",
+    logout: "Logout",
+    backToSite: "Back to Site",
+    confirmBackToSite: "Do you want to return to the site?",
+    confirmLogout: "Do you want to logout?"
   }
 };
 
