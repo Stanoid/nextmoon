@@ -1,22 +1,20 @@
 "use client";
 
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URL, CURRENCY, IMG_URL } from "../local";
-import TableComp from '../comps/sandbox/table';
 import { useSelector } from "react-redux";
 import { Button, Chip, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import Image from "next/image";
 
-function ProductsList(props) {
-  const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
-  const [lod, setlod] = useState(false);
+function Inventory(props) {
+  const udata = useSelector((state) => state.root.auth.data && state.root.auth.data);
   const [products, setProducts] = useState([]);
-  const [viewMode, setViewMode] = useState('table');
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showStockModal, setShowStockModal] = useState(false);
   const [stockUpdates, setStockUpdates] = useState({});
+  const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState({
     totalProducts: 0,
     lowStock: 0,
@@ -25,12 +23,38 @@ function ProductsList(props) {
   });
 
   useEffect(() => {
-    getProducts();
-  },[]);
+    getInventory();
+  }, []);
 
+  useEffect(() => {
+    filterProducts();
+  }, [searchQuery, products]);
 
+  const getInventory = () => {
+    setLoading(true);
+    props.setLod(true);
+    
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + udata.data.jwt,
+      },
+    };
 
-
+    fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data);
+        calculateStats(data);
+        setLoading(false);
+        props.setLod(false);
+      })
+      .catch(() => {
+        setLoading(false);
+        props.setLod(false);
+      });
+  };
 
   const calculateStats = (productsData) => {
     let totalProducts = 0;
@@ -61,84 +85,19 @@ function ProductsList(props) {
     });
   };
 
-  const deleteEntry = (id) => {
-    const requestOptions = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.data.jwt,
-      },
-    };
+  const filterProducts = () => {
+    if (!searchQuery.trim()) {
+      setFilteredProducts(products);
+      return;
+    }
 
-    fetch(`${API_URL}products/${id}`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        props.notifi("success","تم حذف المنتج")
-        getProducts();
-      })
-      .then(() => {});
-  };
-
-  const handleStatus = (status, id) => {
-    const requestOptions = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.data.jwt,
-      },
-      body: JSON.stringify({
-        status: status,
-      }),
-    };
-
-    fetch(`${API_URL}products/${id} ?func=EditStatus`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-
-        if(status){
-          props.notifi("success","تم إظهار المنتج")
-
-        }else{
-          props.notifi("success","تم إخفاء المنتج")
-
-        }
-        
-      })
-      .then(() => {
-        getProducts();
-      });
-  };
-
-
-  const handleEdit = (ob)=>{
-    props.setpage(15, ob.id);
-  }
-
-  const handleDuplicate = (ob)=>{
-    props.setpage(22, ob.id);
-  }
-
-  const getProducts = () => {
-    setlod(true);
-    props.setLod(true);
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + udata.data.jwt,
-      },
-    };
-    fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
-        calculateStats(data);
-        console.log("Products loaded:",data)
-      })
-      .then(() => {
-        props.setLod(false);
-        setlod(false);
-      });
+    const query = searchQuery.toLowerCase();
+    const filtered = products.filter(product => 
+      product.code?.toLowerCase().includes(query) ||
+      product.name_ar?.toLowerCase().includes(query) ||
+      product.name_en?.toLowerCase().includes(query)
+    );
+    setFilteredProducts(filtered);
   };
 
   const openStockModal = (product) => {
@@ -154,7 +113,7 @@ function ProductsList(props) {
   const updateStock = () => {
     if (!selectedProduct) return;
 
-    setlod(true);
+    setLoading(true);
     const requestOptions = {
       method: "PUT",
       headers: {
@@ -172,11 +131,11 @@ function ProductsList(props) {
       .then(() => {
         props.notifi("success", "تم تحديث المخزون بنجاح");
         setShowStockModal(false);
-        getProducts();
+        getInventory();
       })
       .catch(() => {
         props.notifi("error", "فشل تحديث المخزون");
-        setlod(false);
+        setLoading(false);
       });
   };
 
@@ -186,21 +145,11 @@ function ProductsList(props) {
     return { color: "success", text: "متوفر" };
   };
 
-  const getVariantLabel = (variant) => {
+  const getVariantLabel = (variant, product) => {
     const size = variant.sizes?.data?.[0]?.attributes?.name_ar || variant.sizes?.data?.[0]?.name_ar || "";
     const color = variant.colors?.data?.[0]?.attributes?.name_ar || variant.colors?.data?.[0]?.name_ar || "";
     return `${size} - ${color}`;
   };
-
-  const filteredProducts = products.filter(product => 
-    !searchQuery.trim() || 
-    product.code?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.name_ar?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.name_en?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-
-
 
   return (
     <div dir="rtl" className="w-full">
@@ -265,7 +214,7 @@ function ProductsList(props) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-green-600 font-medium">قيمة المخزون</p>
-              <p className="text-xl font-bold text-green-700">{stats.totalValue.toLocaleString()} {CURRENCY}</p>
+              <p className="text-2xl font-bold text-green-700">{stats.totalValue.toLocaleString()} {CURRENCY}</p>
             </div>
             <div className="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-green-600">
@@ -276,13 +225,12 @@ function ProductsList(props) {
         </div>
       </div>
 
-      {/* View Toggle and Search */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6 items-start sm:items-center justify-between">
+      {/* Search Bar */}
+      <div className="mb-6">
         <Input
           placeholder="ابحث عن منتج (الكود، الاسم...)"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="max-w-md"
           startContent={
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-gray-400">
               <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -293,128 +241,93 @@ function ProductsList(props) {
             inputWrapper: "bg-white"
           }}
         />
-
-        <div className="flex gap-2">
-          <Button
-            size="sm"
-            variant={viewMode === 'table' ? 'solid' : 'bordered'}
-            className={viewMode === 'table' ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white' : ''}
-            onClick={() => setViewMode('table')}
-          >
-            جدول
-          </Button>
-          <Button
-            size="sm"
-            variant={viewMode === 'cards' ? 'solid' : 'bordered'}
-            className={viewMode === 'cards' ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white' : ''}
-            onClick={() => setViewMode('cards')}
-          >
-            بطاقات
-          </Button>
-        </div>
       </div>
 
-      {/* Content */}
-      {lod ? (
-        <div className="flex justify-center items-center py-20">
-          <div className="lds-facebook"><div></div><div></div><div></div></div>
-        </div>
-      ) : viewMode === 'table' ? (
-        <TableComp
-          columns={[
-            {name: "ID", uid: "id", sortable: true},
-            {name: "الإسم", uid: "name_ar", sortable: true}, 
-            {name: "رمز المنتج", uid: "code", sortable: true},
-            {name: "حالة المنتج", uid: "status", sortable: true},
-            {name: "تعديل", uid: "createdAt"},
-          ]}
-          search={"code"}
-          checkout={true}
-          whouse={true}
-          delorder={handleEdit}
-          duplicateProduct={handleDuplicate}
-          deleteProduct={deleteEntry}
-          statusChange={handleStatus}
-          data={filteredProducts}
-        />
-      ) : (
-        <div className="space-y-4">
-          {filteredProducts.length === 0 ? (
-            <div className="text-center py-20 text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-16 mx-auto mb-4 text-gray-300">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-              </svg>
-              <p className="text-lg">لا توجد منتجات</p>
-            </div>
-          ) : (
-            filteredProducts.map((product) => (
-              <div key={product.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition-all">
-                <div className="flex items-start gap-4">
-                  <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                    {product.images && product.images[0] ? (
-                      <Image
-                        src={product.images[0].url?.startsWith('http') ? product.images[0].url : `${IMG_URL}${product.images[0].url}`}
-                        alt={product.name_ar}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="font-semibold text-gray-800 truncate">{product.name_ar}</h3>
-                        <p className="text-sm text-gray-500">{product.code}</p>
-                      </div>
+      {/* Products List */}
+      <div className="space-y-4">
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="lds-facebook"><div></div><div></div><div></div></div>
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="text-center py-20 text-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-16 mx-auto mb-4 text-gray-300">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+            <p className="text-lg">لا توجد منتجات</p>
+          </div>
+        ) : (
+          filteredProducts.map((product) => (
+            <div key={product.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition-all">
+              <div className="flex items-start gap-4">
+                {/* Product Image */}
+                <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                  {product.images && product.images[0] ? (
+                    <Image
+                      src={product.images[0].url?.startsWith('http') ? product.images[0].url : `${IMG_URL}${product.images[0].url}`}
+                      alt={product.name_ar}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                      </svg>
                     </div>
+                  )}
+                </div>
 
-                    {product.varients && product.varients.length > 0 && (
-                      <div className="space-y-2">
-                        {product.varients.map((variant, idx) => {
-                          const status = getStockStatus(variant.stock || 0);
-                          return (
-                            <div key={idx} className="flex items-center justify-between bg-gray-50 rounded-lg p-2">
-                              <div className="flex items-center gap-2">
-                                <span className="text-sm text-gray-700">{getVariantLabel(variant)}</span>
-                                <Chip size="sm" color={status.color} variant="flat">
-                                  {status.text}
-                                </Chip>
-                              </div>
-                              <div className="flex items-center gap-3">
-                                <span className="text-sm font-semibold text-gray-700">
-                                  الكمية: {variant.stock || 0}
-                                </span>
-                                <span className="text-sm text-gray-500">
-                                  {variant.price} {CURRENCY}
-                                </span>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
+                {/* Product Info */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h3 className="font-semibold text-gray-800 truncate">{product.name_ar}</h3>
+                      <p className="text-sm text-gray-500">{product.code}</p>
+                    </div>
                   </div>
 
-                  <Button
-                    size="sm"
-                    className="bg-gradient-to-r from-moon-200 to-moon-300 text-white flex-shrink-0"
-                    onClick={() => openStockModal(product)}
-                  >
-                    تحديث المخزون
-                  </Button>
+                  {/* Variants */}
+                  {product.varients && product.varients.length > 0 && (
+                    <div className="space-y-2">
+                      {product.varients.map((variant, idx) => {
+                        const status = getStockStatus(variant.stock || 0);
+                        return (
+                          <div key={idx} className="flex items-center justify-between bg-gray-50 rounded-lg p-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-gray-700">{getVariantLabel(variant, product)}</span>
+                              <Chip size="sm" color={status.color} variant="flat">
+                                {status.text}
+                              </Chip>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <span className="text-sm font-semibold text-gray-700">
+                                الكمية: {variant.stock || 0}
+                              </span>
+                              <span className="text-sm text-gray-500">
+                                {variant.price} {CURRENCY}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
+
+                {/* Action Button */}
+                <Button
+                  size="sm"
+                  className="bg-gradient-to-r from-moon-200 to-moon-300 text-white flex-shrink-0"
+                  onClick={() => openStockModal(product)}
+                >
+                  تحديث المخزون
+                </Button>
               </div>
-            ))
-          )}
-        </div>
-      )}
+            </div>
+          ))
+        )}
+      </div>
 
       {/* Stock Update Modal */}
       <Modal 
@@ -436,7 +349,7 @@ function ProductsList(props) {
                 {selectedProduct.varients.map((variant, idx) => (
                   <div key={idx} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="font-medium text-gray-700">{getVariantLabel(variant)}</span>
+                      <span className="font-medium text-gray-700">{getVariantLabel(variant, selectedProduct)}</span>
                       <Chip size="sm" color={getStockStatus(variant.stock || 0).color} variant="flat">
                         {getStockStatus(variant.stock || 0).text}
                       </Chip>
@@ -469,7 +382,7 @@ function ProductsList(props) {
             <Button 
               className="bg-gradient-to-r from-moon-200 to-moon-300 text-white"
               onPress={updateStock}
-              isLoading={lod}
+              isLoading={loading}
             >
               حفظ التغييرات
             </Button>
@@ -480,4 +393,4 @@ function ProductsList(props) {
   );
 }
 
-export default ProductsList;
+export default Inventory;

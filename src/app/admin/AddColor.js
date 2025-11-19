@@ -231,69 +231,72 @@ function AddColor(props) {
  
 
   return (
-  
+    <div dir="rtl" className="w-full max-w-6xl mx-auto p-4">
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7 text-moon-200">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+            </svg>
+            إدارة الألوان
+          </h1>
+          <button
+            onClick={() => props.setpage(0)}
+            className="text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p className="text-gray-500 text-sm">أضف وأدر ألوان المنتجات</p>
+      </div>
 
+      {/* Add Color Card */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-moon-200">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          إضافة لون جديد
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <InputEl value={namear} outputfunc={(val)=>{setNamear(val)}} label={"إسم اللون (العربية)"}/>
+          <InputEl value={nameen} outputfunc={(val)=>{setNameen(val)}} label={"إسم اللون (الإنجليزية)"}/>
+        </div>
 
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">اختر اللون</label>
+          <div className="flex items-end gap-3">
+            <div className="relative">
+              <input 
+                style={{backgroundColor:colorCode?colorCode:"#e5e7eb"}} 
+                value={colorCode} 
+                onChange={(e)=>{setColorCode(e.target.value)}} 
+                className="w-20 h-20 rounded-xl border-2 border-gray-300 cursor-pointer shadow-sm hover:shadow-md transition-shadow"
+                type='color'
+              />
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full border-2 border-gray-300 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-3 text-gray-600">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                </svg>
+              </div>
+            </div>
+            <div className="flex-1">
+              <InputEl value={colorCode} outputfunc={(val)=>{setColorCode(val)}} label={"رمز اللون (Hex)"}/>
+            </div>
+          </div>
+        </div>
 
-    
-<div 
-    style={{
-      
-      display:"flex",
-      alignItems:"center",
-      flexDirection:"column",
-      justifyContent:"center",
-      padding:5
-      
- }}>
+        <div className="flex justify-end">
+          <LoadingBtn act={()=>{submitload()}} lod={lod} text={"إضافة اللون"} />
+        </div>
+      </div>
 
-   
-
-
-
-   <div style={{
-    width:"100%",
-display:"grid",
-gap:10,
-gridTemplateAreas:`
-' namear  namear  nameen nameen  ' 
-'sicon . . .'
-
-`
-   }} >
-    <div style={{gridArea:"namear"}}>
-      <InputEl value={namear} outputfunc={(val)=>{setNamear(val)}}  label={"إسم اللون (العربية)"}/>
-    </div>
-    <div style={{gridArea:"nameen"}}>
-      <InputEl value={nameen} outputfunc={(val)=>{setNameen(val)}} label={"إسم اللون (الإنجليزية)"}/>
-    </div>
-    <div style={{gridArea:"sicon"}}>
-    <div class="w-full">
-  
-    <div style={{direction:"ltr"}} className='flex  items-end flex-row space-x-2' >
-    <input style={{backgroundColor:colorCode?colorCode:"lightgray"}} value={colorCode} onChange={(e)=>{setColorCode(e.target.value)}} class="appearance-none  block
-       rounded-full py-6 px-6  border-2 shadow-md border-moon-200 text-gray-700 
-       w-11 h-11  leading-tight focus:outline-none "  id="grid-last-name" type='color' placeholder={"اللون"}/>
-      <InputEl value={colorCode} outputfunc={(val)=>{setColorCode(val)}} label={"رمز اللون"}/>
-
-
-
-    </div>
-    
-  </div>
-    </div>
-   </div>
-
-  
-
-   <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-
-
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"إضافة اللون"} />
-</div>
-
-
-<div className='w-full mt-6' > 
+      {/* Colors List */}
+      <div className='w-full'> 
 
 {
   colors?<TableComp

@@ -262,55 +262,46 @@ function AddCat(props) {
  
 
   return (
-  
+    <div dir="rtl" className="w-full max-w-6xl mx-auto p-4">
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7 text-moon-200">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z" />
+            </svg>
+            إدارة الفئات
+          </h1>
+          <button
+            onClick={() => props.setpage(0)}
+            className="text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p className="text-gray-500 text-sm">أضف وأدر فئات المنتجات</p>
+      </div>
 
+      {/* Add Category Card */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-moon-200">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          إضافة فئة جديدة
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <InputEl outputfunc={(val)=>{setNamear(val)}} label={"إسم الفئة (العربية)"}/>
+          <InputEl outputfunc={(val)=>{setNameen(val)}} label={"إسم الفئة (الإنجليزية)"}/>
+        </div>
 
-
-    
-<div 
-    style={{
-      
-      display:"flex",
-      alignItems:"center",
-      flexDirection:"column",
-      justifyContent:"center",
-      padding:5
-      
- }}>
-
-   
-
-
-
-<div style={{
-    width:"100%",
-display:"grid",
-gap:10,
-gridTemplateAreas:`
-' namear  namear  nameen nameen  ' 
-' section  . . .   ' 
-
-
-`
-
-   }} >
-
-
-    <div style={{gridArea:"namear"}}>
-      <InputEl outputfunc={(val)=>{setNamear(val)}} label={"إسم الفئة (العربية)"}/>
-    </div>
-
-    <div style={{gridArea:"nameen"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"إسم الفئة (الإنجليزية)"}/>
-    </div>
-    
-    
-    <div style={{gridArea:"section"}}>
-    
-    <InputEl
+        <div className="mb-6">
+          <InputEl
             value={cat}
             outputfunc={(val) => {
-           
               setCat(val);
             }}
             iden={"color"}
@@ -319,32 +310,15 @@ gridTemplateAreas:`
             select={true}
             label={"القسم"}
           />
+        </div>
 
-    </div>
+        <div className="flex justify-end">
+          <LoadingBtn act={()=>{submitload()}} lod={lod} text={"إضافة الفئة"} />
+        </div>
+      </div>
 
- 
-
-
-
-  
-  
-
-   </div>
-
-
-  
-
-  
-
-   <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-
-
-<LoadingBtn act={()=>{submitload()}} lod={lod} text={"إضافة الفئة "} />
-</div>
-
-
-
-<div  className='mt-12 w-full' >
+      {/* Categories List */}
+      <div className='w-full'>
 
 
 {

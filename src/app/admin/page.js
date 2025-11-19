@@ -29,6 +29,7 @@ import Logowhite from "../../../public/logoblack.svg";
  const AddSize = dynamic(() => import('./addSize'));
  const EditSubCat = dynamic(() => import('./EditSubcat'));
  const Dashboard = dynamic(() => import('./dashboard'));
+ const Reports = dynamic(() => import('./reports'));
 
  
 import { TiThMenu } from "react-icons/ti";
@@ -409,6 +410,21 @@ useNotifi(type,message);
     <div className='mx-1.5'> لعروض الترويجية</div>
   </div>
 
+  {/* التقارير (Reports) */}
+  <div onClick={() => { setPid(null); setPage(23) }}
+    className={`
+      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
+      rounded-lg justify-start items-center text-sm gap-2
+      ${page === 23 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+    `}>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+      </svg>
+    </div>
+    <div className='mx-1.5'> التقارير</div>
+  </div>
+
 
 </div>
 
@@ -446,6 +462,8 @@ useNotifi(type,message);
 {page==21 ? <AddPickUp  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(sid,id)=>{handleSizeEdit(sid,id)}} /> :<></>}
 
 {page==22 ? pid?<EditStock  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} pid={pid} />:<EditStock setpage={(page)=>{setPage(page)}} etLod={(sta)=>{setLod(sta)}} pid={pid} /> :<></>}
+
+{page==23 ? <Reports  notifi={(type,message)=>{notifi(type,message)}}  setLod={(sta)=>{setLod(sta)}} setpage={(page)=>{setPage(page)}} /> :<></>}
 
 </div>
 
