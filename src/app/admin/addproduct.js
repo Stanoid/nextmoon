@@ -512,168 +512,110 @@ console.log("images being sent",images);
   }
 
   return (
-    <div
-      dir="rtl"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: 5,
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          display: "grid",
-          gap: 10,
-          gridTemplateAreas: `
-' namear  namear  nameen nameen  ' 
-'code descriptionAr descriptionAr descriptionAr'
-'descriptionEn descriptionEn descriptionEn descriptionEn'
-'cat images images images'
+    <div dir="rtl" className="w-full max-w-6xl mx-auto p-4">
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-2xl font-bold text-gray-800">إضافة منتج جديد</h1>
+          <button
+            onClick={() => props.setpage(2)}
+            className="text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p className="text-gray-500 text-sm">أضف معلومات المنتج والصور والخيارات</p>
+      </div>
 
-'sizeSelect sizeSelect sizeSelect sizeSelect'
-'price discount stock size'
-'color . . .'
-`,
-        }}
-      >
-        <div style={{ gridArea: "namear" }}>
-          <InputEl
-            value={namear}
-            outputfunc={(val) => {
-              setNamear(val);
-            }}
-            label={"إسم المنتج (العربية)"}
-          />
+      {/* Form Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Basic Information Card */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-moon-200">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+            </svg>
+            المعلومات الأساسية
+          </h2>
+          <div className="space-y-4">
+            <InputEl
+              value={namear}
+              outputfunc={(val) => {
+                setNamear(val);
+              }}
+              label={"إسم المنتج (العربية)"}
+            />
+            
+            <InputEl
+              value={nameen}
+              outputfunc={(val) => {
+                setNameen(val);
+              }}
+              label={"إسم المنتج (الإنجليزية)"}
+            />
+            
+            <InputEl
+              value={code}
+              outputfunc={(val) => {
+                setCode(val);
+              }}
+              num={false}
+              label={"كود المنتج"}
+            />
+            
+            <InputEl
+              value={subc}
+              outputfunc={(val) => {
+                setSubc(val);
+              }}
+              select={true}
+              iscats={true}
+              data={cats}
+              label={"الفئة"}
+            />
+          </div>
         </div>
 
-        <div style={{ gridArea: "nameen" }}>
-          <InputEl
-            value={nameen}
-            outputfunc={(val) => {
-              setNameen(val);
-            }}
-            label={"إسم المنتج (الإنجليزية)"}
-          />
+        {/* Description Card */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-moon-200">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+            </svg>
+            الوصف
+          </h2>
+          <div className="space-y-4">
+            <InputEl
+              value={descar}
+              outputfunc={(val) => {
+                setDescar(val);
+              }}
+              label={"وصف المنتج (العربية)"}
+            />
+            
+            <InputEl
+              value={descen}
+              outputfunc={(val) => {
+                setDescen(val);
+              }}
+              label={"وصف المنتج (الإنجليزية)"}
+            />
+          </div>
         </div>
+      </div>
 
-        <div style={{ gridArea: "descriptionAr" }}>
-          <InputEl
-            value={descar}
-            outputfunc={(val) => {
-              setDescar(val);
-            }}
-            label={"وصف المنتج (العربية)"}
-          />
-        </div>
+      {/* Images Card */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mt-6">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-moon-200">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          </svg>
+          صور المنتج
+        </h2>
 
-        <div style={{ gridArea: "descriptionEn" }}>
-          <InputEl
-            value={descen}
-            outputfunc={(val) => {
-              setDescen(val);
-            }}
-            label={"وصف المنتج (الإنجليزية"}
-          />
-        </div>
-
-        <div style={{ gridArea: "cat" }}>
-          <InputEl
-            value={subc}
-            outputfunc={(val) => {
-              setSubc(val);
-            }}
-            select={true}
-            iscats={true}
-            data={cats}
-            label={"الفئة"}
-          />
-        </div>
-
-        <div className='bg-gray-100 ' style={{ gridArea: "images" }}>
-          <div class="w-full flex justify-between items-center  h-full align-middle ">
-            {/* <form onSubmit={handleSubmit} id="imgForm">
-              <label
-                class="block uppercase tracking-wide text-moon-200/80 text-xs font-bold mb-2"
-                for="grid-last-name"
-              >
-                الصور
-              </label>
-
-              <input
-                onChange={(e) => {
-                  setFiles(e.target.files);
-                }}
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border
-     border-gray-200 rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white
-      focus:border-gray-500"
-                id="grid-last-name"
-                accept="image/*"
-                name="imgs"
-                type="file"
-                multiple
-                placeholder={"Images"}
-              />
-            </form> */}
-
-{/* <CldUploadWidget
-  uploadPreset="minimoon"
-  onQueuesStart={()=>{setImglod(true)}}
-
-  onSuccess={(result, { widget }) => {
-    
-    if(result?.info){
-      var oldimgs = uimg;
-      oldimgs.push({
-      name: result.info.original_filename,
-      thumb: result.info.thumbnail_url,
-      url: result.info.secure_url,
-      size: result.info.size,
-      id:result.info.public_id,
-      });
-
-      setResource(oldimgs);
-      setImglod(false)
-      
-    }
-  
-  }}
-  onQueuesEnd={(result, { widget }) => {
-   // widget.close();
-   setImglod(false)
-   setEff(false);
-      setRefr(!refr);
-  }}
->
-  {({ open }) => {
-    function handleOnClick() {
-      setResource(undefined);
-      open();
-    }
-    return (
-      <button  className='bg-gradient-to-tr  mr-4  text-gray-600 from-moon-200/60  to-moon-200/20 px-5 py-1 rounded-full ' onClick={handleOnClick}>
-        {resource?"إعادة رفع":"رفع صور"}
-      </button>
-    );
-  
-  }}
-</CldUploadWidget> */}
-{/* <input
-  type="file"
-  multiple
-  accept="image/*"
-  onChange={(e) => {
-    const filesArray = Array.from(e.target.files);
-    console.log("Selected files:", filesArray); 
-    setFiles(filesArray);
-  }}
-  className="..."
-/> */}
-
-<div className='bg-gray-100 ' style={{ gridArea: "images" }}>
-          <div class="w-full flex justify-between items-center  h-full align-middle ">
+        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-moon-200 transition-colors bg-gray-50">
           <input
             type="file"
             multiple
@@ -683,60 +625,46 @@ console.log("images being sent",images);
               console.log("Selected files:", filesArray); 
               setFiles(filesArray);
             }}
-            className="block w-full text-sm text-gray-500
-                       file:mr-4 file:py-2 file:px-4
-                       file:rounded-full file:border-0
+            className="block w-full text-sm text-gray-600
+                       file:mr-4 file:py-2.5 file:px-4
+                       file:rounded-lg file:border-0
                        file:text-sm file:font-semibold
-                       file:bg-violet-50 file:text-violet-700
-                       hover:file:bg-violet-100"
+                       file:bg-gradient-to-r file:from-moon-200 file:to-moon-300
+                       file:text-white
+                       hover:file:from-moon-300 hover:file:to-moon-200
+                       file:cursor-pointer file:transition-all file:shadow-sm"
           />
-
-          <div className='flex flex-row ' >
-            {/* Display selected images preview */}
-            {files.map((file, index) => (
-              <div key={index} className="mx-2 py-2">
-                <img
-                  className="rounded-md w-24 h-24 object-cover"
-                  src={URL.createObjectURL(file)} // Create URL for local file preview
-                  alt={`Preview ${index}`}
-                />
-              </div>
-            ))}
-          </div>
-
-          </div>
+          
+          {files.length > 0 && (
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              {files.map((file, index) => (
+                <div key={index} className="relative group">
+                  <img
+                    className="rounded-lg w-full h-24 object-cover border-2 border-gray-200 group-hover:border-moon-200 transition-colors shadow-sm"
+                    src={URL.createObjectURL(file)}
+                    alt={`Preview ${index}`}
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 rounded-lg transition-all flex items-center justify-center">
+                    <span className="text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">{index + 1}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+      </div>
 
-<div className='flex flex-row ' >
-{/* {resource&&resource.map(img=>(
-
-<div className='mx-2 py-2 '>
-<img className='rounded-md' src={img.thumb} />
-</div>
-))}  */}
-
-{/* {resource &&
-  resource.map((img, idx) => (
-    <div key={idx} className="mx-2 py-2">
-      <img
-        className="rounded-md w-24 h-24 object-cover"
-        src={img.thumb ? img.thumb : `${API_URL}${img.url}`}
-        alt={img.name || `image-${idx}`}
-      />
-    </div>
-))} */}
-
-
-</div>
-
-<div onClick={()=>{console.log(resource)}}>
-
-
-</div>
-          </div>
-        </div>
-
-        <div style={{ gridArea: "price" }}>
+      {/* Pricing & Variants Card */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mt-6">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-moon-200">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+          </svg>
+          السعر والخيارات
+        </h2>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <InputEl
             value={price}
             outputfunc={(val) => {
@@ -745,9 +673,7 @@ console.log("images being sent",images);
             num={true}
             label={"سعر البيع"}
           />
-        </div>
-
-        <div style={{ gridArea: "discount" }}>
+          
           <InputEl
             value={discount}
             outputfunc={(val) => {
@@ -756,11 +682,7 @@ console.log("images being sent",images);
             num={true}
             label={"نسبة الخصم %"}
           />
-        </div>
-
-
-
-        <div style={{ gridArea: "stock" }}>
+          
           <InputEl
             value={stock}
             outputfunc={(val) => {
@@ -769,13 +691,10 @@ console.log("images being sent",images);
             num={true}
             label={"الكمية"}
           />
-        </div>
-
-        <div style={{ gridArea: "size" }}>
+          
           <InputEl
             value={size}
             outputfunc={(val) => {
-             
               setSize(val)
               console.log(val)
               setEff(false);
@@ -789,12 +708,12 @@ console.log("images being sent",images);
           />
         </div>
 
-        <div style={{ gridArea: "color" }}>
+        <div className="mb-6">
           <InputEl
             value={color}
             outputfunc={(val) => {
               console.log(val);
-            setcolor(val);
+              setcolor(val);
             }}
             iden={"color"}
             data={colors}
@@ -804,63 +723,10 @@ console.log("images being sent",images);
           />
         </div>
 
-        <div style={{ gridArea: "code" }}>
-          <InputEl
-            value={code}
-            outputfunc={(val) => {
-              //setStock(val);
-              setCode(val);
-            }}
-            num={false}
-            label={"كود المنتج"}
-          />
-        </div>
-
-
-
-        <div
-          className="bg-gray-100  rounded-md max-w-full overflow-x-scroll flex justify-start items-center "
-          style={{ gridArea: "sizeSelect" }}
-        >
-          {varients.length == 0 ? (
-            <div className="flex w-full  min-h-32 overflow-x-scroll text-gray-400 h-full justify-center items-center">
-              خيارات المنتج
-            </div>
-          ) : (
-            varients &&
-            varients.map((vari, index) => handleSizesSelect(vari, index))
-          )}
-        </div>
-
-        {/* <div
-          className="bg-gray-100 rounded-md  flex justify-center items-center "
-          style={{ gridArea: "colorSelect" }}
-        >
-          {colorSelect.length == 0 ? (
-            <div className="flex w-full text-gray-400 h-full justify-center items-center">
-              إختر الألوان
-            </div>
-          ) : (
-            colorSelect &&
-            colorSelect.map((color, index) => handleColorSelect(color, index))
-          )}
-        </div> */}
-
-
-      </div>
-
-      <div
-        className=""
-        style={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-        }}
-      >
-        <div>
+        {/* Add Variant Button */}
+        <div className="flex justify-end mb-6">
           <LoadingBtn
-          color={Theme.primary}
+            color={Theme.primary}
             act={()=>{ addvarient()}}
             icon={<FaPlusSquare />}
             lod={null}
@@ -868,49 +734,47 @@ console.log("images being sent",images);
             text={"إضافة الخيار"}
           />
         </div>
+
+        {/* Variants Display */}
+        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+          <h3 className="text-sm font-semibold text-gray-700 mb-3">خيارات المنتج المضافة</h3>
+          {varients.length == 0 ? (
+            <div className="flex flex-col items-center justify-center py-8 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-12 mb-2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+              </svg>
+              <p className="text-sm">لم يتم إضافة خيارات بعد</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {varients && varients.map((vari, index) => handleSizesSelect(vari, index))}
+            </div>
+          )}
+        </div>
       </div>
 
-      <div
-        className=""
-        style={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div>
-          {/* <LoadingBtn
-          color={imgLod||resource==undefined||varients.length==0?"grey":Theme.primary}
-            act={()=>{ submitProduct()}}
-            icon={<FaPlusCircle />}
-            lod={lod}
-            disabled={true}
-            text={"إضافة المنتج"}
-          /> */}
-
-<LoadingBtn
-  color={imgLod || varients.length === 0 ? "grey" : Theme.primary}
-  act={async () => {
-    if (!resource || resource.length === 0) {
-      const uploadedImages = await uploadMedia();
-      if (uploadedImages) {
-        submitProduct(uploadedImages); // Pass uploaded images
-      } else {
-        props.notifi("error", "فشل رفع الصور");
-      }
-    } else {
-      submitProduct(resource); // Pass existing resource
-    }
-  }}
-  icon={<FaPlusCircle />}
-  lod={lod}
-  disabled={imgLod || varients.length === 0}
-  text={"إضافة المنتج"}
-/>
-
-
-        </div>
+      {/* Submit Button */}
+      <div className="mt-8 flex justify-center">
+        <LoadingBtn
+          color={imgLod || varients.length === 0 ? "grey" : Theme.primary}
+          act={async () => {
+            if (!resource || resource.length === 0) {
+              const uploadedImages = await uploadMedia();
+              if (uploadedImages) {
+                submitProduct(uploadedImages);
+              } else {
+                props.notifi("error", "فشل رفع الصور");
+              }
+            } else {
+              submitProduct(resource);
+            }
+          }}
+          icon={<FaPlusCircle />}
+          lod={lod}
+          disabled={imgLod || varients.length === 0}
+          text={"إضافة المنتج"}
+        />
       </div>
     </div>
   );

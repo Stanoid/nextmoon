@@ -221,7 +221,7 @@ function ProductsList(props) {
 
         {/* Filters and View Switcher */}
         <div className="flex justify-between gap-3 items-end">
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-wrap">
             {/* View Switcher */}
             <div className="flex gap-1 bg-moon-100/30 p-1 rounded-lg">
               <button
@@ -253,6 +253,19 @@ function ProductsList(props) {
               </button>
             </div>
           </div>
+
+          {/* Add Product Button */}
+          <Button
+            className="bg-gradient-to-r from-moon-200 to-moon-300 text-white font-medium shadow-sm"
+            startContent={
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            }
+            onClick={() => props.setpage(14, null)}
+          >
+            {t('addProduct')}
+          </Button>
         </div>
 
         {/* Count Info */}

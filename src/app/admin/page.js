@@ -309,22 +309,6 @@ useNotifi(type,message);
     <div className='mx-1.5'>{t('orders')}</div>
   </div>
 
-  {/* إضافة منتج (Add Product) */}
-  <div onClick={() => { setPid(null); setPage(14) }}
-    className={`
-      flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
-      rounded-lg justify-start items-center text-sm gap-2
-      ${page === 14 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
-    `}>
-    <div>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-</svg>
-      
-      </div>
-    <div className='mx-1.5'> إضافة منتج</div>
-  </div>
-
   {/* المنتجات (Products) */}
   <div onClick={() => { setPid(null); setPage(2) }}
     className={`

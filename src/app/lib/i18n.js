@@ -240,7 +240,9 @@ const translations = {
     logout: "تسجيل خروج",
     backToSite: "العودة للموقع",
     confirmBackToSite: "هل تريد العودة إلى الموقع؟",
-    confirmLogout: "هل تريد تسجيل الخروج؟"
+    confirmLogout: "هل تريد تسجيل الخروج؟",
+    addProduct: "إضافة منتج",
+    addNew: "إضافة جديد"
   },
   fr: {
     contactUs: "Contactez-nous",
@@ -411,6 +413,8 @@ const translations = {
     backToSite: "Retour au site",
     confirmBackToSite: "Voulez-vous retourner au site?",
     confirmLogout: "Voulez-vous vous déconnecter?",
+    addProduct: "Ajouter un produit",
+    addNew: "Ajouter nouveau",
     // Register translations
     welcome: "Bienvenue",
     pleaseLoginToContinue: "Veuillez vous inscrire pour continuer",
@@ -633,7 +637,9 @@ const translations = {
     logout: "Logout",
     backToSite: "Back to Site",
     confirmBackToSite: "Do you want to return to the site?",
-    confirmLogout: "Do you want to logout?"
+    confirmLogout: "Do you want to logout?",
+    addProduct: "Add Product",
+    addNew: "Add New"
   }
 };
 
