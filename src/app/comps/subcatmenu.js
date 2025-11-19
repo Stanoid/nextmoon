@@ -5,7 +5,7 @@ import Image from "next/image";
 import { MdClose, MdKeyboardArrowRight } from "react-icons/md";
 import { useI18n } from "../lib/i18n";
 
-export default function Subcatmenu({ subCat = [] }) {
+export default function Subcatmenu({ subCat = [], onNavigate }) {
   const router = useRouter();
   const { t, direction } = useI18n();
   const [showAllMobile, setShowAllMobile] = useState(false);
@@ -32,6 +32,7 @@ export default function Subcatmenu({ subCat = [] }) {
       if (catId) {
         router.push(`/categories?cid=${catId}`);
         setShowAllDesktop(false);
+        if (onNavigate) onNavigate(); // Close mobile menu
       }
     } catch (err) {
       console.error('Error navigating to category:', err);

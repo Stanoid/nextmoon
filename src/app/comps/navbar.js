@@ -639,6 +639,7 @@ export default function NavbarC(props) {
       try {
         if (props && typeof props.openFav === 'function') {
           props.openFav(true);
+          setIsMenuOpen(false);
         }
       } catch (err) {
         console.error('Error opening favorites:', err);
@@ -669,9 +670,11 @@ export default function NavbarC(props) {
         try {
           if (userData?.data?.user?.type) {
             handleAccount(userData.data.user.type);
+            setIsMenuOpen(false);
           } else {
             console.warn('User type not available');
             router.push("/");
+            setIsMenuOpen(false);
           }
         } catch (err) {
           console.error('Error handling account click:', err);
@@ -700,6 +703,7 @@ export default function NavbarC(props) {
       onClick={() => {
         try {
           router.push("/login");
+          setIsMenuOpen(false);
         } catch (err) {
           console.error('Error navigating to login:', err);
         }
@@ -712,7 +716,7 @@ export default function NavbarC(props) {
 </div>
 
 
-<Subcatmenu subCat={subCat}/>
+<Subcatmenu subCat={subCat} onNavigate={() => setIsMenuOpen(false)} />
 
           </div>
         </motion.div>

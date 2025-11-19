@@ -86,13 +86,13 @@ function Lens({ data = [] }) {
 
       <div className="w-full flex flex-col-reverse lg:flex-row">
         {/* Mobile thumbnails */}
-        <div className="flex lg:hidden flex-row gap-2 overflow-x-auto pb-2 px-2 scrollbar-hide">
+        <div className="flex lg:hidden flex-row gap-2 overflow-x-auto pb-3 px-4 scrollbar-hide">
           {data.map((img, i) => (
             <div 
               key={i} 
-              className={`relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 cursor-pointer border-2 rounded-md transition-all ${
+              className={`relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 cursor-pointer border-2 rounded-lg transition-all ${
                 galleryImage === IMG_URL + img.attributes?.url 
-                  ? 'border-moon-200 shadow-md' 
+                  ? 'border-moon-200 shadow-md scale-105' 
                   : 'border-gray-200'
               }`}
             >

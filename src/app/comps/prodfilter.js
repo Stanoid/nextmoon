@@ -78,13 +78,13 @@ console.log("subcatsdddddddddddddddddd",subcatData);
   const hasActiveFilters = selectedSizes.size > 0 || selectedColors.size > 0 || priceRange.min !== '' || priceRange.max !== '';
 
   return (
-    <aside dir='rtl' className="w-full sm:w-64 lg:w-[280px] mt-12 lg:mt-[48px] bg-white p-5 shadow-lg rounded-xl border border-gray-100 sticky top-4">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-gray-800">الفلاتر</h2>
+    <aside dir='rtl' className="w-full bg-white p-4 lg:p-5 shadow-sm lg:shadow-lg rounded-xl border border-gray-100 lg:sticky lg:top-6">
+      <div className="flex justify-between items-center mb-4 lg:mb-6">
+        <h2 className="text-lg lg:text-xl font-bold text-gray-800">الفلاتر</h2>
         {hasActiveFilters && (
           <button
             onClick={handleClearFilters}
-            className="text-xs text-red-500 hover:text-red-700 flex items-center gap-1 transition-colors"
+            className="text-xs text-red-500 hover:text-red-700 flex items-center gap-1 transition-colors font-medium"
           >
             <FaTimes className="text-xs" />
             مسح الكل
@@ -93,37 +93,37 @@ console.log("subcatsdddddddddddddddddd",subcatData);
       </div>
 
       {/* Sizes Filter */}
-      <div className="mb-5 pb-5 border-b border-gray-100">
+      <div className="mb-4 lg:mb-5 pb-4 lg:pb-5 border-b border-gray-100">
         <button
-          className="flex justify-between items-center w-full pb-3 text-right cursor-pointer group hover:text-moon-200 transition-colors"
+          className="flex justify-between items-center w-full pb-2 lg:pb-3 text-right cursor-pointer group hover:text-moon-200 transition-colors"
           onClick={() => setIsSizesOpen(!isSizesOpen)}
         >
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-gray-700 group-hover:text-moon-200">المقاس</h3>
+            <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">المقاس</h3>
             {selectedSizes.size > 0 && (
-              <span className="bg-moon-200 text-white text-xs px-2 py-0.5 rounded-full">
+              <span className="bg-moon-200 text-white text-xs px-2 py-0.5 rounded-full font-bold">
                 {selectedSizes.size}
               </span>
             )}
           </div>
           {isSizesOpen ? (
-            <FaChevronUp className="text-gray-400 text-sm" />
+            <FaChevronUp className="text-gray-400 text-xs lg:text-sm" />
           ) : (
-            <FaChevronDown className="text-gray-400 text-sm" />
+            <FaChevronDown className="text-gray-400 text-xs lg:text-sm" />
           )}
         </button>
 
         {isSizesOpen && (
-          <div className="flex flex-wrap gap-2 justify-end pt-3 max-h-48 overflow-y-auto scrollbar-hide">
+          <div className="flex flex-wrap gap-2 justify-end pt-2 lg:pt-3 max-h-40 lg:max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             {sizes.slice(0, 30).map((size) => {
               const isSelected = selectedSizes.has(size.id);
               return (
                 <button
                   key={size.id}
                   className={`
-                    min-w-[40px] px-3 py-2 text-sm font-medium text-center rounded-lg transition-all transform hover:scale-105
+                    min-w-[36px] lg:min-w-[40px] px-2.5 lg:px-3 py-1.5 lg:py-2 text-xs lg:text-sm font-medium text-center rounded-lg transition-all
                     ${isSelected
-                      ? 'bg-moon-200 text-white shadow-md'
+                      ? 'bg-moon-200 text-white shadow-md scale-105'
                       : 'bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300'}
                   `}
                   onClick={() => handleSizeClick(size.id)}
@@ -137,28 +137,28 @@ console.log("subcatsdddddddddddddddddd",subcatData);
       </div>
 
       {/* Colors Filter */}
-      <div className="mb-5 pb-5 border-b border-gray-100">
+      <div className="mb-4 lg:mb-5 pb-4 lg:pb-5 border-b border-gray-100">
         <button
-          className="flex justify-between items-center w-full pb-3 text-right cursor-pointer group hover:text-moon-200 transition-colors"
+          className="flex justify-between items-center w-full pb-2 lg:pb-3 text-right cursor-pointer group hover:text-moon-200 transition-colors"
           onClick={() => setIsColorsOpen(!isColorsOpen)}
         >
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-gray-700 group-hover:text-moon-200">الألوان</h3>
+            <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">الألوان</h3>
             {selectedColors.size > 0 && (
-              <span className="bg-moon-200 text-white text-xs px-2 py-0.5 rounded-full">
+              <span className="bg-moon-200 text-white text-xs px-2 py-0.5 rounded-full font-bold">
                 {selectedColors.size}
               </span>
             )}
           </div>
           {isColorsOpen ? (
-            <FaChevronUp className="text-gray-400 text-sm" />
+            <FaChevronUp className="text-gray-400 text-xs lg:text-sm" />
           ) : (
-            <FaChevronDown className="text-gray-400 text-sm" />
+            <FaChevronDown className="text-gray-400 text-xs lg:text-sm" />
           )}
         </button>
 
         {isColorsOpen && (
-          <div className="flex flex-wrap gap-3 justify-end pt-3 max-h-48 overflow-y-auto scrollbar-hide">
+          <div className="flex flex-wrap gap-2 lg:gap-3 justify-end pt-2 lg:pt-3 max-h-40 lg:max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             {colors.slice(0, 30).map((color) => {
               const isSelected = selectedColors.has(color.id);
               const isWhite = ['#FFFFFF', '#FFF', 'white'].includes(color.colorCode?.toUpperCase());
@@ -166,8 +166,8 @@ console.log("subcatsdddddddddddddddddd",subcatData);
                 <div
                   key={color.id}
                   className={`
-                    relative w-9 h-9 rounded-full cursor-pointer transition-all transform hover:scale-110 shadow-sm
-                    ${isSelected ? 'ring-2 ring-moon-200 ring-offset-2' : 'border-2 border-gray-200'}
+                    relative w-8 h-8 lg:w-9 lg:h-9 rounded-full cursor-pointer transition-all shadow-sm
+                    ${isSelected ? 'ring-2 ring-moon-200 ring-offset-2 scale-110' : 'border-2 border-gray-200 hover:scale-105'}
                     ${isWhite ? 'border-gray-300' : ''}
                   `}
                   style={{ backgroundColor: color.colorCode }}
@@ -176,7 +176,7 @@ console.log("subcatsdddddddddddddddddd",subcatData);
                 >
                   {isSelected && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <svg className="w-5 h-5 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-4 h-4 lg:w-5 lg:h-5 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
@@ -189,35 +189,35 @@ console.log("subcatsdddddddddddddddddd",subcatData);
       </div>
 
       {/* Price Range Filter */}
-      <div className="mb-5">
+      <div className="mb-4 lg:mb-5">
         <button
-          className="flex justify-between items-center w-full pb-3 text-right cursor-pointer group hover:text-moon-200 transition-colors"
+          className="flex justify-between items-center w-full pb-2 lg:pb-3 text-right cursor-pointer group hover:text-moon-200 transition-colors"
           onClick={() => setIsPriceOpen(!isPriceOpen)}
         >
-          <h3 className="font-semibold text-gray-700 group-hover:text-moon-200">نطاق السعر</h3>
+          <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">نطاق السعر</h3>
           {isPriceOpen ? (
-            <FaChevronUp className="text-gray-400 text-sm" />
+            <FaChevronUp className="text-gray-400 text-xs lg:text-sm" />
           ) : (
-            <FaChevronDown className="text-gray-400 text-sm" />
+            <FaChevronDown className="text-gray-400 text-xs lg:text-sm" />
           )}
         </button>
 
         {isPriceOpen && (
-          <div className="pt-3 space-y-3">
+          <div className="pt-2 lg:pt-3 space-y-2 lg:space-y-3">
             <div className="flex items-center gap-2">
               <input
                 type="number"
-                className="border border-gray-200 p-2.5 w-full text-right text-sm rounded-lg focus:ring-2 focus:ring-moon-200 focus:border-transparent transition-all"
+                className="border border-gray-200 p-2 lg:p-2.5 w-full text-right text-xs lg:text-sm rounded-lg focus:ring-2 focus:ring-moon-200 focus:border-transparent transition-all"
                 placeholder="من"
                 value={priceRange.min}
                 onChange={(e) =>
                   setPriceRange({ ...priceRange, min: e.target.value })
                 }
               />
-              <span className="text-gray-400">-</span>
+              <span className="text-gray-400 text-sm">-</span>
               <input
                 type="number"
-                className="border border-gray-200 p-2.5 w-full text-right text-sm rounded-lg focus:ring-2 focus:ring-moon-200 focus:border-transparent transition-all"
+                className="border border-gray-200 p-2 lg:p-2.5 w-full text-right text-xs lg:text-sm rounded-lg focus:ring-2 focus:ring-moon-200 focus:border-transparent transition-all"
                 placeholder="إلى"
                 value={priceRange.max}
                 onChange={(e) =>
@@ -225,18 +225,18 @@ console.log("subcatsdddddddddddddddddd",subcatData);
                 }
               />
             </div>
-            <div className="text-xs text-gray-500 text-right">
-              {priceRange.min && priceRange.max && (
+            {priceRange.min && priceRange.max && (
+              <div className="text-xs text-gray-500 text-right">
                 <span>من {priceRange.min} إلى {priceRange.max} د.ج</span>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         )}
       </div>
 
       {/* Apply Button */}
       <button
-        className="bg-moon-200 hover:bg-moon-300 text-white font-medium text-sm px-6 py-3 rounded-lg w-full transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+        className="bg-moon-200 hover:bg-moon-300 text-white font-semibold text-sm lg:text-base px-4 lg:px-6 py-2.5 lg:py-3 rounded-lg w-full transition-all shadow-md hover:shadow-lg active:scale-95"
         onClick={handleFilterSubmit}
       >
         تطبيق الفلاتر

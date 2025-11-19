@@ -443,7 +443,7 @@ if(el.target.value.length<3){
                 {children}
               </section>
             ) : (
-              <section className={`${bgColorClass} el-messiri-text`} dir="auto">
+              <section className={`${bgColorClass} el-messiri-text`} dir="auto" style={{ paddingTop: '6px' }}>
                 <div
                   className="
                     lg:max-w-[1280px]

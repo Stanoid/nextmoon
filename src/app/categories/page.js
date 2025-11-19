@@ -90,14 +90,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row w-full max-w-screen-2xl mx-auto px-2 lg:px-4 gap-6 mt-4 lg:mt-0">
+          <div className="flex flex-col lg:flex-row w-full max-w-screen-2xl mx-auto px-2 lg:px-4 gap-4 lg:gap-6 mt-4 lg:mt-6 mb-8">
             {/* Sidebar Filter - Desktop */}
-            <div className="hidden lg:block lg:w-[280px] shrink-0">
+            <div className="hidden lg:block lg:w-[280px] shrink-0 sticky top-6 self-start">
               <SidebarFilter onFilterChange={handleFilterChange} />
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 space-y-4" dir="ltr">
+            <div className="flex-1 space-y-6" dir="ltr">
               {/* Subcategory Banners */}
               <div className="w-full py-2 lg:mt-12 grid grid-cols-3 gap-4 items-center justify-center">
                 {products?.products?.map((prd) => (
@@ -122,9 +122,9 @@ export default function Home() {
               </div>
 
                 {filteredResults && (
-                <div className="w-full">
-                  <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div className="w-full mb-6">
+                  <div className="bg-white rounded-xl shadow-sm p-4 lg:p-5 mb-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3" dir="rtl">
                       <div className="text-right">
                         <h2 className="text-lg lg:text-xl font-bold text-gray-800">
                           {locale === 'ar' ? filteredResults.name_ar : locale === 'fr' ? filteredResults.name_fr || filteredResults.name_ar : filteredResults.name_en || filteredResults.name_ar}
@@ -145,7 +145,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="grid gap-3 sm:gap-4 lg:gap-6 xl:gap-7 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                  <div className="grid gap-3 sm:gap-4 lg:gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                     {filteredResults.products.map(
                       (prd) =>
                         prd.status && (
@@ -160,8 +160,8 @@ export default function Home() {
 
               {Array.isArray(products) &&
                 products.map((sub, index) => (
-                  <div className="w-full" key={sub.id}>
-                    <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
+                  <div className="w-full mb-6" key={sub.id}>
+                    <div className="bg-white rounded-xl shadow-sm p-4 lg:p-5 mb-4" dir="rtl">
                       <h2 className="text-lg lg:text-xl font-bold text-gray-800 text-right">{sub.name_ar}</h2>
                       <p className="text-sm text-gray-500 mt-1 text-right">
                         {sub.products?.length || 0} منتج
@@ -169,7 +169,7 @@ export default function Home() {
                     </div>
 
                     {index % 2 === 0 ? (
-                      <div className="grid gap-3 sm:gap-4 lg:gap-6 xl:gap-7 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                      <div className="grid gap-3 sm:gap-4 lg:gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                         {sub.products?.map(
                           (prd) =>
                             prd.status && (

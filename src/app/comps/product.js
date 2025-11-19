@@ -66,13 +66,14 @@ export default function Product(props) {
         onClick={()=>{setLoading(true); 
           router.push(`/products?pid=${props.data.id}`)
         }} 
-        className="
-        lg:w-[308px] lg:h-[501px] w-full h-[380px] sm:h-[400px] rounded-lg border border-gray-200 bg-white shadow-md cursor-pointer flex flex-col overflow-hidden relative" 
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.2 }}
+        className="w-full rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg cursor-pointer flex flex-col overflow-hidden relative transition-shadow duration-200" 
       >
   
-        <div className='relative h-[220px] sm:h-[240px] lg:h-[308px] w-full flex items-center justify-center bg-gray-50'> 
+        <div className='relative aspect-square w-full flex items-center justify-center bg-gray-50'> 
           {loading ? (
-            <div className='absolute inset-0 flex items-center justify-center bg-gray-100 '>
+            <div className='absolute inset-0 flex items-center justify-center bg-gray-100'>
               <div style={{ zIndex: 10 }}>
                 <div style={{ justifyContent: "center", alignItems: "center" }} className="lds-facebook"><div></div><div></div><div></div></div>
               </div>
@@ -81,91 +82,101 @@ export default function Product(props) {
             <>
               <Image
                 fill
-                className='rounded-t-lg object-contain p-2' 
-                src={`${IMG_URL}${props.data?.images[0]?.formats?.medium?.url}`} 
-                alt="Product Image"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 308px"
+                className='rounded-t-xl object-cover' 
+                src={
+                  props.data?.images?.[0]?.formats?.medium?.url 
+                    ? `${IMG_URL}${props.data.images[0].formats.medium.url}`
+                    : props.data?.images?.[0]?.url
+                    ? `${IMG_URL}${props.data.images[0].url}`
+                    : DEF_IMG || '/no-image.jpg'
+                }
+                alt={props.data?.name_ar || "Product Image"}
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 308px"
               />
               <motion.div 
-                className="absolute top-2 left-2 p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-md z-10 cursor-pointer hover:scale-110 transition-transform"
+                className="absolute top-2 right-2 p-2 bg-white/95 rounded-full shadow-md z-10 cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsLiked(!isLiked);
-                  // TODO: Add API call to add/remove from favorites
                 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <FaHeart className={`text-lg transition-colors ${isLiked ? 'text-red-500' : 'text-gray-400'}`} />
+                <FaHeart className={`text-base transition-colors ${isLiked ? 'text-red-500' : 'text-gray-400'}`} />
               </motion.div>
+              
+              {props.data?.varients?.[0]?.old_price > 0 && (
+                <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-lg z-10 shadow-md"> 
+                  {`-${props.data.varients[0].old_price}%`} 
+                </span>
+              )}
             </>
           )}
         </div>
   
-        <div dir="ltr" className="flex flex-col p-3 lg:p-2 lg:max-h-[193px] h-full lg:max-w-[308px] w-full bg-white items-end"> 
+        <div dir="rtl" className="flex flex-col p-2.5 lg:p-3 bg-white"> 
   
-          <div className="lg:text-lg text-sm hidden lg:flex sm:hidden lg:flex:row font-medium mb-2 text-gray-800 text-right line-clamp-1"> 
-            {props.data.name_ar} - {props.data.code}
+          <div className="text-xs lg:text-sm font-semibold mb-1 text-gray-800 text-right line-clamp-2 min-h-[36px] lg:min-h-[40px] leading-tight"> 
+            {props.data.name_ar}
+          </div>
+          
+          <div className="text-[10px] lg:text-xs text-gray-500 mb-2 text-right">
+            {props.data.code}
           </div>
   
-  
-          <div className="text-sm lg:text-lg lg:hidden flex flex-col font-medium mb-2 text-gray-800 text-right"> 
-            <h className="text-xs text-gray-600">{props.data.code}</h>
-            <h className="line-clamp-2">{props.data.name_ar}</h> 
-          </div>
-  
-          <div className="flex flex-col items-end mb-4"> 
-            <div className="flex items-center mb-2">
-              {colors &&
-                colors.map((color) => (
-                  <div key={color.id} className="ml-1">
-                    <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar}>
-                      <div
-                        style={{ backgroundColor: color.colorCode }}
-                        className="h-[14px] w-[14px] lg:h-[16px] lg:w-[16px] rounded-full border border-gray-200" 
-                      ></div>
-                    </Tooltip>
-                  </div>
+          <div className="flex flex-row-reverse items-center justify-between mb-2 lg:mb-3"> 
+            {colors && colors.length > 0 && (
+              <div className="flex flex-row-reverse items-center gap-0.5 lg:gap-1">
+                {colors.slice(0, 3).map((color) => (
+                  <Tooltip key={color.id} className="bg-gray-800 text-white text-xs py-1 px-2" content={color.name_ar}>
+                    <div
+                      style={{ backgroundColor: color.colorCode }}
+                      className="h-3 w-3 lg:h-4 lg:w-4 rounded-full border-2 border-white shadow-sm ring-1 ring-gray-200" 
+                    ></div>
+                  </Tooltip>
                 ))}
-            </div>
+                {colors.length > 3 && (
+                  <span className="text-[10px] lg:text-xs text-gray-500 mr-0.5 lg:mr-1">+{colors.length - 3}</span>
+                )}
+              </div>
+            )}
             
             {/* Rating */}
-            <div className="flex items-center space-x-1"> 
-              <div className="text-xs text-gray-600">(3.4k)</div>
-              <FaStar className="text-yellow-400 text-sm" />
-              <FaStar className="text-yellow-400 text-sm" />
-              <FaStar className="text-yellow-400 text-sm" />
-              <FaStar className="text-yellow-400 text-sm" />
-              <FaStar className="text-gray-300 text-sm" />
+            <div className="flex flex-row-reverse items-center gap-0.5 lg:gap-1"> 
+              <span className="text-[10px] lg:text-xs text-gray-600">(3.4k)</span>
+              <div className="flex flex-row-reverse gap-0.5">
+                <FaStar className="text-yellow-400 text-[10px] lg:text-xs" />
+                <FaStar className="text-yellow-400 text-[10px] lg:text-xs" />
+                <FaStar className="text-yellow-400 text-[10px] lg:text-xs" />
+                <FaStar className="text-yellow-400 text-[10px] lg:text-xs" />
+                <FaStar className="text-gray-300 text-[10px] lg:text-xs" />
+              </div>
             </div>
           </div>
-  <div className="flex flex-col items-end  w-[276px] lg:mt-2 h-[64px]"> 
-            <div className="text-lg font-bold text-gray-900 flex items-baseline">
-              <div className="ml-1">{CURRENCY}</div> 
-  
-  <div>
-                <div>{props.data.varients[0]?.price}</div> 
-    </div> 
-             </div>
-            {/* {props.data.varients[0].old_price > 0 &&
-              props.data.varients[0].old_price > props.data.varients[0].price && ( */}
-                <div className="text-sm text-gray-900 line-through flex items-baseline">
-                {/* 1<div>{props.data.varients[0].old_price} </div> */}
-                <div className="ml-1">{CURRENCY}</div>
-        <div>
-          {(
-            props.data.varients[0]?.price /
-            (1 - props.data.varients[0]?.old_price / 100)
-          ).toFixed(2)}
-        </div>
-                </div>
-  
+          
+          <div className="flex flex-row-reverse items-center justify-between"> 
+            <div className="flex flex-col items-end">
+              {props.data?.varients?.[0]?.price && (
+                <>
+                  <div className="text-base lg:text-lg font-bold text-gray-900 flex flex-row-reverse items-baseline">
+                    <span className="mr-0.5 lg:mr-1 text-xs lg:text-sm">{CURRENCY}</span>
+                    <span>{props.data.varients[0].price}</span> 
+                  </div>
+                  {props.data.varients[0]?.old_price > 0 && (
+                    <div className="text-[10px] lg:text-xs text-gray-500 line-through flex flex-row-reverse items-baseline">
+                      <span className="mr-0.5 lg:mr-1">{CURRENCY}</span>
+                      <span>
+                        {(
+                          props.data.varients[0].price /
+                          (1 - props.data.varients[0].old_price / 100)
+                        ).toFixed(2)}
+                      </span>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
-        
-          <span className="absolute bottom-4 left-4 bg-moon-100 text-moon-200 text-xs font-bold px-3 py-1 rounded-full z-10"> 
-            {`%25 خصم`} 
-          </span>
-        {/* )}s */}
       </motion.div>
   )
 }

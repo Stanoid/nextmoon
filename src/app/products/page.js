@@ -16,6 +16,7 @@ import Head from "next/head";
 import { Accordion,AccordionItem } from '@nextui-org/react';
 import {  FaRecycle } from 'react-icons/fa6';
 import { FaBars } from 'react-icons/fa';
+import { useI18n } from "../lib/i18n";
 
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
@@ -26,6 +27,7 @@ function classNames(...classes) {
 
 
 export default function Product({}) {
+  const { t, locale } = useI18n();
   const [db, setDb] = useState(null);
   const [price, setPrice] = useState(0);
   const [discount,setDiscount] = useState(0);
@@ -328,40 +330,27 @@ for (let i = 0; i < vrs.length; i++) {
 
 
   <div
-    className="flex-col lg:flex-row sm:flex-col md:flex-col "
+    className="flex-col lg:flex-row sm:flex-col md:flex-col lg:gap-6"
     style={{
       width: "100%",
       display: "flex",
-
       justifyContent: "center",
       alignItems: "flex-start",
     }}
   >
 
-
-
-   <div className='w-full '>
-    {/* <Lens data={imgs} /> */}
-
+   <div className='w-full lg:w-1/2 -mx-4 lg:mx-0'>
     <Lens data={db?.attributes?.images?.data || []} />
-
    </div>
 
-
-
-
     <div
-    className='mt-4 sm:mt-4 lg:mt-2 pl-0 sm:pl-0 lg:pl-3'
+    className='mt-4 sm:mt-4 lg:mt-0 pl-0 sm:pl-0 lg:pl-0 w-full lg:w-1/2'
       style={{
-        width: "100%",
         height: "100%",
-
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "flex-end",
-
-
       }}
     >
       <div className=" w-full px-2">
