@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useI18n } from "../lib/i18n";
+import MiniMoonLoader from "../comps/MiniMoonLoader";
 
 
 function ProductsList(props) {
@@ -277,7 +278,7 @@ function ProductsList(props) {
       {/* Content */}
       {lod ? (
         <div className="flex justify-center items-center py-20">
-          <div className="lds-facebook"><div></div><div></div><div></div></div>
+          <MiniMoonLoader size="lg" />
         </div>
       ) : (
         <>

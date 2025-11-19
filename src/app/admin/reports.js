@@ -5,6 +5,7 @@ import { API_URL, CURRENCY } from "../local";
 import { useSelector } from "react-redux";
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { FaFileExport, FaChartLine, FaBoxes, FaShoppingCart } from "react-icons/fa";
+import MiniMoonLoader from "../comps/MiniMoonLoader";
 
 function Reports(props) {
   const udata = useSelector((state) => state.root.auth.data && state.root.auth.data);
@@ -990,7 +991,7 @@ function Reports(props) {
 
       {loading ? (
         <div className="flex justify-center items-center py-20">
-          <div className="lds-facebook"><div></div><div></div><div></div></div>
+          <MiniMoonLoader size="lg" />
         </div>
       ) : (
         <>

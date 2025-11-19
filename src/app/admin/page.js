@@ -37,6 +37,7 @@ import AddProduct from './addproduct';
 import { CartCon } from '../contexts/cartContext';
 import { MdFormatSize, MdOutlineAllOut, MdOutlineAutoAwesome, MdOutlineAutoGraph, MdSpeakerPhone } from 'react-icons/md';
 import { BiCategory, BiCategoryAlt } from 'react-icons/bi';
+import MiniMoonLoader from '../comps/MiniMoonLoader';
 
 
 function AccounteEl() {
@@ -436,7 +437,7 @@ useNotifi(type,message);
 <div className='w-full'>
 
 <div style={{display:lod?"flex":"none"}}  className='w-full min-h-96 flex items-center justify-center' >
-      <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
+      <MiniMoonLoader size="xl" />
       </div>
 
 <div style={{display:lod?"none":"block"}} >

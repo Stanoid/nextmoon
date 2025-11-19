@@ -7,6 +7,7 @@ import TableComp from '../comps/sandbox/table';
 import { useSelector } from "react-redux";
 import { Button, Chip, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import Image from "next/image";
+import MiniMoonLoader from "../comps/MiniMoonLoader";
 
 function ProductsList(props) {
   const udata = useSelector((state) => state.root.auth.data&&state.root.auth.data)
@@ -317,7 +318,7 @@ function ProductsList(props) {
       {/* Content */}
       {lod ? (
         <div className="flex justify-center items-center py-20">
-          <div className="lds-facebook"><div></div><div></div><div></div></div>
+          <MiniMoonLoader size="lg" />
         </div>
       ) : viewMode === 'table' ? (
         <TableComp

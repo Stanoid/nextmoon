@@ -7,6 +7,7 @@ import DeliveryPopup from '../comps/deliveryPopup';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { Input } from '@nextui-org/react';
+import MiniMoonLoader from '../comps/MiniMoonLoader';
 
 
 function Orders(props) {
@@ -548,14 +549,8 @@ setlod(true);
        deleteorder={DeleteOrder}
        conorder={ConOrder}
         />:
-      <div style={{
-        display:lod?'flex':'none' ,
-        alignItems:"center",
-        justifyContent:"center"
-      }}>
-      <div style={{zIndex:10}}>
-            <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
-            </div>
+      <div className="flex justify-center items-center py-20" style={{display:lod?'flex':'none'}}>
+        <MiniMoonLoader size="lg" />
       </div>
     }
   </div>

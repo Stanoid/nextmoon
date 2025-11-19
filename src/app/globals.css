@@ -358,6 +358,18 @@ border-left: 1px solid #E16D64;
   }
 }
 
+/* MiniMoon Loader Animations */
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 
 
 .lds-facebookbtn div:nth-child(1) {
