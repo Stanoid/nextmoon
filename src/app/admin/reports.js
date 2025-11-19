@@ -161,7 +161,8 @@ function Reports(props) {
   };
 
   const calculateAnalytics = (ordersData) => {
-    console.log("Calculating analytics for orders:", ordersData.length);
+    console.log("=== Starting Analytics Calculation ===");
+    console.log("Total orders:", ordersData.length);
     
     // Top Products Analysis
     const productSales = {};
@@ -169,7 +170,24 @@ function Reports(props) {
     const paymentMethodCount = {};
     const deliveryTypeCount = {};
 
-    ordersData.forEach((order) => {
+    ordersData.forEach((order, index) => {
+      // Debug first order structure
+      if (index === 0) {
+        console.log("Sample order structure:", {
+          id: order.id,
+          status: order.status,
+          city: order.city,
+          wilaya: order.wilaya,
+          payment_type: order.payment_type,
+          delivery_type: order.delivery_type,
+          items: order.items,
+          products: order.products,
+          hasItems: !!order.items,
+          itemsType: typeof order.items,
+          itemsLength: Array.isArray(order.items) ? order.items.length : 'not array'
+        });
+      }
+      
       const status = order.status?.toLowerCase() || "";
       const isDelivered = status.includes("delivered") || status.includes("تم");
       
@@ -183,6 +201,7 @@ function Reports(props) {
           try {
             items = JSON.parse(items);
           } catch (e) {
+            console.log("Failed to parse items string:", e);
             items = [];
           }
         }
@@ -258,6 +277,12 @@ function Reports(props) {
     const deliveryTypes = Object.entries(deliveryTypeCount)
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count);
+
+    console.log("=== Analytics Results ===");
+    console.log("Top Products:", topProducts.length, topProducts);
+    console.log("Top Cities:", topCities.length, topCities);
+    console.log("Payment Methods:", paymentMethods.length, paymentMethods);
+    console.log("Delivery Types:", deliveryTypes.length, deliveryTypes);
 
     setAnalytics({
       topProducts,
@@ -1099,9 +1124,9 @@ function Reports(props) {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-moon-200">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0" />
                   </svg>
-                  أكثر المنتجات مبيعاً
+                  أكثر المنتجات مبيعاً ({analytics.topProducts.length})
                 </h2>
-                {analytics.topProducts.length > 0 ? (
+                {analytics.topProducts && analytics.topProducts.length > 0 ? (
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead className="bg-gray-50 border-b border-gray-200">
@@ -1127,7 +1152,14 @@ function Reports(props) {
                     </table>
                   </div>
                 ) : (
-                  <p className="text-gray-500 text-center py-8">لا توجد بيانات مبيعات</p>
+                  <div className="text-center py-12 bg-gray-50 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-16 mx-auto mb-4 text-gray-300">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                    </svg>
+                    <p className="text-gray-500 text-lg font-medium mb-2">لا توجد بيانات مبيعات</p>
+                    <p className="text-gray-400 text-sm">تأكد من وجود طلبات مكتملة تحتوي على منتجات</p>
+                    <p className="text-gray-400 text-xs mt-2">افتح Console للمزيد من التفاصيل (F12)</p>
+                  </div>
                 )}
               </div>
 
@@ -1196,9 +1228,9 @@ function Reports(props) {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                 </svg>
-                تحليل المناطق والمدن
+                تحليل المناطق والمدن ({analytics.topCities.length})
               </h2>
-              {analytics.topCities.length > 0 ? (
+              {analytics.topCities && analytics.topCities.length > 0 ? (
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-gray-50 border-b border-gray-200">
@@ -1233,7 +1265,15 @@ function Reports(props) {
                   </table>
                 </div>
               ) : (
-                <p className="text-gray-500 text-center py-8">لا توجد بيانات</p>
+                <div className="text-center py-12 bg-gray-50 rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-16 mx-auto mb-4 text-gray-300">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                  <p className="text-gray-500 text-lg font-medium mb-2">لا توجد بيانات مناطق</p>
+                  <p className="text-gray-400 text-sm">تأكد من وجود طلبات تحتوي على معلومات المدينة/الولاية</p>
+                  <p className="text-gray-400 text-xs mt-2">افتح Console للمزيد من التفاصيل (F12)</p>
+                </div>
               )}
             </div>
           )}
