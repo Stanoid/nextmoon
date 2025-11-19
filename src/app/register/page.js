@@ -89,12 +89,23 @@ export default function Register() {
   }
 
   const page2Handler = () => {
-    if (pass !== cpass) {
-      notify("error", t("passwordsDontMatch"));
-      setLod(false)
+    if (!name || !email || !pass || !cpass) {
+      notify("error", t("pleaseFillAllFields") || "Please fill all fields");
       return;
     }
-    setType(1)
+    
+    if (pass !== cpass) {
+      notify("error", t("passwordsDontMatch"));
+      return;
+    }
+    
+    if (pass.length < 6) {
+      notify("error", t("passwordTooShort") || "Password must be at least 6 characters");
+      return;
+    }
+    
+    // Call register function directly
+    regis();
   }
 
   return (
@@ -133,9 +144,9 @@ export default function Register() {
             </div>
 
             <LoadingBtn
-              onClick={page2Handler}
+              act={page2Handler}
               text={t("continue")}
-              loading={lod}
+              lod={lod}
               icon={<FaCircleRight />}
             />
           </div>
