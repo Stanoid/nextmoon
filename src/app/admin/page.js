@@ -207,7 +207,7 @@ useNotifi(type,message);
             size="sm"
             className="text-gray-600 hover:text-gray-900 min-w-fit h-9 px-2"
           >
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-moon-200 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-moon-200 to-moon-300 flex items-center justify-center text-white font-bold text-sm">
               {udata?.data?.user?.username?.charAt(0).toUpperCase() || 'A'}
             </div>
             <span className="text-sm hidden md:inline ml-2">{udata?.data?.user?.username}</span>
@@ -229,7 +229,7 @@ useNotifi(type,message);
         variant="light"
         size="sm"
         onClick={() => setShowBackModal(true)}
-        className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 h-9 w-9"
+        className="text-moon-200 hover:text-moon-300 hover:bg-moon-50 h-9 w-9"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
           <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -267,7 +267,7 @@ useNotifi(type,message);
   name={udata&&udata.data.user.username}
   description={udata&&udata.data.user.email}
   avatarProps={{
-    className:"bg-gradient-to-br from-moon-200 to-pink-500 font-bold text-white"
+    className:"bg-gradient-to-br from-moon-200 to-moon-300 font-bold text-white"
   }}
   classNames={{
     name: "text-gray-800 font-semibold",
@@ -287,7 +287,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 0 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 0 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><MdOutlineAutoGraph /></div>
     <div className='mx-1.5'>{t('dashboard')}</div>
@@ -298,7 +298,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 1 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 1 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -314,7 +314,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 14 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 14 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -330,7 +330,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 2 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 2 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -347,7 +347,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 3 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 3 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaRuler /></div>
     <div className='mx-1.5'> المقاسات</div>
@@ -358,7 +358,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 4 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 4 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div>
       
@@ -375,7 +375,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 5 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 5 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><BiCategory /></div>
     <div className='mx-1.5'> الفئات</div>
@@ -386,7 +386,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 21 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 21 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaTruck /></div>
     <div className='mx-1.5'> نقاط التوصيل</div>
@@ -397,7 +397,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 6 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 6 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><BiCategoryAlt /></div>
     <div className='mx-1.5'> الفئات الفرعية</div>
@@ -408,7 +408,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 20 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 20 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><FaWarehouse /></div>
     <div className='mx-1.5'> المخزون</div>
@@ -419,7 +419,7 @@ useNotifi(type,message);
     className={`
       flex px-3 py-2.5 cursor-pointer whitespace-nowrap transition-all duration-300
       rounded-lg justify-start items-center text-sm gap-2
-      ${page === 10 ? 'bg-gradient-to-r from-moon-200 to-pink-500 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
+      ${page === 10 ? 'bg-gradient-to-r from-moon-200 to-moon-300 text-white font-semibold shadow-md' : 'text-gray-700 hover:bg-gray-100 font-normal'}
     `}>
     <div><MdSpeakerPhone /></div>
     <div className='mx-1.5'> لعروض الترويجية</div>
@@ -509,8 +509,8 @@ useNotifi(type,message);
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowBackModal(false)}>
     <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
       <div className="flex flex-col items-center text-center">
-        <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8 text-blue-600">
+        <div className="w-16 h-16 bg-gradient-to-br from-moon-100 to-pink-100 rounded-full flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8 text-moon-200">
             <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
           </svg>
         </div>
@@ -524,7 +524,7 @@ useNotifi(type,message);
           </button>
           <button
             onClick={() => router.push("/")}
-            className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg font-medium transition-all shadow-md"
+            className="flex-1 px-4 py-2.5 bg-gradient-to-r from-moon-200 to-moon-300 hover:from-moon-300 hover:to-moon-200 text-white rounded-lg font-medium transition-all shadow-md"
           >
             {t('yes')}
           </button>
