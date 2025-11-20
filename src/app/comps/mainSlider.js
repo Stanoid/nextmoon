@@ -15,6 +15,10 @@ export default (props) => {
     {
       initial: 0,
       loop: true,
+      slides: {
+        perView: 1,
+        spacing: 0,
+      },
       slideChanged(slider) {
         setCurrentSlide(slider.track.details.rel)
       },
@@ -72,15 +76,16 @@ export default (props) => {
     <div className="rounded-2xl lg:h-[480px] h-72 lg:mt-0 mt-0 relative overflow-hidden" style={{ width: "100%" }}>
       <div style={{ width: "100%", height: "100%" }} className="navigation-wrapper">
         <div style={{ width: "100%", height: "100%" }} ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden">
-          {props.slides && props.slides.map((img) => (
-            <div key={img} className="keen-slider__slide lg:h-[480px] h-72 w-full">
+          {props.slides && props.slides.length > 0 && props.slides.map((img, index) => (
+            <div key={`${img}-${index}`} className="keen-slider__slide lg:h-[480px] h-72 w-full relative">
               <Image
-                priority={true}
+                priority={index === 0}
                 fill
-                objectFit='cover'
+                style={{ objectFit: 'cover' }}
                 src={img}
                 className="rounded-2xl"
-                alt="Slider Image"
+                alt={`Slider Image ${index + 1}`}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1280px"
               />
             </div>
           ))}

@@ -233,7 +233,7 @@ if(el.target.value.length<3){
 </div>
 
         {/* Spacer for fixed navbar */}
-        <div className="h-[120px] sm:h-[140px] lg:h-[218px]"></div>
+        <div className="h-[60px] sm:h-[60px] lg:h-[218px]"></div>
 
         {searchTog && (
   <div

@@ -99,13 +99,12 @@ col-span-6 flex sm:flex lg:hidden'>
            <div style={{height:"480px", width:'100%',position:"relative"}} 
            className='lg:col-span-4 max-w-7xl hidden sm:hidden lg:flex md:flex xl:flex overflow-hidden rounded-2xl shadow-lg'>
            <Slider  slides={[
-             '/offers/lgrobeban30.png',
+            '/offers/lgrobeban30.png',
             '/offers/lgban.png',
             '/offers/lgban2.png',
             '/offers/lgban3.png',
             '/offers/lgban4.png',
-             ]}
-              />
+           ]} />
            </div>
 
        </div>
