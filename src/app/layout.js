@@ -233,7 +233,7 @@ if(el.target.value.length<3){
 </div>
 
         {/* Spacer for fixed navbar */}
-        <div className="h-[218px]"></div>
+        <div className="h-[120px] sm:h-[140px] lg:h-[218px]"></div>
 
         {searchTog && (
   <div
@@ -443,7 +443,7 @@ if(el.target.value.length<3){
                 {children}
               </section>
             ) : (
-              <section className={`${bgColorClass} el-messiri-text`} dir="auto" style={{ paddingTop: '6px' }}>
+              <section className={`${bgColorClass} el-messiri-text`} dir="auto">
                 <div
                   className="
                     lg:max-w-[1280px]

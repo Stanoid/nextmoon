@@ -15,17 +15,17 @@ function Orders(props) {
     const udata = useSelector((state) => state.root.auth.data && state.root.auth.data)
 
     useEffect(() => {
-      console.log('useEffect triggered, hasLoadedRef:', hasLoadedRef.current, 'udata:', !!udata?.data?.jwt)
+      console.log('useEffect triggered ONCE on mount')
       
-      if (!hasLoadedRef.current && udata?.data?.jwt) {
-        hasLoadedRef.current = true
-        console.log('Calling getOrders...')
+      if (udata?.data?.jwt) {
+        console.log('Has JWT, calling getOrders...')
         getOrders();
-      } else if (!udata?.data?.jwt) {
+      } else {
         console.log('No JWT, setting lod to false')
         setlod(false)
       }
-    }, [udata])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) // Run only once on mount
 
     const handleOpenDel = (open) => {
       setOpenDel(open)
@@ -155,7 +155,6 @@ function Orders(props) {
             {!lod && (
               <button
                 onClick={() => {
-                  hasLoadedRef.current = false
                   getOrders()
                 }}
                 className='p-3 rounded-xl hover:bg-gray-100 transition-all'
@@ -167,11 +166,6 @@ function Orders(props) {
               </button>
             )}
           </div>
-        </div>
-
-        {/* Debug Info */}
-        <div className='mb-4 p-4 bg-yellow-50 rounded-lg text-sm border border-yellow-200'>
-          <p><strong>Debug:</strong> lod={lod.toString()}, orders={orderData.length}</p>
         </div>
 
         {/* Orders List */}
@@ -219,44 +213,44 @@ function Orders(props) {
                   {/* Order Body */}
                   <div className='p-5 sm:p-6'>
                     {/* Order Info Grid */}
-                    <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6'>
-                      <div className='flex items-center gap-3 p-4 bg-gray-50 rounded-xl'>
-                        <div className='w-12 h-12 rounded-lg flex items-center justify-center' style={{ backgroundColor: `${Theme.primary}20` }}>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" style={{ color: Theme.primary }}>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6'>
+                      <div className='flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl'>
+                        <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0' style={{ backgroundColor: `${Theme.primary}20` }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: Theme.primary }}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
                           </svg>
                         </div>
-                        <div>
+                        <div className='min-w-0'>
                           <div className='text-xs text-gray-500 font-medium'>طريقة الدفع</div>
-                          <div className='font-bold text-gray-900 mt-0.5'>
+                          <div className='font-bold text-gray-900 mt-0.5 text-sm sm:text-base truncate'>
                             {order.order?.payment_method === 1 ? 'إلكتروني' : order.order?.payment_method === 2 ? 'عند الاستلام' : (order.payment_type || 'نقدي')}
                           </div>
                         </div>
                       </div>
 
-                      <div className='flex items-center gap-3 p-4 bg-gray-50 rounded-xl'>
-                        <div className='w-12 h-12 rounded-lg flex items-center justify-center' style={{ backgroundColor: `${Theme.primary}20` }}>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" style={{ color: Theme.primary }}>
+                      <div className='flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl'>
+                        <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0' style={{ backgroundColor: `${Theme.primary}20` }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: Theme.primary }}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
                           </svg>
                         </div>
-                        <div>
+                        <div className='min-w-0'>
                           <div className='text-xs text-gray-500 font-medium'>نوع التوصيل</div>
-                          <div className='font-bold text-gray-900 mt-0.5'>
+                          <div className='font-bold text-gray-900 mt-0.5 text-sm sm:text-base truncate'>
                             {order.order?.delivery_method === 1 ? 'توصيل للمنزل' : order.order?.delivery_method === 2 ? 'استلام من المركز' : (order.delivery_type || 'توصيل منزلي')}
                           </div>
                         </div>
                       </div>
 
-                      <div className='flex items-center gap-3 p-4 bg-gray-50 rounded-xl'>
-                        <div className='w-12 h-12 rounded-lg flex items-center justify-center' style={{ backgroundColor: `${Theme.primary}20` }}>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" style={{ color: Theme.primary }}>
+                      <div className='flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl sm:col-span-2 lg:col-span-1'>
+                        <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0' style={{ backgroundColor: `${Theme.primary}20` }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: Theme.primary }}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                           </svg>
                         </div>
-                        <div>
+                        <div className='min-w-0'>
                           <div className='text-xs text-gray-500 font-medium'>حالة الدفع</div>
-                          <div className='font-bold mt-0.5' style={{
+                          <div className='font-bold mt-0.5 text-sm sm:text-base truncate' style={{
                             color: order.order?.payment_status === 'paid' || order.order?.payment_status === 1 ? '#10b981' : '#f59e0b'
                           }}>
                             {order.order?.payment_status === 'paid' || order.order?.payment_status === 1 ? 'مدفوع' : order.order?.payment_status === 'unpaid' || order.order?.payment_status === 0 ? 'غير مدفوع' : (order.payment_status || 'قيد المراجعة')}
@@ -266,7 +260,7 @@ function Orders(props) {
                     </div>
 
                     {/* Order Tracking */}
-                    <div className='bg-gradient-to-br from-gray-50 to-white p-5 rounded-xl border border-gray-100'>
+                    <div className='bg-gradient-to-br from-gray-50 to-white p-4 sm:p-5 rounded-xl border border-gray-100'>
                       <div className='flex items-center justify-between mb-4'>
                         <h3 className='text-sm font-bold text-gray-900'>تتبع الطلب</h3>
                         <span className='text-xs px-3 py-1 rounded-full font-semibold' style={{
@@ -291,11 +285,11 @@ function Orders(props) {
                         <div className='relative flex items-start justify-between' style={{ zIndex: 2 }}>
                           {trackingSteps.map((step, idx) => (
                             <div key={idx} className='flex flex-col items-center flex-1'>
-                              <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${step.isActive ? 'shadow-lg scale-110' : 'bg-gray-200'
+                              <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-base sm:text-lg transition-all duration-300 ${step.isActive ? 'shadow-lg scale-110' : 'bg-gray-200'
                                 }`} style={step.isActive ? { backgroundColor: Theme.primary, color: 'white' } : {}}>
                                 {step.isActive ? step.icon : idx + 1}
                               </div>
-                              <div className={`text-xs mt-3 text-center font-medium px-2 ${step.isActive ? 'font-bold' : 'text-gray-400'
+                              <div className={`text-[10px] sm:text-xs mt-2 sm:mt-3 text-center font-medium px-1 sm:px-2 ${step.isActive ? 'font-bold' : 'text-gray-400'
                                 }`} style={step.isActive ? { color: Theme.primary } : {}}>
                                 {step.label}
                               </div>
@@ -306,7 +300,7 @@ function Orders(props) {
                     </div>
 
                     {/* Items Count & Action Button */}
-                    <div className='flex items-center justify-between mt-6 pt-5 border-t border-gray-100'>
+                    <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mt-4 sm:mt-6 pt-4 sm:pt-5 border-t border-gray-100'>
                       <div className='flex items-center gap-2 text-gray-600'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
@@ -317,10 +311,10 @@ function Orders(props) {
                       </div>
                       <button
                         onClick={() => DeliverOrder(order)}
-                        className='flex items-center gap-2 px-6 py-3 rounded-xl text-white font-bold hover:shadow-xl transition-all transform hover:scale-105 active:scale-95'
+                        className='w-full sm:w-auto flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl text-white text-sm sm:text-base font-bold hover:shadow-xl transition-all transform hover:scale-105 active:scale-95'
                         style={{ backgroundColor: Theme.primary }}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                           <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>

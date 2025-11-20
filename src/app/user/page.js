@@ -47,18 +47,18 @@ function AccounteEl() {
 
 {
     
-    <div dir='rtl' className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div dir='rtl' className="min-h-screen bg-gray-50 lg:bg-gradient-to-br lg:from-gray-50 lg:via-white lg:to-gray-100">
       
       {/* Mobile Header */}
-      <div className="lg:hidden sticky top-0 z-50 bg-white shadow-md">
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style={{backgroundColor: Theme.primary}}>
+      <div className="lg:hidden sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+        <div className="flex items-center justify-between px-3 py-2.5">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0" style={{backgroundColor: Theme.primary}}>
               {udata?.data?.user?.username?.charAt(0) || 'U'}
             </div>
-            <div>
-              <div className="font-semibold text-gray-900">{udata?.data?.user?.username}</div>
-              <div className="text-xs text-gray-500">{udata?.data?.user?.email}</div>
+            <div className="min-w-0 flex-1">
+              <div className="font-semibold text-gray-900 text-sm sm:text-base truncate">{udata?.data?.user?.username}</div>
+              <div className="text-xs text-gray-500 truncate">{udata?.data?.user?.email}</div>
             </div>
           </div>
           <button 
@@ -77,8 +77,8 @@ function AccounteEl() {
         
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <div className="border-t border-gray-200 bg-white">
-            <div className="p-2 space-y-1">
+          <div className="border-t border-gray-200 bg-white shadow-lg">
+            <div className="p-2 space-y-1 max-h-[calc(100vh-140px)] overflow-y-auto">
               {menuItems.map((item) => (
                 <button
                   key={item.id}
@@ -86,22 +86,22 @@ function AccounteEl() {
                     setPage(item.id)
                     setMobileMenuOpen(false)
                   }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                  className={`w-full flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg transition-all text-sm sm:text-base ${
                     page === item.id 
-                      ? 'text-white shadow-lg' 
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'text-white shadow-md' 
+                      : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'
                   }`}
                   style={page === item.id ? {backgroundColor: Theme.primary} : {}}
                 >
-                  {item.icon}
+                  <span className="flex-shrink-0">{item.icon}</span>
                   <span className="font-medium">{item.label}</span>
                 </button>
               ))}
               <button
                 onClick={() => router.push("/logout")}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-50 transition-all"
+                className="w-full flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-red-500 hover:bg-red-50 active:bg-red-100 transition-all text-sm sm:text-base"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 flex-shrink-0">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
                 </svg>
                 <span className="font-medium">تسجيل خروج</span>
@@ -111,8 +111,8 @@ function AccounteEl() {
         )}
       </div>
 
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10'>
-        <div className='flex flex-col lg:flex-row gap-6'>
+      <div className='max-w-7xl mx-auto px-0 lg:px-8 py-0 lg:py-10'>
+        <div className='flex flex-col lg:flex-row gap-0 lg:gap-6'>
 
           {/* Desktop Sidebar */}
           <div className='hidden lg:block lg:w-80 flex-shrink-0'>
@@ -164,14 +164,14 @@ function AccounteEl() {
 
           {/* Main Content */}
           <div className='flex-1 min-w-0'>
-            <div className='bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 min-h-[500px]'>
+            <div className='bg-white lg:rounded-2xl lg:shadow-xl overflow-hidden lg:border lg:border-gray-100 min-h-[calc(100vh-60px)] lg:min-h-[500px]'>
               
               {lod ? (
-                <div className='flex items-center justify-center min-h-[500px]'>
+                <div className='flex items-center justify-center min-h-[calc(100vh-60px)] lg:min-h-[500px]'>
                   <div className="lds-facebook"><div></div><div></div><div></div></div>
                 </div>
               ) : (
-                <div className='p-6 lg:p-8'>
+                <div className='p-3 lg:p-8'>
                   {page === 1 && <Orders setLod={(sta)=>{setLod(sta)}} setpage={(pid,id)=>{handleEdit(pid,id)}} />}
                   {page === 2 && <Favo setLod={(sta)=>{setLod(sta)}} setpage={(pid,id)=>{handleEdit(pid,id)}} />}
                   {page === 3 && <UserData setLod={(sta)=>{setLod(sta)}} setpage={(pid,id)=>{handleEdit(pid,id)}} />}

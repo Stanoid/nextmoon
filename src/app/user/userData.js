@@ -217,73 +217,93 @@ props.setLod(true)
  
 
   return (
-  
-
-
-
-    
-<div 
-    style={{
-      
-      display:"flex",
-      alignItems:"center",
-      flexDirection:"column",
-      justifyContent:"center",
-      padding:5
-      
- }}>
-
-<div className='flex items-center gap-3 mb-8'>
-  <div className='p-3 rounded-xl text-white' style={{backgroundColor: Theme.primary}}>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-    </svg>
-  </div>
-  <div>
-    <h2 className='text-2xl font-bold text-gray-900'>البيانات الشخصية</h2>
-    <p className='text-sm text-gray-500'>إدارة معلومات حسابك</p>
-  </div>
-</div>
-
-<div className='flex justify-center mb-8'>
-  <div className='relative'>
-    <div className='w-24 h-24 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg' style={{backgroundColor: Theme.primary}}>
-      {udata?.data?.user?.username?.charAt(0) || 'U'}
+<div dir='rtl' className="w-full">
+  {/* Header */}
+  <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8'>
+    <div className='flex items-center gap-4'>
+      <div className='p-4 rounded-2xl text-white shadow-lg' style={{backgroundColor: Theme.primary}}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
+      </div>
+      <div>
+        <h2 className='text-3xl font-bold text-gray-900'>البيانات الشخصية</h2>
+        <p className='text-sm text-gray-500 mt-1'>إدارة معلومات حسابك الشخصية</p>
+      </div>
     </div>
-    <button className='absolute bottom-0 right-0 p-2 bg-white rounded-full shadow-lg border-2 border-gray-100 hover:bg-gray-50 transition-colors'>
-      <FaEdit className='text-sm' style={{color: Theme.primary}}/>
+  </div>
+
+  {/* Profile Avatar */}
+  <div className='flex justify-center mb-8'>
+    <div className='relative'>
+      <div className='w-28 h-28 rounded-full flex items-center justify-center text-white text-5xl font-bold shadow-xl ring-4 ring-white' style={{backgroundColor: Theme.primary}}>
+        {udata?.data?.user?.username?.charAt(0) || 'U'}
+      </div>
+      <button className='absolute bottom-0 right-0 p-3 bg-white rounded-full shadow-lg border-2 border-gray-100 hover:shadow-xl transition-all transform hover:scale-110'>
+        <FaEdit className='text-base' style={{color: Theme.primary}}/>
+      </button>
+    </div>
+  </div>
+
+  {/* Form Fields */}
+  <div className='max-w-3xl mx-auto space-y-6'>
+    <div className='bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-100 hover:border-gray-200 transition-all'>
+      <div className='flex items-center gap-3 mb-4'>
+        <div className='w-10 h-10 rounded-lg flex items-center justify-center' style={{backgroundColor: `${Theme.primary}20`}}>
+          <FaUserAlt style={{color: Theme.primary}} />
+        </div>
+        <label className='text-sm font-semibold text-gray-700'>الإسم بالكامل</label>
+      </div>
+      <InputEl value={udata&&udata.data.user.username} outputfunc={(val)=>{setNamear(val)}} label={""} />
+    </div>
+
+    <div className='bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-100 hover:border-gray-200 transition-all'>
+      <div className='flex items-center gap-3 mb-4'>
+        <div className='w-10 h-10 rounded-lg flex items-center justify-center' style={{backgroundColor: `${Theme.primary}20`}}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" style={{color: Theme.primary}}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+          </svg>
+        </div>
+        <label className='text-sm font-semibold text-gray-700'>البريد الإلكتروني</label>
+      </div>
+      <InputEl value={udata&&udata.data.user.email} disabled={true} outputfunc={(val)=>{setNameen(val)}} label={""} />
+    </div>
+    
+    <div className='bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-100 hover:border-gray-200 transition-all'>
+      <div className='flex items-center gap-3 mb-4'>
+        <div className='w-10 h-10 rounded-lg flex items-center justify-center' style={{backgroundColor: `${Theme.primary}20`}}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" style={{color: Theme.primary}}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+          </svg>
+        </div>
+        <label className='text-sm font-semibold text-gray-700'>رقم الهاتف</label>
+      </div>
+      <InputEl value={udata&&udata.data.user.id} outputfunc={(val)=>{setNameen(val)}} label={""} />
+    </div>
+  </div>
+
+  {/* Save Button */}
+  <div className='flex justify-center mt-10'>
+    <button
+      onClick={()=>{submitload()}}
+      disabled={lod}
+      className='flex items-center gap-3 px-10 py-4 rounded-xl text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed'
+      style={{backgroundColor: Theme.primary}}
+    >
+      {lod ? (
+        <>
+          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          <span>جاري الحفظ...</span>
+        </>
+      ) : (
+        <>
+          <FaSave className='text-xl' />
+          <span>حفظ التغييرات</span>
+        </>
+      )}
     </button>
   </div>
 </div>
-
-   
-
-
-
-<div className='max-w-2xl mx-auto space-y-6'>
-    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
-      <InputEl value={udata&&udata.data.user.username}  outputfunc={(val)=>{setNamear(val)}} label={" الإسم بالكامل"}/>
-    </div>
-
-    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
-      <InputEl value={udata&&udata.data.user.email} disabled={true} outputfunc={(val)=>{setNameen(val)}} label={" البريد الإلكتروني"}/>
-    </div>
-    
-    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
-      <InputEl value={udata&&udata.data.user.id}  outputfunc={(val)=>{setNameen(val)}} label={"  رقم الهاتف"}/>
-    </div>
-</div>
-
-<div className='flex justify-center mt-8'>
-  <LoadingBtn act={()=>{submitload()}} icon={<FaSave/>} lod={lod} text={" حفظ التغييرات  "} />
-</div>
-
-
-
-
-
-      
-    </div>
     
 
 

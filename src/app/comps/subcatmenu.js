@@ -13,6 +13,7 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
   const [isSticky, setIsSticky] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showNavbar, setShowNavbar] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const safeSubCat = Array.isArray(subCat) ? subCat : [];
   const totalItems = safeSubCat.length;
@@ -27,15 +28,19 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
 
   const handleCategoryClick = (item) => {
     try {
-      if (!item) return;
+      if (!item || isLoading) return;
       const catId = item?.catagory?.id;
       if (catId) {
-        router.push(`/categories?cid=${catId}`);
+        setIsLoading(true);
         setShowAllDesktop(false);
         if (onNavigate) onNavigate(); // Close mobile menu
+        router.push(`/categories?cid=${catId}`);
+        // Reset loading after navigation starts
+        setTimeout(() => setIsLoading(false), 1000);
       }
     } catch (err) {
       console.error('Error navigating to category:', err);
+      setIsLoading(false);
     }
   };
 
@@ -50,6 +55,20 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
 
   return (
     <>
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center">
+          <div className="bg-white rounded-2xl p-8 shadow-2xl flex flex-col items-center">
+            <div className="lds-facebook mb-4">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <p className="text-gray-700 font-medium">جاري التحميل...</p>
+          </div>
+        </div>
+      )}
+
       {/* Desktop Mega Menu */}
       <div 
         dir={direction} 
@@ -78,8 +97,10 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
                         return (
                           <div
                             key={item.id || index}
-                            onClick={() => handleCategoryClick(item)}
-                            className="group flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-gradient-to-r hover:from-moon-50 hover:to-pink-50 cursor-pointer transition-all duration-200"
+                            onClick={() => !isLoading && handleCategoryClick(item)}
+                            className={`group flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-gradient-to-r hover:from-moon-50 hover:to-pink-50 transition-all duration-200 ${
+                              isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                            }`}
                           >
                             <MdKeyboardArrowRight className="text-moon-200 opacity-0 group-hover:opacity-100 transition-opacity" size={18} />
                             <span className="text-gray-700 group-hover:text-moon-200 font-medium text-sm transition-colors">
@@ -96,8 +117,10 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
                         return (
                           <div
                             key={item.id || index}
-                            onClick={() => handleCategoryClick(item)}
-                            className="group flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-gradient-to-r hover:from-moon-50 hover:to-pink-50 cursor-pointer transition-all duration-200"
+                            onClick={() => !isLoading && handleCategoryClick(item)}
+                            className={`group flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-gradient-to-r hover:from-moon-50 hover:to-pink-50 transition-all duration-200 ${
+                              isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                            }`}
                           >
                             <MdKeyboardArrowRight className="text-moon-200 opacity-0 group-hover:opacity-100 transition-opacity" size={18} />
                             <span className="text-gray-700 group-hover:text-moon-200 font-medium text-sm transition-colors">
@@ -160,7 +183,8 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
                     <li key={item.id || index}>
                       <button
                         onClick={() => handleCategoryClick(item)}
-                        className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-moon-200 hover:bg-moon-50 rounded-lg transition-all duration-200"
+                        disabled={isLoading}
+                        className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-moon-200 hover:bg-moon-50 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {categoryName}
                       </button>
@@ -198,7 +222,8 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
                 <li key={item.id || index}>
                   <button
                     onClick={() => handleCategoryClick(item)}
-                    className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-moon-50 hover:text-moon-200 rounded-lg transition-all duration-200"
+                    disabled={isLoading}
+                    className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-moon-50 hover:text-moon-200 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
                   >
                     {categoryName}
                   </button>
