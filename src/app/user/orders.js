@@ -185,48 +185,42 @@ function Orders(props) {
 
                   {/* Order Body */}
                   <div className='p-5 sm:p-6'>
-                    {/* Order Info Grid */}
-                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6'>
-                      <div className='flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl'>
-                        <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0' style={{ backgroundColor: `${Theme.primary}20` }}>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: Theme.primary }}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                          </svg>
-                        </div>
-                        <div className='min-w-0'>
-                          <div className='text-xs text-gray-500 font-medium'>طريقة الدفع</div>
-                          <div className='font-bold text-gray-900 mt-0.5 text-sm sm:text-base truncate'>
-                            {order.order?.payment_method === 1 ? 'إلكتروني' : order.order?.payment_method === 2 ? 'عند الاستلام' : (order.payment_type || 'نقدي')}
+                    {/* Order Info - Compact Grid */}
+                    <div className='grid grid-cols-2 gap-2 mb-4'>
+                      <div className='flex items-center gap-2 p-2 bg-gray-50 rounded-lg'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex-shrink-0" style={{ color: Theme.primary }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                        </svg>
+                        <div className='min-w-0 flex-1'>
+                          <div className='text-xs text-gray-500'>طريقة الدفع</div>
+                          <div className='font-semibold text-gray-900 text-xs truncate'>
+                            {order.order?.payment_method === 1 ? 'إلكتروني' : order.order?.payment_method === 2 ? 'عند الاستلام' : 'نقدي'}
                           </div>
                         </div>
                       </div>
 
-                      <div className='flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl'>
-                        <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0' style={{ backgroundColor: `${Theme.primary}20` }}>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: Theme.primary }}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                          </svg>
-                        </div>
-                        <div className='min-w-0'>
-                          <div className='text-xs text-gray-500 font-medium'>نوع التوصيل</div>
-                          <div className='font-bold text-gray-900 mt-0.5 text-sm sm:text-base truncate'>
-                            {order.order?.delivery_method === 1 ? 'توصيل للمنزل' : order.order?.delivery_method === 2 ? 'استلام من المركز' : (order.delivery_type || 'توصيل منزلي')}
+                      <div className='flex items-center gap-2 p-2 bg-gray-50 rounded-lg'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex-shrink-0" style={{ color: Theme.primary }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                        </svg>
+                        <div className='min-w-0 flex-1'>
+                          <div className='text-xs text-gray-500'>نوع التوصيل</div>
+                          <div className='font-semibold text-gray-900 text-xs truncate'>
+                            {order.order?.delivery_method === 1 ? 'توصيل للمنزل' : 'استلام من المركز'}
                           </div>
                         </div>
                       </div>
 
-                      <div className='flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl sm:col-span-2 lg:col-span-1'>
-                        <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0' style={{ backgroundColor: `${Theme.primary}20` }}>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: Theme.primary }}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                          </svg>
-                        </div>
-                        <div className='min-w-0'>
-                          <div className='text-xs text-gray-500 font-medium'>حالة الدفع</div>
-                          <div className='font-bold mt-0.5 text-sm sm:text-base truncate' style={{
+                      <div className='flex items-center gap-2 p-2 bg-gray-50 rounded-lg col-span-2'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex-shrink-0" style={{ color: Theme.primary }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                        </svg>
+                        <div className='min-w-0 flex-1'>
+                          <div className='text-xs text-gray-500'>حالة الدفع</div>
+                          <div className='font-semibold text-xs truncate' style={{
                             color: order.order?.payment_status === 'paid' || order.order?.payment_status === 1 ? '#10b981' : '#f59e0b'
                           }}>
-                            {order.order?.payment_status === 'paid' || order.order?.payment_status === 1 ? 'مدفوع' : order.order?.payment_status === 'unpaid' || order.order?.payment_status === 0 ? 'غير مدفوع' : (order.payment_status || 'قيد المراجعة')}
+                            {order.order?.payment_status === 'paid' || order.order?.payment_status === 1 ? 'مدفوع' : 'غير مدفوع'}
                           </div>
                         </div>
                       </div>

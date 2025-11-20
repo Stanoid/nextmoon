@@ -1,89 +1,17 @@
 import React from 'react'
 import Image from 'next/image'
-import SimpleImageSlider from "react-simple-image-slider";
-import Slider from './mainSlider';
-import { motion } from "framer-motion"
+// import SimpleImageSlider from "react-simple-image-slider";
+// import Slider from './mainSlider';
+// import { motion } from "framer-motion"
 
 
 export default function Hero(props) {
  
     return (
-       <div className=''>
+       <div className='w-full'>
          
-         {/* <div className='grid grid-cols-6 gap-x-1.5 gap-y-1.5 sm:gap-y-1.5 lg:gap-y-1.5' >
-
-
-
-<div
-style={{width:"100%",position:"relative"}} className='lg:col-span-2 h-32 xl:col-span-2 md:col-span-3 
-col-span-6 flex sm:flex lg:hidden'>
-         
-
-
-
-<Image 
-  fill objectFit='cover'
-  quality={60}
-  
-  priority={true}
-  alt={"banner immage"}
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-  className='rounded-md'  src={"/offers/offer5.png"} />
-           </div>
-
-       
-   
-        
-         
-
-           <div style={{width:"100%",position:"relative"}} className='lg:col-span-2  h-56  w-full xl:col-span-2 md:col-span-3 col-span-6 '>
-     
-           <Image 
-         fill objectFit='cover'
-         quality={60}
-        
-         alt={"banner immage"}
-         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'   src={"/offers/ban1.png"} />
-           </div>
-           
-           <div style={{width:"100%",position:"relative"}} className='lg:col-span-2 xl:col-span-2 h-56 md:col-span-3 col-span-6 hidden sm:hidden lg:flex'>
-           <Image 
-           
-           fill objectFit='cover'
-           quality={60}
-       
-           alt={"banner immage"}
-           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className='rounded-md'  src={"/offers/ban3.png"} />
-           </div>
-
-           <div style={{width:"100%",position:"relative"}} className='lg:col-span-4 h-56 xl:col-span-4 md:col-span-6 col-span-6 hidden sm:hidden lg:flex ' >
-           <Image 
-           priority
-             alt={"banner immage"}
-         fill objectFit='cover'
-         quality={100}
-       
-         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='rounded-md'  src={"/offers/offer5.png"} />
-           </div>
-
-         
-
-          
-
-           
-          
-         
-        
-        
-        
-
-          
-           
-         </div> */}
-
-
-<div className='w-full h-72 lg:hidden overflow-hidden rounded-2xl shadow-md'>
+{/* TEMPORARY: Slider commented out - using single image */}
+{/* <div className='w-full h-72 lg:hidden overflow-hidden rounded-2xl shadow-md'>
            <Slider 
              key="mobile-slider"
              slides={[    
@@ -108,6 +36,30 @@ col-span-6 flex sm:flex lg:hidden'>
               '/offers/lgban4.png',
              ]} 
            />
+           </div> */}
+
+           {/* Single Hero Image - Mobile */}
+           <div className='w-full h-72 lg:hidden relative overflow-hidden rounded-2xl shadow-md'>
+             <Image 
+               src='/offers/mobileban.png'
+               fill
+               style={{ objectFit: 'cover' }}
+               alt='Hero Banner'
+               priority
+               sizes="100vw"
+             />
+           </div>
+
+           {/* Single Hero Image - Desktop */}
+           <div className='max-w-7xl h-[480px] hidden lg:block relative overflow-hidden rounded-2xl shadow-lg'>
+             <Image 
+               src='/offers/lgrobeban30.png'
+               fill
+               style={{ objectFit: 'cover' }}
+               alt='Hero Banner'
+               priority
+               sizes="1280px"
+             />
            </div>
 
        </div>
