@@ -242,7 +242,21 @@ const translations = {
     confirmBackToSite: "هل تريد العودة إلى الموقع؟",
     confirmLogout: "هل تريد تسجيل الخروج؟",
     addProduct: "إضافة منتج",
-    addNew: "إضافة جديد"
+    addNew: "إضافة جديد",
+    // Order Success translations
+    paymentSuccessTitle: "تم تقديم الطلب بنجاح!",
+    paymentSuccessMessage: "شكراً لك! تم استلام طلبك وسيتم معالجته قريباً",
+    orderConfirmation: "تأكيد الطلب",
+    orderNumber: "رقم الطلب",
+    orderTotal: "إجمالي الطلب",
+    estimatedDelivery: "التوصيل المتوقع",
+    viewOrders: "عرض الطلبات",
+    continueShopping: "متابعة التسوق",
+    pleaseWait: "الرجاء الانتظار",
+    processingPayment: "جاري معالجة الدفع...",
+    thankYouForOrder: "شكراً لطلبك!",
+    orderReceived: "تم استلام طلبك بنجاح",
+    trackYourOrder: "يمكنك تتبع طلبك من حسابك"
   },
   fr: {
     contactUs: "Contactez-nous",
@@ -415,6 +429,20 @@ const translations = {
     confirmLogout: "Voulez-vous vous déconnecter?",
     addProduct: "Ajouter un produit",
     addNew: "Ajouter nouveau",
+    // Order Success translations
+    paymentSuccessTitle: "Commande passée avec succès!",
+    paymentSuccessMessage: "Merci! Votre commande a été reçue et sera traitée bientôt",
+    orderConfirmation: "Confirmation de commande",
+    orderNumber: "Numéro de commande",
+    orderTotal: "Total de la commande",
+    estimatedDelivery: "Livraison estimée",
+    viewOrders: "Voir les commandes",
+    continueShopping: "Continuer les achats",
+    pleaseWait: "Veuillez patienter",
+    processingPayment: "Traitement du paiement...",
+    thankYouForOrder: "Merci pour votre commande!",
+    orderReceived: "Votre commande a été reçue avec succès",
+    trackYourOrder: "Vous pouvez suivre votre commande depuis votre compte",
     // Register translations
     welcome: "Bienvenue",
     pleaseLoginToContinue: "Veuillez vous inscrire pour continuer",
@@ -639,7 +667,21 @@ const translations = {
     confirmBackToSite: "Do you want to return to the site?",
     confirmLogout: "Do you want to logout?",
     addProduct: "Add Product",
-    addNew: "Add New"
+    addNew: "Add New",
+    // Order Success translations
+    paymentSuccessTitle: "Order Placed Successfully!",
+    paymentSuccessMessage: "Thank you! Your order has been received and will be processed soon",
+    orderConfirmation: "Order Confirmation",
+    orderNumber: "Order Number",
+    orderTotal: "Order Total",
+    estimatedDelivery: "Estimated Delivery",
+    viewOrders: "View Orders",
+    continueShopping: "Continue Shopping",
+    pleaseWait: "Please Wait",
+    processingPayment: "Processing payment...",
+    thankYouForOrder: "Thank you for your order!",
+    orderReceived: "Your order has been received successfully",
+    trackYourOrder: "You can track your order from your account"
   }
 };
 
