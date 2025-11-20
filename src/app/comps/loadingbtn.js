@@ -5,15 +5,15 @@ function LoadingBtn(props) {
   return (
     <button
       onClick={props.act}
+      disabled={props.lod}
       style={{
         display: "flex",
         alignItems: "center",
         color: props.textColor ? props.textColor : "",
-
         justifyContent: "center",
         backgroundColor: props.color ? props.color : Theme.primary,
       }}
-      className="mt-4 w-full  text-white py-3 px-5   rounded-md text-base  tracking-wide"
+      className="mt-4 w-full sm:w-auto min-w-[200px] text-white py-3 px-8 rounded-xl text-base font-semibold tracking-wide shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
     >
       <div
         style={{

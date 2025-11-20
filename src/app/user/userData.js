@@ -233,75 +233,49 @@ props.setLod(true)
       
  }}>
 
-<div className='text-gray-900 font-semibold w-full my-6 text-right text-2xl mt-3'>
-البيانات الشخصية
+<div className='flex items-center gap-3 mb-8'>
+  <div className='p-3 rounded-xl text-white' style={{backgroundColor: Theme.primary}}>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+    </svg>
+  </div>
+  <div>
+    <h2 className='text-2xl font-bold text-gray-900'>البيانات الشخصية</h2>
+    <p className='text-sm text-gray-500'>إدارة معلومات حسابك</p>
+  </div>
 </div>
 
-
-
-
-<div>
-
-  <div className=' p-8 rounded-full text-white text-5xl bg-gray-100 '>
-    <FaUserAlt/>
-    <div className='text-sm absolute mt-1 mr-12 p-2 rounded-full bg-moon-100'>
-        <FaEdit/>
+<div className='flex justify-center mb-8'>
+  <div className='relative'>
+    <div className='w-24 h-24 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg' style={{backgroundColor: Theme.primary}}>
+      {udata?.data?.user?.username?.charAt(0) || 'U'}
     </div>
+    <button className='absolute bottom-0 right-0 p-2 bg-white rounded-full shadow-lg border-2 border-gray-100 hover:bg-gray-50 transition-colors'>
+      <FaEdit className='text-sm' style={{color: Theme.primary}}/>
+    </button>
   </div>
-
 </div>
 
    
 
 
 
-<div className='w-full sm:w-full lg:w-2/3' style={{
-    
-display:"grid",
-gap:10,
-gridTemplateAreas:`
-' namear' 
-' nameen' 
-' section' 
-
-
-`
-
-   }} >
-
-
-    <div style={{gridArea:"namear"}}>
+<div className='max-w-2xl mx-auto space-y-6'>
+    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
       <InputEl value={udata&&udata.data.user.username}  outputfunc={(val)=>{setNamear(val)}} label={" الإسم بالكامل"}/>
     </div>
 
-    <div style={{gridArea:"nameen"}}>
+    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
       <InputEl value={udata&&udata.data.user.email} disabled={true} outputfunc={(val)=>{setNameen(val)}} label={" البريد الإلكتروني"}/>
     </div>
     
-    
-    <div style={{gridArea:"section"}}>
-    <InputEl value={udata&&udata.data.user.id}  outputfunc={(val)=>{setNameen(val)}} label={"  رقم الهاتف"}/>
-
+    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
+      <InputEl value={udata&&udata.data.user.id}  outputfunc={(val)=>{setNameen(val)}} label={"  رقم الهاتف"}/>
     </div>
+</div>
 
- 
-
-
-
-  
-  
-
-   </div>
-
-
-  
-
-  
-
-   <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-
-
-<LoadingBtn act={()=>{submitload()}} icon={<FaSave/>} lod={lod} text={" حفط  "} />
+<div className='flex justify-center mt-8'>
+  <LoadingBtn act={()=>{submitload()}} icon={<FaSave/>} lod={lod} text={" حفظ التغييرات  "} />
 </div>
 
 

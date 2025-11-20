@@ -233,8 +233,16 @@ props.setLod(true)
       
  }}>
 
-<div className='text-moon-200/80 font-semibold w-full  text-right text-2xl mt-3 mb-4 '>
-تغيير كلمة المرور
+<div className='flex items-center gap-3 mb-8'>
+  <div className='p-3 rounded-xl text-white' style={{backgroundColor: Theme.primary}}>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+    </svg>
+  </div>
+  <div>
+    <h2 className='text-2xl font-bold text-gray-900'>تغيير كلمة المرور</h2>
+    <p className='text-sm text-gray-500'>تحديث كلمة المرور الخاصة بك</p>
+  </div>
 </div>
 
 
@@ -245,53 +253,22 @@ props.setLod(true)
 
 
 
-<div className='w-full sm:w-full lg:w-2/3' style={{
-    
-display:"grid",
-gap:10,
-gridTemplateAreas:`
-' namear' 
-' nameen' 
-' section' 
-
-
-`
-
-   }} >
-
-
-    <div style={{gridArea:"namear"}}>
+<div className='max-w-2xl mx-auto space-y-6'>
+    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
       <InputEl outputfunc={(val)=>{setNamear(val)}} label={"كلمة المرور الحالية"}/>
     </div>
 
-    <div style={{gridArea:"nameen"}}>
+    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
       <InputEl outputfunc={(val)=>{setNameen(val)}} label={"  كلمة المرور الجديدة"}/>
     </div>
     
-    
-    <div style={{gridArea:"section"}}>
-    <InputEl  outputfunc={(val)=>{setNameen(val)}} label={" تأكيد كلمة المرور"}/>
-
+    <div className='bg-gray-50 rounded-xl p-6 border border-gray-200'>
+      <InputEl  outputfunc={(val)=>{setNameen(val)}} label={" تأكيد كلمة المرور"}/>
     </div>
+</div>
 
- 
-
-
-
-  
-  
-
-   </div>
-
-
-  
-
-  
-
-   <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-
-
-<LoadingBtn act={()=>{submitload()}} icon={<FaSave/>} lod={lod} text={" حفط  "} />
+<div className='flex justify-center mt-8'>
+  <LoadingBtn act={()=>{submitload()}} icon={<FaSave/>} lod={lod} text={" حفظ التغييرات  "} />
 </div>
 
 

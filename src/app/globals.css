@@ -411,6 +411,71 @@ border-left: 1px solid #E16D64;
   }
 }
 
+/* Modern User Profile Styles */
+@media (max-width: 1024px) {
+  .user-profile-mobile {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, .transition-all {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced shadow for cards */
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Mobile app-like touch feedback */
+@media (hover: none) and (pointer: coarse) {
+  button:active, a:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom input focus styles */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: rgba(225, 109, 100, 0.5);
+}
+
+/* Loading animation enhancement */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Order tracking line animation */
+@keyframes tracking-progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.tracking-line-animated {
+  animation: tracking-progress 1s ease-in-out;
+}
+
 
 
 .switch {

@@ -1,753 +1,502 @@
 'use client';
 
 import React from 'react';
-import {useEffect,useState,useRef,useContext } from 'react';
-import { API_URL, CURRENCY, IMG_URL} from '../local';
-import { Button } from '@nextui-org/react';
-import { FaCheckCircle,FaExchangeAlt,FaListAlt,FaShoppingBasket } from 'react-icons/fa';
-import { clearCart } from '../lib/actions/counterAction';
+import {useEffect,useState,useContext } from 'react';
+import { API_URL, Theme, CURRENCY, IMG_URL} from '../local';
 import { useRouter } from 'next/navigation'
 import { CartCon } from '../contexts/cartContext';
-import { BiFontSize } from 'react-icons/bi';
 import InputEl from '../comps/inputel';
-import TableComp from '../comps/sandbox/table';
 import LoadingBtn from '../comps/loadingbtn';
 import Image from 'next/image';
-import { useSelector,useDispatch } from 'react-redux';
-import { color, motion } from 'framer-motion';
-import Cartel from '../comps/cartel';
+import { useSelector } from 'react-redux';
 import { FaCreditCard, FaHandHoldingDollar, FaMapLocation, FaMapPin } from 'react-icons/fa6';
-import { FaArrowAltCircleRight } from 'react-icons/fa';
 
-function AccounteEl() {
-    const ls = require("local-storage")
+function CheckoutPage() {
   const [lod,setLod] =useState(false)
   const [refr,setRefr] = useState(true);
-  const firstRenderRef = useRef(true);
-    const router = useRouter();
+  const router = useRouter();
 
-    const dispatch = useDispatch();
-    const cartg = useSelector((state) => state.root.cart.data)
-    console.log("cart  swtuff", cartg)
-    const [page,setPage] = useState(1)
-    const [address,setAddress] = useState("");
-    const [phone,setPhone] = useState("");
-    const [phoneC,setPhoneC] = useState("");
-    const [email,setEmail] = useState(null);
-    const [pickups,setpickups] = useState(null);
-    const [selpick,setselpick] = useState(null);
-    const [deliveryPrice,setDeleveryPrice] = useState(0);
-    const [checkOutArray,setCheckoutArray]=useState([])
-    const [paymentMeth,setPaymentMeth] = useState(2);
-    const [deliveryMeth,setsetDeliveryMeth] = useState(1);
-    const [total,setTotal] = useState(0)
-    const [gtotal,setgTotal] = useState(0)
-    const isLogged = useSelector((state) => state.root.auth.data&&state.root.auth.data)
-    const {useNotifi} = useContext(CartCon);
+  const cartg = useSelector((state) => state.root.cart.data) || []
+  const [address,setAddress] = useState("");
+  const [phone,setPhone] = useState("");
+  const [phoneC,setPhoneC] = useState("");
+  const [email,setEmail] = useState(null);
+  const [pickups,setpickups] = useState(null);
+  const [selpick,setselpick] = useState(null);
+  const [deliveryPrice,setDeleveryPrice] = useState(0);
+  const [paymentMeth,setPaymentMeth] = useState(2);
+  const [deliveryMeth,setsetDeliveryMeth] = useState(1);
+  const [total,setTotal] = useState(0)
+  const [gtotal,setgTotal] = useState(0)
+  const isLogged = useSelector((state) => state.root.auth.data&&state.root.auth.data)
+  const {useNotifi} = useContext(CartCon);
 
-    useEffect(() => {
-if(isLogged){
-  console.log(isLogged.data.user.username)
-  setEmail(isLogged.data.user.username);
-}
-      getPicks();
-
-   //  console.log(isLogged)
-
- let checkArray = [];
-let total = 0;
-let colorName = "";
-     let colorValue= "";
-let price = 0;
-let size= "";
-      for (let i = 0; i < cartg.length; i++) {
-    for (let j = 0; j < cartg[i].data.attributes.varients.data.length; j++) {
-    if(cartg[i].data.attributes.varients.data[j].id==cartg[i].selvar){
-  total = total +  cartg[i].data.attributes.varients.data[j].attributes.price * cartg[i].qty;
-
-  // for (let x = 0; x < cartg[i].data.attributes.varients.data[j].attributes.colors.data.length; x++) {
-  //   if(cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].id==cartg[i].color){
-  //    colorName= cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].attributes.name_ar;
-  //    colorValue= cartg[i].data.attributes.varients.data[j].attributes.colors.data[x].attributes.colorCode;
-  //   }
-
-  //   }
-    colorName= cartg[i].data.attributes.varients.data[j].attributes.colors.data[0].attributes.name_ar
-    colorValue= cartg[i].data.attributes.varients.data[j].attributes.colors.data[0].attributes.colorCode
-
-    price = cartg[i].data.attributes.varients.data[j].attributes.price;
-    size = cartg[i].data.attributes.varients.data[j].attributes.sizes.data[0].attributes.name_ar +" - " + cartg[i].data.attributes.varients.data[j].attributes.sizes.data[0].attributes.icon;
-
+  useEffect(() => {
+    if(isLogged){
+      setEmail(isLogged.data.user.username);
     }
+    getPicks();
 
-
-    }
-
-
-
-    checkArray.push(
-      {id:cartg[i].selvar,
-        price:price ,
-        sizeo:size,
-        qty: cartg[i].qty,
-        code: cartg[i].code,
-        colorname:colorName,
-        color:colorValue,
-        imgsingle:cartg[i].img,
-      }
-    )
-
-
-
-
-
-
-      }
-setCheckoutArray(checkArray);
-console.log("checkkkkkkk",checkArray)
-setTotal(total)
-setgTotal(total+deliveryPrice)
-
-
-    }, [cartg,deliveryPrice,refr])
-
-     const handleDelChangle = (stat)=>{
-setsetDeliveryMeth(stat);
-handleCityChange(selpick,stat);
-     }
-
-    const handleCityChange= (val,stat)=>{
-
-      setselpick(val)
-      console.log(val,deliveryMeth)
-let price =0;
-      for (let i = 0; i < pickups.length; i++) {
-   if(pickups[i].id==val){
-    if(stat){
-      if(stat==1){
-        console.log("add")
-      price = pickups[i].home_price;
-      }else if(stat==2){
-        console.log("pik")
-        price = pickups[i].pickup_price;
-      }
-    }else{
-      if(deliveryMeth==1){
-        console.log("add")
-      price = pickups[i].home_price;
-      }else if(deliveryMeth==2){
-        console.log("pik")
-        price = pickups[i].pickup_price;
-      }
-    }
-
-
-setDeleveryPrice(price);
-setRefr(!refr);
-
-
-   }
-
-      }
-
-
-    }
-
-
-    const getPicks=()=>{
-
-      //props.setLod(true);
-
-          const requestOptions = {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-
-            },
-
-        };
-
-          fetch(`${API_URL}products?func=getPick`, requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-             console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",data)
-              setpickups(data);
-             console.log("zzzzzzzzzzzzzzzzzzzzzzz",data.data)
-
-          //  return data
-            }).then((arr)=>{
-
-            })
-
-
-          }
-
-
-
-
-          //validate phone
-          const isPhoneValid = (phoneNumber) => {
-            const phoneRegex = /^[0-9]{10}$/;
-            return phoneRegex.test(phoneNumber);
+    let total = 0;
+    for (let i = 0; i < cartg.length; i++) {
+      for (let j = 0; j < cartg[i].data.attributes.varients.data.length; j++) {
+        if(cartg[i].data.attributes.varients.data[j].id==cartg[i].selvar){
+          total = total +  cartg[i].data.attributes.varients.data[j].attributes.price * cartg[i].qty;
         }
-        //validate adtress
-        const isAdressValid = (adress) => {
-          const adressRegex = /^[a-zA-Z0-9\s,.'-]{3,}$/;
-          return addressRegex.test(adress);}
-
-
-      //validate email
-    //   const isEmailValid = (email) => {
-    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     return emailRegex.test(email);
-    // }
-
-    const handleOrder= ()=>{
-
-      //email and selpic validation
-      //payment method backend implmentation
-      if(selpick==null){
-        useNotifi("error","الر جاء  إختيار الولاية")
-        return;
       }
-
-      // if (!email || !isEmailValid(email)) {
-      //       useNotifi("error", "الرجاء إدخال بريد إلكتروني صالح");
-      //       return;
-      //   }
-
-        if (!phone || !isPhoneValid(phone)) {
-          useNotifi("error", "  يجب أن يتكون رقم الهاتف من 10 أرقام   ");
-          return;
-      }
-
-      if (phone !== phoneC) {
-        useNotifi("error", "رقم الهاتف غير متطابق");
-        return;
     }
+    setTotal(total)
+    setgTotal(total+deliveryPrice)
+  }, [cartg,deliveryPrice,refr,isLogged])
+
+  const handleDelChangle = (stat)=>{
+    setsetDeliveryMeth(stat);
+    handleCityChange(selpick,stat);
+  }
+
+  const handleCityChange= (val,stat)=>{
+    setselpick(val)
+    let price =0;
+    if(pickups) {
+      for (let i = 0; i < pickups.length; i++) {
+        if(pickups[i].id==val){
+          if(stat){
+            if(stat==1){
+              price = pickups[i].home_price;
+            }else if(stat==2){
+              price = pickups[i].pickup_price;
+            }
+          }else{
+            if(deliveryMeth==1){
+              price = pickups[i].home_price;
+            }else if(deliveryMeth==2){
+              price = pickups[i].pickup_price;
+            }
+          }
+          setDeleveryPrice(price);
+          setRefr(!refr);
+        }
+      }
+    }
+  }
+
+  const getPicks=()=>{
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    fetch(`${API_URL}products?func=getPick`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        setpickups(data);
+      })
+  }
+
+  const isPhoneValid = (phoneNumber) => {
+    const phoneRegex = /^[0-9]{10}$/;
+    return phoneRegex.test(phoneNumber);
+  }
+
+  const handleOrder= ()=>{
+    if(selpick==null){
+      useNotifi("error","الرجاء إختيار الولاية")
+      return;
+    }
+
+    if (!phone || !isPhoneValid(phone)) {
+      useNotifi("error", "يجب أن يتكون رقم الهاتف من 10 أرقام");
+      return;
+    }
+
+    if (phone !== phoneC) {
+      useNotifi("error", "رقم الهاتف غير متطابق");
+      return;
+    }
+    
     if (address.length < 3  && deliveryMeth===1) {
       useNotifi("error", "الرجاء إدخال عنوان صالح");
       return;
     }
 
+    if(cartg.length==0){
+      useNotifi("error","الرجاء إضافة منتجات")
+      return
+    }
 
+    setLod(true)
+    let payarray = []
+    for (let i = 0; i < cartg.length; i++) {
+      payarray.push({
+        id: cartg[i].selvar,
+        product_ref:cartg[i].product_ref,
+        name:cartg[i].name,
+        img:cartg[i].images?.[0].data.url,
+        code:cartg[i].code,
+        qty: cartg[i].qty,
+        desc: cartg[i].data.attributes.description_en
+      })
+    }
 
-
-      if(cartg.length==0){
-        useNotifi("error","الرجاء إضافة منتجات")
-        return
-      }
-
-      setLod(true)
-      let payarray = []
-      for (let i = 0; i < cartg.length; i++) {
-        payarray.push({
-          id: cartg[i].selvar,
-          product_ref:cartg[i].product_ref,
-          name:cartg[i].name,
-          img:cartg[i].images?.[0].data.url,
-          code:cartg[i].code,
-          qty: cartg[i].qty,
-          desc: cartg[i].data.attributes.description_en
-
-        })
-      }
-
-
-     // console.log();
-
-     if(isLogged){
+    if(isLogged){
       const requestOptions = {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": 'Bearer ' +  isLogged.data.jwt
+          "Content-Type": "application/json",
+          "Authorization": 'Bearer ' +  isLogged.data.jwt
         },
         body: JSON.stringify({
-           items: payarray,
-           payment_metod: paymentMeth,
-           delivery_method:deliveryMeth,
-           state_id:selpick,
-           phone:phone,
-           address:address,
-           email:email,
-          })
+          items: payarray,
+          payment_metod: paymentMeth,
+          delivery_method:deliveryMeth,
+          state_id:selpick,
+          phone:phone,
+          address:address,
+          email:email,
+        })
       };
 
       fetch(`${API_URL}orders?func=initPaymentSession`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        setLod(false)
-    window.location= data.url;
-      }).then(()=>{
-
-      });
-     }else{
+        .then((response) => response.json())
+        .then((data) => {
+          setLod(false)
+          window.location= data.url;
+        });
+    }else{
       const requestOptions = {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-
-
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-           items: payarray,
-           payment_metod: paymentMeth,
-           delivery_method:deliveryMeth,
-           state_id:selpick,
-           phone:phone,
-           address:address,
-           email:email,
-          })
+          items: payarray,
+          payment_metod: paymentMeth,
+          delivery_method:deliveryMeth,
+          state_id:selpick,
+          phone:phone,
+          address:address,
+          email:email,
+        })
       };
 
       fetch(`${API_URL}orders?func=initPaymentSessionGuest`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("shshshshshshshsgaaahahajsjskski",data)
-        setLod(false)
-   window.location= data.url;
-      }).then(()=>{
-
-      });
-     }
-
-
-
-
-
-
+        .then((response) => response.json())
+        .then((data) => {
+          setLod(false)
+          window.location= data.url;
+        });
     }
-
+  }
 
   return (
-
-<div className='flex-col md:flex-row lg:grid grid-cols-3 lg:pt-12 lg:mb-32 w-full '   >
-
-<div className='flex flex-1 flex-col lg:mt-[30px] px-3 w-full  '>
-
-
-{/* <TableComp
-   data={checkOutArray}
-   checkout={true}
-   columns={
-    [
-      {name: "ID", uid: "selvar", sortable: true},
-      {name: "رمز المنتج", uid: "code", sortable: true},
-      {name: "السعر", uid: "price", sortable: true},
-      {name: "الكمية", uid: "qty", sortable: true},
-      {name: " إسم اللون", uid: "colorname",sortable: true },
-      {name: "اللون", uid: "color", sortable: true},
-      {name: " المقاس", uid: "sizeo",sortable: true },
-     {name: "الصورة", uid: "imgsingle", sortable: true},
-
-    ]
-   }
-
-   delorder={()=>{}}
-    /> */}
-<div id="scrol" className='flex flex-1 flex-col lg:px-3 w-full'>
-    <div className="bg-white p-4 rounded-md shadow mb-4">
-        <div className="flex justify-end items-center py-4 border-b border-gray-300 mb-4">
-            <h2 className="text-lg font-bold text-gray-800">المنتجات</h2>
+    <div dir='rtl' className='min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-6 lg:py-12'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        
+        {/* Header */}
+        <div className='mb-6 lg:mb-8'>
+          <div className='flex items-center gap-3 mb-2'>
+            <div className='p-3 rounded-2xl text-white shadow-lg' style={{backgroundColor: Theme.primary}}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+              </svg>
+            </div>
+            <div>
+              <h1 className='text-2xl lg:text-3xl font-bold text-gray-900'>إتمام الطلب</h1>
+              <p className='text-sm text-gray-500 mt-1'>أكمل بياناتك لإتمام عملية الشراء</p>
+            </div>
+          </div>
         </div>
 
-        {cartg && cartg.length !== 0 ? (
-            <>
-                {cartg.map((cart, index) => {
-                    const selectedVariant = cart.data.attributes.varients.data.find(v => v.id === cart.selvar);
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+          
+          {/* Order Summary - Right Side */}
+          <div className='lg:col-span-1 order-1 lg:order-2'>
+            <div className='space-y-4'>
+              
+              {/* Cart Items */}
+              <div className='bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden'>
+                <div className='p-5 bg-gradient-to-r from-gray-50 to-white border-b border-gray-100'>
+                  <h2 className='text-lg font-bold text-gray-900 flex items-center gap-2'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" style={{color: Theme.primary}}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                    المنتجات ({cartg.length})
+                  </h2>
+                </div>
+                <div className='p-4'></div>
+                
+                <div className='space-y-4 max-h-[500px] overflow-y-auto scrollbar-hide'>
+                  {cartg && cartg.length > 0 ? (
+                    cartg.map((cart, index) => {
+                      const selectedVariant = cart.data.attributes.varients.data.find(v => v.id === cart.selvar);
+                      const productPrice = selectedVariant?.attributes.price || 0;
+                      const productName = cart.name || `Product ${cart.code}`;
+                      const productImage = cart.data.attributes.images?.data?.[0]?.attributes?.url;
+                      const fullProductImage = `${IMG_URL}${productImage}`;
+                      const productSize = selectedVariant?.attributes.sizes.data[0]?.attributes.name_ar + " - " + selectedVariant?.attributes.sizes.data[0]?.attributes.icon || "";
+                      const productColorName = selectedVariant?.attributes.colors.data[0]?.attributes.name_ar || "";
+                      const productColorHex = selectedVariant?.attributes.colors.data[0]?.attributes.colorCode || "#000000";
 
-                    const productPrice = selectedVariant?.attributes.price || 0;
-                    const productName = cart.name || `Product ${cart.code}`;
-                    // const productImage = cart.data.attributes.images?.data?.[0]?.attributes?.url
-                    // const productImage = `${API_URL.replace(/\/$/, "")}${cart.data.attributes.images?.data?.[0]?.attributes?.url || ""}`;
-                    const productImage = cart.data.attributes.images?.data?.[0]?.attributes?.url;
-const fullProductImage = `${IMG_URL}${productImage}`;
-console.log(`checkoutimagim ${IMG_URL} ${productImage}`)
-
-                    const productSize = selectedVariant?.attributes.sizes.data[0]?.attributes.name_ar + " - " + selectedVariant?.attributes.sizes.data[0]?.attributes.icon || "";
-                    const productColorName = selectedVariant?.attributes.colors.data[0]?.attributes.name_ar || "";
-                    const productColorHex = selectedVariant?.attributes.colors.data[0]?.attributes.colorCode || "#000000";
-
-                    return (
-                        <div key={index} className="flex items-center justify-between py-2 border-b border-gray-200">
-                            <div className="flex items-center">
-                                <span className="text-sm font-bold text-gray-800 ml-2">{productPrice.toLocaleString()} د.ج</span>
-                                <span className="text-gray-600">x {cart.qty}</span>
+                      return (
+                        <div key={index} className='flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors'>
+                          <div className='relative flex-shrink-0'>
+                            <Image
+                              src={fullProductImage}
+                              alt={productName}
+                              width={80}
+                              height={80}
+                              className='rounded-xl object-cover shadow-md'
+                            />
+                            <div className='absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg' style={{backgroundColor: Theme.primary}}>
+                              {cart.qty}
                             </div>
-
-                            <div className="flex flex-col items-end text-right flex-grow mx-2">
-                                <span className="text-sm font-semibold text-gray-800">{productName}</span>
-                                <div className="flex items-center text-xs text-gray-600 mt-1">
-                                    <span className="mr-1">المقاس: {productSize}</span>
-                                    <span
-                                        className="w-3 h-3 rounded-full mr-1"
-                                        style={{ backgroundColor: productColorHex }}
-                                    ></span>
-                                    <span>اللون: {productColorName}</span>
-                                </div>
+                          </div>
+                          
+                          <div className='flex-1 min-w-0 w-full'>
+                            <h3 className='font-bold text-base text-gray-900 mb-2'>{productName}</h3>
+                            <div className='flex flex-wrap items-center gap-3 mb-2'>
+                              <div className='flex items-center gap-1.5 text-sm text-gray-600 bg-white px-3 py-1.5 rounded-lg'>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+                                </svg>
+                                <span className='font-medium'>{productSize}</span>
+                              </div>
+                              <div className='flex items-center gap-1.5 text-sm text-gray-600 bg-white px-3 py-1.5 rounded-lg'>
+                                <span className='w-4 h-4 rounded-full border-2 border-gray-300 shadow-sm' style={{backgroundColor: productColorHex}}></span>
+                                <span className='font-medium'>{productColorName}</span>
+                              </div>
                             </div>
-
-                            <div className="flex-shrink-0">
-                                <Image
-                                    src={fullProductImage}
-                                    alt={productName}
-                                    width={60}
-                                    height={60}
-                                    className="rounded-md object-cover"
-                                />
+                            <div className='flex items-center justify-between'>
+                              <div className='text-xs text-gray-500'>
+                                السعر للقطعة: {productPrice.toLocaleString()} {CURRENCY}
+                              </div>
+                              <div className='font-bold text-lg' style={{color: Theme.primary}}>
+                                {(productPrice * cart.qty).toLocaleString()} {CURRENCY}
+                              </div>
                             </div>
+                          </div>
                         </div>
-                    );
-                })}
-            </>
-        ) : (
-            null
-        )}
-    </div>
+                      );
+                    })
+                  ) : (
+                    <div className='text-center py-12'>
+                      <div className='w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center' style={{backgroundColor: `${Theme.primary}20`}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10" style={{color: Theme.primary}}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                        </svg>
+                      </div>
+                      <p className='text-lg font-semibold text-gray-900 mb-1'>السلة فارغة</p>
+                      <p className='text-sm text-gray-500'>أضف منتجات لإتمام الطلب</p>
+                    </div>
+                  )}
+                </div>
+              </div>
 
-    <div className="bg-white p-4 rounded-md shadow mt-4">
-        <h2 className="text-lg font-bold text-gray-800 text-right mb-4">إجمالي الطلب</h2>
-        <div className="flex justify-between items-center text-gray-700 mb-2">
-            <span className="font-semibold"> {total.toLocaleString()} د.ج </span>
-            <span>الإجمالي الأساسي</span>
+              {/* Order Total */}
+              <div className='bg-white rounded-2xl shadow-xl border border-gray-100 p-5'>
+                <h2 className='text-lg font-bold text-gray-900 mb-4'>ملخص الطلب</h2>
+                
+                <div className='space-y-3'>
+                  <div className='flex justify-between items-center text-gray-700'>
+                    <span className='font-semibold'>{total.toLocaleString()} {CURRENCY}</span>
+                    <span>المجموع الفرعي</span>
+                  </div>
+                  
+                  <div className='flex justify-between items-center text-green-600'>
+                    <span className='font-semibold'>- 0 {CURRENCY}</span>
+                    <span>الخصم</span>
+                  </div>
+                  
+                  <div className='flex justify-between items-center text-gray-700'>
+                    <span className='font-semibold'>{deliveryPrice.toLocaleString()} {CURRENCY}</span>
+                    <span>التوصيل</span>
+                  </div>
+                  
+                  <div className='pt-3 border-t-2 border-gray-200'>
+                    <div className='flex justify-between items-center'>
+                      <span className='text-2xl font-bold' style={{color: Theme.primary}}>
+                        {gtotal.toLocaleString()} {CURRENCY}
+                      </span>
+                      <span className='text-lg font-bold text-gray-900'>الإجمالي</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Checkout Form - Left Side */}
+          <div className='lg:col-span-2 order-2 lg:order-1 space-y-4'>
+            
+            {/* Payment Method */}
+            <div className='bg-white rounded-2xl shadow-xl border border-gray-100 p-6'>
+              <h2 className='text-xl font-bold text-gray-900 mb-4 flex items-center gap-2'>
+                <span className='w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold' style={{backgroundColor: Theme.primary}}>1</span>
+                طريقة الدفع
+              </h2>
+              
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                <button
+                  disabled
+                  className='relative p-5 rounded-xl border-2 border-gray-300 bg-gray-100 opacity-40 cursor-not-allowed'
+                >
+                  <div className='flex items-center justify-between mb-3'>
+                    <div className='p-3 rounded-xl bg-gray-200'>
+                      <FaCreditCard className='w-6 h-6 text-gray-400'/>
+                    </div>
+                  </div>
+                  <h3 className='font-bold text-gray-500 text-right mb-1'>دفع إلكتروني</h3>
+                  <p className='text-xs text-gray-400 text-right'>الدفع بإستخدام بطاقة بنكية</p>
+                  <div className='absolute top-2 left-2 bg-yellow-400 text-yellow-900 text-xs px-2 py-1 rounded-full font-semibold'>
+                    قريباً
+                  </div>
+                </button>
+
+                <button
+                  onClick={()=>{setPaymentMeth(2)}}
+                  className={`p-5 rounded-xl border-2 transition-all hover:shadow-lg ${
+                    paymentMeth==2 ? 'shadow-lg' : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                  style={paymentMeth==2 ? {borderColor: Theme.primary, backgroundColor: `${Theme.primary}10`} : {}}
+                >
+                  <div className='flex items-center justify-between mb-3'>
+                    <div className='p-3 rounded-xl text-white' style={{backgroundColor: Theme.primary}}>
+                      <FaHandHoldingDollar className='w-6 h-6'/>
+                    </div>
+                    {paymentMeth==2 && (
+                      <div className='w-6 h-6 rounded-full flex items-center justify-center' style={{backgroundColor: Theme.primary}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 text-white">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <h3 className='font-bold text-gray-900 text-right mb-1'>دفع عند الإستلام</h3>
+                  <p className='text-xs text-gray-600 text-right'>الدفع نقداً عند استلام الطلب</p>
+                </button>
+              </div>
+            </div>
+
+            {/* Delivery Method */}
+            <div className='bg-white rounded-2xl shadow-xl border border-gray-100 p-6'>
+              <h2 className='text-xl font-bold text-gray-900 mb-4 flex items-center gap-2'>
+                <span className='w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold' style={{backgroundColor: Theme.primary}}>2</span>
+                طريقة التوصيل
+              </h2>
+              
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                <button
+                  onClick={()=>{handleDelChangle(1);}}
+                  className={`p-5 rounded-xl border-2 transition-all hover:shadow-lg ${
+                    deliveryMeth==1 ? 'shadow-lg' : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                  style={deliveryMeth==1 ? {borderColor: Theme.primary, backgroundColor: `${Theme.primary}10`} : {}}
+                >
+                  <div className='flex items-center justify-between mb-3'>
+                    <div className='p-3 rounded-xl text-white' style={{backgroundColor: Theme.primary}}>
+                      <FaMapPin className='w-6 h-6'/>
+                    </div>
+                    {deliveryMeth==1 && (
+                      <div className='w-6 h-6 rounded-full flex items-center justify-center' style={{backgroundColor: Theme.primary}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 text-white">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <h3 className='font-bold text-gray-900 text-right mb-1'>توصيل لعنوان</h3>
+                  <p className='text-xs text-gray-600 text-right'>التوصيل إلى عنوان معين</p>
+                </button>
+
+                <button
+                  onClick={()=>{handleDelChangle(2);}}
+                  className={`p-5 rounded-xl border-2 transition-all hover:shadow-lg ${
+                    deliveryMeth==2 ? 'shadow-lg' : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                  style={deliveryMeth==2 ? {borderColor: Theme.primary, backgroundColor: `${Theme.primary}10`} : {}}
+                >
+                  <div className='flex items-center justify-between mb-3'>
+                    <div className='p-3 rounded-xl text-white' style={{backgroundColor: Theme.primary}}>
+                      <FaMapLocation className='w-6 h-6'/>
+                    </div>
+                    {deliveryMeth==2 && (
+                      <div className='w-6 h-6 rounded-full flex items-center justify-center' style={{backgroundColor: Theme.primary}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 text-white">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <h3 className='font-bold text-gray-900 text-right mb-1'>نقطة توزيع</h3>
+                  <p className='text-xs text-gray-600 text-right'>الإستلام من نقطة التوزيع</p>
+                </button>
+              </div>
+            </div>
+
+            {/* Delivery Information */}
+            <div className='bg-white rounded-2xl shadow-xl border border-gray-100 p-6'>
+              <h2 className='text-xl font-bold text-gray-900 mb-4 flex items-center gap-2'>
+                <span className='w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold' style={{backgroundColor: Theme.primary}}>3</span>
+                معلومات التوصيل
+              </h2>
+              
+              <div className='space-y-4'>
+                <InputEl
+                  value={selpick}
+                  outputfunc={(val) => {handleCityChange(val);}}
+                  iden={"color"}
+                  data={pickups}
+                  iscats={true}
+                  select={true}
+                  label={"الولاية"}
+                />
+
+                <InputEl 
+                  value={isLogged ? isLogged.data.user.username : email} 
+                  disabled={isLogged}
+                  outputfunc={(val) => { setEmail(val) }} 
+                  label={"الإسم الكامل"} 
+                />
+
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+                  <InputEl 
+                    outputfunc={(val) => { setPhone(val) }} 
+                    label={"رقم الهاتف"} 
+                  />
+
+                  <InputEl 
+                    outputfunc={(val) => { setPhoneC(val) }} 
+                    label={"تأكيد رقم الهاتف"} 
+                  />
+                </div>
+
+                {deliveryMeth == 1 && (
+                  <InputEl 
+                    outputfunc={(val) => { setAddress(val) }} 
+                    label={"العنوان الكامل"} 
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className='bg-white rounded-2xl shadow-xl border border-gray-100 p-6'>
+              <LoadingBtn  
+                act={()=>{handleOrder()}}  
+                text={"تأكيد الطلب"} 
+                lod={lod} 
+              />
+              <p className='text-xs text-gray-500 text-center mt-3'>
+                بالنقر على "تأكيد الطلب"، أنت توافق على شروط وأحكام الخدمة
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="flex justify-between items-center text-green-600 mb-2">
-            <span className="font-semibold">- 0 د.ج</span>
-            <span>تم توفير</span>
-        </div>
-        <div className="flex justify-between items-center text-gray-700 mb-2">
-            <span className="font-semibold"> {deliveryPrice.toLocaleString()} د.ج </span>
-            <span>مصاريف الشحن و التوصيل</span>
-        </div>
-        <div className="flex justify-between items-center text-gray-800 font-bold text-lg mt-4 pt-4 border-t border-gray-300">
-            <span> {gtotal.toLocaleString()} د.ج </span>
-            <span>الإجمالي</span>
-        </div>
-    </div>
-</div>
-
-
-
-
-{/* <div className='p-6'>
-<div className='flex  flex-row-reverse    w-full' >
-      <div className='text-moon-200 font-bold text-right text-xl mb-2 ' > :المجموع </div>
-      <div dir='rtl' className='text-right text-xl font-semibold ' > {total}  {CURRENCY} </div>
-    </div>
-
-<div className='flex   flex-row-reverse  w-full' >
-      <div className='text-moon-200 font-bold text-right text-xl mb-2 ' > :التوصيل </div>
-      <div dir='rtl' className='text-right text-xl font-semibold ' > {selpick==null? <span>إختر الولاية</span> :<span>{deliveryPrice}  {CURRENCY}</span> }  </div>
-    </div>
-
-    <div className='flex flex-row-reverse  w-full' >
-      <div className='text-moon-200 font-bold text-right text-xl mb-2 ' > :المجموع الكلي </div>
-      <div dir='rtl' className='text-right text-xl font-semibold ' > {gtotal}  {CURRENCY} </div>
-    </div>
-</div> */}
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-    <div className='flex  flex-col space-y-4 w-full px-3 col-span-2 mt-8' >
-
-
-
-
-
-     <div className='flex flex-col bg-white p-3 border border-gray-200 rounded-md w-full'>
-    <div className='text-gray-900 font-bold text-right text-xl mb-2 ' >  الدفع</div>
-
- <div className='flex flex-col sm:flex-row lg:flex-row items-center space-y-4 lg:space-x-2 md:space-x-2 lg:space-y-0 md:space-y-0   justify-between'>
-
-
- <div onClick={()=>{
-//  setPaymentMeth(1)
-}}
-  className={`${paymentMeth==1?" border-moon-200 bg ":" shadow-gray-400 "}  flex hover:shadow-md
-   transition-shadow cursor-pointer opacity-20  w-full bg-gray-200  flex-1 border-2 p-4 rounded-md items-center justify-between`}
- >
-    <div className='bg-moon-200 text-white text-2xl p-3 rounded-full ' >
-    <FaCreditCard/>
-    </div>
-    <div className='flex items-end flex-col'>
-      <div className='text-gray font-semibold text-base'>
-        دفع إلكتروني
       </div>
-      <div className='text-xs'>
-         الدفع بإستخدام بطاقة بنكية
-      </div>
     </div>
-
-    </div>
-
-
-
-
-    <div onClick={()=>{setPaymentMeth(2)}}
-    //  className='flex  flex-1 border-2 p-4 rounded-md border-moon-200 items-center justify-between'
-    className={`${paymentMeth==2?"shadow-lg border-moon-200 bg-moon-100 ":" shadow-gray-800 "}  flex w-full hover:shadow-md transition-shadow cursor-pointer flex-1 border p-4 rounded-md items-center justify-between`}
-
-    >
-    <div className='bg-moon-200 text-white text-2xl p-3 rounded-full ' >
-    <FaHandHoldingDollar/>
-    </div>
-    <div className='flex items-end flex-col'>
-      <div className='text-gray-900 font-semibold text-base'>
-        دفع عند الإستلام
-      </div>
-      <div className='text-xs'>
-      يتم اضافة   {deliveryPrice}     </div>
-    </div>
-
-    </div>
-  </div>
-
-
-    </div>
-
-
-
-
-
-
-
-    <div className='flex flex-col    w-full'>
-    <div className='bg-white p-3 rounded-md border border-gray-200'>
-
-    <div className='text-gray-800 font-bold text-right text-xl mb-2 ' > التوصيل </div>
-
- <div className='flex flex-col sm:flex-row lg:flex-row items-center space-y-4 lg:space-x-2 md:space-x-2 lg:space-y-0 md:space-y-0   justify-between'>
-
-
- <div onClick={()=>{handleDelChangle(1);}}
-  className={`${deliveryMeth==1?"shadow-lg border-moon-200 bg-moon-100 ":" shadow-gray-800 "}  flex hover:shadow-md w-full transition-shadow cursor-pointer   flex-1 border p-4 rounded-md items-center justify-between`}
- >
-    <div className='bg-moon-200 text-white text-2xl p-3 rounded-full ' >
-    <FaMapPin/>
-    </div>
-    <div className='flex items-end flex-col'>
-      <div className='text-gray-9000 font-semibold text-base'>
-         توصيل لعنوان
-      </div>
-      <div className='text-xs'>
-        التوصيل إلى عنوان معين
-      </div>
-    </div>
-
-    </div>
-
-
-
-
-    <div onClick={()=>{handleDelChangle(2);}}
-    //  className='flex  flex-1 border-2 p-4 rounded-md border-moon-200 items-center justify-between'
-    className={`${deliveryMeth==2?"shadow-lg border-moon-200 bg-moon-100 ":" shadow-gray-800 "}  flex w-full hover:shadow-md transition-shadow cursor-pointer flex-1 border p-4 rounded-md items-center justify-between`}
-
-    >
-    <div className='bg-moon-200 text-white text-2xl p-3 rounded-full ' >
-    <FaMapLocation/>
-    </div>
-    <div className='flex items-end flex-col'>
-      <div className='text-gray-900 font-semibold text-base'>
-            نقطة توزيع
-      </div>
-      <div className='text-xs'>
-                 من نقطة التوزيع
-      </div>
-    </div>
-
-    </div>
-  </div>
-
-
-
-  </div>
-
-  <div className='mt-4 bg-white border border-gray-200  p-3'>
-
-  {/* <InputEl
-            value={selpick}
-            outputfunc={(val) => {
-             handleCityChange(val);
-            }}
-            iden={"color"}
-            data={pickups}
-            iscats={true}
-            select={true}
-            label={"الولاية"}
-          /> */}
-
-<div className='mt-4 bg-white p-3 rounded-md'>
-    <InputEl
-        value={selpick}
-        outputfunc={(val) => {
-            handleCityChange(val);
-        }}
-        iden={"color"}
-        data={pickups}
-        iscats={true}
-        select={true}
-        label={"الولاية"}
-    />
-
-    {/* Responsive Grid for Inputs */}
-    <div className='mt-4 flex flex-col md:grid md:gap-10'
-        style={{
-            // Default (mobile): flex column
-            // md: (desktop/tablet): grid layout
-            gridTemplateAreas: `
-                'email email email email'
-                'adress adress adress adress'
-                'phone phone phone_c phone_c'
-            `
-        }}
-    >
-        <div style={{ gridArea: "email" }}>
-            <InputEl className="bg-white" value={isLogged ? isLogged.data.user.username : email} disabled={isLogged}
-                outputfunc={(val) => { setEmail(val) }} label={"الإسم"} />
-        </div>
-
-        <div style={{ gridArea: "phone" }}>
-            <InputEl outputfunc={(val) => { setPhone(val) }} label={"رقم الهاتف"} />
-        </div>
-
-        <div style={{ gridArea: "phone_c" }}>
-            <InputEl outputfunc={(val) => { setPhoneC(val) }} label={"تأكيد رقم الهاتف"} />
-        </div>
-
-        <div style={{ gridArea: "adress", display: deliveryMeth == 1 ? "block" : "none" }}>
-            <InputEl outputfunc={(val) => { setAddress(val) }} label={"العنوان"} />
-        </div>
-    </div>
-</div>
-{/*
-   <div style={{
-    width:"100%",
-display: deliveryMeth==2?"grid":"none",
-gap:10,
-gridTemplateAreas:`
-' city  city  . .   '
-' phone phone . .    '
-
-
-`
-   }} >
-
-    <div style={{gridArea:"phone"}}>
-      <InputEl outputfunc={(val)=>{setNameen(val)}} label={"إختر نقطة الإستلام"}/>
-    </div>
-
-
-
-
-
-   </div> */}
-
-  </div>
-
-
-  <div className='text-sm'>
-
-  <LoadingBtn  className="text-sm"   act={()=>{
-                       handleOrder() ;
-                       }}  text={"تاكيد الطلب   "} lod={lod} />
-
-  </div>
-{/* <div className="text-center px-4  mx-auto">
-  <button
-    disabled
-    className="w-full py-2 bg-yellow-400 text-yellow-900 font-semibold rounded-md cursor-not-allowed opacity-60"
-  >
-    تاكيد الطلب
-  </button>
-  <p className="mt-2 text-yellow-800 text-sm">
-    نأسف، لا نقوم بالتوصيل في الوقت الحالي
-  </p>
-</div> */}
-
-
-    </div>
-
-
-
-    </div>
-
-
-
-
-
-</div>
-
-
   )
 }
 
-export default AccounteEl
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default CheckoutPage
