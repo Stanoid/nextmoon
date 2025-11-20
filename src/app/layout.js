@@ -412,7 +412,7 @@ if(el.target.value.length<3){
             )}
 
             <section>
-            <div className="  hidden ">
+            <div className="">
                       <div className="flex  flex-col ">
                         <Cart
                           ref={childCompRef}
@@ -421,7 +421,7 @@ if(el.target.value.length<3){
                         />
                       </div>
                     </div>
-                    <div className="  hidden">
+                    <div className="">
                       <div className="flex  flex-col ">
 
 

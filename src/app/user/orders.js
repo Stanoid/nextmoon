@@ -15,33 +15,26 @@ function Orders(props) {
     const udata = useSelector((state) => state.root.auth.data && state.root.auth.data)
 
     useEffect(() => {
-      console.log('useEffect triggered ONCE on mount')
-      
-      if (udata?.data?.jwt) {
-        console.log('Has JWT, calling getOrders...')
+      if (!hasLoadedRef.current && udata?.data?.jwt) {
+        hasLoadedRef.current = true
         getOrders();
-      } else {
-        console.log('No JWT, setting lod to false')
+      } else if (!udata?.data?.jwt) {
         setlod(false)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []) // Run only once on mount
+    }, [])
 
     const handleOpenDel = (open) => {
       setOpenDel(open)
     }
 
     const getOrders = async () => {
-      console.log('getOrders called')
-      
       if (!udata?.data?.jwt) {
-        console.log('No JWT in getOrders')
         setlod(false)
         return
       }
 
       try {
-        if (props.setLod) props.setLod(true)
         setOpenDel(false)
         setlod(true)
 
@@ -53,46 +46,28 @@ function Orders(props) {
           },
         };
 
-        console.log('Fetching orders...')
         const response = await fetch(`${API_URL}orders?func=getUserOrders`, requestOptions)
         const data = await response.json()
-
-        console.log('=== ORDERS API RESPONSE ===')
-        console.log('Full response:', data)
-        console.log('Is Array?', Array.isArray(data))
-        console.log('Type:', typeof data)
         
         // Handle different response formats
         let ordersToSet = []
 
         if (Array.isArray(data)) {
-          console.log('✓ Data is array, length:', data.length)
           ordersToSet = data.length > 0 ? [...data].reverse() : []
         } else if (data && data.orders && Array.isArray(data.orders)) {
-          console.log('✓ Data.orders is array, length:', data.orders.length)
           ordersToSet = data.orders.length > 0 ? [...data.orders].reverse() : []
         } else if (data && data.data && Array.isArray(data.data)) {
-          console.log('✓ Data.data is array, length:', data.data.length)
           ordersToSet = data.data.length > 0 ? [...data.data].reverse() : []
         } else {
-          console.log('✗ No valid array found')
           ordersToSet = []
         }
-
-        console.log('Setting orderData with', ordersToSet.length, 'orders')
-        console.log('Setting lod to FALSE')
         
         setOrderdata(ordersToSet)
         setlod(false)
-        
-        if (props.setLod) props.setLod(false)
-        
-        console.log('State updated')
       } catch (error) {
         console.error('Error fetching orders:', error)
         setOrderdata([])
         setlod(false)
-        if (props.setLod) props.setLod(false)
       }
     }
 
@@ -125,8 +100,6 @@ function Orders(props) {
         isCurrent: idx === activeSteps - 1
       }))
     }
-
-    console.log('RENDER - lod:', lod, 'orderData length:', orderData?.length)
 
     return (
       <div dir='rtl' className="w-full">

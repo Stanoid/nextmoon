@@ -23,6 +23,15 @@ function Orders(props) {
     const router = useRouter(); 
     const [ordata,setOrdata] = useState(null)
     const [lod,setlod] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+      // Simulate loading favorites data
+      const timer = setTimeout(() => {
+        setLoading(false)
+      }, 500)
+      return () => clearTimeout(timer)
+    }, [])
 
     
 
@@ -267,6 +276,15 @@ setlod(true);
 
 
  
+
+  if (loading) {
+    return (
+      <div className='flex flex-col items-center justify-center min-h-[400px]'>
+        <div className="lds-facebook"><div></div><div></div><div></div></div>
+        <p className='text-gray-500 mt-4'>جاري تحميل المفضلة...</p>
+      </div>
+    )
+  }
 
   return (
   

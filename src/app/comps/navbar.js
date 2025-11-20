@@ -522,7 +522,28 @@ export default function NavbarC(props) {
             }} className="w-16 cursor-pointer" />
           )}
 
-<div className="flex items-center ">
+<div className="flex items-center gap-2">
+          {/* Search Button for Mobile */}
+          <Button
+            isIconOnly
+            size="md"
+            onClick={() => {
+              try {
+                if (props && typeof props.setSearchTog === 'function') {
+                  props.setSearchTog(true);
+                }
+              } catch (err) {
+                console.error('Error opening search:', err);
+              }
+            }}
+            className="text-gray-700"
+            aria-label="Search"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </Button>
+
           <motion.div onClick={() => {
             try {
               if (props && typeof props.openCart === 'function') {
@@ -532,19 +553,18 @@ export default function NavbarC(props) {
               console.error('Error opening cart:', err);
             }
           }} className="flex items-center text-gray-700 hover:text-gray-900 cursor-pointer">
-            <Button isIconOnly className="mr-5" size="md" aria-label="Cart">
+            <Button isIconOnly size="md" aria-label="Cart">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
               </svg>
             </Button>
-            <span className="text-sm flex items-center sm:block text-left">
+            <span className="text-sm hidden sm:flex items-center text-left ml-2">
               {totalPrice.toFixed(2)} $ <span className="mx-1 font-thin">|</span> {totalItems} {t('products')}
-    <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 32 32" strokeWidth={1.5} stroke="currentColor" className="size-4">
-  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-</svg>
-  </span>
-</motion.div>
-
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" strokeWidth={1.5} stroke="currentColor" className="size-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </span>
+          </motion.div>
 
           <Button
             isIconOnly
@@ -554,8 +574,8 @@ export default function NavbarC(props) {
           >
             <MdMenu size={24} />
           </Button>
-          </div>
         </div>
+      </div>
 
 
 

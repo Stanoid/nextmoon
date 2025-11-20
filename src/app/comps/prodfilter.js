@@ -78,7 +78,7 @@ console.log("subcatsdddddddddddddddddd",subcatData);
   const hasActiveFilters = selectedSizes.size > 0 || selectedColors.size > 0 || priceRange.min !== '' || priceRange.max !== '';
 
   return (
-    <aside dir='rtl' className="w-full bg-white p-4 lg:p-5 shadow-sm lg:shadow-lg rounded-xl border border-gray-100 lg:sticky lg:top-6">
+    <aside dir='rtl' className="w-full bg-white p-4 lg:p-5 shadow-sm lg:shadow-lg rounded-xl border border-gray-100 lg:sticky lg:top-6 relative lg:z-auto">
       <div className="flex justify-between items-center mb-4 lg:mb-6">
         <h2 className="text-lg lg:text-xl font-bold text-gray-800">الفلاتر</h2>
         {hasActiveFilters && (

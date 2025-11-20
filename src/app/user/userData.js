@@ -29,6 +29,15 @@ const [logindata,setLogindata]= useState(null)
 
     const router = useRouter(); 
     const [lod,setlod] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+      // Simulate loading user data
+      const timer = setTimeout(() => {
+        setLoading(false)
+      }, 500)
+      return () => clearTimeout(timer)
+    }, [])
 
     
    
@@ -215,6 +224,15 @@ props.setLod(true)
 
 
  
+
+  if (loading) {
+    return (
+      <div className='flex flex-col items-center justify-center min-h-[400px]'>
+        <div className="lds-facebook"><div></div><div></div><div></div></div>
+        <p className='text-gray-500 mt-4'>جاري تحميل البيانات...</p>
+      </div>
+    )
+  }
 
   return (
 <div dir='rtl' className="w-full">
