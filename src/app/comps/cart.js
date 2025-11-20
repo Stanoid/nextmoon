@@ -81,12 +81,12 @@ const Cart = forwardRef((props, ref) => {
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 overflow-hidden z-20"
+        className="fixed inset-0 overflow-hidden z-[100]"
         onClose={() => {
           props.openHandler(false);
         }}
       >
-        <div className="absolute backdrop-blur-md inset-0 overflow-hidden">
+        <div className="absolute backdrop-blur-sm inset-0 overflow-hidden">
           <Transition.Child
             as={Fragment}
             enter="ease-in-out duration-300"
@@ -96,129 +96,74 @@ const Cart = forwardRef((props, ref) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="absolute inset-0 bg-black bg-opacity-10 lg:bg-opacity-50 transition-opacity" />
+            <Dialog.Overlay className="absolute inset-0 bg-black bg-opacity-30 lg:bg-opacity-50 transition-opacity" />
           </Transition.Child>
 
-          <div className={`fixed inset-x-0 bottom-0 lg:inset-y-0 ${direction === 'rtl' ? 'lg:left-0' : 'lg:right-0'} w-full max-w-full lg:max-w-md flex z-50`}>
+          <div className={`fixed inset-y-0 ${direction === 'rtl' ? 'right-0' : 'left-0'} w-full max-w-full sm:max-w-md flex`}>
 
             <Transition.Child
             as={Fragment}
-            enter="transform transition ease-in-out duration-300"
+            enter="transform transition ease-in-out duration-300 sm:duration-500"
             enterFrom={direction === 'rtl' ? "translate-x-full" : "-translate-x-full"}
             enterTo="translate-x-0"
-            leave="transform transition ease-in-out duration-300"
+            leave="transform transition ease-in-out duration-300 sm:duration-500"
             leaveFrom="translate-x-0"
             leaveTo={direction === 'rtl' ? "translate-x-full" : "-translate-x-full"}
             >
-              <div className="relative w-full h-full ">
+              <div className="relative w-full h-full">
                 <ToastContainer limit={3} />
 
-                <div className={`flex flex-col py-6 lg:max-w-[512px] w-full rounded-t-lg ${direction === 'rtl' ? 'rounded-r-none lg:rounded-t-none lg:rounded-r-lg' : 'rounded-l-none lg:rounded-t-none lg:rounded-l-lg'} bg-white shadow-lg overflow-y-hidden`} dir={direction}>
-                  <div className="px-4 sm:px
-                  -6 flex items-center justify-between">
-                    <div
-                      className="lg:block"
+                <div className="flex flex-col h-full w-full bg-white shadow-2xl overflow-hidden" dir={direction}>
+                  {/* Header */}
+                  <div className="px-4 sm:px-6 py-4 border-b-2 flex items-center justify-between" style={{ borderColor: Theme.primary }}>
+                    <button
+                      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                       onClick={() => {
                         props.openHandler(false);
                       }}
+                      aria-label="Close"
                     >
-                      <XIcon
-                        className="h-6 w-6 text-gray-500"
-
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: direction === 'rtl' ? "end" : "start",
-                        alignItems: "center",
-                        fontWeight: "bold",
-                        paddingBottom: 20,
-                        fontSize: 18,
-                      }}
-                    >
-                      <div>{t('cart')}</div>
-                      <div
-                        style={{
-                          [direction === 'rtl' ? 'marginRight' : 'marginLeft']: 10,
-                        }}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                        </svg>
-                      </div>
+                      <XIcon className="h-6 w-6 text-gray-600" />
+                    </button>
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg font-bold text-gray-900">{t('cart')}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6" style={{ color: Theme.primary }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                      </svg>
                     </div>
                   </div>
 
-                  {/* Free Shipping Bar */}
-                  {/* <div className="bg-green-50 text-green-700 text-sm py-2 px-4 text-center mb-4 mx-4 rounded-md" dir="rtl">
-                    يمكنك الحصول على شحن مجاني إذا أضفت منتجات بقيمة 1,499 د.ج
-                  </div> */}
+                  {/* Cart Items */}
+                  <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
+                    {cartg && cartg.length != 0 ? (
+                      cartg.map((cart, index) => (
+                        <Cartel
+                          order={false}
+                          key={index}
+                          index={index}
+                          data={cart.data}
+                          size={cart.size}
+                          color={cart.color}
+                          code={cart.code}
+                          selvar={cart.selvar}
+                          removeItem={removeFromCart}
+                          qty={cart.qty}
+                        />
+                      ))
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-32 h-32 mb-4">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                        </svg>
+                        <div className="font-bold text-lg mb-2">{t('emptyCart')}</div>
+                        <div className="text-sm">{t('browseProducts')}</div>
+                      </div>
+                    )}
+                  </div>
 
-                  <div
-                    style={{
-                      margin: "0px 20px",
-                      borderTop: "2px solid " + Theme.primary,
-                    }}
-                    className="mt-6 relative flex-1"
-                  >
-                    <div
-                      id="scrol"
-                      style={{
-                        height: "50vh",
-                        overflowY: "scroll",
-                        overflowX: "hidden",
-                        padding: 0,
-                      }}
-                    >
-                      {cartg && cartg.length != 0 ? (
-                        cartg.map((cart, index) => (
-                          <Cartel
-                            order={false}
-                            key={index}
-                            index={index}
-                            data={cart.data}
-                            size={cart.size}
-                            color={cart.color}
-                            code={cart.code}
-                            selvar={cart.selvar}
-                            removeItem={removeFromCart}
-                            qty={cart.qty}
-                          />
-                        ))
-                      ) : (
-                        <div
-                          style={{
-                            display: "flex",
-                            color: "grey",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            height: "100%",
-                            flexDirection: "column",
-                          }}
-
-                        >
-                          <div>
-                            {/* <Image src={"/void.svg"} width={200} height={200} alt="Empty cart" /> */}
-
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-36">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-</svg>
-
-                          </div>
-                          <div style={{ fontWeight: "bold", marginTop: 20 }}>
-                            {t('emptyCart')}
-                          </div>
-                          <div>{t('browseProducts')}</div>
-                        </div>
-                      )}
-                    </div>
-
-                    {cartg.length > 0 && (
-                      <div className="px-4 pt-4 border-t border-gray-200">
+                  {/* Footer with totals and checkout */}
+                  {cartg.length > 0 && (
+                    <div className="px-4 sm:px-6 py-4 border-t-2 bg-gray-50" style={{ borderColor: Theme.primary }}>
                         {/* الإجمالي الاساسي (Base Total) */}
                         <div className={`flex justify-between items-center text-gray-700 mb-2`} dir={direction}>
                           <span className="text-sm">{t('baseTotal')}</span>
@@ -242,47 +187,39 @@ const Cart = forwardRef((props, ref) => {
                         </div>
 
 
-                        <div className=" text-sm" >
-  {isLogged ? (
-    <div className="flex justify-center">
-      <LoadingBtn
-        act={handleOrder}
-        text={t('proceedToCheckout')}
-        lod={lod}
-        className="w-full"
-      />
-    </div>
-  ) : (
-    <div className="flex  lg:flex-row flex-col items-center lg:justify-between gap-2">
-      <LoadingBtn
-        // icon={<FaLock className="" />}
-        act={() => {
-          router.push("/login");
-          props.openHandler(false);
-        }}
-        text={t('login')}
-        color={Theme.secondaryDark}
-        lod={lod}
-        className="w-2/5  text-base rounded-md"
-      />
-      <button
-        onClick={guestCheckout}
-        style={{ backgroundColor: Theme.primary }}
-        className="lg:w-3/5 w-full bg-moon-200 text-white py-3 px-4 rounded-md text-sm font-meduim"
-        dir={direction}
-      >
-        {t('guestCheckout')}
-      </button>
-    </div>
-  )}
-</div>
-
+                      <div className="mt-4">
+                        {isLogged ? (
+                          <LoadingBtn
+                            act={handleOrder}
+                            text={t('proceedToCheckout')}
+                            lod={lod}
+                            className="w-full"
+                          />
+                        ) : (
+                          <div className="flex flex-col sm:flex-row items-center gap-2">
+                            <LoadingBtn
+                              act={() => {
+                                router.push("/login");
+                                props.openHandler(false);
+                              }}
+                              text={t('login')}
+                              color={Theme.secondaryDark}
+                              lod={lod}
+                              className="w-full sm:w-2/5"
+                            />
+                            <button
+                              onClick={guestCheckout}
+                              style={{ backgroundColor: Theme.primary }}
+                              className="w-full sm:w-3/5 text-white py-3 px-4 rounded-md text-sm font-medium hover:opacity-90 transition-opacity"
+                              dir={direction}
+                            >
+                              {t('guestCheckout')}
+                            </button>
+                          </div>
+                        )}
                       </div>
-                    )}
-
-
-
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </Transition.Child>

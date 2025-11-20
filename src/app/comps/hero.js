@@ -83,28 +83,31 @@ col-span-6 flex sm:flex lg:hidden'>
          </div> */}
 
 
-<div style={{width:'100%',position:"relative"}} 
-           className='lg:col-span-4 xl:col-span-4 md:col-span-3 col-span-6  
-           flex sm:flex w-full h-72 lg:hidden md:hidden xl:hidden overflow-hidden rounded-2xl shadow-md'>
-           <Slider  slides={[    
-            '/offers/mobileban.png',
-            '/offers/mobileban2.png',
-            '/offers/mobileban3.png',
-            '/offers/mobileban4.png',
-            '/offers/mobileban5.png',
-            '/offers/mobileban6.png',
-           ]} />
+<div className='w-full h-72 lg:hidden overflow-hidden rounded-2xl shadow-md'>
+           <Slider 
+             key="mobile-slider"
+             slides={[    
+              '/offers/mobileban.png',
+              '/offers/mobileban2.png',
+              '/offers/mobileban3.png',
+              '/offers/mobileban4.png',
+              '/offers/mobileban5.png',
+              '/offers/mobileban6.png',
+             ]} 
+           />
            </div>
 
-           <div style={{height:"480px", width:'100%',position:"relative"}} 
-           className='lg:col-span-4 max-w-7xl hidden sm:hidden lg:flex md:flex xl:flex overflow-hidden rounded-2xl shadow-lg'>
-           <Slider  slides={[
-            '/offers/lgrobeban30.png',
-            '/offers/lgban.png',
-            '/offers/lgban2.png',
-            '/offers/lgban3.png',
-            '/offers/lgban4.png',
-           ]} />
+           <div className='max-w-7xl h-[480px] hidden lg:flex overflow-hidden rounded-2xl shadow-lg'>
+           <Slider 
+             key="desktop-slider"
+             slides={[
+              '/offers/lgrobeban30.png',
+              '/offers/lgban.png',
+              '/offers/lgban2.png',
+              '/offers/lgban3.png',
+              '/offers/lgban4.png',
+             ]} 
+           />
            </div>
 
        </div>

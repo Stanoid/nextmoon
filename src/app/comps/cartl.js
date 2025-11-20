@@ -167,119 +167,89 @@ const notify = (type,msg)=>{
 
 
   return (
-    <Transition.Root  show={props.open} as={Fragment}>
-      
-      
-      <Dialog as="div" style={{height:"100vh"}} className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(true)}}>
-        <div  className="absolute inset-0 overflow-hidden">
-         <Transition.Child
-                    as={Fragment}
-                    enter="ease-in-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="ease-in-out duration-200"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-            <Dialog.Overlay  className="absolute inset-0 bg-black lg:bg-black  bg-opacity-10 lg:bg-opacity-50 transition-opacity" />
+    <Transition.Root show={props.open} as={Fragment}>
+      <Dialog 
+        as="div" 
+        className="fixed inset-0 overflow-hidden z-[100]" 
+        onClose={() => {props.openHandler(false)}}
+      >
+        <div className="absolute backdrop-blur-sm inset-0 overflow-hidden">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in-out duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="absolute inset-0 bg-black bg-opacity-30 lg:bg-opacity-50 transition-opacity" />
           </Transition.Child>
-          <div className="fixed top-0 left-0 lg:top-0 max-h-1/2 text-right   max-w-md flex ">
+          
+          <div className={`fixed inset-y-0 ${direction === 'rtl' ? 'right-0' : 'left-0'} w-full max-w-full sm:max-w-md flex`}>
             <Transition.Child
-                     as={Fragment}
-                     enter="transform transition ease-in-out duration-300"
-                     enterFrom="-translate-x-full"
-                     enterTo="translate-x-0"
-                     leave="transform transition ease-in-out duration-300"
-                     leaveFrom="translate-x-0"
-                     leaveTo="-translate-x-full"
-                     >
-              <div className="relative w-screen ">
-              <ToastContainer  limit={3}/>
+              as={Fragment}
+              enter="transform transition ease-in-out duration-300 sm:duration-500"
+              enterFrom={direction === 'rtl' ? "translate-x-full" : "-translate-x-full"}
+              enterTo="translate-x-0"
+              leave="transform transition ease-in-out duration-300 sm:duration-500"
+              leaveFrom="translate-x-0"
+              leaveTo={direction === 'rtl' ? "translate-x-full" : "-translate-x-full"}
+            >
+              <div className="relative w-full h-full">
+                <ToastContainer limit={3} />
                 
-                <div className="h-full flex flex-col py-6 rounded-t-lg rounded-r-lg lg:rounded-r-none lg:rounded-t-none  bg-white -lg overflow-y-hidden">
-            
-                  <div className="px-4 sm:px-6 flex align-middle justify-between">
-                    
-                    {/* <Dialog.Title
-                    style={{fontWeight:"bold",textAlign:"right"}}
-                    className="text-lg font-medium text-gray-900  ">المفضلة </Dialog.Title> */}
-
-<div
-  dir="rtl"
-  style={{
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 20,
-    borderBottom: "2px solid " + Theme.primary,
-    fontSize: 25,
-  }}
->
-  <div className="text-lg">المفضلة</div>
-  <div>
-  <div className=' lg:block' onClick={()=>{props.openHandler(false)}} >   <XIcon className="h-8 w-8 p-1      " aria-hidden="true" /></div>
-  </div>
-</div>
-
-
-
+                <div className="flex flex-col h-full w-full bg-white shadow-2xl overflow-hidden" dir={direction}>
+                  {/* Header */}
+                  <div className="px-4 sm:px-6 py-4 border-b-2 flex items-center justify-between" style={{ borderColor: Theme.primary }}>
+                    <button
+                      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                      onClick={() => {props.openHandler(false)}}
+                      aria-label="Close"
+                    >
+                      <XIcon className="h-6 w-6 text-gray-600" />
+                    </button>
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg font-bold text-gray-900">{t('favorites')}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" style={{ color: Theme.primary }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                      </svg>
+                    </div>
                   </div>
-                  <div className="mt-6 relative flex-1 px-4 sm:px-6">
-              
-                     
 
-                     <div id="scrol"   style={{height:"100vh",overflowY:'scroll', overflowX:'hidden',padding:10}}>
+                  {/* Favorites Items */}
+                  <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
                  
-                     {likesData && Array.isArray(likesData) && likesData.length !== 0 ? likesData.map((like, index) => (
-                like?.products && Array.isArray(like.products) && like.products.length !== 0 ?
-              <LikeEl 
-                key={like.id || index}
-                lid={like.id} 
-                removeFav={(id) => {removeFav(id)}} 
-                closeModal={() => {props.openHandler(false)}} 
-                id={like.products[0]?.id} 
-                price={like.products[0]?.varients?.[0]?.price}
-                name={like.products[0]?.name_en} 
-                code={like.products[0]?.code}
-                index={index}
-                img={
-                  like.products[0]?.images && Array.isArray(like.products[0].images) && like.products[0].images[0]?.url
-                    ? IMG_URL + like.products[0].images[0].url
-                    : "/default-image.png" 
-                }
-              />
-              : null
-           
-               )) :
-               <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
-                  <div>
-      <Image src={'/like.svg'} width={200} height={200} />
-      </div>
-                 <div onClick={()=>{console.log(likesData)}} style={{fontWeight:'bold',marginTop:20}}> فارغة   </div>
-                 <div>تصفح المنتجات و أضفها للمفضلة</div>
-                 </div>}
-           
-
-              
-               
-                   
-                     
-                  
-                    
-                     </div>
-   
-                    {/* <div style={{padding:20,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-                        <div style={{fontSize:15,fontWeight:'bold'}}></div>
-                       
-                          
-                          
-                         
-                        
-
-                    
-                         <LoadingBtn act={()=>{handleCart()}}  text={"متابعة"} lod={lod} /></div>                   */}
-                    {/* /End replace */}
+                    {likesData && Array.isArray(likesData) && likesData.length !== 0 ? (
+                      likesData.map((like, index) => (
+                        like?.products && Array.isArray(like.products) && like.products.length !== 0 ? (
+                          <LikeEl 
+                            key={like.id || index}
+                            lid={like.id} 
+                            removeFav={(id) => {removeFav(id)}} 
+                            closeModal={() => {props.openHandler(false)}} 
+                            id={like.products[0]?.id} 
+                            price={like.products[0]?.varients?.[0]?.price}
+                            name={like.products[0]?.name_en} 
+                            code={like.products[0]?.code}
+                            index={index}
+                            img={
+                              like.products[0]?.images && Array.isArray(like.products[0].images) && like.products[0].images[0]?.url
+                                ? IMG_URL + like.products[0].images[0].url
+                                : "/default-image.png" 
+                            }
+                          />
+                        ) : null
+                      ))
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-32 h-32 mb-4">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                        </svg>
+                        <div className="font-bold text-lg mb-2">{t('emptyFavorites')}</div>
+                        <div className="text-sm">{t('browseFavorites')}</div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

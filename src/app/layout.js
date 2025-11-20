@@ -33,7 +33,6 @@ import { useSelector } from "react-redux";
 const ArFont = localFont({ src: './styles/fonts/alfont_com_SomarGX.ttf' })
 const EnFont = localFont({ src: './styles/fonts/gothambook-webfont.woff2' })
 
-
 export default function RootLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname()

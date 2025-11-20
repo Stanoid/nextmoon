@@ -140,6 +140,26 @@ export const clearCart =  (pld) => async (dispatch,getState) =>{
   }
 
 
+export const updateCartQuantity = (pld) => async (dispatch, getState) => {
+  const state = getState();
+  let carr = state.root.cart.data;
+  var nnccr = JSON.parse(JSON.stringify(carr));
+
+  for (let i = 0; i < nnccr.length; i++) {
+    if (nnccr[i].selvar == pld.id && nnccr[i].color == pld.color && nnccr[i].size == pld.size) {
+      if (pld.action === 'increase') {
+        nnccr[i].qty = nnccr[i].qty + 1;
+      } else if (pld.action === 'decrease' && nnccr[i].qty > 1) {
+        nnccr[i].qty = nnccr[i].qty - 1;
+      }
+      break;
+    }
+  }
+
+  dispatch({ type: types.ADDTOCART, payload: nnccr })
+}
+
+
   
 // INCREMENT COUNTER BY 1
 export const incrementCount = () => ({ type: types.INCREMENT })

@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { removeFromCart } from "../lib/actions/counterAction";
+import { removeFromCart, updateCartQuantity } from "../lib/actions/counterAction";
 import { useDispatch } from "react-redux";
 import { XIcon } from "@heroicons/react/outline";
 import {
@@ -26,11 +26,14 @@ export default function Cartel(props) {
 
   
 const handleQuantityChange = (action) => {
-    if (action === "increase") {
-      props.setQty(props.qty + 1);
-    } else if (action === "decrease" && props.qty > 1) {
-      props.setQty(props.qty - 1);
-    }
+    dispatch(
+      updateCartQuantity({
+        id: props.selvar,
+        color: props.color,
+        size: props.size,
+        action: action
+      })
+    );
   };
 
 
@@ -55,190 +58,113 @@ const handleQuantityChange = (action) => {
   // console.log("Image URL:", props.data.attributes.images?.data?.[0]?.attributes?.url);
 
   return (
-    <div
-      className=" w-full"
-      style={{
-        display: "flex",
-        borderRadius: 10,
-        alignItems: "center",
-        backgroundColor: "white",
-        margin: "10px 10px",
-        justifyContent: "space-between",
-      }}
-    >
-      <div
-        style={{
-          padding: 10,
-          width: "100%",
-          display: "flex",
-          flexDirection: "row-reverse",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+    <div className="w-full bg-white rounded-lg border border-gray-100 mb-3 overflow-hidden hover:shadow-md transition-shadow" dir="rtl">
+      <div className="flex gap-3 p-3">
+        {/* Product Image */}
+        <div className="flex-shrink-0">
           <img
-            className="w-[84px] h-[84px] object-cover lg:w-[120px] lg:h-[120px]"
-            style={{ borderRadius: 8 }}
+            className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg border border-gray-200"
             src={
               props.data.attributes.images?.data?.[0]?.attributes?.url
                 ? IMG_URL + props.data.attributes.images.data[0].attributes.url
                 : "/default-image.png"
             }
+            alt={props.data.attributes.name_ar}
           />
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            // alignItems: "center",
-            // justifyContent: "end",
-            flexDirection: "column",
-          }}
-          className="sm:flex-col lg:flex-row"
-        >
-          {/* <div
-            dir="rtl"
-            className="text-xs w-full"
-            style={{
-              padding: 5,
-              paddingBottom: 0,
-              fontWeight: "bold",
-              textAlign: "right",
-            }}
-          >
-            {props.data.attributes.name_ar.length > 30
-              ? props.data.attributes.name_ar.slice(0, 30) + "..."
-              : props.data.attributes.name_ar}
-              -           {props.code}
+        {/* Product Details */}
+        <div className="flex-1 min-w-0 flex flex-col justify-between">
+          {/* Product Name & Code */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 truncate mb-1">
+              {props.data.attributes.name_ar}
+            </h3>
+            <p className="text-xs text-gray-500">كود: {props.code}</p>
+          </div>
 
-          </div> */}
-
-          <div className="flex flex-col items-end flex-grow text-right pr-4">
-            <div className="text-base font-semibold text-gray-800">
-              <span
-                className="block overflow-hidden whitespace-nowrap text-ellipsis"
-                dir="rtl"
-              >
-                {props.data.attributes.name_ar} - {props.code}
-              </span>
-            </div>
-            <div
-              className="flex items-center space-x-2 rtl:space-x-reverse text-sm text-gray-600 mt-1"
-              dir="rtl"
-            >
-              {varient && varient.attributes.colors.data[0] && (
+          {/* Color & Size */}
+          <div className="flex items-center gap-2 mt-1">
+            {varient && varient.attributes.colors.data[0] && (
+              <>
                 <div
-                  className="w-4 h-4 rounded-full border border-gray-500 flex-shrink-0"
+                  className="w-4 h-4 rounded-full border-2 border-gray-300"
                   style={{
-                    backgroundColor:
-                      varient.attributes.colors.data[0].attributes.colorCode,
+                    backgroundColor: varient.attributes.colors.data[0].attributes.colorCode,
                   }}
-                ></div>
-              )}
-              {varient && varient.attributes.colors.data[0] && (
-                <span className="text-gray-600 text-sm font-medium">
-                  {varient.attributes.colors.data[0].attributes.name_ar} -
+                />
+                <span className="text-xs text-gray-600">
+                  {varient.attributes.colors.data[0].attributes.name_ar}
                 </span>
-              )}
-
-              {varient && varient.attributes.sizes.data[0] && (
-                <span className="font-medium">
+              </>
+            )}
+            {varient && varient.attributes.sizes.data[0] && (
+              <>
+                <span className="text-gray-400">•</span>
+                <span className="text-xs text-gray-600 font-medium">
                   {varient.attributes.sizes.data[0].attributes.icon}
                 </span>
-              )}
-              {/* <span className="ml-1">الاحمر</span>  */}
-            </div>
-            <div className="flex items-center gap-2 space-x-1 rtl:space-x-reverse mt-2">
+              </>
+            )}
+          </div>
+
+          {/* Price & Quantity */}
+          <div className="flex items-center justify-between mt-2">
+            {/* Quantity Controls */}
+            <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-1">
               <button
                 onClick={() => handleQuantityChange("decrease")}
-                className="w-6 h-6 border  border-moon-200  rounded-md flex items-center justify-center text-sm"
-                style={{ color: Theme.primary, backgroundColor: "white" }}
+                className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-300 hover:bg-white transition-colors"
+                style={{ color: Theme.primary }}
               >
                 <BsDash className="w-4 h-4" />
               </button>
-              <span className="text-base font-medium">{props.qty}</span>
+              <span className="text-sm font-semibold min-w-[20px] text-center">{props.qty}</span>
               <button
                 onClick={() => handleQuantityChange("increase")}
-                className="w-6 h-6 rounded-md flex items-center justify-center text-sm"
-                style={{ backgroundColor: Theme.primary, color: "white" }}
+                className="w-7 h-7 flex items-center justify-center rounded-md text-white transition-colors hover:opacity-90"
+                style={{ backgroundColor: Theme.primary }}
               >
                 <BsPlus className="w-4 h-4" />
               </button>
             </div>
+
+            {/* Price */}
+            {varient && (
+              <div className="text-left">
+                <p className="text-sm font-bold" style={{ color: Theme.primary }}>
+                  {(varient.attributes.price * props.qty).toFixed(2)} {CURRENCY}
+                </p>
+                {varient.attributes.old_price && (
+                  <p className="text-xs text-gray-400 line-through">
+                    {(varient.attributes.old_price * props.qty).toFixed(2)} {CURRENCY}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
-        <div
-          className=""
-          style={{
-            display: "flex",
-            alignContent: "center",
-            justifyContent: "center",
-            flexDirection: "row",
-            marginLeft: 5,
-          }}
-        >
-          <div
-            className="space-x-2"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {varient &&
-              varient.attributes.colors.data.map((color) => {
-                if (color.id == props.color) {
-                  return (
-                    <div
-                      style={{
-                        backgroundColor:
-                          varient &&
-                          varient.attributes.colors.data[0].attributes
-                            .colorCode,
-                      }}
-                      className="w-7 h-7 rounded-full"
-                    ></div>
-                  );
-                }
-              })}
-
-            
+        {/* Delete Button */}
+        {!props.order && (
+          <div className="flex-shrink-0 flex items-start">
+            <button
+              onClick={() => {
+                dispatch(
+                  removeFromCart({
+                    id: props.selvar,
+                    color: props.color,
+                    size: props.size,
+                  })
+                );
+              }}
+              className="p-2 rounded-lg hover:bg-red-50 transition-colors group"
+              aria-label="Remove item"
+            >
+              <BsTrashFill className="w-4 h-4 text-gray-400 group-hover:text-red-500 transition-colors" />
+            </button>
           </div>
-        </div>
-
-        <div
-          onClick={() => {
-            dispatch(
-              removeFromCart({
-                id: props.selvar,
-                color: props.color,
-                size: props.size,
-              })
-            );
-          }}
-          style={{
-            display: props.order ? "none" : "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRight: "2px solid lightgrey",
-            paddingRight: 10,
-          }}
-        >
-          <div
-            className="border border-moon-200 rounded-md  text-moon-200"
-            style={{ padding: 2.5 }}
-          >
-            <BsX style={{ color: "", fontSize: 25 }} />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

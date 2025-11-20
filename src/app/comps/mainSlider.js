@@ -10,6 +10,7 @@ export default (props) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [loaded, setLoaded] = useState(false)
   const [isPlaying, setIsPlaying] = useState(true);
+  const [key, setKey] = useState(0);
 
   const [sliderRef, instanceRef] = useKeenSlider(
     {
@@ -24,6 +25,9 @@ export default (props) => {
       },
       created() {
         setLoaded(true)
+      },
+      destroyed() {
+        setLoaded(false)
       },
     },
     [
@@ -68,25 +72,45 @@ export default (props) => {
     }
   }, [isPlaying, instanceRef]);
 
+  useEffect(() => {
+    if (instanceRef.current && props.slides && props.slides.length > 0) {
+      instanceRef.current.update();
+    }
+  }, [props.slides]);
+
+  // Force remount on slides change
+  useEffect(() => {
+    setKey(prev => prev + 1);
+  }, [props.slides?.length]);
+
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
+  if (!props.slides || props.slides.length === 0) {
+    return <div className="rounded-2xl lg:h-[480px] h-72 bg-gray-200 flex items-center justify-center">
+      <p className="text-gray-500">No images available</p>
+    </div>
+  }
+
   return (
-    <div className="rounded-2xl lg:h-[480px] h-72 lg:mt-0 mt-0 relative overflow-hidden" style={{ width: "100%" }}>
-      <div style={{ width: "100%", height: "100%" }} className="navigation-wrapper">
-        <div style={{ width: "100%", height: "100%" }} ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden">
-          {props.slides && props.slides.length > 0 && props.slides.map((img, index) => (
-            <div key={`${img}-${index}`} className="keen-slider__slide lg:h-[480px] h-72 w-full relative">
-              <Image
-                priority={index === 0}
-                fill
-                style={{ objectFit: 'cover' }}
-                src={img}
-                className="rounded-2xl"
-                alt={`Slider Image ${index + 1}`}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1280px"
-              />
+    <div key={key} className="rounded-2xl lg:h-[480px] h-72 relative overflow-hidden w-full">
+      <div className="w-full h-full navigation-wrapper">
+        <div ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden w-full h-full"
+          style={{ display: 'flex' }}>
+          {props.slides.map((img, index) => (
+            <div key={`slide-${index}`} className="keen-slider__slide h-full w-full">
+              <div className="relative w-full h-full">
+                <Image
+                  priority={index === 0}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  src={img}
+                  alt={`Slider Image ${index + 1}`}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1280px"
+                  unoptimized
+                />
+              </div>
             </div>
           ))}
         </div>
