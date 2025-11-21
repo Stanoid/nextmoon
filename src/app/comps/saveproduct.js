@@ -54,114 +54,100 @@ export default function Product(props) {
     return parseInt(oldPrice);
   }
 
+  const varient = props.data.varients?.[0];
+  const discount = varient?.old_price > 0 ? varient.old_price : null;
+
   return (
     <motion.div
       onClick={() => {
         setLoading(true);
         router.push(`/products?pid=${props.data.id}`);
       }}
-      className="
-      w-[400px] h-[401px]   rounded-lg border border-gray-200 bg-white shadow-md cursor-pointer flex flex-col overflow-hidden relative"
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2 }}
+      className="rounded-xl border border-gray-200 bg-white shadow-md hover:shadow-lg cursor-pointer flex flex-col overflow-hidden relative transition-shadow duration-200"
+      style={{ width: '308px', height: '501px', minWidth: '308px' }}
     >
-      <div
-        className="relative  h-full lg:max-w-[308px] lg:max-h-[308px] w-full"
-        style={{}}
-      >
+      {/* Image Section - 308x308 with 8px padding */}
+      <div className="relative p-2" style={{ width: '308px', height: '308px' }}>
         {loading ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 ">
-            <div style={{ zIndex: 10 }}>
-              <div
-                style={{ justifyContent: "center", alignItems: "center" }}
-                className="lds-facebook"
-              >
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-20">
+            <div style={{ justifyContent: "center", alignItems: "center" }} className="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
             </div>
           </div>
         ) : (
           <>
             <Image
               fill
-              objectFit="cover"
-              className="rounded-t-lg"
-              // src={IMG_URL + props.data?.images?.[0]?.formats?.thumbnail?.url}
+              style={{ objectFit: 'cover' }}
+              className="rounded-t-xl"
               src={`${IMG_URL}${props.data?.images[0]?.formats?.medium?.url}`}
               alt={props.data?.name_ar}
             />
-            <div className="absolute top-2 left-2 p-2 bg-[#f7a0983d] rounded-md shadow-sm z-10">
+            <div className="absolute top-2 left-2 p-2 bg-[#f7a0983d] rounded-full shadow-sm z-10">
               <FaHeart className="text-gray-400 text-lg" />
             </div>
           </>
         )}
       </div>
 
-      <div
-        dir="ltr"
-        className="flex flex-col p-2 lg:max-h-[193px] h-full   lg:max-w-[308px] w-full bg-white  items-end"
-      >
-        <div className="lg:text-lg text-base hidden  lg:flex sm:hidden lg:flex:row font-medium mb-2 text-gray-800 text-right ">
-          {props.data.name_ar} - {props.data.code}
-        </div>
-
-        <div className="lg:text-lg  lg:hidden flex flex-col font-medium mb-2 text-gray-800 text-right ">
-          <h>{props.data.code}</h>
-          <h>{props.data.name_ar}</h>
-        </div>
-
-        <div className="flex flex-col items-end mb-4">
-          <div className="flex items-center mb-2">
-            {colors &&
-              colors.map((color) => (
-                <div key={color.id} className="ml-1">
-                  <Tooltip
-                    className="bg-moon-300 font-medium py-2 px-5 text-white"
-                    content={color.name_ar}
-                  >
-                    <div
-                      style={{ backgroundColor: color.colorCode }}
-                      className="h-[14px] w-[14px] lg:h-[16px] lg:w-[16px] rounded-full border border-gray-200"
-                    ></div>
-                  </Tooltip>
-                </div>
-              ))}
+      {/* Product Details Section - 308x193 with padding 4px and gap 12px */}
+      <div dir="rtl" className="flex flex-col justify-between bg-white p-4" style={{ width: '308px', height: '193px', gap: '12px' }}>
+        {/* Name, Colors, Stars Section - 276x85 with gap 12px */}
+        <div className="flex flex-col items-  " style={{ width: '276px', height: '85px', gap: '12px' }}>
+          {/* Product Name/Code - Right aligned */}
+          <div className="text-base font-medium text-gray-800 text-right w-full">
+            {props.data.name_ar} - {props.data.code}
           </div>
 
-          <div className="flex items-center space-x-1">
+          {/* Colors - Right aligned */}
+          <div className="flex items-center justify-start gap-1 w-full">
+            {colors && colors.map((color) => (
+              <Tooltip key={color.id} className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar}>
+                <div
+                  style={{ backgroundColor: color.colorCode }}
+                  className="h-[16px] w-[16px] rounded-full border border-gray-200"
+                ></div>
+              </Tooltip>
+            ))}
+          </div>
+
+          {/* Rating - Right aligned */}
+          <div className="flex items-center justify-start gap-1 w-full">
             <div className="text-xs text-gray-600">(3.4k)</div>
-            <FaStar className="text-yellow-400 text-sm" />
-            <FaStar className="text-yellow-400 text-sm" />
-            <FaStar className="text-yellow-400 text-sm" />
-            <FaStar className="text-yellow-400 text-sm" />
+            {[...Array(4)].map((_, i) => (
+              <FaStar key={i} className="text-yellow-400 text-sm" />
+            ))}
             <FaStar className="text-gray-300 text-sm" />
           </div>
         </div>
 
-        <div className="flex flex-col items-end  w-[276px] lg:mt-2 h-fit">
-          <div className="text-lg font-bold text-gray-900 flex items-baseline">
-            <div className="ml-1">{CURRENCY}</div>
-
-            <div>
-              <div>{props.data.varients[0].price}</div>
-            </div>
+        {/* Price Section - 276x64 with gap 4px - Left aligned */}
+      <div className="flex flex-col items-start justify-start" style={{ width: '276px', height: '64px', gap: '4px' }}>
+          <div className="text-2xl font-bold text-gray-900 flex items-baseline">
+            <div className="mr-1">{CURRENCY}</div>
+            <div>{props.data.varients[0].price}</div>
           </div>
-          {/* {props.data.varients[0].old_price > 0 &&
-            props.data.varients[0].old_price > props.data.varients[0].price && ( */}
+          {props.data.varients[0]?.old_price > 0 && (
+            <div className="text-sm text-gray-400 line-through flex items-baseline">
+              <div className="mr-1">{CURRENCY}</div>
+              <div>
+                {(props.data.varients[0].price / (1 - props.data.varients[0].old_price / 100)).toFixed(2)}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      <span className="absolute bottom-4 left-4 bg-moon-100 text-moon-200 text-xs font-bold px-3 py-1 rounded-full z-10">
-        {props.data.varients[0].old_price}
-      </span>
-
-      <span dir="rtl" className="text-base text-gray-500 line-through flex items-baseline absolute bottom-4 right-4">
-  <div>{(props.data.varients[0].price / (1 - props.data.varients[0].old_price / 100)).toFixed(2)}</div>
-  <div className="ml-1">{CURRENCY}</div>
-</span>
-
-
-      {/* )}s */}
+      {/* Discount Badge - Bottom Left */}
+      {discount && (
+        <span className="absolute bottom-4 left-4 bg-moon-100 text-moon-200 text-xs font-bold px-3 py-1 rounded-full z-10">
+          {`%${discount} خصم`}
+        </span>
+      )}
     </motion.div>
   );
 }

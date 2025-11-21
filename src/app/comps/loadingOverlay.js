@@ -1,20 +1,20 @@
-import React from 'react'
-import Logo from "../../../public/amblemred.svg"
-function LoadingOverlay() {
+'use client'
+
+import React from 'react';
+import Logowhite from "../../../public/logoblack.svg";
+
+const LoadingOverlay = ({ isLoading }) => {
+  if (!isLoading) return null;
+
   return (
-    <div className="  bg-white" style={{backgroundSize:20,position:"fixed",zIndex:10,width:"100svw",height:"100vh",top:0,left:0,alignItems:"center",justifyContent:"center",display:"flex"}}>
-    
-<div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
-    <div className='bg-moon-100 rounded-full p-3' >
-    <Logo  className="stroke-moon-200  "   width={70} height={70} />
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/90 backdrop-blur-sm">
+      <div className="inline-block" style={{
+        animation: 'fadeInOut 2s ease-in-out infinite'
+      }}>
+        <Logowhite width={128} height={53} />
+      </div>
     </div>
+  );
+};
 
-{/* <div className='font-semibold text-moon-200 '  style={{marginTop:10}} > ..جار التحميل </div> */}
-</div>
-
-
-    </div>
-  )
-}
-
-export default LoadingOverlay
+export default LoadingOverlay;

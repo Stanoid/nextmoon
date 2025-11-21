@@ -89,9 +89,23 @@ const Footer = () => {
           <div className={`flex flex-col items-start md:items-start ${direction === 'rtl' ? 'text-right md:text-right' : 'text-left md:text-left'} order-2 md:order-2`}>
             <h4 className="font-semibold text-sm text-gray-700 mb-4">{t('aboutCompany')}</h4>
             <ul className="space-y-2 text-gray-500 text-sm">
-              <li><a href="#" className="hover:text-gray-800">{t('jobs')}</a></li>
-              <li><a href="/about" className="hover:text-gray-800">{t('aboutUs')}</a></li>
-              <li><a href="#" className="hover:text-gray-800">{t('ourStores')}</a></li>
+              <li>
+                <span 
+                  onClick={() => router.push('/jobs')} 
+                  className="hover:text-gray-800 cursor-pointer"
+                >
+                  {t('jobs')}
+                </span>
+              </li>
+              <li>
+                <span 
+                  onClick={() => router.push('/about')} 
+                  className="hover:text-gray-800 cursor-pointer"
+                >
+                  {t('aboutUs')}
+                </span>
+              </li>
+              <li><a href="#" className="hover:text-gray-800 cursor-pointer">{t('ourStores')}</a></li>
             </ul>
           </div>
 

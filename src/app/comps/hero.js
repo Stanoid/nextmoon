@@ -1,4 +1,6 @@
-import React from 'react'
+'use client';
+
+import React, { useState } from 'react'
 import Image from 'next/image'
 // import SimpleImageSlider from "react-simple-image-slider";
 // import Slider from './mainSlider';
@@ -6,9 +8,11 @@ import Image from 'next/image'
 
 
 export default function Hero(props) {
+  const [mobileImageError, setMobileImageError] = useState(false);
+  const [desktopImageError, setDesktopImageError] = useState(false);
  
     return (
-       <div className='w-full'>
+       <div className='w-full flex justify-center pt-4 lg:pt-16'>
          
 {/* TEMPORARY: Slider commented out - using single image */}
 {/* <div className='w-full h-72 lg:hidden overflow-hidden rounded-2xl shadow-md'>
@@ -40,26 +44,46 @@ export default function Hero(props) {
 
            {/* Single Hero Image - Mobile */}
            <div className='w-full h-72 lg:hidden relative overflow-hidden rounded-2xl shadow-md'>
-             <Image 
+             <img 
                src='/offers/mobileban.png'
-               fill
-               style={{ objectFit: 'cover' }}
-               alt='Hero Banner'
-               priority
-               sizes="100vw"
+               alt='Hero Banner Mobile'
+               className='w-full h-full object-cover'
+               onError={(e) => {
+                 console.error('Mobile hero image failed to load');
+                 e.target.style.display = 'none';
+                 setMobileImageError(true);
+               }}
              />
+             {mobileImageError && (
+               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-moon-100 to-moon-200 text-white text-center p-4">
+                 <div>
+                   <h2 className="text-2xl font-bold mb-2">مرحباً بكم في Minimoon</h2>
+                   <p className="text-sm">أفضل الأسعار وأسرع توصيل</p>
+                 </div>
+               </div>
+             )}
            </div>
 
            {/* Single Hero Image - Desktop */}
-           <div className='max-w-7xl h-[480px] hidden lg:block relative overflow-hidden rounded-2xl shadow-lg'>
-             <Image 
+           <div className='max-w-7xl mx-auto h-[480px] hidden lg:block relative overflow-hidden rounded-2xl shadow-lg'>
+             <img 
                src='/offers/lgrobeban30.png'
-               fill
-               style={{ objectFit: 'cover' }}
-               alt='Hero Banner'
-               priority
-               sizes="1280px"
+               alt='Hero Banner Desktop'
+               className='w-full h-full object-cover'
+               onError={(e) => {
+                 console.error('Desktop hero image failed to load');
+                 e.target.style.display = 'none';
+                 setDesktopImageError(true);
+               }}
              />
+             {desktopImageError && (
+               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-moon-100 to-moon-200 text-white text-center p-8">
+                 <div>
+                   <h2 className="text-4xl font-bold mb-4">مرحباً بكم في Minimoon</h2>
+                   <p className="text-xl">أفضل الأسعار وأسرع توصيل</p>
+                 </div>
+               </div>
+             )}
            </div>
 
        </div>

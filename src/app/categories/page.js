@@ -58,31 +58,20 @@ export default function Home() {
 
   return (
     <>
-      {lod && (
-        <div className="flex justify-center items-center h-screen">
-          <div className="lds-facebook">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      )}
-
-      {!lod && (
-        <div className="w-full">
+      <div className="w-full">
           {/* Mobile Filter Button - Top */}
-          <div className="lg:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
-            <div className="max-w-screen-xl mx-auto px-4 py-3">
+          <div className="lg:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+            <div className="max-w-screen-xl mx-auto px-3 py-2.5">
               <button
                 onClick={() => setShowMobileFilter(true)}
-                className="w-full px-5 py-3.5 bg-white hover:bg-gray-50 border-2 border-gray-200 hover:border-moon-200 text-gray-700 rounded-xl flex items-center justify-center gap-2.5 font-semibold transition-all shadow-sm hover:shadow-md"
+                className="w-full px-4 py-3 bg-white hover:bg-gray-50 border border-gray-200 hover:border-moon-200 text-gray-500 rounded-lg flex items-center justify-center gap-2 font-normal transition-all shadow-sm hover:shadow-md"
               >
-                <svg className="w-5 h-5 text-moon-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-moon-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                 </svg>
-                <span>{t('filterProducts')}</span>
+                <span className="text-sm">{t('filterProducts')}</span>
                 {(filters.sizes || filters.colors || filters.priceRange) && (
-                  <span className="bg-moon-200 text-white text-xs px-2.5 py-1 rounded-full font-bold ml-1">
+                  <span className="bg-moon-200 text-white text-xs px-2 py-0.5 rounded-full font-medium ml-1">
                     {t('active')}
                   </span>
                 )}
@@ -90,16 +79,16 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row w-full max-w-screen-2xl mx-auto px-2 lg:px-4 gap-4 lg:gap-6 mt-4 lg:mt-6 mb-8">
+          <div className="flex flex-col lg:flex-row w-full px-3 lg:px-12 gap-4 lg:gap-8 mt-4 lg:mt-6 mb-8">
             {/* Sidebar Filter - Desktop */}
             <div className="hidden lg:block lg:w-[280px] shrink-0 sticky top-6 self-start">
               <SidebarFilter onFilterChange={handleFilterChange} />
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 space-y-6" dir="ltr">
+            <div className="flex-1 space-y-8" dir="ltr">
               {/* Subcategory Banners */}
-              <div className="w-full py-2 lg:mt-12 grid grid-cols-3 gap-4 items-center justify-center">
+              <div className="w-full py-2 lg:mt-8 grid grid-cols-4  gap-4 items-center justify-center">
                 {products?.products?.map((prd) => (
                   <div
                     key={prd.id}
@@ -145,12 +134,14 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="grid gap-3 sm:gap-4 lg:gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-0 lg:gap-8 justify-items-center">
                     {filteredResults.products.map(
                       (prd) =>
                         prd.status && (
-                          <div key={prd.id}>
-                            <ProductCopm atcbtn={false} data={prd} />
+                          <div key={prd.id} className="w-full flex justify-center -my-16 lg:my-0">
+                            <div className="transform scale-[0.6] lg:scale-[0.95]">
+                              <ProductCopm atcbtn={false} data={prd} />
+                            </div>
                           </div>
                         )
                     )}
@@ -158,7 +149,7 @@ export default function Home() {
                 </div>
               )}
 
-              {Array.isArray(products) &&
+              {!filteredResults && Array.isArray(products) &&
                 products.map((sub, index) => (
                   <div className="w-full mb-6" key={sub.id}>
                     <div className="bg-white rounded-xl shadow-sm p-4 lg:p-5 mb-4" dir="rtl">
@@ -169,12 +160,14 @@ export default function Home() {
                     </div>
 
                     {index % 2 === 0 ? (
-                      <div className="grid gap-3 sm:gap-4 lg:gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-0 lg:gap-8 justify-items-center">
                         {sub.products?.map(
                           (prd) =>
                             prd.status && (
-                              <div key={prd.id}>
-                                <ProductCopm atcbtn={false} data={prd} />
+                              <div key={prd.id} className="w-full flex justify-center -my-16 lg:my-0">
+                                <div className="transform scale-[0.6] lg:scale-[0.95]">
+                                  <ProductCopm atcbtn={false} data={prd} />
+                                </div>
                               </div>
                             )
                         )}
@@ -189,7 +182,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      )}
 
       {/* Mobile Filter Modal */}
       {showMobileFilter && (
@@ -198,7 +190,7 @@ export default function Home() {
             className="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-2xl overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-4 flex justify-between items-center z-10">
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-4 flex justify-between items-center ">
               <h2 className="text-xl font-bold text-gray-800">{t('filters')}</h2>
               <button
                 className="p-2 hover:bg-gray-100 rounded-full transition-colors"

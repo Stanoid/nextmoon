@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import { API_URL } from '../local';
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
+import { useI18n } from '../lib/i18n';
 
 export default function SidebarFilter({ onFilterChange }) {
+  const { t, locale } = useI18n();
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState(new Set());
@@ -78,16 +80,16 @@ console.log("subcatsdddddddddddddddddd",subcatData);
   const hasActiveFilters = selectedSizes.size > 0 || selectedColors.size > 0 || priceRange.min !== '' || priceRange.max !== '';
 
   return (
-    <aside dir='rtl' className="w-full bg-white p-4 lg:p-5 shadow-sm lg:shadow-lg rounded-xl border border-gray-100 lg:sticky lg:top-6 relative lg:z-auto">
-      <div className="flex justify-between items-center mb-4 lg:mb-6">
-        <h2 className="text-lg lg:text-xl font-bold text-gray-800">الفلاتر</h2>
+    <aside dir='rtl' className="w-full bg-white p-5 lg:p-6 shadow-md rounded-2xl border border-gray-200 lg:sticky lg:top-6 relative lg:z-auto">
+      <div className="flex justify-between items-center mb-5 lg:mb-6 pb-4 border-b border-gray-100">
+        <h2 className="text-xl lg:text-2xl font-bold text-gray-900">{t('filters')}</h2>
         {hasActiveFilters && (
           <button
             onClick={handleClearFilters}
-            className="text-xs text-red-500 hover:text-red-700 flex items-center gap-1 transition-colors font-medium"
+            className="text-xs text-red-500 hover:text-red-600 flex items-center gap-1.5 transition-all font-semibold hover:scale-105"
           >
             <FaTimes className="text-xs" />
-            مسح الكل
+            {t('clearFilter')}
           </button>
         )}
       </div>
@@ -99,7 +101,9 @@ console.log("subcatsdddddddddddddddddd",subcatData);
           onClick={() => setIsSizesOpen(!isSizesOpen)}
         >
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">المقاس</h3>
+            <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">
+              {locale === 'ar' ? 'المقاس' : locale === 'fr' ? 'Taille' : 'Size'}
+            </h3>
             {selectedSizes.size > 0 && (
               <span className="bg-moon-200 text-white text-xs px-2 py-0.5 rounded-full font-bold">
                 {selectedSizes.size}
@@ -128,7 +132,7 @@ console.log("subcatsdddddddddddddddddd",subcatData);
                   `}
                   onClick={() => handleSizeClick(size.id)}
                 >
-                  {size.name_ar}
+                  {locale === 'ar' ? size.name_ar : locale === 'fr' ? (size.name_fr || size.name_ar) : (size.name_en || size.name_ar)}
                 </button>
               );
             })}
@@ -143,7 +147,9 @@ console.log("subcatsdddddddddddddddddd",subcatData);
           onClick={() => setIsColorsOpen(!isColorsOpen)}
         >
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">الألوان</h3>
+            <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">
+              {locale === 'ar' ? 'الألوان' : locale === 'fr' ? 'Couleurs' : 'Colors'}
+            </h3>
             {selectedColors.size > 0 && (
               <span className="bg-moon-200 text-white text-xs px-2 py-0.5 rounded-full font-bold">
                 {selectedColors.size}
@@ -171,7 +177,7 @@ console.log("subcatsdddddddddddddddddd",subcatData);
                     ${isWhite ? 'border-gray-300' : ''}
                   `}
                   style={{ backgroundColor: color.colorCode }}
-                  title={color.name_ar}
+                  title={locale === 'ar' ? color.name_ar : locale === 'fr' ? (color.name_fr || color.name_ar) : (color.name_en || color.name_ar)}
                   onClick={() => handleColorClick(color.id)}
                 >
                   {isSelected && (
@@ -194,7 +200,9 @@ console.log("subcatsdddddddddddddddddd",subcatData);
           className="flex justify-between items-center w-full pb-2 lg:pb-3 text-right cursor-pointer group hover:text-moon-200 transition-colors"
           onClick={() => setIsPriceOpen(!isPriceOpen)}
         >
-          <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">نطاق السعر</h3>
+          <h3 className="font-semibold text-sm lg:text-base text-gray-700 group-hover:text-moon-200">
+            {locale === 'ar' ? 'نطاق السعر' : locale === 'fr' ? 'Gamme de prix' : 'Price Range'}
+          </h3>
           {isPriceOpen ? (
             <FaChevronUp className="text-gray-400 text-xs lg:text-sm" />
           ) : (
@@ -239,7 +247,7 @@ console.log("subcatsdddddddddddddddddd",subcatData);
         className="bg-moon-200 hover:bg-moon-300 text-white font-semibold text-sm lg:text-base px-4 lg:px-6 py-2.5 lg:py-3 rounded-lg w-full transition-all shadow-md hover:shadow-lg active:scale-95"
         onClick={handleFilterSubmit}
       >
-        تطبيق الفلاتر
+        {t('filterProducts')}
       </button>
     </aside>
   );

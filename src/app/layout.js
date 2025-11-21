@@ -30,6 +30,10 @@ import { useRouter, usePathname } from "next/navigation";
 import { BsX } from "react-icons/bs";
 import { I18nProvider } from "./lib/i18n";
 import { useSelector } from "react-redux";
+import Breadcrumbs from "./comps/Breadcrumbs";
+import SearchContent from "./comps/SearchContent";
+import MobileSearchContent from "./comps/MobileSearchContent";
+import MobileSearchInput from "./comps/MobileSearchInput";
 const ArFont = localFont({ src: './styles/fonts/alfont_com_SomarGX.ttf' })
 const EnFont = localFont({ src: './styles/fonts/gothambook-webfont.woff2' })
 
@@ -56,6 +60,10 @@ export default function RootLayout({ children }) {
   const [draw,setDraw] = useState(false)
   const [searwidth,setSearwidth] = useState(0);
   const [sugges,setSugges] = useState([])
+  const [searchValue, setSearchValue] = useState('')
+  const [isMobileSearch, setIsMobileSearch] = useState(false)
+  const mobileSearchInputRef = useRef(null)
+  const [isSearching, setIsSearching] = useState(false)
   //let { cart } = useContext(CartContext);
   const ls = require("local-storage");
 
@@ -83,6 +91,12 @@ export default function RootLayout({ children }) {
       inputRef.current.focus();
     }
   }, [searchTog]);
+
+  useEffect(() => {
+    if (isMobileSearch && mobileSearchInputRef.current) {
+      mobileSearchInputRef.current.focus();
+    }
+  }, [isMobileSearch]);
 
 
 
@@ -130,42 +144,45 @@ export default function RootLayout({ children }) {
   };
   const [utype, setutype] = useState(0);
 
-  const handleSearch = (el) =>{
-//
+  const handleSearch = (el) => {
+    const query = el.target.value;
+    setSearchValue(query);
+    
+    if (query.length === 0) {
+      setDraw(false);
+      setSugges([]);
+      setIsSearching(false);
+      return;
+    }
 
-// if(el.target.value.lenght<4){
-//
+    if (query.length < 3) {
+      setDraw(true);
+      setSugges([]);
+      setIsSearching(false);
+      return;
+    }
 
-//   return;
-// }
-
-
-
-if(el.target.value.length<3){
-
-  setSugges([]);
-
-}else{
-
-  const requestOptions = {
-    method: 'GET',
-    headers: {
+    setDraw(true);
+    setIsSearching(true);
+    
+    const requestOptions = {
+      method: 'GET',
+      headers: {
         "Content-Type": "application/json",
-        // "Authorization": 'Bearer ' + ls.get("atkn")
-    },
-  };
-  fetch(`${API_URL}products?func=SearchWithkeyword&keyword=${el.target.value}`, requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(`the data for te search sug`, data)
-      setSugges(data)
-    }).then(()=>{
-
-    })
-
-}
-
-
+      },
+    };
+    
+    fetch(`${API_URL}products?func=SearchWithkeyword&keyword=${query}`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`the data for te search sug`, data)
+        setSugges(data)
+        setIsSearching(false);
+      })
+      .catch((err) => {
+        console.error('Search error:', err);
+        setIsSearching(false);
+      });
   }
 
 
@@ -227,148 +244,101 @@ if(el.target.value.length<3){
         <div className=" w-full  " style={{position:"fixed",
           backgroundSize:20,top:0,zIndex:15}} >
 
-        <NavbarC rel={false} searchTog={searchTog} setSearchTog={(sta)=>{setSearchTog(sta)}} cat={cat} openCart={(t)=>{handleOpenCart(t)}}  openFav={handleOpenCartl}  />
+        <NavbarC 
+          rel={false} 
+          searchTog={searchTog} 
+          setSearchTog={(sta)=>{
+            setSearchTog(sta);
+            // On mobile, open the mobile search modal
+            if (window.innerWidth < 1024) {
+              setIsMobileSearch(sta);
+            }
+          }} 
+          searchValue={searchValue}
+          onSearchChange={handleSearch}
+          searchDropdown={draw && sugges?.length >= 0 ? (
+            <div className="max-h-[60vh] overflow-y-auto">
+              <SearchContent 
+                isSearching={isSearching}
+                sugges={sugges}
+                onProductClick={(id) => {
+                  location.href = "/products?pid=" + id;
+                  setDraw(false);
+                  setSearchTog(false);
+                  setSearchValue('');
+                }}
+              />
+            </div>
+          ) : null}
+          cat={cat} 
+          openCart={(t)=>{handleOpenCart(t)}}  
+          openFav={handleOpenCartl}  
+        />
 
 </div>
 
         {/* Spacer for fixed navbar */}
-        <div className="h-[60px] sm:h-[60px] lg:h-[218px]"></div>
+        <div className="h-16 sm:h-16 lg:h-[140px]"></div>
 
-        {searchTog && (
-  <div
-    onClick={() => {
-      setSearchTog(false);
-      setDraw(false);
-    }}
-    className="fixed inset-0 z-[60] flex justify-center items-start pt-20 lg:pt-32 bg-black/40 overflow-y-auto px-4"
-    style={{ cursor: 'pointer' }}
-  >
-    <div className="w-full max-w-3xl" style={{ cursor: 'default' }}>
-      <div
-        className="relative bg-white rounded-2xl shadow-2xl overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Close button */}
-        <button
-          onClick={() => {
-            setSearchTog(false);
-            setDraw(false);
-          }}
-          className="absolute top-4 left-4 z-10 p-2 rounded-full hover:bg-gray-100 transition-colors"
-          aria-label="Close search"
-        >
-          <BsX className="text-2xl text-gray-600" />
-        </button>
+        {/* Desktop Search Backdrop - only show when dropdown is open */}
+        {searchTog && draw && (
+          <div 
+            className="hidden lg:block fixed inset-0 z-[49]" 
+            onClick={() => { 
+              setSearchTog(false); 
+              setDraw(false); 
+              setSearchValue(''); 
+            }}
+          />
+        )}
 
-        {/* Search Input */}
-        <div className="relative p-4 lg:p-6">
-          <div className="relative">
-            <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-              <svg
-                className="h-5 w-5 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-            <input
-              ref={inputRef}
-              id="search_field"
-              placeholder="ابحث عن منتج أو كود المنتج..."
-              autoComplete="off"
-              onFocus={drawSugg}
-              onChange={handleSearch}
-              className="w-full border-2 border-gray-200 rounded-xl pr-12 pl-4 py-3 lg:py-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-moon-200 focus:ring-2 focus:ring-moon-100 transition-all text-sm lg:text-base"
-            />
-          </div>
-        </div>
-
-        {/* Results */}
-        {draw && (
-          <div className="max-h-[60vh] overflow-y-auto bg-gray-50 border-t border-gray-200">
-            {sugges?.length === 0 ? (
-              <div className="h-48 flex flex-col justify-center items-center text-gray-400 p-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-12 h-12 mb-3 opacity-50"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+        {/* Mobile Search Modal */}
+        {isMobileSearch && (
+          <div className="lg:hidden fixed inset-0 z-[60] bg-white">
+            <div className="flex flex-col h-full">
+              {/* Mobile Search Header */}
+              <div className="flex items-center gap-3 p-4 border-b border-gray-200">
+                <button
+                  onClick={() => {
+                    setIsMobileSearch(false);
+                    setSearchTog(false);
+                    setDraw(false);
+                    setSearchValue('');
+                  }}
+                  className="text-gray-600 hover:text-gray-900"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <div className="flex-1">
+                  <MobileSearchInput 
+                    inputRef={mobileSearchInputRef}
+                    value={searchValue}
+                    onChange={handleSearch}
                   />
-                </svg>
-                <p className="text-base font-medium">لا توجد نتائج</p>
-                <p className="text-sm mt-1">جرب البحث بكلمات مختلفة</p>
+                </div>
               </div>
-            ) : (
-              <div className="p-3 lg:p-4 space-y-2">
-                {sugges.map((sug, index) => (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      location.href = "/products?pid=" + sug.id;
-                      setDraw(false);
+
+              {/* Mobile Search Results */}
+              <div className="flex-1 overflow-y-auto">
+                {draw && (
+                  <MobileSearchContent 
+                    isSearching={isSearching}
+                    sugges={sugges}
+                    onProductClick={(id) => {
+                      location.href = "/products?pid=" + id;
+                      setIsMobileSearch(false);
                       setSearchTog(false);
+                      setDraw(false);
+                      setSearchValue('');
                     }}
-                    dir="rtl"
-                    className="flex items-center gap-3 lg:gap-4 hover:bg-white bg-white/50 p-3 lg:p-4 rounded-xl transition-all cursor-pointer group border border-transparent hover:border-moon-100 hover:shadow-md"
-                  >
-                    <div className="relative flex-shrink-0">
-                      <img
-                        src={
-                          sug.images?.[0]?.url
-                            ? `${IMG_URL || ''}${sug.images[0].url}`
-                            : "/no-image.jpg"
-                        }
-                        alt={sug.name_ar}
-                        className="w-16 h-16 lg:w-20 lg:h-20 object-cover rounded-lg border-2 border-gray-100 group-hover:border-moon-200 transition-colors"
-                      />
-                    </div>
-                    <div className="flex flex-col flex-1 min-w-0">
-                      <span className="text-sm lg:text-base font-semibold text-gray-800 truncate group-hover:text-moon-300 transition-colors">
-                        {sug.name_ar}
-                      </span>
-                      <span className="text-xs lg:text-sm text-gray-500 mt-1 inline-flex items-center gap-1">
-                        <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded-md font-medium">
-                          {sug.code}
-                        </span>
-                      </span>
-                    </div>
-                    <svg
-                      className="w-5 h-5 text-gray-400 group-hover:text-moon-200 transition-colors flex-shrink-0"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                  </div>
-                ))}
+                  />
+                )}
               </div>
-            )}
+            </div>
           </div>
         )}
-      </div>
-    </div>
-  </div>
-)}
 
 
         <div style={{maxWidth:"100%",}} className="  text-moon-300  text-md whitespace-nowrap  font-medium  transition-colors  py-0.5 w-full
@@ -443,11 +413,10 @@ if(el.target.value.length<3){
               </section>
             ) : (
               <section className={`${bgColorClass} el-messiri-text`} dir="auto">
+                <Breadcrumbs />
                 <div
                   className="
-                    lg:max-w-[1280px]
                     w-full
-                    lg:px-8
                     overflow-auto
                     lg:mx-auto
                     min-h-screen

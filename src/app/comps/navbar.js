@@ -341,34 +341,45 @@ export default function NavbarC(props) {
 
 
         <div className="lg:flex items-center order-1 lg:order-3 flex-grow justify-end lg:justify-start">
-          <form
-            className="relative lg:flex items-center flex-grow
-                       max-w-md lg:max-w-none lg:w-[776px] h-[46px]
-                       rounded-[8px] border border-gray-300 bg-gray-100
-                       focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500
-                       overflow-hidden ml-4 lg:ml-0"
-          >
-            <input
-              type="text"
-              onClick={handleSearch}
-              placeholder={t('searchPlaceholder')}
-              className="flex-grow h-full py-2
-                         bg-transparent outline-none text-sm
-                         pl-4 pr-[80px] text-left"
-            />
-            <button
-              className="absolute top-[1.5px] bottom-[1.5px]
-                         bg-moon-200 text-sm text-white font-medium
-                         w-fit px-2 h-[36px]
-                         flex items-center justify-center
-                         z-10
-                         right-[1.5px] rounded-r-[7px]"
-              type="submit"
-              aria-label={t('search')}
+          <div className="relative lg:flex items-center flex-grow max-w-md lg:max-w-none lg:w-[776px] ml-4 lg:ml-0" id="desktop-search-container">
+            <form
+              className="relative flex items-center w-full h-[46px]
+                         rounded-[8px] border border-gray-300 bg-gray-100
+                         focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500
+                         overflow-hidden"
+              onSubmit={(e) => e.preventDefault()}
             >
-              {t('search')}
-            </button>
-          </form>
+              <input
+                type="text"
+                value={props.searchValue || ''}
+                onChange={props.onSearchChange}
+                onFocus={() => props.setSearchTog(true)}
+                placeholder={t('searchPlaceholder')}
+                className="flex-grow h-full py-2
+                           bg-transparent outline-none text-sm text-gray-800
+                           pl-4 pr-[80px] text-left placeholder:text-gray-500"
+              />
+              <button
+                className="absolute top-[1.5px] bottom-[1.5px]
+                           bg-moon-200 text-sm text-white font-medium
+                           w-fit px-2 h-[36px]
+                           flex items-center justify-center
+                           z-10
+                           right-[1.5px] rounded-r-[7px]"
+                type="submit"
+                aria-label={t('search')}
+              >
+                {t('search')}
+              </button>
+            </form>
+            
+            {/* Desktop Search Dropdown - positioned directly under input */}
+            {props.searchTog && props.searchDropdown && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden z-[100] animate-in slide-in-from-top-2 duration-200">
+                {props.searchDropdown}
+              </div>
+            )}
+          </div>
           {Logowhite && (
             <Logowhite
               style={{ cursor: "pointer", width: "64px", height: "26.694103240966797px" }}
@@ -536,7 +547,7 @@ export default function NavbarC(props) {
                 console.error('Error opening search:', err);
               }
             }}
-            className="text-gray-700"
+            className="text-gray-700 lg:hidden"
             aria-label="Search"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">

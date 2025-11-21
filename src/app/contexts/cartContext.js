@@ -1,8 +1,7 @@
 'use client'
-import { createContext, useContext, useState,useEffect,useRef } from 'react';
-// import { ToastContainer, toast } from 'react-toastify';
+import { createContext, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import 'react-toastify/dist/ReactToastify.css';
+import { useI18n } from '../lib/i18n';
 export const CartCon = createContext();
 
 
@@ -12,6 +11,7 @@ export const CartCon = createContext();
 
 export const CartContext = ({children})=>{
   const ls = require("local-storage");
+  const { t, locale } = useI18n();
   const [cartData, setCartData] = useState(ls.get("MinimoonCart"));
 
 
@@ -157,28 +157,83 @@ arr = arr.slice(0, id).concat(arr.slice(id+1))
   }
 
 const useNotifi =(type,msg)=>{
-  const options={
-    hideProgressBar:true,
-    draggable:true,
-    closeButton:false,
-    autoClose: 3000,
-    
-  }
+  const baseStyle = {
+    borderRadius: '12px',
+    padding: '16px 20px',
+    fontSize: '14px',
+    fontWeight: '500',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+    maxWidth: '400px',
+    minWidth: '280px',
+  };
+
+  const toastConfig = {
+    duration: 3000,
+    position: window.innerWidth >= 1024 ? (locale === 'ar' ? 'top-left' : 'top-right') : 'top-center',
+  };
+
   switch(type){
     case 'success':
-      toast.success(msg)
+      toast.success(msg, {
+        ...toastConfig,
+        id: `success-${Date.now()}`,
+        style: {
+          ...baseStyle,
+          background: '#ffffff',
+          color: '#090808',
+          border: '2px solid #e16d64',
+        },
+        iconTheme: {
+          primary: '#e16d64',
+          secondary: '#ffffff',
+        },
+      });
       break;
 
-      case 'error':
-        toast.error(msg)
-        break;
+    case 'error':
+      toast.error(msg, {
+        ...toastConfig,
+        id: `error-${Date.now()}`,
+        style: {
+          ...baseStyle,
+          background: '#ffffff',
+          color: '#090808',
+          border: '2px solid #ef4444',
+        },
+        iconTheme: {
+          primary: '#ef4444',
+          secondary: '#ffffff',
+        },
+      });
+      break;
 
-        case 'warn':
-          toast.error(msg)
-          break;
+    case 'warn':
+      toast(msg, {
+        ...toastConfig,
+        id: `warn-${Date.now()}`,
+        icon: '⚠️',
+        style: {
+          ...baseStyle,
+          background: '#ffffff',
+          color: '#090808',
+          border: '2px solid #f59e0b',
+        },
+      });
+      break;
 
-        
-
+    case 'info':
+      toast(msg, {
+        ...toastConfig,
+        id: `info-${Date.now()}`,
+        icon: 'ℹ️',
+        style: {
+          ...baseStyle,
+          background: '#ffffff',
+          color: '#090808',
+          border: '2px solid #65c9e0',
+        },
+      });
+      break;
   }
 }
 
@@ -203,8 +258,14 @@ const useNotifi =(type,msg)=>{
      
 
 <Toaster
-  position="top-center"
   reverseOrder={false}
+  gutter={12}
+  toastOptions={{
+    className: '',
+    style: {
+      fontFamily: 'inherit',
+    },
+  }}
 />
 
 

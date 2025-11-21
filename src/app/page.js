@@ -156,10 +156,10 @@
 
 
 
-      <div className="el-messiri-text bg-gray-50 lg:px-0 px-4" style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column', width:'100%'}}>
+      <div className="el-messiri-text bg-gray-50" style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column', width:'100%'}}>
   {/* {lod?<LoadingOverlay/>:<></>} */}
   <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
-  <div className="w-full px-0 lg:px-4" style={{width:"100%"}}>
+  <div className="w-full flex justify-center items-center">
   <Hero  />
     </div>
 
@@ -204,21 +204,14 @@
     <ProductFeat  />
   </div>
 
-  {/* <div className="">
-
-  <MostDemanded  />
-    </div> */}
-  {/*
-
-  <Most
-  <div style={{backgroundSize:50}} className="w-full flex items-center justify-center py-5  bg-[url('../../public/amblemblack.svg')]   to-moonsec-100/40 from-moonsec-200/20 ">
-    <ProductFeat variant={"new"} title="منتجات جديدة" text=" هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، " />
-  </div> */}
+  <div className="">
+    <MostDemanded  />
+  </div>
 
 
 
   {
-    !lod?<div  className=" px-1 sm:px-1 lg:px-6 m-0">
+    !lod?<div  className="w-full px-4 lg:px-12">
 
 
   {/* <div className="  grid  lg:gap-x-1 lg:gap-y-2 xl:gap-x-2 xl:gap-y-2 md:gap-x-4 md:gap-y-4 gap-x-0 gap-y-0 my-6
@@ -265,12 +258,13 @@
 
 
 
-  </div>:<div className="w-full px-1 sm:px-1 lg:px-6 m-0">
-  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 lg:gap-8 justify-center">
-    <ProductCardSkeleton count={4} />
   </div>
-</div>
-
+  :
+  <div className="w-full px-4 lg:px-12">
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-8 justify-center">
+      <ProductCardSkeleton count={4} />
+    </div>
+  </div>
   }
 
 

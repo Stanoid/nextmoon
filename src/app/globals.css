@@ -621,3 +621,48 @@ input:checked + .slider:before {
 .payment-success-card * {
   transition: all 0.3s ease;
 }
+
+/* Toast Animations */
+@media (min-width: 1024px) {
+  [data-sonner-toaster] {
+    top: 20px !important;
+  }
+  
+  [data-sonner-toaster][data-x-position="right"] {
+    right: 20px !important;
+  }
+  
+  [data-sonner-toaster][data-x-position="left"] {
+    left: 20px !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  [data-sonner-toaster] {
+    top: 80px !important;
+  }
+}
+
+/* Search Dropdown Animations */
+@keyframes slide-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.slide-in-from-top-2 {
+  animation: slide-in-from-top 0.2s ease-out;
+}
+
+.duration-200 {
+  animation-duration: 200ms;
+}

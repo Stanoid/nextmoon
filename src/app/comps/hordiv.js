@@ -19,16 +19,16 @@ function HorDiv(props) {
       {/* Mobile Layout - improved with swipe hint */}
       <div className="relative lg:hidden">
         <div
-          dir='rtl'
-          className='scrollable-content w-lvw flex items-center p-2 px-4 gap-4 overflow-x-scroll snap-x snap-mandatory'
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          // dir='rtl'
+          className='scrollable-content w-lvw flex items-center p-2 px-4 overflow-x-scroll snap-x snap-mandatory'
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', gap: '16px' }}
           onScroll={() => setShowHint(false)}
         >
           {props.data && props.data.map((product, index) => (
             product.status ? (
               <div
                 key={index}
-                className="flex justify-center items-center min-w-56 rounded-xl shadow-sm snap-start"
+                className="flex justify-center items-center snap-start"
               >
                 <ProductCopm atcbtn={props.btn} data={product} /> 
               </div>
@@ -71,29 +71,14 @@ function HorDiv(props) {
         <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none" />
       </div>
 
-      {/* Desktop Layout - centered and clean */}
+      {/* Desktop Layout - 4 cards per row */}
       <div
         dir="rtl"
-        className="
-          hidden
-          lg:grid
-          w-full
-          max-w-[1280px]
-          mx-auto
-          gap-5
-          grid-cols-1
-          sm:grid-cols-2
-          md:grid-cols-3
-          xl:grid-cols-4
-          px-4
-        "
+        className="hidden lg:grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center"
       >
         {props.data && props.data.map((product, index) => (
           product.status ? (
-            <div
-              key={index}
-              className="rounded-xl shadow-sm flex justify-center items-center"
-            >
+            <div key={index}>
               <ProductCopm atcbtn={props.btn} data={product} /> 
             </div>
           ) : null
