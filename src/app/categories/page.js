@@ -79,28 +79,28 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row w-full px-3 lg:px-12 gap-4 lg:gap-8 mt-4 lg:mt-6 mb-8">
+          <div className="flex flex-col lg:flex-row w-full max-w-[1400px] mx-auto px-4 lg:px-6 gap-4 lg:gap-6 mt-4 lg:mt-6 mb-8">
             {/* Sidebar Filter - Desktop */}
-            <div className="hidden lg:block lg:w-[280px] shrink-0 sticky top-6 self-start">
+            <div className="hidden lg:block lg:w-[280px] shrink-0 sticky top-24 self-start">
               <SidebarFilter onFilterChange={handleFilterChange} />
             </div>
 
             {/* Main Content */}
             <div className="flex-1 space-y-8" dir="ltr">
               {/* Subcategory Banners */}
-              <div className="w-full py-2 lg:mt-8 grid grid-cols-4  gap-4 items-center justify-center">
+              <div className="w-full py-2 lg:mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6 justify-items-center">
                 {products?.products?.map((prd) => (
                   <div
                     key={prd.id}
                     onClick={() => router.push(`/subcatagories?sid=${prd.id}`)}
-                    className="shadow-md min-w-28 w-28 lg:w-40 lg:min-w-40 mx-1.5 rounded-sm hover:scale-105 hover:shadow-md cursor-pointer transition-all"
+                    className="shadow-md w-full max-w-[160px] rounded-lg hover:scale-105 hover:shadow-lg cursor-pointer transition-all"
                   >
-                    <div className="w-28 h-28 lg:w-40 lg:h-40 relative">
+                    <div className="w-full aspect-square relative">
                       <Image
                         quality={20}
                         fill
                         objectFit="cover"
-                        className="rounded-md rounded-b-none"
+                        className="rounded-t-lg"
                         src={`${IMG_URL}${products.data?.images?.[0]?.formats?.medium?.url}`}
                         alt="Product"
                       />
@@ -134,12 +134,12 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-0 lg:gap-8 justify-items-center">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-0 lg:gap-x-6 lg:gap-y-2 justify-items-center" dir="rtl">
                     {filteredResults.products.map(
                       (prd) =>
                         prd.status && (
-                          <div key={prd.id} className="w-full flex justify-center -my-16 lg:my-0">
-                            <div className="transform scale-[0.6] lg:scale-[0.95]">
+                          <div key={prd.id} className="w-full flex justify-center -my-20 lg:-my-8">
+                            <div className="transform scale-[0.55] lg:scale-[0.85] origin-top">
                               <ProductCopm atcbtn={false} data={prd} />
                             </div>
                           </div>
@@ -159,24 +159,18 @@ export default function Home() {
                       </p>
                     </div>
 
-                    {index % 2 === 0 ? (
-                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-0 lg:gap-8 justify-items-center">
-                        {sub.products?.map(
-                          (prd) =>
-                            prd.status && (
-                              <div key={prd.id} className="w-full flex justify-center -my-16 lg:my-0">
-                                <div className="transform scale-[0.6] lg:scale-[0.95]">
-                                  <ProductCopm atcbtn={false} data={prd} />
-                                </div>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-0 lg:gap-x-6 lg:gap-y-2 justify-items-center" dir="rtl">
+                      {sub.products?.map(
+                        (prd) =>
+                          prd.status && (
+                            <div key={prd.id} className="w-full flex justify-center -my-20 lg:-my-8">
+                              <div className="transform scale-[0.55] lg:scale-[0.85] origin-top">
+                                <ProductCopm atcbtn={false} data={prd} />
                               </div>
-                            )
-                        )}
-                      </div>
-                    ) : (
-                      <div className="w-full">
-                        <HorDiv cid={sub.id} data={sub.products} />
-                      </div>
-                    )}
+                            </div>
+                          )
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>

@@ -130,7 +130,7 @@ function AccounteEl() {
             <div key={category.id} className="relative">
               {category.isSpecial ? (
                 // Special "+450 من منتجاتنا الرائعة" item
-                <div className="h-20 w-40 flex relative   rounded-md overflow-hidden flex  items-center justify-center px-1">
+                <div className="h-20 w-40 flex relative   rounded-md overflow-hidden flex when items-center justify-center px-1">
                   
                   <div className="text-moon-200 text-center">
                     <div className="text-2xl font-bold leading-tight">

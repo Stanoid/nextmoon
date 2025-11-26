@@ -12,7 +12,7 @@ export default function Hero(props) {
   const [desktopImageError, setDesktopImageError] = useState(false);
  
     return (
-       <div className='w-full flex justify-center pt-4 lg:pt-16'>
+       <div className='w-full flex justify-center pt-4 lg:pt-16 '>
          
 {/* TEMPORARY: Slider commented out - using single image */}
 {/* <div className='w-full h-72 lg:hidden overflow-hidden rounded-2xl shadow-md'>

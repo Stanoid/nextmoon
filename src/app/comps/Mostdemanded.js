@@ -5,7 +5,7 @@ import {CURRENCY, API_URL, IMG_URL, DEF_IMG } from '../local'
 import { Spinner, Button, Tooltip } from '@nextui-org/react';
 import { FaArrowLeft, FaArrowRight, FaStar, FaHeart } from 'react-icons/fa';
 import { CldImage } from 'next-cloudinary';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { Theme } from '../local'; 
 import Image from 'next/image';
@@ -18,10 +18,20 @@ export default function MostDemanded() {
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [loading, setLoading] = useState(false); 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showHint, setShowHint] = useState(true);
 
   const productScrollRef = useRef(null);
   const router = useRouter();
   const CURRENCY = "د.ج";
+
+  // Hide hint after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowHint(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Track scroll position for indicator
   useEffect(() => {
@@ -99,7 +109,7 @@ export default function MostDemanded() {
   };
 
   return (
-    <div className="py-8 ">
+    <div className="py-8 max-w-[1400px] mx-auto px-4">
       <h2 className="text-xl text-center font-bold text-gray-800 mb-6">الاكثر طلبا</h2> 
 
       {loadingProducts ? (
@@ -114,6 +124,7 @@ export default function MostDemanded() {
               ref={productScrollRef}
               className="scrollable-content w-lvw flex items-center p-2 px-4 overflow-x-scroll snap-x snap-mandatory"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', gap: '16px' }}
+              onScroll={() => setShowHint(false)}
             >
               {products.map((product) => {
                 const varient = product.varients?.[0];
@@ -175,34 +186,36 @@ export default function MostDemanded() {
                               alt={product.name_ar || 'Product'}
                               sizes="308px"
                             />
-                            <div className="absolute top-2 right-2 p-2 bg-white/95 rounded-full shadow-sm z-10">
+                            <div className="absolute top-2 left-2 p-2 bg-[#f7a0983d] rounded-full shadow-sm z-10">
                               <FaHeart className="text-gray-400 text-lg" />
                             </div>
                           </>
                         )}
                       </div>
 
-                      {/* Product Details Section */}
-                      <div  className="flex flex-col justify-between bg-white p-4" style={{ width: '308px', height: '193px', gap: '12px' }}>
-                        <div className="flex flex-col items-end" style={{ width: '276px', height: '85px', gap: '12px' }}>
+                      {/* Product Details Section - 308x193 with padding 4px and gap 12px */}
+                      <div dir="rtl" className="flex flex-col justify-between bg-white p-4" style={{ width: '308px', height: '193px', gap: '12px' }}>
+                        {/* Name, Colors, Stars Section - 276x85 with gap 12px */}
+                        <div className="flex flex-col items-start" style={{ width: '276px', height: '85px', gap: '12px' }}>
+                          {/* Product Name/Code - Right aligned */}
                           <div className="text-base font-medium text-gray-800 text-right w-full">
                             {product.name_ar} - {product.code}
                           </div>
 
-                          <div className="flex items-center justify-end w-full gap-1">
-                            {uniqueColors.slice(0, 3).map((color) => (
-                              <div key={color.id}>
-                                <Tooltip className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar}>
-                                  <div
-                                    style={{ backgroundColor: color.colorCode }}
-                                    className="h-[16px] w-[16px] rounded-full border border-gray-200"
-                                  ></div>
-                                </Tooltip>
-                              </div>
+                          {/* Colors - Right aligned */}
+                          <div className="flex items-center justify-start gap-1 w-full">
+                            {uniqueColors && uniqueColors.slice(0, 3).map((color) => (
+                              <Tooltip key={color.id} className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar}>
+                                <div
+                                  style={{ backgroundColor: color.colorCode }}
+                                  className="h-[16px] w-[16px] rounded-full border border-gray-200"
+                                ></div>
+                              </Tooltip>
                             ))}
                           </div>
 
-                          <div className="flex items-center justify-end w-full gap-1">
+                          {/* Rating - Right aligned */}
+                          <div className="flex items-center justify-start gap-1 w-full">
                             <div className="text-xs text-gray-600">(3.4k)</div>
                             {[...Array(4)].map((_, i) => (
                               <FaStar key={i} className="text-yellow-400 text-sm" />
@@ -211,8 +224,8 @@ export default function MostDemanded() {
                           </div>
                         </div>
 
-                        {/* Price Section - 276x64 with gap 4px - Right aligned */}
-                        <div className="flex flex-col items-end justify-end" style={{ width: '276px', height: '64px', gap: '4px' }}>
+                        {/* Price Section - 276x64 with gap 4px - Left aligned */}
+                        <div className="flex flex-col items-start justify-start" style={{ width: '276px', height: '64px', gap: '4px' }}>
                           {varient?.price && (
                             <>
                               <div className="text-2xl font-bold text-gray-900 flex items-baseline">
@@ -235,6 +248,7 @@ export default function MostDemanded() {
                         </div>
                       </div>
 
+                      {/* Discount Badge - Bottom Left */}
                       {discount && (
                         <span className="absolute bottom-4 left-4 bg-moon-100 text-moon-200 text-xs font-bold px-3 py-1 rounded-full z-10">
                           {`%${discount} خصم`}
@@ -246,44 +260,40 @@ export default function MostDemanded() {
               })}
             </div>
 
-            {/* Gradient fade on edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none" />
-            
-            {/* Scroll Indicator */}
-            {products.length > 1 && (
-              <div className="flex justify-center gap-2 mt-4">
-                {products.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`rounded-full transition-all duration-300 ${
-                      index === currentIndex
-                        ? 'w-3 h-3 bg-moonsec-100 ring-2 ring-moonsec-100 ring-offset-2'
-                        : 'w-2 h-2 bg-gray-300'
-                    }`}
-                  />
-                ))}
-              </div>
-            )}
+            {/* Swipe Hint */}
+            <AnimatePresence>
+              {showHint && products.length > 1 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10"
+                >
+                  <div className="bg-moon-200/90 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                    <svg 
+                      className="w-5 h-5 animate-pulse" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M13 5l7 7-7 7M5 5l7 7-7 7" 
+                      />
+                    </svg>
+                    <span className="text-sm font-medium">اسحب لرؤية المزيد</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
           </div>
 
-          {/* Desktop Layout - with arrow buttons */}
-          <div className="hidden lg:flex items-center justify-center gap-2 w-full">
-            <button
-              onClick={scrollLeft}
-              aria-label="Scroll left"
-              className="p-2 rounded-full h-[48px] w-[48px] flex items-center justify-center transition-transform duration-300 hover:scale-105 hover:shadow-lg"
-              style={{ background: 'linear-gradient(270deg, rgba(224, 36, 36, 0.4), rgba(224, 36, 36, 0))' }}
-            >
-              <FaArrowLeft size={18} />
-            </button>
-
-            <div
-              ref={productScrollRef}
-              className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth px-2 sm:px-4 w-full scrollbar-hide"
-              style={{ gap: '16px' }}
-              dir="ltr"
-            >
+          {/* Desktop Layout - Grid centered */}
+          <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center w-full" dir="rtl">
               {products.map((product) => {
               const varient = product.varients?.[0];
               const discount =
@@ -320,7 +330,7 @@ export default function MostDemanded() {
                   }}
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.2 }}
-                  className="rounded-xl border border-gray-200 bg-white shadow-md hover:shadow-lg cursor-pointer flex flex-col overflow-hidden relative shrink-0 snap-start"
+                  className="rounded-xl border border-gray-200 bg-white shadow-md hover:shadow-lg cursor-pointer flex flex-col overflow-hidden relative transition-shadow duration-200"
                   style={{ width: '308px', height: '501px', minWidth: '308px' }}
                 >
                   {/* Image Section - 308x308 with 8px padding */}
@@ -345,7 +355,7 @@ export default function MostDemanded() {
                           alt={product.name_ar || 'Product'}
                           sizes="308px"
                         />
-                        <div className="absolute top-2 right-2 p-2 bg-white/95 rounded-full shadow-sm z-10">
+                        <div className="absolute top-2 left-2 p-2 bg-[#f7a0983d] rounded-full shadow-sm z-10">
                           <FaHeart className="text-gray-400 text-lg" />
                         </div>
                       </>
@@ -353,16 +363,16 @@ export default function MostDemanded() {
                   </div>
 
                   {/* Product Details Section - 308x193 with padding 4px and gap 12px */}
-                  <div className="flex flex-col justify-between bg-white p-4" style={{ width: '308px', height: '193px', gap: '12px' }}>
+                  <div dir="rtl" className="flex flex-col justify-between bg-white p-4" style={{ width: '308px', height: '193px', gap: '12px' }}>
                     {/* Name, Colors, Stars Section - 276x85 with gap 12px */}
-                    <div className="flex flex-col items-end" style={{ width: '276px', height: '85px', gap: '12px' }}>
+                    <div className="flex flex-col items-start" style={{ width: '276px', height: '85px', gap: '12px' }}>
                       {/* Product Name/Code - Right aligned */}
                       <div className="text-base font-medium text-gray-800 text-right w-full">
                         {product.name_ar} - {product.code}
                       </div>
 
                       {/* Colors - Right aligned */}
-                      <div className="flex items-center justify-end gap-1 w-full">
+                      <div className="flex items-center justify-start gap-1 w-full">
                         {uniqueColors && uniqueColors.slice(0, 3).map((color) => (
                           <Tooltip key={color.id} className="bg-moon-300 font-medium py-2 px-5 text-white" content={color.name_ar}>
                             <div
@@ -374,8 +384,8 @@ export default function MostDemanded() {
                       </div>
 
                       {/* Rating - Right aligned */}
-                      <div className="flex items-center justify-end gap-1 w-full">
-                        <span className="text-xs text-gray-600">(3.4k)</span>
+                      <div className="flex items-center justify-start gap-1 w-full">
+                        <div className="text-xs text-gray-600">(3.4k)</div>
                         {[...Array(4)].map((_, i) => (
                           <FaStar key={i} className="text-yellow-400 text-sm" />
                         ))}
@@ -383,8 +393,8 @@ export default function MostDemanded() {
                       </div>
                     </div>
 
-                    {/* Price Section - 276x64 with gap 4px - Right aligned */}
-                    <div className="flex flex-col items-end justify-end" style={{ width: '276px', height: '64px', gap: '4px' }}>
+                    {/* Price Section - 276x64 with gap 4px - Left aligned */}
+                    <div className="flex flex-col items-start justify-start" style={{ width: '276px', height: '64px', gap: '4px' }}>
                       {varient?.price && (
                         <>
                           <div className="text-2xl font-bold text-gray-900 flex items-baseline">
@@ -416,16 +426,6 @@ export default function MostDemanded() {
                 </motion.div>
               );
             })}
-          </div>
-
-          <button
-            onClick={scrollRight}
-            aria-label="Scroll right"
-            className="p-2 rounded-full h-[48px] w-[48px] flex items-center justify-center transition-transform duration-300 hover:scale-105 hover:shadow-lg"
-            style={{ background: 'linear-gradient(270deg, rgba(224, 36, 36, 0.4), rgba(224, 36, 36, 0))' }}
-          >
-            <FaArrowRight size={18} />
-          </button>
           </div>
         </>
       ) : (

@@ -166,18 +166,7 @@ export default function NavbarC(props) {
       console.error("Error in useEffect for getsubcatogries:", err);
     }
   }, []);
-  // const getSubCat = (cat) => {
-  //   fetch(`/api/categories?cat=${cat}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data && data.data) {
-  //         props.setSubCat(data.data);
-  //         console.log("categories", data.data);
-  //       } else {
-  //         props.setSubCat([]);
-  //       }
-  //     });
-  // };
+
 
 
   const handleSearch = () => {
@@ -267,18 +256,24 @@ export default function NavbarC(props) {
 
       <div className={`container lg:flex hidden mx-auto px-4 py-2 justify-between items-center text-gray-500 text-sm border-b border-gray-200 ${direction === 'rtl' ? 'rtl' : 'ltr'}`}>
         <div className={`flex items-center gap-2 ${direction === 'rtl' ? 'space-x-4 space-x-reverse' : 'space-x-4'}`}>
-          <a href="/contactus" className={`flex items-center ${direction === 'rtl' ? 'space-x-1 space-x-reverse' : 'space-x-1'} hover:text-gray-900`}>
+          <button 
+            onClick={() => router.push('/contactus')}
+            className={`flex items-center ${direction === 'rtl' ? 'space-x-1 space-x-reverse' : 'space-x-1'} hover:text-gray-900 cursor-pointer`}
+          >
             <span>{t('contactUs')}</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-          </a>
-          <a href="/about" className="flex items-center gap-2 hover:text-gray-900">
+          </button>
+          <button 
+            onClick={() => router.push('/about')}
+            className="flex items-center gap-2 hover:text-gray-900 cursor-pointer"
+          >
             <span>{t('aboutUs')}</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-          </a>
+          </button>
           <div className="flex items-center space-x-3 text-gray-500">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900"><FaFacebook className="w-4 h-4" /></a>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900"><FaInstagram className="w-4 h-4" /></a>
@@ -445,8 +440,7 @@ export default function NavbarC(props) {
       if (userData?.data?.user?.type) {
         handleAccount(userData.data.user.type);
       } else {
-        cons
-        ole.warn('User type not available');
+        console.warn('User type not available');
         router.push("/");
       }
     } catch (err) {

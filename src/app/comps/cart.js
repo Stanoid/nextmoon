@@ -196,25 +196,24 @@ const Cart = forwardRef((props, ref) => {
                             className="w-full"
                           />
                         ) : (
-                          <div className="flex flex-col sm:flex-row items-center gap-2">
+                          <div className="flex flex-col sm:flex-row items-center gap-3">
                             <LoadingBtn
                               act={() => {
                                 router.push("/login");
                                 props.openHandler(false);
                               }}
                               text={t('login')}
-                              color={Theme.secondaryDark}
+                              color="#6B7280"
                               lod={lod}
-                              className="w-full sm:w-2/5"
+                              className="w-full sm:flex-1"
                             />
-                            <button
-                              onClick={guestCheckout}
-                              style={{ backgroundColor: Theme.primary }}
-                              className="w-full sm:w-3/5 text-white py-3 px-4 rounded-md text-sm font-medium hover:opacity-90 transition-opacity"
-                              dir={direction}
-                            >
-                              {t('guestCheckout')}
-                            </button>
+                            <LoadingBtn
+                              act={guestCheckout}
+                              text={t('guestCheckout')}
+                              color={Theme.primary}
+                              lod={lod}
+                              className="w-full sm:flex-1"
+                            />
                           </div>
                         )}
                       </div>

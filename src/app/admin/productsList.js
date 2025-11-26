@@ -18,10 +18,21 @@ function ProductsList(props) {
   const [products, setProducts] = useState([]);
   const [viewMode, setViewMode] = useState('table'); // 'table', 'list', 'grid'
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
+
+  // Debounce search to avoid too many API calls
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   useEffect(() => {
     getProducts();
-  },[]);
+  },[currentPage, itemsPerPage, debouncedSearch]);
 
   const deleteEntry = (id) => {
     const requestOptions = {
@@ -84,26 +95,44 @@ function ProductsList(props) {
         Authorization: "Bearer " + udata.data.jwt,
       },
     };
-    fetch(`${API_URL}products?func=getAllProductsAdmin`, requestOptions)
+    // Add pagination parameters to reduce data load
+    fetch(`${API_URL}products?func=getAllProductsAdmin&page=${currentPage}&limit=${itemsPerPage}&search=${debouncedSearch}`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
+        // Backend should return { products: [], total: number }
+        if (data.products && data.total !== undefined) {
+          setProducts(data.products);
+          setTotalCount(data.total);
+        } else {
+          // Fallback if backend doesn't support pagination yet
+          setProducts(data);
+          setTotalCount(data.length);
+        }
+        setlod(false);
         props.setLod(false);
       })
       .catch(() => {
+        setlod(false);
         props.setLod(false);
       });
   };
 
-  const filteredProducts = products.filter(product => 
-    product.code?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.name_ar?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.name_en?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Backend should handle filtering and pagination
+  const [totalCount, setTotalCount] = useState(0);
+  const filteredProducts = products;
+  const paginatedProducts = products;
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Reset to page 1 when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch]);
 
   const renderGridView = () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {filteredProducts.map((product) => (
+      {paginatedProducts.map((product) => (
         <div key={product.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-200 overflow-hidden">
           <div className="relative h-48 bg-gray-100">
             {product.images && product.images[0] ? (
@@ -148,7 +177,7 @@ function ProductsList(props) {
 
   const renderListView = () => (
     <div className="space-y-3">
-      {filteredProducts.map((product) => (
+      {paginatedProducts.map((product) => (
         <div key={product.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-200 p-4 flex items-center gap-4">
           <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
             {product.images && product.images[0] ? (
@@ -269,9 +298,27 @@ function ProductsList(props) {
           </Button>
         </div>
 
-        {/* Count Info */}
+        {/* Count Info and Items Per Page */}
         <div className="flex justify-between items-center">
-          <span className="text-gray-500 text-sm">عدد : {filteredProducts.length}</span>
+          <span className="text-gray-500 text-sm">
+            عدد : {filteredProducts.length} | عرض {startIndex + 1}-{Math.min(endIndex, filteredProducts.length)}
+          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-gray-500 text-sm">عدد العناصر:</span>
+            <select
+              value={itemsPerPage}
+              onChange={(e) => {
+                setItemsPerPage(Number(e.target.value));
+                setCurrentPage(1);
+              }}
+              className="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-moon-200"
+            >
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -310,6 +357,82 @@ function ProductsList(props) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
               <p className="text-lg">{t('noData')}</p>
+            </div>
+          )}
+
+          {/* Pagination Controls */}
+          {!lod && filteredProducts.length > 0 && totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-6">
+              <Button
+                size="sm"
+                variant="flat"
+                isDisabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                السابق
+              </Button>
+              
+              <div className="flex gap-1">
+                {/* First page */}
+                {currentPage > 3 && (
+                  <>
+                    <Button
+                      size="sm"
+                      variant={currentPage === 1 ? "solid" : "flat"}
+                      className={currentPage === 1 ? "bg-gradient-to-r from-moon-200 to-moon-300 text-white" : ""}
+                      onClick={() => setCurrentPage(1)}
+                    >
+                      1
+                    </Button>
+                    {currentPage > 4 && <span className="px-2 py-1">...</span>}
+                  </>
+                )}
+
+                {/* Pages around current */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter(page => {
+                    return page === currentPage || 
+                           page === currentPage - 1 || 
+                           page === currentPage + 1 ||
+                           (currentPage <= 2 && page <= 3) ||
+                           (currentPage >= totalPages - 1 && page >= totalPages - 2);
+                  })
+                  .map(page => (
+                    <Button
+                      key={page}
+                      size="sm"
+                      variant={currentPage === page ? "solid" : "flat"}
+                      className={currentPage === page ? "bg-gradient-to-r from-moon-200 to-moon-300 text-white" : ""}
+                      onClick={() => setCurrentPage(page)}
+                    >
+                      {page}
+                    </Button>
+                  ))}
+
+                {/* Last page */}
+                {currentPage < totalPages - 2 && (
+                  <>
+                    {currentPage < totalPages - 3 && <span className="px-2 py-1">...</span>}
+                    <Button
+                      size="sm"
+                      variant={currentPage === totalPages ? "solid" : "flat"}
+                      className={currentPage === totalPages ? "bg-gradient-to-r from-moon-200 to-moon-300 text-white" : ""}
+                      onClick={() => setCurrentPage(totalPages)}
+                    >
+                      {totalPages}
+                    </Button>
+                  </>
+                )}
+              </div>
+
+              <Button
+                size="sm"
+                variant="flat"
+                isDisabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                التالي
+              </Button>
             </div>
           )}
         </>

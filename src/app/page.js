@@ -204,7 +204,7 @@
     <ProductFeat  />
   </div>
 
-  <div className="">
+  <div className="w-full px-2">
     <MostDemanded  />
   </div>
 

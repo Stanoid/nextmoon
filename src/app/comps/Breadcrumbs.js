@@ -14,11 +14,6 @@ const Breadcrumbs = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  // Don't show breadcrumbs on home page or admin pages
-  if (pathname === '/' || pathname.startsWith('/admin')) {
-    return null;
-  }
-
   // Fetch dynamic names for categories, subcategories, products with proper error handling
   const fetchDynamicNames = useCallback(async () => {
     const cid = searchParams.get('cid');
@@ -307,6 +302,11 @@ const Breadcrumbs = () => {
   };
 
   const breadcrumbItems = buildBreadcrumbItems();
+
+  // Don't show breadcrumbs on home page or admin pages
+  if (pathname === '/' || pathname.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <nav 

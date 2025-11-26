@@ -38,9 +38,14 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
     }
   };
 
+  const { locale } = useI18n();
+
   const getCategoryName = (item) => {
     try {
       if (!item) return '';
+      if (locale === 'ar') return item.name_ar || item.name || '';
+      if (locale === 'fr') return item.name_fr || item.name_ar || item.name || '';
+      if (locale === 'en') return item.name_en || item.name_ar || item.name || '';
       return item.name_ar || item.name || '';
     } catch (err) {
       return '';
@@ -60,7 +65,7 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
           showAllDesktop ? (
             // Expanded Mega Menu
             <div className="relative bg-white shadow-lg">
-              <div className="max-w-7xl mx-auto px-6 py-8">
+              <div className="container mx-auto px-6 py-8">
                 <button
                   onClick={() => setShowAllDesktop(false)}
                   className={`absolute top-4 text-gray-400 hover:text-gray-600 transition-colors ${
@@ -153,8 +158,8 @@ export default function Subcatmenu({ subCat = [], onNavigate }) {
             </div>
           ) : (
             // Collapsed Menu Bar
-            <div className="max-w-7xl mx-auto px-6 py-3">
-              <ul className="flex items-center justify-start gap-1">
+            <div className="container mx-auto px-6 py-3">
+              <ul className={`flex items-center gap-1 ${direction === 'rtl' ? 'justify-end' : 'justify-start'}`}>
                 {safeSubCat.slice(0, desktopInitialLimit).map((item, index) => {
                   const categoryName = getCategoryName(item);
                   return (

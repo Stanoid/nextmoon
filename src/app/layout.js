@@ -408,7 +408,7 @@ export default function RootLayout({ children }) {
 
 
             {isAdminPage ? (
-              <section className="w-full min-h-screen" dir="auto">
+              <section className="w-full md:mx-0 mx-4 min-h-screen" dir="auto">
                 {children}
               </section>
             ) : (
@@ -419,6 +419,7 @@ export default function RootLayout({ children }) {
                     w-full
                     overflow-auto
                     lg:mx-auto
+                    px-2 sm:px-0
                     min-h-screen
                   "
                 >

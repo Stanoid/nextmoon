@@ -84,9 +84,9 @@ function Lens({ data = [] }) {
     <div dir="rtl" id="root">
       <GlobalStyles />
 
-      <div className="w-full flex flex-col-reverse lg:flex-row">
+      <div className="w-full flex flex-col-reverse lg:flex-row gap-3">
         {/* Mobile thumbnails */}
-        <div className="flex lg:hidden flex-row gap-2 overflow-x-auto pb-3 px-4 scrollbar-hide">
+        <div className="flex lg:hidden flex-row gap-2 overflow-x-auto pb-3 scrollbar-hide">
           {data.map((img, i) => (
             <div 
               key={i} 
@@ -123,8 +123,8 @@ function Lens({ data = [] }) {
                 openModalWithIndex(index !== -1 ? index : 0);
               }
             }}
-            style={{ backgroundColor: zoomv ? Theme.primary : '', WebkitUserSelect: 'none', zIndex: zoomv ? 30 : 0 }}
-            className="relative transition-all duration-75 rounded-lg mb-4 p-3 w-full max-w-[343px] h-[380px] sm:max-w-[400px] sm:h-[420px] lg:max-w-none lg:w-full lg:h-[600px] mx-auto bg-gray-50 flex items-center justify-center"
+            style={{ backgroundColor: zoomv ? Theme.primary : 'transparent', WebkitUserSelect: 'none', zIndex: zoomv ? 30 : 0 }}
+            className="relative transition-all duration-75 rounded-lg w-full max-w-[343px] h-[326px] sm:max-w-[400px] sm:h-[420px] lg:max-w-none lg:w-full lg:h-[606px] mx-auto lg:mx-0 flex items-center justify-center overflow-hidden"
           >
             {galleryImage && (
               <img
@@ -133,19 +133,25 @@ function Lens({ data = [] }) {
                 className="w-full h-full object-contain rounded-md"
               />
             )}
-
-            <div className="absolute bottom-3 w-full left-0 px-4 flex justify-center items-center text-xs sm:text-sm text-gray-700 bg-white/90 py-2 rounded-b-lg backdrop-blur-sm">
-              <motion.div>
-                <FaArrowUp className="mr-1 animate-bounce" />
-              </motion.div>
-              <span className="hidden sm:inline">إضغط و اسحب على الصورة للتكبير (Click for full screen)</span>
-              <span className="sm:hidden">اضغط للتكبير</span>
-            </div>
+            
+            {/* Zoom Button Overlay */}
+            <button
+              onClick={() => {
+                const index = data.findIndex(img => IMG_URL + img.attributes?.url === galleryImage);
+                openModalWithIndex(index !== -1 ? index : 0);
+              }}
+              className="absolute top-3 right-3 bg-white/90 hover:bg-white text-gray-700 px-3 py-2 rounded-lg flex items-center gap-2 shadow-lg transition-all hover:scale-105 text-sm font-medium z-10"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" />
+              </svg>
+              <span>تكبير</span>
+            </button>
           </div>
         </div>
 
         {/* Desktop Thumbnails - Sticky, no scrolling */}
-        <div className="hidden lg:flex flex-col gap-3 pr-3 lg:sticky lg:top-4 lg:self-start">
+        <div className="hidden lg:flex flex-col gap-2 lg:sticky lg:top-4 lg:self-start">
           {data.map((img, i) => (
             <div 
               key={i} 

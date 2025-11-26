@@ -1,1048 +1,517 @@
-    import React from "react";
-    import {
-      Table,
-      TableHeader,
-      
-      TableColumn,
-      TableBody,
-      TableRow,
-      TableCell,
-      Input,
-      Button,
-      DropdownTrigger,
-      Dropdown,
-      DropdownMenu,
-      DropdownItem,
-      User,
-      Pagination,
-
-    } from "@nextui-org/react";
-    import Image from "next/image";
-    import { IMG_URL,CURRENCY } from "../../local";
-    import {PlusIcon} from "./PlusIcon";
-    import {VerticalDotsIcon} from "./VerticalDotsIcon";
-    import { useEffect } from "react";
-    import {SearchIcon} from "./SearchIcon";
-    import { useRouter } from "next/navigation";
-    import {ChevronDownIcon} from "./ChevronDownIcon";
-    import { FaEye,FaPencil,FaTrash,FaCreditCard, FaEyeSlash, FaCheckDouble, FaCopy, FaPenToSquare, FaToggleOn, FaBan } from "react-icons/fa6";
-    import {columns, users, statusOptions} from "./data";
-    import {capitalize} from "./utils";
-    import { color } from "framer-motion";
-    import { FaEdit } from "react-icons/fa";
-    import { useI18n } from "../../lib/i18n";
-
-
-    const statusColorMap = {
-      active: "success",
-      paused: "danger",
-      vacation: "warning",
-    };
-
-    const INITIAL_VISIBLE_COLUMNS = ["name","createdAt","cat","name_en","section","icon","img","color","scate","colore","cate","colorCode","size", "city",
-      "status","pstatus", "email","refid","refida","date",'phone',"feat",
-      "delivery_type","total","payment_type","payment_status","total","name_ar","description_ar",
-      "code","price","images","qty","colorname","sizeo","imgsingle","topsec"];
-
-    export default function App(props) {
-      const { t, direction } = useI18n();
-      const [filterValue, setFilterValue] = React.useState("");
-      const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
-      const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
-      const [statusFilter, setStatusFilter] = React.useState("all");
-      const router = useRouter();
-      const [rowsPerPage, setRowsPerPage] = React.useState(10);
-      const [columns, setColumns] = React.useState(null);
-      const [sortDescriptor, setSortDescriptor] = React.useState({
-        column: "age",
-        direction: "ascending",
-      });
-      const [page, setPage] = React.useState(1);
-
-      useEffect(() => {
-      
-    switch (props.coldata) {
-      case "dorders":
-        
-        break;
-
-
-
-
-      default:
-        break;
-    }
-
-
-
-      }, [columns])
-      
-
-
-      const hasSearchFilter = Boolean(filterValue);
-
-      const headerColumns = React.useMemo(() => {
-        if (visibleColumns === "all") return columns;
-
-        return props.columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
-      }, [visibleColumns]);
-
-      const filteredItems = React.useMemo(() => {
-        let filteredUsers = [...props.data];
-
-        if (hasSearchFilter) {
-
-          try {
-            filteredUsers = filteredUsers.filter((user) =>
-              //  console.log(user)
-              props.search=="code"?
-                user.code.toLowerCase().includes(filterValue.toLowerCase()): props.search=="phone"?user.phone.toLowerCase().includes(filterValue.toLowerCase()) :user.name_ar.toLowerCase().includes(filterValue.toLowerCase()),
-              );
-          } catch (error) {
-            console.log("thrown",error);
-          }
-
-        
-        }
-        if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
-          filteredUsers = filteredUsers.filter((user) =>
-            Array.from(statusFilter).includes(user.status),
-          );
-        }
-
-        return filteredUsers;
-      }, [props.data, filterValue, statusFilter]);
-
-      const pages = Math.ceil(filteredItems.length / rowsPerPage);
-
-      const items = React.useMemo(() => {
-        const start = (page - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-
-        return filteredItems.slice(start, end);
-      }, [page, filteredItems, rowsPerPage]);
-
-      const sortedItems = React.useMemo(() => {
-        return [...items].sort((a, b) => {
-          const first = a[sortDescriptor.column];
-          const second = b[sortDescriptor.column];
-          const cmp = first < second ? -1 : first > second ? 1 : 0;
-
-          return sortDescriptor.direction === "descending" ? -cmp : cmp;
-        });
-      }, [sortDescriptor, items]);
-
-      const renderCell = React.useCallback((user, columnKey) => {
-        const cellValue = user[columnKey];
-        // console.log("Column Key:", columnKey, "Value:", cellValue); 
-        // console.log("wtf istis ", cellValue)
-
-        switch (columnKey) {    
-          case "name":
-            return (
-              <User
-                avatarProps={{radius: "full",size:"sm", color:"primary ", src: user.avatar}}
-                description={user.email}
-                name={cellValue}
-              >
-                {user.email}
-              </User>
-            );
-          case "role":
-            return (
-              <div className="flex flex-col">
-                <p className="text-bold text-small capitalize">{cellValue}</p>
-                <p className="text-bold text-tiny capitalize text-default-400">{user.team}</p>
-              </div>
-            );
-
-            case "color":
-              return (
-                <div className=" flex w-full items-center justify-center">
-                        <div style={{backgroundColor:cellValue}} className="w-6 h-6 transition-transform hover:scale-150 cursor-zoom-in rounded-full shadow-lg "></div>
-                </div>
-              );
-              break;
-
-            case "total":
-              return (
-                <div className=" whitespace-nowrap">
-                      {cellValue} <span className="italic text-xs text-gray-600" > {CURRENCY} </span> 
-                </div>
-              );
-              break;
-
-
-          case "status":
-        let stob = {};
-          switch (cellValue) {
-            case "initiated":
-          stob.lable = t('statusUnconfirmed');
-          stob.color = "text-gray-700 bg-gray-200 min-w ";
-          stob.dot = "bg-gray-700";
-          stob.istog=false; 
-            break;
-
-            case "processed":
-              stob.lable = t('statusNotDelivered');
-              stob.color = "text-amber-700 bg-amber-200 min-w ";
-            stob.dot = "bg-amber-700";
-            stob.istog=false; 
-              break;
-
-            case "delivered":
-              stob.lable = t('statusDelivered');
-              stob.color = "text-green-600 bg-green-300 min-w ";
-              stob.dot = "bg-green-600";
-              stob.istog=false; 
-          
-              
-              break;
-
-
-              case true:
-                stob.lable = t('statusAvailable');
-                stob.color = "text-green-600 bg-green-300 min-w ";
-                stob.dot = "bg-green-600";
-                
-            
-                
-                break;
-
-
-                case false:
-                  stob.lable = t('statusUnavailable');
-                  stob.color = "text-amber-700 bg-amber-200 min-w ";
-                stob.dot = "bg-amber-700";
-                  
-                  break;
-
-
-            
-          
-            default:
-              stob.lable = cellValue;
-              stob.color = "text-gray-700 bg-gray-200 min-w ";
-            stob.dot = "bg-gray-700";
-              break;
-          }
-
-
-          return (<div className={stob.color} style={{
-            display:"flex",
-            whiteSpace:"nowrap",
-
-            alignItems:"center",
-            justifyContent:"center",
-      
-            padding:"4px 10px",
-            borderRadius:10
-          
-          }} > 
-          <div   className={stob.dot} style={{width:10,height:10,borderRadius:100,marginLeft:7,marginRight:7,fontSize:10}}></div>
-          {stob.lable} 
-          </div>);
-          break;
-
-          case "payment_status":
-            let stobp = {};
-            switch (cellValue) {
-              case "unpaid":
-              stobp.lable = t('unpaid');
-              stobp.color = "text-amber-700 bg-amber-100 ";
-            stobp.dot = "bg-amber-600";
-              
-              break;
-      
-              case "paid":
-                stobp.lable = t('paid');
-                stobp.color = "text-green-700 bg-green-100";
-                stobp.dot = "bg-green-600";
-              
-                
-                  break;
-      
-      
-              
-            
-              default:
-                break;
-            }
-      
-      
-            return (<div className={`${stobp.color} rounded-lg shadow-sm font-medium`} style={{
-              display:"flex",
-              whiteSpace:"nowrap",
-              alignItems:"center",
-              justifyContent:"center",
-        
-              padding:"6px 12px",
-            
-            }} > 
-            <div   className={stobp.dot} style={{width:8,height:8,borderRadius:100,marginLeft:7,marginRight:7}}></div>
-            {stobp.lable} 
-            </div>);
-            break;
-
-
-            case "delivery_type":
-              let delob = {};
-              switch (cellValue) {
-                case "delivery":
-                  delob.lable = t('deliveryToAddress');
-                  delob.color = "text-moonsec-200 bg-moonsec-200/10 ";
-                  delob.dot = "bg-moonsec-200";
-                
-                break;
-        
-                case "pickup":
-                  delob.lable = t('pickupFromCenter');
-                  delob.color = "text-moonsec-100 bg-moonsec-100/10 ";
-                  delob.dot = "bg-moonsec-100";
-                
-                  
-                    break;
-                default:
-                  break;
-              }
-        
-        
-              return (<div className={`${delob.color} rounded-lg shadow-sm font-medium`} style={{
-                display:"flex",
-                whiteSpace:"nowrap",
-                alignItems:"center",
-                justifyContent:"center",
-          
-                padding:"6px 12px",
-              
-              }} > 
-              <div   className={delob.dot} style={{width:8,height:8,borderRadius:100,marginLeft:7,marginRight:7}}></div>
-              {delob.lable} 
-              </div>);
-              break;
-      
-
-
-
-              case "payment_type":
-              let payob = {};
-              switch (cellValue) {
-                case "online":
-                  payob.lable = t('online');
-                  payob.color = "text-moon-200 bg-moon-200/10  ";
-                  payob.dot = "bg-moon-200";
-                
-                break;
-        
-                case "delivery":
-                  payob.lable = t('onDelivery');
-                  payob.color = "text-moonsec-100 bg-moonsec-100/10 ";
-                  payob.dot = "bg-moonsec-100";
-                
-                  
-                    break;
-                default:
-                  break;
-              }
-        
-        
-              return (<div className={`${payob.color} rounded-lg shadow-sm font-medium`} style={{
-                display:"flex",
-                whiteSpace:"nowrap",
-                alignItems:"center",
-                justifyContent:"center",
-          
-                padding:"6px 12px",
-              
-              }} > 
-              <div   className={payob.dot} style={{width:8,height:8,borderRadius:100,marginLeft:7,marginRight:7}}></div>
-              {payob.lable} 
-              </div>);
-              break;
-
-
-
-
-
-          case "date":
-            var date = new Date(cellValue * 1000);
-            var hours = date.getHours();
-          
-            var y = date.toLocaleDateString("ar-EG",{  
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',});
-            var minutes =   date.getMinutes();
-            return(
-            <div className="whitespace-nowrap" > {y} - <span className="" > {hours}:{minutes} </span> </div> 
-            );
-
-
-
-          break;
-
-          
-          
-          case "images":
-            if (!Array.isArray(cellValue) || cellValue.length === 0 || !cellValue[0]?.url) {
-              return (
-                <div className="w-16 h-16 flex items-center justify-center text-xs text-gray-400 border rounded-md border-gray-300">
-                  No Image
-                </div>
-              );
-            }
-            
-            const imageUrl = cellValue[0].url;
-            const srcd = imageUrl.startsWith("http") ? imageUrl : `${IMG_URL}${imageUrl}`;
-            const src = imageUrl?.startsWith("http") ? imageUrl : `${IMG_URL}${imageUrl}`;
-
-          return (
-              <div className="w-16 h-16 relative">
-                <Image
-                  fill
-                  className="rounded-md object-cover"
-                  quality={40}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  src={src}
-                  alt="product"
-                />
-              </div>
-            );
-          
-              
-              break;
-
-              case "img":
-              
-              return (
-                  <div className="w-16 h-16 relative">
-                    <img
-                      fill
-                      className="rounded-md object-cover"
-                      quality={40}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      src={cellValue}
-                      alt="product"
-                    />
-                  </div>
-                );
-        
-              
-                  
-                  break;
-              
-
-          case "feat":
-          
-          return(
-          <div className="py-2 px-4 text-center text-white font-semibold rounded-lg shadow-sm" style={{backgroundColor:cellValue?"#2eff89":"#ff424c"}} >
-            {cellValue ? t('yes') : t('no')}
-          </div>
-
-          );
-
-
-
-        break;
-
-        case "topsec":
-          
-        return(
-        <div className="py-2 px-4 text-center text-white font-semibold rounded-lg shadow-sm" style={{backgroundColor:cellValue?"#2eff89":"#ff424c"}} >
-          {cellValue ? t('yes') : t('no')}
-        </div>
-
-        );
-
-
-
-      break;
-
-
-
-          case 'code':
-          return(
-            <div className="px-6 py-2 text-center text-white bg-moon-200 rounded-full" >{cellValue}</div>
-          );
-          break;
-
-          case 'price':
-            return(
-              <div className="text-moon-200 font-bold flex " > <div className="mr-2" >{CURRENCY}</div> <div>{cellValue}</div>  </div>
-            );
-            break;
-      
-          case "imgsingle":
-          
-          return(
-          
-
-            <div className=' w-16  h-16' style={{position:"relative"}} >
-            <Image  fill objectFit='cover'
-            quality={40}
-            className="rounded-md"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={cellValue} 
-          
-            />
-            </div>
-
-          );
-
-
-
-        break;
-
-
-        
-
-          case "varients":
-            return(
-          <div className="flex-wrap">
-            
-            {cellValue&&cellValue.map((varient,index)=>(
-
-              <div className="inline-block mx-0.5 m-0.5 text-xs ">
-              <div className="inline-block px-3 py-2  rounded-sm bg-moon-200/10 text-moon-200 " >
-                {varient.sizes[0].name_ar} ({varient.sizes[0].icon})- {varient.price} {CURRENCY}  
-              </div>
-              </div>
-        
-      //   <div
-      //   className="flex-col "
-      //   style={{
-      //     padding: 10,
-      //     borderRadius: 10,
-      //     cursor: "pointer",
-      //     display: "flex",
-      //     justifyContent: "center",
-      //     alignItems: "center",
-      //   }}
-      //   key={varient.id}
-      // >
-      //   <div
-      //     style={{
-      //       display: "flex",
-      //       alignItems: "center",
-      //       justifyContent: "center",
-      //     }}
-      //   >
-      //   </div>
-      //   <div
-      //     style={{
-      //       display: "flex",
-      //       alignItems: "center",
-      //       justifyContent: "center",
-      //       flexDirection: "column",
-        
-      //     }}
-      //   >
-      //     <div
-      //     className="flex space-x-0.5 text-xs text-moon-300 font-bold mt-1 italic justify-center"
-      //     >
-      //        <div> {CURRENCY} </div > <div> {varient.price} </div>  
-      //     </div>
-      //   </div>
-      // </div>
-      
-        ))}
-          </div>
-            
-            );
-
-          break;
-
-
-          case "name_ar":
-            return(
-          <div className="min-w-40" >
-            {cellValue.slice(0,40)+"..."}
-          </div>
-            
-            );
-
-          break;
-
-          case "description_ar":
-            return(
-          <div className="min-w-44" >
-            {cellValue.slice(0,40)+"..."}
-          </div>
-            
-            );
-
-          break;
-
-        
-          
-          case "refida":
-            return (
-              <div className="relative flex justify-end items-center gap-2">
-                <Dropdown
-                
-                classNames={{
-                  // base: "before:bg-default-200", // change arrow background
-                  // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
-                }}
-
-                backdrop="blur">
-                  <DropdownTrigger>
-                    <Button isIconOnly size="sm" variant="light">
-                      <VerticalDotsIcon className="text-default-300" />
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu textValue="a" dir="rtl" disabledKeys={["delete"]}>
-                    <DropdownItem textValue="a"  onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >
-                      عرض</DropdownItem>
-                  
-                      {user.status=="initiated"? <DropdownItem textValue="a" onClick={()=>{
-                    props.conorder(user.id)
-                    }} startContent={<FaCheckDouble style={{marginRight:4}} />} key={"confirm"} > تأكيد </DropdownItem> :<DropdownItem textValue="a" ></DropdownItem> 
-    }
-
-
-    {user.status=="initiated"? <DropdownItem className="text-red-500" textValue="a" onClick={()=>{
-                    props.deleteorder(user.id)
-                    }} startContent={<FaTrash style={{marginRight:4}} />} key={"edit"} > إلغاء الطلب </DropdownItem> :<DropdownItem textValue="a" ></DropdownItem> 
-    }
-                    
-                    {user.payment_status=="paid"||user.payment_type=="delivery"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{
-                      router.push(user.url)
-                    }} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
-    }
-                                  
-                    
-                    
-                    <DropdownItem textValue="a" startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >إلغاء</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </div>
-            );
-            break;
-
-
-          case "refid":
-            return (
-              <div className="relative flex justify-end items-center gap-2">
-                <Dropdown
-                
-                classNames={{
-                  // base: "before:bg-default-200", // change arrow background
-                  // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
-                }}
-
-                backdrop="blur">
-                  <DropdownTrigger>
-                    <Button isIconOnly size="sm" variant="light">
-                      <VerticalDotsIcon className="text-default-300" />
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu textValue="a" dir="rtl" disabledKeys={["delete"]}>
-                    <DropdownItem textValue="a"  onClick={()=>{props.delorder(user)}} startContent={<FaEye style={{marginRight:4}} />} key={"view"} >
-                      عرض</DropdownItem>
-
-                    
-                    {user.payment_status=="paid"||user.payment_type=="delivery"? <DropdownItem textValue="a" ></DropdownItem> : <DropdownItem textValue="a" onClick={()=>{
-                      router.push(user.url)
-                    }} startContent={<FaCreditCard style={{marginRight:4}} />} key={"edit"} > دفع </DropdownItem>
-    }
-                                  
-                    
-                    
-                    <DropdownItem textValue="a" startContent={<FaTrash style={{marginRight:4}} />} key={"delete"} >إلغاء</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </div>
-            );
-            break;
-
-            case "createdAt":
-              return (
-                <div className="relative flex justify-end items-center gap-2">
-                  <Dropdown
-                  
-                  classNames={{
-                    // base: "before:bg-default-200", // change arrow background
-                    // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
-                  }}
-      
-                  backdrop="blur">
-                    <DropdownTrigger>
-                      <Button isIconOnly size="sm" variant="light">
-                        <VerticalDotsIcon className="text-default-300" />
-                      </Button>
-                    </DropdownTrigger>
-
-                  {props.whouse?  <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
-                  
-          
-                  
-
-                  <DropdownItem textValue="a"   onClick={()=>{ props.duplicateProduct(user)}} startContent={<FaPenToSquare style={{marginRight:4}} />} key={"view"} >
-    <div className="py-1 font-bold text-gray-600 "> تعديل الكمية</div>  </DropdownItem>
-
-
-                    </DropdownMenu>
-    :  <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
-    <DropdownItem textValue="a"   onClick={()=>{ props.delorder(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
-    <div className="py-1 font-bold text-gray-600 "> تعديل المنتج </div>  </DropdownItem>
-
-    <DropdownItem textValue="a"   onClick={()=>{ props.duplicateProduct(user)}} startContent={<FaCopy style={{marginRight:4}} />} key={"view"} >
-    <div className="py-1 font-bold text-gray-600 ">نسخ المنتج</div>  </DropdownItem>
-
-
-
-    <DropdownItem textValue="a" onClick={()=>{props.statusChange(!user.status,user.id)}} startContent={<FaEyeSlash style={{marginRight:4}} />} key={"hid"} >
-    <div className="py-1 font-bold text-gray-600 ">
-    إخفاء/إظهار
-    </div>
-    </DropdownItem>
-
-    <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
-    <div className="py-2 font-medium text-red-500">   حذف المنتج </div> </DropdownItem>
-
-    </DropdownMenu>
-    }
-
-
-                  </Dropdown>
-                </div>
-              );
-              break;
-
-
-              case "size":
-                return (
-                  <div className="relative flex justify-end items-center gap-2">
-                    <Dropdown
-                    
-                    classNames={{
-                      // base: "before:bg-default-200", // change arrow background
-                      // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
-                    }}
-        
-                    backdrop="blur">
-                      <DropdownTrigger>
-                        <Button isIconOnly size="sm" variant="light">
-                          <VerticalDotsIcon className="text-default-300" />
-                        </Button>
-                      </DropdownTrigger>
-                      <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
-                        <DropdownItem textValue="a"   onClick={()=>{ props.editSize(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
-                        <div className="py-1 font-bold text-gray-600 "> تعديل المقاس </div>  </DropdownItem>
-      
-                        <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
-                      <div className="py-2 font-medium text-red-500">   حذف المقاس </div> </DropdownItem>
-
-      
-                      </DropdownMenu>
-                    </Dropdown>
-                  </div>
-                );
-                break;
-
-                case "colore":
-                  return (
-                    <div className="relative flex justify-end items-center gap-2">
-                      <Dropdown
-                      
-                      classNames={{
-                        // base: "before:bg-default-200", // change arrow background
-                        // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
-                      }}
-          
-                      backdrop="blur">
-                        <DropdownTrigger>
-                          <Button isIconOnly size="sm" variant="light">
-                            <VerticalDotsIcon className="text-default-300" />
-                          </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
-                          <DropdownItem textValue="a"   onClick={()=>{ props.editColor(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
-                          <div className="py-1 font-bold text-gray-600 "> تعديل اللون </div>  </DropdownItem>
-        
-                          <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
-                          <div className="py-2 font-medium text-red-500">   حذف اللون </div> </DropdownItem>
-      
-        
-                        </DropdownMenu>
-                      </Dropdown>
-                    </div>
-                  );
-                  break;
-
-                  case "cate":
-                    return (
-                      <div className="relative flex justify-end items-center gap-2">
-                        <Dropdown
-                        
-                        classNames={{
-                          // base: "before:bg-default-200", // change arrow background
-                          // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
-                        }}
-            
-                        backdrop="blur">
-                          <DropdownTrigger>
-                            <Button isIconOnly size="sm" variant="light">
-                              <VerticalDotsIcon className="text-default-300" />
-                            </Button>
-                          </DropdownTrigger>
-                          <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
-                            <DropdownItem textValue="a"   onClick={()=>{ props.editCat(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
-                            <div className="py-1 font-bold text-gray-600 "> تعديل الفئة </div>  </DropdownItem>
-                          
-                            <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
-                          <div className="py-2 font-medium text-red-500">   حذف الفئة </div> </DropdownItem>
-                          
-        
-          
-                          </DropdownMenu>
-                        </Dropdown>
-                      </div>
-                    );
-                    break;
-
-                    case "scate":
-                      return (
-                        <div className="relative flex justify-end items-center gap-2">
-                          <Dropdown
-                          
-                          classNames={{
-                            // base: "before:bg-default-200", // change arrow background
-                            // content: "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-primary dark:from-default-50 dark:to-black",
-                          }}
-              
-                          backdrop="blur">
-                            <DropdownTrigger>
-                              <Button isIconOnly size="sm" variant="light">
-                                <VerticalDotsIcon className="text-default-300" />
-                              </Button>
-                            </DropdownTrigger>
-                            <DropdownMenu textValue="a "  dir="rtl" disabledKeys={["delete"]}>
-                              <DropdownItem textValue="a"   onClick={()=>{ props.editScat(user)}} startContent={<FaEdit style={{marginRight:4}} />} key={"view"} >
-                              <div className="py-1 font-bold text-gray-600 "> تعديل الفئة الفرعية </div>  </DropdownItem>
-
-                              <DropdownItem textValue="a"   onClick={()=>{ props.togfeat(user)}} startContent={<FaToggleOn style={{marginRight:4}} />} key={"view"} >
-                              <div className="py-1 font-bold text-gray-600 ">  إظهار\إخفاء المميزة </div>  </DropdownItem>
-
-                              <DropdownItem textValue="a"   onClick={()=>{ props.toggleTopsec(user)}} startContent={<FaToggleOn style={{marginRight:4}} />} key={"view"} >
-                              <div className="py-1 font-bold text-gray-600 ">  إظهار\إخفاء أفضل الأقسام </div>  </DropdownItem>
-            
-                              <DropdownItem textValue="a"  onClick={()=>{props.deleteProduct(user.id)}} startContent={<FaTrash className="text-red-600" style={{marginRight:4}} />} key={"del"} >
-                              <div className="py-2 font-medium text-red-500">   حذف الفئة الفرعية </div> </DropdownItem>
-          
-            
-                            </DropdownMenu>
-                          </Dropdown>
-                        </div>
-                      );
-                      break;
-
-
-
-          default:
-            return cellValue;
-        }
-      }, []);
-
-      const onNextPage = React.useCallback(() => {
-        if (page < pages) {
-          setPage(page + 1);
-        }
-      }, [page, pages]);
-
-      const onPreviousPage = React.useCallback(() => {
-        if (page > 1) {
-          setPage(page - 1);
-        }
-      }, [page]);
-
-      const onRowsPerPageChange = React.useCallback((e) => {
-        setRowsPerPage(Number(e.target.value));
-        setPage(1);
-      }, []);
-
-      const onSearchChange = React.useCallback((value) => {
-        
-        if (value) {
-          setFilterValue(value);
-          setPage(1);
-        } else {
-          setFilterValue("");
-        }
-      }, []);
-
-      const onClear = React.useCallback(()=>{
-        setFilterValue("")
-        setPage(1)
-      },[])
-
-      const topContent = React.useMemo(() => {
-        return (
-          <div className="flex flex-col gap-4">
-            <div style={{}}>
-            <Input
-                isClearable
-                className="w-full sm:max-w-[44%]"
-                placeholder=" أبحث  ..."
-                startContent={<SearchIcon className="mx-2" />}
-                value={filterValue}
-                onClear={() => onClear()}
-                onValueChange={onSearchChange}
-              />
-            </div>
-            <div style={{display:props.checkout?"none":"flex"}} className="flex justify-between gap-3 items-end">
-              <div className="flex gap-3">
-                <Dropdown>
-                  <DropdownTrigger className="">
-                    <Button endContent={<ChevronDownIcon className="text-small" />} className="bg-moon-100 text-moon-300/60" variant="flat">
-                      الحالة 
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu
-                    disallowEmptySelection
-                    aria-label="Table Columns"
-                    closeOnSelect={false}
-                    selectedKeys={statusFilter}
-                    selectionMode="multiple"
-                    onSelectionChange={setStatusFilter}
-                  >
-                    {statusOptions.map((status) => (
-                      <DropdownItem key={status.uid} className="capitalize">
-                        {capitalize(status.name)}
-                      </DropdownItem>
-                    ))}
-                  </DropdownMenu>
-                </Dropdown>
-                <Dropdown>
-                  <DropdownTrigger className=" sm:flex">
-                    <Button endContent={<ChevronDownIcon className="text-small" />} className="bg-moon-100 text-moon-300/60" variant="flat">
-                      الأعمدة
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu
-                    disallowEmptySelection
-                    aria-label="Table Columns"
-                    closeOnSelect={false}
-                    selectedKeys={visibleColumns}
-                    selectionMode="multiple"
-                    onSelectionChange={setVisibleColumns}
-                  >
-                    {props.columns.map((column) => (
-                      <DropdownItem key={column.uid} className="capitalize">
-                        {capitalize(column.name)}
-                      </DropdownItem>
-                    ))}
-                  </DropdownMenu>
-                </Dropdown>
-                {/* <Button color="primary" endContent={<PlusIcon />}>
-                  Add New
-                </Button> */}
-              </div>
-            </div>
-            <div style={{display:props.checkout?"none":"block"}} className="flex justify-between items-center">
-              <span className="text-default-400 text-small"> عدد  :  {props.data.length} </span>
-              <label className="flex items-center text-default-400 text-small">
-                عدد الصفوف  :
-                <select
-                  className="bg-transparent outline-none text-default-400 text-small"
-                  onChange={onRowsPerPageChange}
-                >
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                </select>
-              </label>
-            </div>
-          </div>
-        );
-      }, [
-        filterValue,
-        statusFilter,
-        visibleColumns,
-        onRowsPerPageChange,
-        props.data.length,
-        onSearchChange,
-        hasSearchFilter,
-      ]);
-
-      const bottomContent = React.useMemo(() => {
-        return (
-          <div style={{display:props.checkout?"none":"flex"}} className="py-2 px-2  flex justify-between items-center">
-            <span className="w-[30%] text-small text-default-400">
-              {selectedKeys === "all"
-                ? "All items selected"
-                : `${selectedKeys.size} of ${filteredItems.length} selected`}
-            </span>
-            <Pagination
-                        
-              showShadow
-              color="primary"
-              page={page}
-              total={pages}
-              onChange={setPage}
-            />
-            <div className="hidden sm:flex w-[30%] justify-end gap-2">
-              <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onPreviousPage}>
-                Previous
-              </Button>
-              <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onNextPage}>
-                Next
-              </Button>
-            </div>
-          </div>
-        );
-      }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
-
-      return (
-        <div className="w-full bg-white rounded-xl shadow-lg overflow-hidden">
-        <Table
-          aria-label="Modern data table"
-          isHeaderSticky
-          bottomContent={bottomContent}
-          bottomContentPlacement="outside"
-          classNames={{
-            wrapper: "max-h-[600px] shadow-none rounded-none",
-            th: "bg-gray-50 text-gray-700 font-semibold text-sm border-b-2 border-gray-200",
-            td: "text-gray-700 border-b border-gray-100",
-            tr: "hover:bg-gray-50 transition-colors",
-            table: "min-w-full",
-          }}
-          selectedKeys={selectedKeys}
-          selectionMode="none"
-          sortDescriptor={sortDescriptor}
-          topContent={topContent}
-          topContentPlacement="outside"
-          
-          onSelectionChange={setSelectedKeys}
-          onSortChange={setSortDescriptor}
-        >
-          <TableHeader columns={headerColumns}>
-            {(column) => (
-              <TableColumn
-                key={column.uid}
-                align={column.uid === "actions" ? "center" : "start"}
-                allowsSorting={column.sortable}
-                className={column.uid === "refida" || column.uid === "refid" || column.uid === "createdAt" || column.uid === "size" || column.uid === "colore" || column.uid === "cate" || column.uid === "scate" ? "sticky left-0 bg-gray-50 shadow-lg z-10" : ""}
-              >
-                {column.name}
-              </TableColumn>
-            )}
-          </TableHeader>
-          <TableBody emptyContent={t('noData')} items={sortedItems}>
-            {(item) => (
-              <TableRow key={item.id} className="hover:bg-gray-50">
-                {(columnKey) => (
-                  <TableCell 
-                    className={(columnKey === "refida" || columnKey === "refid" || columnKey === "createdAt" || columnKey === "size" || columnKey === "colore" || columnKey === "cate" || columnKey === "scate") ? "sticky left-0 bg-white shadow-lg z-10" : ""}
-                  >
-                    {renderCell(item, columnKey)}
-                  </TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-        </div>
+"use client";
+
+import React, { useMemo, useCallback, useState } from "react";
+import {
+  Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,
+  Input, Button, Pagination, Chip, Tooltip,
+} from "@nextui-org/react";
+import Image from "next/image";
+import { IMG_URL, CURRENCY } from "../../local";
+import { SearchIcon } from "./SearchIcon";
+import {
+  FaEye, FaTrash, FaEyeSlash, FaCopy,
+} from "react-icons/fa6";
+import { FaEdit } from "react-icons/fa";
+import { useI18n } from "../../lib/i18n";
+import { statusOptions } from "./data";
+
+// Initial visible columns
+const INITIAL_VISIBLE_COLUMNS = [
+  "name", "createdAt", "cat", "name_en", "section", "icon", "img", "color",
+  "scate", "colore", "cate", "colorCode", "size", "city", "status", "pstatus",
+  "email", "refid", "refida", "date", "phone", "feat", "delivery_type", "total",
+  "payment_type", "payment_status", "name_ar", "description_ar", "code", "price",
+  "images", "qty", "colorname", "sizeo", "imgsingle", "topsec",
+];
+
+/**
+ * Modern, reusable table component for admin pages
+ * Supports sorting, filtering, pagination, and custom actions
+ */
+export default function ModernTable(props) {
+  const { t } = useI18n();
+
+  // State
+  const [filterValue, setFilterValue] = useState("");
+  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+  const [visibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));
+  const [statusFilter] = useState("all");
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [sortDescriptor, setSortDescriptor] = useState({ column: "id", direction: "descending" });
+  const [page, setPage] = useState(1);
+
+  // Memoized values
+  const hasSearchFilter = Boolean(filterValue);
+
+  const headerColumns = useMemo(() => {
+    if (visibleColumns === "all") return props.columns;
+    return props.columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
+  }, [visibleColumns, props.columns]);
+
+  const filteredItems = useMemo(() => {
+    let filteredData = [...(props.data || [])];
+
+    if (hasSearchFilter && props.search) {
+      filteredData = filteredData.filter((item) =>
+        item[props.search]?.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
+
+    if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
+      filteredData = filteredData.filter((item) =>
+        Array.from(statusFilter).includes(item.status)
+      );
+    }
+
+    return filteredData;
+  }, [props.data, filterValue, statusFilter, hasSearchFilter, props.search]);
+
+  const pages = Math.ceil(filteredItems.length / rowsPerPage);
+
+  const items = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    return filteredItems.slice(start, end);
+  }, [page, filteredItems, rowsPerPage]);
+
+  const sortedItems = useMemo(() => {
+    return [...items].sort((a, b) => {
+      const first = a[sortDescriptor.column];
+      const second = b[sortDescriptor.column];
+      const cmp = first < second ? -1 : first > second ? 1 : 0;
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+    });
+  }, [sortDescriptor, items]);
+
+  // Render cell content with modern design
+  const renderCell = useCallback((item, columnKey) => {
+    const cellValue = item[columnKey];
+
+    switch (columnKey) {
+      case "images":
+        return (
+          <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm border border-gray-200">
+            {item.images && item.images[0] ? (
+              <Image
+                src={item.images[0].url?.startsWith('http') ? item.images[0].url : `${IMG_URL}${item.images[0].url}`}
+                alt={item.name_ar || "Product"}
+                fill
+                className="object-cover hover:scale-110 transition-transform duration-300"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+              </div>
+            )}
+          </div>
+        );
+
+      case "id":
+        return (
+          <div className="flex items-center">
+            <span className="text-xs font-mono bg-gray-100 px-2 py-1 rounded-md text-gray-600">
+              #{cellValue}
+            </span>
+          </div>
+        );
+
+      case "name_ar":
+        return (
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold text-gray-800">{cellValue}</span>
+            {item.name_en && (
+              <span className="text-xs text-gray-400 mt-0.5">{item.name_en}</span>
+            )}
+          </div>
+        );
+
+      case "code":
+        return (
+          <span className="text-xs font-mono bg-blue-50 text-blue-700 px-2.5 py-1 rounded-lg font-medium">
+            {cellValue}
+          </span>
+        );
+
+      case "varients":
+        return (
+          <div className="flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4 text-green-600">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <span className="text-sm font-bold text-gray-800">
+              {item.varients && item.varients[0] ? `${item.varients[0].price}` : 'N/A'}
+            </span>
+            <span className="text-xs text-gray-500">{CURRENCY}</span>
+          </div>
+        );
+
+      case "status":
+        if (typeof cellValue === 'boolean') {
+          return (
+            <Chip
+              className="capitalize font-medium"
+              color={cellValue ? "success" : "default"}
+              size="sm"
+              variant="flat"
+              startContent={
+                cellValue ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3">
+                    <path fillRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3">
+                    <path d="M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z" />
+                  </svg>
+                )
+              }
+            >
+              {cellValue ? t('statusAvailable') : t('statusUnavailable')}
+            </Chip>
+          );
+        }
+        return (
+          <Chip
+            className="capitalize font-medium"
+            color={cellValue === "delivered" || cellValue?.includes("تم") ? "success" : 
+                   cellValue === "pending" || cellValue?.includes("قيد") ? "warning" : 
+                   cellValue === "confirmed" || cellValue?.includes("مؤكد") ? "primary" : "default"}
+            size="sm"
+            variant="flat"
+          >
+            {cellValue}
+          </Chip>
+        );
+
+      case "payment_status":
+        return (
+          <Chip
+            className="capitalize font-medium"
+            color={cellValue === "paid" || cellValue?.includes("مدفوع") ? "success" : "warning"}
+            size="sm"
+            variant="flat"
+            startContent={
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3">
+                <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+                <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+              </svg>
+            }
+          >
+            {cellValue}
+          </Chip>
+        );
+
+      case "date":
+        if (cellValue) {
+          const date = new Date(cellValue * 1000);
+          return (
+            <div className="flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-4 text-gray-400">
+                <path fillRule="evenodd" d="M4 1.75a.75.75 0 0 1 1.5 0V3h5V1.75a.75.75 0 0 1 1.5 0V3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2V1.75ZM4.5 6a1 1 0 0 0-1 1v4.5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-7Z" clipRule="evenodd" />
+              </svg>
+              <span className="text-sm text-gray-600">{date.toLocaleDateString('ar-DZ')}</span>
+            </div>
+          );
+        }
+        return <span className="text-gray-400">-</span>;
+
+      case "total":
+        return (
+          <div className="flex items-center gap-1.5">
+            <span className="text-sm font-bold text-gray-800">{cellValue}</span>
+            <span className="text-xs text-gray-500">{CURRENCY}</span>
+          </div>
+        );
+
+      case "refida":
+        return (
+          <div className="flex gap-1.5">
+            <Tooltip content="عرض التفاصيل" placement="top">
+              <Button
+                isIconOnly
+                size="sm"
+                variant="flat"
+                className="bg-blue-50 text-blue-600 hover:bg-blue-100 min-w-8 h-8"
+                onClick={() => props.delorder && props.delorder(item)}
+              >
+                <FaEye className="text-sm" />
+              </Button>
+            </Tooltip>
+          </div>
+        );
+
+      case "createdAt":
+        return (
+          <div className="flex gap-1.5 flex-wrap">
+            {props.duplicateProduct && (
+              <Tooltip content="نسخ المنتج" placement="top">
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="flat"
+                  className="bg-purple-50 text-purple-600 hover:bg-purple-100 min-w-8 h-8"
+                  onClick={() => props.duplicateProduct(item)}
+                >
+                  <FaCopy className="text-sm" />
+                </Button>
+              </Tooltip>
+            )}
+            <Tooltip content="تعديل" placement="top">
+              <Button
+                isIconOnly
+                size="sm"
+                variant="flat"
+                className="bg-blue-50 text-blue-600 hover:bg-blue-100 min-w-8 h-8"
+                onClick={() => props.delorder && props.delorder(item)}
+              >
+                <FaEdit className="text-sm" />
+              </Button>
+            </Tooltip>
+            {props.statusChange && (
+              <Tooltip content={item.status ? "إخفاء المنتج" : "إظهار المنتج"} placement="top">
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="flat"
+                  className={item.status ? "bg-green-50 text-green-600 hover:bg-green-100" : "bg-gray-50 text-gray-400 hover:bg-gray-100"}
+                  onClick={() => props.statusChange(!item.status, item.id)}
+                >
+                  {item.status ? <FaEye className="text-sm" /> : <FaEyeSlash className="text-sm" />}
+                </Button>
+              </Tooltip>
+            )}
+            {props.deleteProduct && (
+              <Tooltip content="حذف" placement="top" color="danger">
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="flat"
+                  className="bg-red-50 text-red-600 hover:bg-red-100 min-w-8 h-8"
+                  onClick={() => props.deleteProduct(item.id)}
+                >
+                  <FaTrash className="text-sm" />
+                </Button>
+              </Tooltip>
+            )}
+          </div>
+        );
+
+      default:
+        return <span className="text-sm text-gray-700">{cellValue}</span>;
+    }
+  }, [props, t]);
+
+  // Callbacks
+  const onNextPage = useCallback(() => {
+    if (page < pages) {
+      setPage(page + 1);
+    }
+  }, [page, pages]);
+
+  const onPreviousPage = useCallback(() => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  }, [page]);
+
+  const onRowsPerPageChange = useCallback((e) => {
+    setRowsPerPage(Number(e.target.value));
+    setPage(1);
+  }, []);
+
+  const onSearchChange = useCallback((value) => {
+    if (value) {
+      setFilterValue(value);
+      setPage(1);
+    } else {
+      setFilterValue("");
+    }
+  }, []);
+
+  const onClear = useCallback(() => {
+    setFilterValue("");
+    setPage(1);
+  }, []);
+
+  // Top content with modern design
+  const topContent = useMemo(() => {
+    return (
+      <div className="flex flex-col gap-4 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+        <div className="flex flex-col sm:flex-row justify-between gap-3 items-start sm:items-end">
+          <Input
+            isClearable
+            className="w-full sm:max-w-[400px]"
+            placeholder={t('search')}
+            startContent={
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-5 text-gray-400">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+            }
+            value={filterValue}
+            onClear={() => onClear()}
+            onValueChange={onSearchChange}
+            classNames={{
+              input: "text-sm",
+              inputWrapper: "bg-gray-50 border-gray-200 hover:bg-gray-100 group-data-[focus=true]:bg-white",
+            }}
+          />
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-4">
+              <path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3Z" />
+              <path fillRule="evenodd" d="M13 6H3v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6ZM5.72 7.47a.75.75 0 0 1 1.06 0L8 8.69l1.22-1.22a.75.75 0 1 1 1.06 1.06L9.06 9.75l1.22 1.22a.75.75 0 1 1-1.06 1.06L8 10.81l-1.22 1.22a.75.75 0 0 1-1.06-1.06l1.22-1.22-1.22-1.22a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+            </svg>
+            <span className="font-medium">{filteredItems.length}</span>
+            <span className="text-gray-500">{t('results')}</span>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">{t('rowsPerPage')}:</span>
+            <select
+              className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-moon-200 focus:border-transparent cursor-pointer hover:bg-gray-100 transition-colors"
+              onChange={onRowsPerPageChange}
+              value={rowsPerPage}
+            >
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          <div className="text-xs text-gray-500">
+            {selectedKeys === "all"
+              ? t('allItemsSelected')
+              : selectedKeys.size > 0 && `${selectedKeys.size} ${t('of')} ${filteredItems.length} ${t('selected')}`}
+          </div>
+        </div>
+      </div>
+    );
+  }, [filterValue, onSearchChange, filteredItems.length, onRowsPerPageChange, rowsPerPage, onClear, t, selectedKeys]);
+
+  // Bottom content with modern design
+  const bottomContent = useMemo(() => {
+    return (
+      <div className="py-4 px-4 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white rounded-xl shadow-sm border border-gray-100">
+        <div className="flex items-center gap-2 text-sm text-gray-600 order-2 sm:order-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-4">
+            <path fillRule="evenodd" d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-6 3.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7.293 5.293a1 1 0 1 1 .99 1.667c-.459.134-.765.653-.765 1.209v.07a.75.75 0 0 0 1.5 0v-.07c0-.1.057-.19.142-.232A2.5 2.5 0 1 0 6.25 5.25a.75.75 0 0 0 1.5 0 1 1 0 0 1 1.543-.84Z" clipRule="evenodd" />
+          </svg>
+          <span>
+            {t('page')} <span className="font-semibold">{page}</span> {t('of')} <span className="font-semibold">{pages || 1}</span>
+          </span>
+        </div>
+        
+        <div className="order-1 sm:order-2">
+          <Pagination
+            isCompact
+            showControls
+            showShadow
+            color="primary"
+            page={page}
+            total={pages || 1}
+            onChange={setPage}
+            classNames={{
+              wrapper: "gap-1",
+              item: "w-8 h-8 text-sm rounded-lg",
+              cursor: "bg-gradient-to-r from-moon-200 to-moon-300 shadow-sm",
+            }}
+          />
+        </div>
+
+        <div className="flex gap-2 order-3">
+          <Button 
+            isDisabled={page === 1} 
+            size="sm" 
+            variant="flat"
+            className="bg-gray-50 hover:bg-gray-100 disabled:opacity-50"
+            onPress={onPreviousPage}
+            startContent={
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-4">
+                <path fillRule="evenodd" d="M14 8a.75.75 0 0 1-.75.75H4.56l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 1.06L4.56 7.25h8.69A.75.75 0 0 1 14 8Z" clipRule="evenodd" />
+              </svg>
+            }
+          >
+            <span className="hidden sm:inline">{t('previous')}</span>
+          </Button>
+          <Button 
+            isDisabled={page === pages} 
+            size="sm" 
+            variant="flat"
+            className="bg-gray-50 hover:bg-gray-100 disabled:opacity-50"
+            onPress={onNextPage}
+            endContent={
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-4">
+                <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+              </svg>
+            }
+          >
+            <span className="hidden sm:inline">{t('next')}</span>
+          </Button>
+        </div>
+      </div>
+    );
+  }, [page, pages, onPreviousPage, onNextPage, t]);
+
+  return (
+    <div className="w-full">
+      <Table
+        aria-label="Modern admin table with enhanced design"
+        isHeaderSticky
+        bottomContent={bottomContent}
+        bottomContentPlacement="outside"
+        classNames={{
+          wrapper: "max-h-[600px] shadow-sm rounded-xl border border-gray-100",
+          th: "bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 font-semibold text-xs uppercase tracking-wider",
+          td: "py-4",
+          tr: "hover:bg-gray-50/50 transition-colors",
+        }}
+        selectedKeys={selectedKeys}
+        selectionMode="multiple"
+        sortDescriptor={sortDescriptor}
+        topContent={topContent}
+        topContentPlacement="outside"
+        onSelectionChange={setSelectedKeys}
+        onSortChange={setSortDescriptor}
+      >
+        <TableHeader columns={headerColumns}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              align={column.uid === "actions" || column.uid === "createdAt" ? "center" : "start"}
+              allowsSorting={column.sortable}
+            >
+              <div className="flex items-center gap-2">
+                {column.name}
+                {column.sortable && (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3 opacity-50">
+                    <path fillRule="evenodd" d="M13.78 10.47a.75.75 0 0 1 0 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 1 1 1.06-1.06l.97.97V5.75a.75.75 0 0 1 1.5 0v5.69l.97-.97a.75.75 0 0 1 1.06 0ZM2.22 5.53a.75.75 0 0 1 0-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1-1.06 1.06l-.97-.97v5.69a.75.75 0 0 1-1.5 0V4.56l-.97.97a.75.75 0 0 1-1.06 0Z" clipRule="evenodd" />
+                  </svg>
+                )}
+              </div>
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody 
+          emptyContent={
+            <div className="flex flex-col items-center justify-center py-12 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-16 mb-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+              </svg>
+              <p className="text-lg font-medium">{t('noData')}</p>
+              <p className="text-sm mt-1">لا توجد بيانات لعرضها</p>
+            </div>
+          } 
+          items={sortedItems}
+        >
+          {(item) => (
+            <TableRow key={item.id} className="border-b border-gray-100 last:border-0">
+              {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
