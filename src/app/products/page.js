@@ -144,29 +144,29 @@ export default function Product() {
   }
 
   return (
-    <div dir='rtl' className='lg:pt-12'>
+    <div dir='rtl' className='pt-6 md:pt-8 lg:pt-12'>
       <Head>
         <meta name="theme-color" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {!lod ? (
-        <div className="main px-4 lg:px-6" style={{ width: "100%" }}>
+        <div className="main px-4 sm:px-6 lg:px-10" style={{ width: "100%" }}>
           <div
-            className="flex-col lg:flex-row sm:flex-col md:flex-col max-w-[1280px] mx-auto"
+            className="flex-col lg:flex-row max-w-[1500px] mx-auto"
             style={{
               width: "100%",
               display: "flex",
               justifyContent: "center",
               alignItems: "flex-start",
-              gap: "24px"
+              gap: "0px"
             }}
           >
-            <div className='w-full lg:w-[60%]'>
+            <div className='w-full lg:w-auto lg:flex-shrink-0'>
               <Lens data={db?.attributes?.images?.data || []} />
             </div>
 
-            <div className='mt-4 sm:mt-4 lg:mt-0 w-full lg:w-[40%]' dir='rtl'>
+            <div className='mt-6 lg:mt-0 w-full lg:w-[592px] lg:flex-shrink-0' dir='rtl'>
               <div className="w-full space-y-4">
                 {/* Available Badge */}
                 <div className="flex justify-start">
@@ -270,7 +270,7 @@ export default function Product() {
             </div>
           </div>
 
-          <div dir="rtl" className='mt-12 mb-16 lg:mb-24 max-w-[1280px] mx-auto px-4 lg:px-6'>
+          <div dir="rtl" className='mt-12 mb-16 lg:mb-24 max-w-[1280px] lg:mx-auto px-4 lg:px-6'>
             {/* Tabs */}
             <div className="flex justify-start border-b border-gray-200 mb-6">
               <button

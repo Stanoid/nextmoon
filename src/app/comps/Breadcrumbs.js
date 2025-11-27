@@ -311,11 +311,11 @@ const Breadcrumbs = () => {
   return (
     <nav 
       dir={direction} 
-      className="bg-white border-b border-gray-200 py-4 px-4 lg:px-12 shadow-sm"
+      className="bg-white py-3 px-4 lg:px-8"
       aria-label="Breadcrumb"
     >
-      <div className="max-w-7xl mx-auto">
-        <ol className={`flex items-center flex-wrap gap-2 text-sm ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}>
+      <div className="max-w-[1600px] mx-auto">
+        <ol className={`flex items-center flex-wrap gap-1 text-sm ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}>
         {breadcrumbItems.map((item, index) => {
           const isLast = index === breadcrumbItems.length - 1;
           const isFirst = index === 0;
@@ -324,7 +324,7 @@ const Breadcrumbs = () => {
             <li key={item.path} className="flex items-center">
               {index > 0 && (
                 <svg
-                  className={`w-4 h-4 text-gray-300 ${direction === 'rtl' ? 'rotate-180 ml-2' : 'mr-2'}`}
+                  className={`w-3 h-3 text-gray-400 ${direction === 'rtl' ? 'rotate-180 ml-1.5' : 'mr-1.5'}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -339,10 +339,10 @@ const Breadcrumbs = () => {
               )}
               
               {isLast ? (
-                <span className="text-gray-800 font-semibold bg-gray-100 px-3 py-1.5 rounded-md flex items-center gap-2">
+                <span className="text-gray-900 flex items-center gap-1.5">
                   {isFirst && item.icon}
                   {item.loading ? (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-1">
                       <span className="animate-pulse">...</span>
                       {item.name}
                     </span>
@@ -353,7 +353,7 @@ const Breadcrumbs = () => {
               ) : (
                 <button
                   onClick={() => router.push(item.path)}
-                  className="text-gray-600 hover:text-moon-200 hover:bg-gray-50 px-3 py-1.5 rounded-md transition-all flex items-center gap-2 font-medium"
+                  className="text-gray-500 hover:text-gray-900 flex items-center gap-1.5"
                   disabled={item.loading}
                 >
                   {isFirst && item.icon}

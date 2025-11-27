@@ -2,8 +2,8 @@
 import "./globals.css";
 import './custom.css';
 import { React, useEffect, useState, useRef, useContext } from "react";
-import { API_URL ,Theme, IMG_URL} from "./local";
-import Cart from "./comps/cart";
+  import { API_URL ,Theme, IMG_URL} from "./local";
+  import Cart from "./comps/cart";
 import { NextUIProvider } from "@nextui-org/react";
 import CatDrop from "./comps/catDrop";
 import Footer from "./comps/footer";
@@ -417,9 +417,10 @@ export default function RootLayout({ children }) {
                 <div
                   className="
                     w-full
+                    max-w-[1600px]
                     overflow-auto
-                    lg:mx-auto
-                    px-2 sm:px-0
+                    mx-auto
+                    px-4 sm:px-6 lg:px-8
                     min-h-screen
                   "
                 >

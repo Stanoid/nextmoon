@@ -86,7 +86,7 @@ console.log("subcatsdddddddddddddddddd",subcatData);
           <h2 className="text-lg lg:text-xl font-semibold text-gray-800">{t('filters')}</h2>
           {hasActiveFilters && (
             <p className="text-xs text-gray-500 mt-1">
-              {selectedSizes.size + selectedColors.size} {locale === 'ar' ? 'فلتر نشط' : 'active filters'}
+              {selectedSizes.size + selectedColors.size} {locale =F== 'ar' ? 'فلتر نشط' : 'active filters'}
             </p>
           )}
         </div>

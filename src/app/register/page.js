@@ -12,6 +12,7 @@ import LoadingBtn from '../comps/loadingbtn'
 import Logowhite from "../../../public/logoblack.svg"
 import { Theme } from '../local'
 import { useI18n } from '../lib/i18n'
+import { initSocialLogin } from '../lib/actions/api/auth/social'
 
 export default function Register() {
   const { t, direction } = useI18n()
@@ -20,6 +21,7 @@ export default function Register() {
   const [gender, setGender] = useState("M");
   const [age, setAge] = useState("");
   const [lod, setLod] = useState(false);
+  const [socialLoading, setSocialLoading] = useState(null);
   const [state, setstate] = useState();
   const [city, setcity] = useState();
   const [address, setaddress] = useState();
@@ -149,6 +151,48 @@ export default function Register() {
               lod={lod}
               icon={<FaCircleRight />}
             />
+
+            <div className="w-full relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 text-base bg-white text-gray-500">
+                  {t('orRegisterWith')}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+              <div 
+                onClick={() => {
+                  setSocialLoading('google')
+                  initSocialLogin('google')
+                }}
+                className={`p-3 border border-gray-300 rounded-md w-full cursor-pointer flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-150 ease-in-out ${socialLoading === 'google' ? 'opacity-50 pointer-events-none' : ''}`}
+              >
+                {socialLoading === 'google' ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
+                ) : (
+                  <FaGoogle className="text-red-500 text-xl" />
+                )}
+                <span className="text-gray-600 text-sm">Google</span>
+              </div>
+              <div 
+                onClick={() => {
+                  setSocialLoading('facebook')
+                  initSocialLogin('facebook')
+                }}
+                className={`p-3 border border-gray-300 rounded-md cursor-pointer w-full flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-150 ease-in-out ${socialLoading === 'facebook' ? 'opacity-50 pointer-events-none' : ''}`}
+              >
+                {socialLoading === 'facebook' ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
+                ) : (
+                  <FaFacebook className="text-blue-600 text-xl" />
+                )}
+                <span className="text-gray-600 text-sm">Facebook</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

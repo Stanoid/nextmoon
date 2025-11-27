@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useMemo, useCallback, useState } from "react";
+import { useMemo, useCallback, useState } from "react";
 import {
   Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,
   Input, Button, Pagination, Chip, Tooltip,
 } from "@nextui-org/react";
 import Image from "next/image";
 import { IMG_URL, CURRENCY } from "../../local";
-import { SearchIcon } from "./SearchIcon";
-import {
-  FaEye, FaTrash, FaEyeSlash, FaCopy,
-} from "react-icons/fa6";
+import { FaEye, FaTrash, FaEyeSlash, FaCopy } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { useI18n } from "../../lib/i18n";
 import { statusOptions } from "./data";

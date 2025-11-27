@@ -10,6 +10,7 @@ import LoadingBtn from '../comps/loadingbtn'
 import InputEl from '../comps/inputel'
 import Logowhite from "../../../public/logoblack.svg"
 import { useI18n } from '../lib/i18n'
+import { initSocialLogin } from '../lib/actions/api/auth/social'
 
 export default function Login() {
   const { t, direction } = useI18n();
@@ -17,6 +18,7 @@ export default function Login() {
   const [pass, setpass] = useState("")
   const [lod, setLod] = useState(false)
   const [showpass, setShowpass] = useState(false)
+  const [socialLoading, setSocialLoading] = useState(null)
   const udata = useSelector((state) => state.root.auth.data && state.root.auth.data)
   const router = useRouter()
   const dispatch = useDispatch()
@@ -127,20 +129,34 @@ export default function Login() {
         </div>
 
         <div className="w-full">
-          {/* <p className="text-center mb-4 text-gray-600">التسجيل بواسطة</p> */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 justify-items-center">
-          <div className="p-2 border border-gray-300 rounded-md w-full cursor-pointer flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-150 ease-in-out">
-                <FaGoogle className="text-gray-600 text-xl" /> <span className="text-gray-600 text-sm">Google</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-center">
+            <div 
+              onClick={() => {
+                setSocialLoading('google')
+                initSocialLogin('google')
+              }}
+              className={`p-3 border border-gray-300 rounded-md w-full cursor-pointer flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-150 ease-in-out ${socialLoading === 'google' ? 'opacity-50 pointer-events-none' : ''}`}
+            >
+              {socialLoading === 'google' ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
+              ) : (
+                <FaGoogle className="text-red-500 text-xl" />
+              )}
+              <span className="text-gray-600 text-sm">Google</span>
             </div>
-            <div className="p-2 border border-gray-300 rounded-md cursor-pointer w-full flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-150 ease-in-out">
-                <FaFacebook className="text-gray-600 text-xl" /> <span className="text-gray-600 text-sm">Facebook</span>
-            </div>
-
-            <div className="p-2 border border-gray-300 rounded-md w-full cursor-pointer flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-150 ease-in-out">
-                <FaInstagram className="text-gray-600 text-xl" /> <span className="text-gray-600 text-sm">Instagram</span>
-            </div>
-            <div className="p-2 border border-gray-300 rounded-md w-full cursor-pointer flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-150 ease-in-out">
-                <FaXTwitter className="text-gray-600 text-xl" /> <span className="text-gray-600 text-sm">X</span>
+            <div 
+              onClick={() => {
+                setSocialLoading('facebook')
+                initSocialLogin('facebook')
+              }}
+              className={`p-3 border border-gray-300 rounded-md cursor-pointer w-full flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-150 ease-in-out ${socialLoading === 'facebook' ? 'opacity-50 pointer-events-none' : ''}`}
+            >
+              {socialLoading === 'facebook' ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
+              ) : (
+                <FaFacebook className="text-blue-600 text-xl" />
+              )}
+              <span className="text-gray-600 text-sm">Facebook</span>
             </div>
           </div>
         </div>

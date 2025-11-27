@@ -25,6 +25,9 @@ function Lens({ data = [] }) {
 
   const [modalZoomLevel, setModalZoomLevel] = useState(1);
   const [modalTransformOrigin, setModalTransformOrigin] = useState('center center');
+  const [isPinching, setIsPinching] = useState(false);
+  const [pinchStartDistance, setPinchStartDistance] = useState(0);
+  const [pinchStartZoom, setPinchStartZoom] = useState(1);
 
   const modalImageRef = useRef(null);
 
@@ -80,11 +83,17 @@ function Lens({ data = [] }) {
     }
   };
 
+  const getTouchDistance = (touches) => {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
   return (
     <div dir="rtl" id="root">
       <GlobalStyles />
 
-      <div className="w-full flex flex-col-reverse lg:flex-row gap-3">
+      <div className="w-full flex flex-col-reverse lg:flex-row-reverse gap-2 lg:gap-4">
         {/* Mobile thumbnails */}
         <div className="flex lg:hidden flex-row gap-2 overflow-x-auto pb-3 scrollbar-hide">
           {data.map((img, i) => (
@@ -108,8 +117,31 @@ function Lens({ data = [] }) {
           ))}
         </div>
 
-        {/* Main Image - Sticky on desktop */}
-        <div className="w-full lg:sticky lg:top-4 lg:self-start">
+        {/* Desktop Thumbnails - LEFT side, Sticky - ONLY ONE SET */}
+        <div className="hidden lg:flex flex-col gap-2 lg:sticky lg:top-4 lg:self-start">
+          {data.map((img, i) => (
+            <div 
+              key={i} 
+              className={`relative w-[75px] h-[75px] flex-shrink-0 cursor-pointer border rounded-lg transition-all ${
+                galleryImage === IMG_URL + img.attributes?.url 
+                  ? 'border-moon-200 border-2' 
+                  : 'border-gray-300'
+              }`}
+            >
+              <Image
+                src={IMG_URL + img.attributes?.url}
+                alt={`thumb-lg-${i}`}
+                fill
+                style={{ objectFit: "cover" }}
+                onClick={() => handleClick(img.attributes?.url)}
+                className="rounded-lg"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Main Image - Desktop: 640x606px with rounded-xl */}
+        <div className="w-full lg:w-[640px] lg:sticky lg:top-4 lg:self-start">
           <div
             id="bb"
             onMouseDown={() => { setZoomv(true); isZoomingRef.current = true; }}
@@ -124,53 +156,16 @@ function Lens({ data = [] }) {
               }
             }}
             style={{ backgroundColor: zoomv ? Theme.primary : 'transparent', WebkitUserSelect: 'none', zIndex: zoomv ? 30 : 0 }}
-            className="relative transition-all duration-75 rounded-lg w-full max-w-[343px] h-[326px] sm:max-w-[400px] sm:h-[420px] lg:max-w-none lg:w-full lg:h-[606px] mx-auto lg:mx-0 flex items-center justify-center overflow-hidden"
+            className="relative transition-all duration-75 rounded-xl w-full max-w-[343px] h-[326px] sm:max-w-[400px] sm:h-[420px] lg:max-w-[640px] lg:w-[640px] lg:h-[606px] mx-auto lg:mx-0 flex items-center justify-center overflow-hidden bg-gray-100"
           >
             {galleryImage && (
               <img
                 src={galleryImage}
                 alt="Zoomable"
-                className="w-full h-full object-contain rounded-md"
+                className="w-full h-full object-cover rounded-md cursor-pointer"
               />
             )}
-            
-            {/* Zoom Button Overlay */}
-            <button
-              onClick={() => {
-                const index = data.findIndex(img => IMG_URL + img.attributes?.url === galleryImage);
-                openModalWithIndex(index !== -1 ? index : 0);
-              }}
-              className="absolute top-3 right-3 bg-white/90 hover:bg-white text-gray-700 px-3 py-2 rounded-lg flex items-center gap-2 shadow-lg transition-all hover:scale-105 text-sm font-medium z-10"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" />
-              </svg>
-              <span>تكبير</span>
-            </button>
           </div>
-        </div>
-
-        {/* Desktop Thumbnails - Sticky, no scrolling */}
-        <div className="hidden lg:flex flex-col gap-2 lg:sticky lg:top-4 lg:self-start">
-          {data.map((img, i) => (
-            <div 
-              key={i} 
-              className={`relative w-20 h-20 flex-shrink-0 cursor-pointer border-2 rounded-lg transition-all hover:scale-105 ${
-                galleryImage === IMG_URL + img.attributes?.url 
-                  ? 'border-moon-200 shadow-lg ring-2 ring-moon-100' 
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-            >
-              <Image
-                src={IMG_URL + img.attributes?.url}
-                alt={`thumb-lg-${i}`}
-                fill
-                style={{ objectFit: "cover" }}
-                onClick={() => handleClick(img.attributes?.url)}
-                className="rounded-lg"
-              />
-            </div>
-          ))}
         </div>
       </div>
 
@@ -200,7 +195,7 @@ function Lens({ data = [] }) {
             </div>
 
             {/* Main Image Area */}
-            <div className="relative flex items-center justify-center w-full h-full flex-1 px-12 sm:px-16 lg:px-20">
+            <div className="relative flex items-center justify-center w-full h-full flex-1 ">
               {/* Previous Button */}
               <button
                 className="absolute left-1 sm:left-2 lg:left-4 top-1/2 -translate-y-1/2 p-3 lg:p-4 bg-white/95 hover:bg-white text-gray-900 rounded-full text-xl sm:text-2xl z-10 shadow-xl transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
